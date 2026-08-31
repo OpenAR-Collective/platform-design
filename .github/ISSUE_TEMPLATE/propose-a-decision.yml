@@ -1,0 +1,58 @@
+name: Propose a decision or change
+description: A formal proposal, for a new decision or a change to an adopted one. A pull request works too; this form is the no-Git path.
+title: "[Proposal] "
+labels: ["proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) and [GOVERNANCE.md](../blob/main/GOVERNANCE.md) first. Proposals touching Wax face a deliberately high bar and must address the invariants they touch. Accepted proposals are converted into decision files by a maintainer if you do not open a pull request yourself.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What the current design gets wrong or fails to cover, with the real-world consequence.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: The proposed decision
+      description: State the commitment you are proposing, the way a Decision section states it.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What else could solve this, and why the proposal beats it.
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Interacting decisions
+      description: Every decision ID this touches, contradicts, or depends on. State any contradiction explicitly and argue the case. For Wax decisions, name the invariants touched (hash chain integrity, event immutability, schema ownership, module boundaries) and why they survive.
+      placeholder: "Extends WAX-0023. Contradicts nothing. Depends on HIVE-0007."
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - shared
+        - wax
+        - hivear
+        - module
+    validations:
+      required: true
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Ground rules
+      options:
+        - label: This contains no pricing or rate information, no market or customer allocation, and no consumer or client-confidential data.
+          required: true
+        - label: I license this contribution under CC BY 4.0 (prose) and Apache 2.0 (any embedded code samples).
+          required: true

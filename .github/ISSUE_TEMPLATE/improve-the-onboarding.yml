@@ -1,0 +1,41 @@
+name: Improve the onboarding
+description: A question, the territory list, the length, or the process itself got in your way.
+title: "[Onboarding] "
+labels: ["onboarding"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The onboarding process is a set of files in this repository (START-HERE.md, the issue forms, and the interview probes), and friction with it is useful information. Say what got in the way and what would have worked better. If you can point at the file, even better.
+  - type: dropdown
+    id: obstacle
+    attributes:
+      label: What got in the way
+      options:
+        - A question I was asked
+        - The territory list
+        - The length of the process
+        - An issue form
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: Where you were in the process and what did not work.
+    validations:
+      required: true
+  - type: textarea
+    id: better
+    attributes:
+      label: What would have worked better
+    validations:
+      required: true
+  - type: input
+    id: territory
+    attributes:
+      label: Your territory, if the list was the problem
+      description: What you would call the part of the work you do, in your own words.
+    validations:
+      required: false

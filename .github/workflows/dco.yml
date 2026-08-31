@@ -1,0 +1,40 @@
+name: DCO
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dco:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check for Signed-off-by trailers
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -e
+          missing=0
+          for sha in $(git rev-list "$BASE_SHA".."$HEAD_SHA" --no-merges); do
+            if ! git log -1 --format=%B "$sha" | grep -qi '^Signed-off-by: .\+<.\+@.\+>'; then
+              echo "Missing Signed-off-by: $(git log -1 --format='%h %s' $sha)"
+              missing=1
+            fi
+          done
+          if [ "$missing" -eq 1 ]; then
+            echo ""
+            echo "One or more commits lack a DCO sign-off. Two ways to fix it:"
+            echo "  1. Amend and force-push: git commit --amend -s && git push -f"
+            echo "  2. Retroactive sign-off, per the Foundation's Open Source Policy:"
+            echo "     post a comment on this pull request stating"
+            echo "     'I certify the contents of this contribution under the DCO,"
+            echo "     Signed-off-by: Your Name <you@example.com>'"
+            echo "     and a maintainer will proceed. This check stays red in that"
+            echo "     case; the comment is the record that satisfies the policy."
+            exit 1
+          fi
+          echo "All commits carry a Signed-off-by trailer."

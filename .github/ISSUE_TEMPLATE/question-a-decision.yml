@@ -1,0 +1,34 @@
+name: Question a decision
+description: An existing decision looks wrong, incomplete, or unclear to you.
+title: "[Question] "
+labels: ["decision-question"]
+body:
+  - type: input
+    id: decision
+    attributes:
+      label: Which decision
+      description: The decision ID from INDEX.md or the file's front matter.
+      placeholder: "WAX-0013"
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: The question or objection
+      description: What looks wrong, what is missing, or what you cannot tell from the file.
+    validations:
+      required: true
+  - type: textarea
+    id: prompted
+    attributes:
+      label: What prompted it
+      description: The real-world situation or experience behind the question, if there is one. This context is often the most useful part.
+    validations:
+      required: false
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Ground rules
+      options:
+        - label: This contains no pricing or rate information, no market or customer allocation, and no consumer or client-confidential data.
+          required: true

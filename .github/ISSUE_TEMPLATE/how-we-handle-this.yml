@@ -1,0 +1,94 @@
+name: How we actually handle this
+description: Share how your company handles a real situation. No technical knowledge needed. This is the most valuable contribution this project receives.
+title: "[Domain input] "
+labels: ["domain-input"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Answers from people who do this work are exactly what this project runs on. Plain language, your own words. An AI assistant can fill this out with you: point it at START-HERE.md in this repository and say "interview me."
+  - type: dropdown
+    id: territory
+    attributes:
+      label: Territory
+      description: The area of the work this is about.
+      options:
+        - New business intake and placements
+        - Work queues and account treatment strategy
+        - Consumer contact and communications
+        - Disputes and validation
+        - Payments, plans, and arrangements
+        - Trust accounting, remittance, and client billing
+        - Compliance and complaints
+        - Legal collections and judgments
+        - Recalls, closures, and returns
+        - Credit reporting
+        - File imports and exports
+        - Reporting and data visualization
+        - Vendor integration
+        - Programming
+        - IT infrastructure and data security
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: situation
+    attributes:
+      label: The situation
+      description: The specific scenario, ideally a real one (with names and identifying details removed).
+      placeholder: "A consumer on a six-month arrangement missed month three, then paid double in month four..."
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: How it works at your company today
+      description: What actually happens, step by step, including the workarounds.
+    validations:
+      required: true
+  - type: textarea
+    id: variations
+    attributes:
+      label: What changes the answer
+      description: Conditions that alter the handling. Client rules, state, debt type, dollar amount, whatever matters.
+    validations:
+      required: false
+  - type: textarea
+    id: should
+    attributes:
+      label: What the system should do
+      description: Your view, if you have one. Skip it if you just want to report how things work.
+    validations:
+      required: false
+  - type: textarea
+    id: breaks
+    attributes:
+      label: What breaks if this is wrong
+      description: The consequence when software gets this wrong. Compliance exposure, money misapplied, angry client, angry consumer.
+    validations:
+      required: false
+  - type: input
+    id: related
+    attributes:
+      label: Related decisions
+      description: Decision IDs from INDEX.md, if you know them. Leave blank otherwise.
+      placeholder: "HIVE-0007"
+    validations:
+      required: false
+  - type: input
+    id: attribution
+    attributes:
+      label: Credit (optional)
+      description: Name, role, and organization as you want them credited. Leave blank to contribute anonymously. Submissions are public either way.
+      placeholder: "Jane Doe, Collections Manager, Example Recovery Services"
+    validations:
+      required: false
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Ground rules
+      options:
+        - label: This contains no pricing, fee structures, contingency or commission rates, market or customer allocation, or statements about refusing to deal with particular parties, and no consumer or client-confidential data.
+          required: true
+        - label: I license this contribution under CC BY 4.0.
+          required: true

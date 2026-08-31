@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "#platform-design on Discord, for members"
+    url: "https://discord.com/channels/1497335210658762964/1543762760993603675"
+    about: Already on the Collective's Discord? Post there, and a maintainer converts it from there. No forms.
+  - name: Join The OpenAR Collective (free)
+    url: "https://join.openarcollective.org"
+    about: Membership is free and includes Discord access; a member-specific invite arrives during onboarding.
+  - name: New here? Start with the guided path
+    url: "https://github.com/OpenAR-Collective/platform-design/blob/main/START-HERE.md"
+    about: Point your AI assistant at this page and say "walk me through this." It will interview you and produce a submission you can paste.

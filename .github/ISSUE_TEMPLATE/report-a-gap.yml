@@ -1,0 +1,61 @@
+name: Report a gap
+description: Something your company handles routinely is missing from the design entirely.
+title: "[Gap] "
+labels: ["gap"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check [INDEX.md](../blob/main/INDEX.md) and [OPEN-QUESTIONS.md](../blob/main/OPEN-QUESTIONS.md) first if you can; if it is already listed, add your experience there instead. Not sure? File it anyway. A duplicate report costs nothing.
+  - type: textarea
+    id: missing
+    attributes:
+      label: What is missing
+      description: The situation, process, or capability you do not see covered anywhere.
+    validations:
+      required: true
+  - type: textarea
+    id: matters
+    attributes:
+      label: Why it matters
+      description: How often it comes up, and what happens when software cannot handle it.
+    validations:
+      required: true
+  - type: dropdown
+    id: territory
+    attributes:
+      label: Territory
+      options:
+        - New business intake and placements
+        - Work queues and account treatment strategy
+        - Consumer contact and communications
+        - Disputes and validation
+        - Payments, plans, and arrangements
+        - Trust accounting, remittance, and client billing
+        - Compliance and complaints
+        - Legal collections and judgments
+        - Recalls, closures, and returns
+        - Credit reporting
+        - File imports and exports
+        - Reporting and data visualization
+        - Vendor integration
+        - Programming
+        - IT infrastructure and data security
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: nearest
+    attributes:
+      label: Nearest existing decisions
+      description: Decision IDs that come close, if any.
+      placeholder: "HIVE-0004, WAX-0023"
+    validations:
+      required: false
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Ground rules
+      options:
+        - label: This contains no pricing or rate information, no market or customer allocation, and no consumer or client-confidential data.
+          required: true
