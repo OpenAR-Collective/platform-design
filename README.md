@@ -22,7 +22,7 @@ Decision history is the Git history; releases are tagged and summarized in [CHAN
 
 ## Contribute
 
-You do not need to write code, and you do not need to understand event sourcing. The most valuable contributions are answers to questions about how collections actually works, from the people who do it.
+You do not need to write code, and you do not need to understand event sourcing. The most valuable contributions are answers to questions about how collections actually work, from the people who do it.
 
 1. Go to **[START-HERE.md](START-HERE.md)**, or point your AI assistant at it and say "walk me through this."
 2. Ask how the platform handles something you deal with every day.
