@@ -38,7 +38,7 @@ jobs:
        contains(github.event.comment.body, '/ai-review') &&
        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Assemble the review prompt
         env:
