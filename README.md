@@ -1,6 +1,6 @@
 # Wax and HiveAR: Architecture Design Decisions
 
-This repository is the authoritative record of architectural decisions for **Wax** and **HiveAR**, free and open-source software published by The Open Accounts Receivable Collective Foundation (The OpenAR Collective). Every decision, its reasoning, and its implications for contributors is public here, one file per decision.
+This repository is the authoritative record of architectural decisions for **Wax** and **HiveAR**, free and open-source software published by The Open Accounts Receivable Collective Foundation (The OpenAR Collective). Every decision, its reasoning, and its implications for contributors are public here, one file per decision.
 
 **Wax** is a free, open-source event sourcing application framework. It provides the event store, CQRS command and query pipeline, module system, workflow automation engine, internationalization infrastructure, and the Wax Security Module integration boundary. Wax is domain-agnostic: it contains no accounts receivable logic and is designed to serve as the structural foundation for multiple domain applications over time.
 
@@ -22,7 +22,7 @@ Decision history is the Git history; releases are tagged and summarized in [CHAN
 
 ## Contribute
 
-You do not need to write code, and you do not need to understand event sourcing. The most valuable contributions are answers to questions about how collections actually works, from the people who do it.
+You do not need to write code, and you do not need to understand event sourcing. The most valuable contributions are answers to questions about how collections actually work, from the people who do it.
 
 1. Go to **[START-HERE.md](START-HERE.md)**, or point your AI assistant at it and say "walk me through this."
 2. Ask how the platform handles something you deal with every day.
