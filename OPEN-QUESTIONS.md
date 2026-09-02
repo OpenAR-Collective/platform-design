@@ -88,6 +88,14 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** What do consumers and clients most often call about that a portal should have answered, and what has stopped your company from giving them one?
 **Target:** HiveAR v2. Issue: #13.
 
+### Contractual data-use restrictions and merge scope
+
+**Technical:** Client-level restrictions on data co-mingling applied to entity matching and the golden record. Provenance becomes a rich record carrying not just where a value came from but how it may be used. Merge scope is constrained by client policy: a restricted client's consumer records resolve to an isolated canonical record that neither contributes values to nor draws values from other clients' records, while merging within that client's own records continues. Extends [HIVE-0002](decisions/hivear/HIVE-0002-entity-matching-golden-record-and-locale-aware-identity-resolution.md) and [HIVE-0003](decisions/hivear/HIVE-0003-demographic-history-golden-record-and-contact-intelligence.md).
+
+**From experience:** Which of your clients restrict how their account data may be used, what exactly do the restrictions forbid (discussing other accounts on a call, combined letters, shared contact data), and how does your shop enforce those restrictions today?
+
+**Target:** HiveAR v2. Issue: #20.
+
 ## Wax (framework)
 
 ### Custom action type sandboxing
