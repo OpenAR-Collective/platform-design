@@ -2,9 +2,9 @@
 id: WAX-0027
 title: "Pending Event Register"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-05
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -29,6 +29,12 @@ This split delivers a practical payoff beyond auditability. The history of what 
 
 A Register entry carries the target event type, the target aggregate key ring, optional parameter overrides, a due time, and a status of pending, fired, or cancelled. The entry holds no condition predicate of its own. Whether the fired event does anything is decided by the workflows that run when it fires, not by logic stored on the entry.
 
+## How a Due Time Is Derived
+
+A due time is always an instant. When the instant was chosen directly, such as a reminder set for a specific moment, the scheduling event records nothing more. When it was derived from a rule, such as thirty days after a notice was received, the scheduling event records how: the start date and the kind of fact it counts from, the interval and its unit, whether the unit counts calendar days or business days, the calendar that decides which days are business days, the zone of reference that fixes where each day begins and ends, and the identifier and version of the rule that supplied the interval. The inputs travel in the scheduling event, which is part of the hash chain, and the Register entry carries a copy.
+
+Recording the inputs makes a deadline explainable after the fact and makes a change visible. If a calendar is corrected or a rule is revised, the affected entries are found by their recorded inputs and rescheduled through an explicit cancellation and a new scheduling event, each recorded in core.event. Nothing recomputes a due time silently, because a deadline that moves without a record is worse than one that is late. The arithmetic is the date arithmetic service defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md). The calendars and counting conventions are pack content.
+
 ## Firing
 
 Worker instances claim due entries, those whose due time has passed, using SKIP LOCKED on a polling interval. Polling is the correct mechanism here rather than a latency compromise, because the Register waits on wall-clock time rather than on an event, so there is nothing to push a notification from. The broker wake-up pattern in [Wax Design Decision 24](WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md) does not apply. When an entry fires, it triggers a new independent domain event with no chain context inherited from the entry that scheduled it, consistent with the scheduled future event behavior in [Wax Design Decision 23](WAX-0023-workflow-automation-engine.md). The fired event runs its own workflows and may schedule further entries of its own.
@@ -49,6 +55,6 @@ Scheduled event types carry classification tags in the trigger registry defined 
 
 ## Implementation Phasing
 
-**Wax v2:** The Pending Event Register, the schedule future event action that writes to it, the four cancellation breadths, the implicit no-op behavior, and the classification tagging. Scheduling depends on the event-triggered workflow engine, which matures past the Wax v1 linear rule engine described in [Wax Design Decision 23](WAX-0023-workflow-automation-engine.md), so the Register is a v2 capability.
+**Wax v2:** The Pending Event Register, the schedule future event action that writes to it, derived due times with recorded counting inputs, the four cancellation breadths, the implicit no-op behavior, and the classification tagging. Scheduling depends on the event-triggered workflow engine, which matures past the Wax v1 linear rule engine described in [Wax Design Decision 23](WAX-0023-workflow-automation-engine.md), so the Register is a v2 capability.
 
 **Breaking change risk: LOW. The Register is an operational projection rebuildable from the scheduling and cancellation events in core.event, so its schema can evolve without data loss. Additional cancellation breadths and classification dimensions are additive.**

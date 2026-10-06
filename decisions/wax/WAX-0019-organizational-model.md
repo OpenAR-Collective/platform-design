@@ -2,9 +2,9 @@
 id: WAX-0019
 title: "Organizational Model"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-05
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -17,7 +17,7 @@ Every HiveAR installation contains at least one organization, created during the
 
 ## Always-Present Organization
 
-The first organization is created before any other configuration is possible. Single-entity agencies interact with their one organization without ever needing to engage with the concept. No code path in Wax or in any module branches on whether an organization exists, because one always does. RBAC roles, workflow definitions, module configuration, reference value definitions, UDT definitions, and all account data are scoped to an organization.
+The first organization is created before any other configuration is possible. Single-entity agencies interact with their one organization without ever needing to engage with the concept. No code path in Wax or in any module branches on whether an organization exists, because one always does. RBAC roles, workflow definitions, module configuration, reference value definitions, UDT definitions, and all account data are scoped to an organization. Every organization carries a business zone, a named IANA zone chosen during installation, which the platform uses for day boundaries it computes on the organization's behalf, as defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md).
 
 ## Multi-Organization Deployments
 
@@ -29,7 +29,7 @@ Open multi-tenancy, meaning one installation serving unrelated agencies with no 
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Single organization per installation, created during setup. organization_pk column on relevant tables from day one (accounts, users, configuration). No multi-org UI or configuration.
+**Wax v1 (MVP):** Single organization per installation, created during setup with its business zone. organization_pk column on relevant tables from day one (accounts, users, configuration). No multi-org UI or configuration.
 
 **Wax v2:** Multi-organization support within a single instance. Per-organization module configuration.
 
