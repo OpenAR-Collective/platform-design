@@ -2,9 +2,9 @@
 id: WAX-0007
 title: "Modular Composition Architecture"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-05
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -19,12 +19,12 @@ Modules govern structural and operational behavior: how the system is organized,
 
 ## Module Taxonomy
 
-A complete deployable instance requires one selection from each required tier, plus any desired optional Modules.
+A complete deployable instance requires at least one selection from each required tier, plus any desired optional Modules.
 
 | **Tier** | **Required** | **Examples** | **Notes** |
 | --- | --- | --- | --- |
-| Language Pack | Yes (1) | English (US), English (UK), Spanish (US) | UI strings, date and number formats, locale defaults. No compliance content. |
-| Region Pack | Yes (1) | United States | Address structure, currency definition, phone number format, timezone handling. Structural and technical only. No compliance content. |
+| Language Pack | Yes (1+) | English (US), English (UK), Spanish (US) | UI strings, date and number formats, locale defaults. No compliance content. |
+| Region Pack | Yes (1+) | United States | Address structure, currency reference data (the list of currencies, minor-unit scales, and rounding conventions), phone number format, timezone handling. When the installed Region Packs name exactly one currency, that currency is the installation's default, as defined in Wax Design Decision 34. Structural and technical only. No compliance content. |
 | Business Class Module | Yes (1+) | Healthcare, Auto, Bank Card, Student Loan | Workflow structure and data model differences by debt class. Operational, not prescriptive on compliance interpretation. |
 | Debt Type Module | Yes (1+) | First Party, Third Party, Debt Purchase, Servicing | Operational model and ownership structure. Affects how accounts are managed, not how statutes are interpreted. |
 | Treatment Module | No | Legal Collections, Outsourcing | Extends core workflow for specialized treatment paths. |

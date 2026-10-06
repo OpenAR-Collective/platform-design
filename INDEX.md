@@ -49,6 +49,7 @@ An AI assistant helping with this repository should read this index first, then 
 - **[WAX-0031](decisions/wax/WAX-0031-ai-agent-infrastructure.md)** AI Agent Infrastructure. Wax will provide infrastructure for AI agents to operate against the platform.
 - **[WAX-0032](decisions/wax/WAX-0032-reporting-and-business-intelligence.md)** Reporting and Business Intelligence. Wax will not build a reporting or business intelligence engine.
 - **[WAX-0033](decisions/wax/WAX-0033-module-composition-model.md)** Module Composition Model. Wax modules will compose from a shared pool of primitive definitions rather than redefining the primitives they have in common.
+- **[WAX-0034](decisions/wax/WAX-0034-monetary-values-and-currency.md)** Monetary Values and Currency. Wax will represent every monetary value as a typed quantity: an exact decimal amount together with an ISO 4217 currency code, carried together everywhere the value appears, in event payloads, authoritative state tables, read models, and user-defined fields.
 
 ## HiveAR Domain Decisions
 

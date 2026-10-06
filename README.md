@@ -10,7 +10,7 @@ The naming draws from the bee and hive brand language: Wax is the building mater
 
 ## Status
 
-The platform is in design. This repository records what has been decided (52 decisions so far), what remains open ([OPEN-QUESTIONS.md](OPEN-QUESTIONS.md)), and the principles that govern both ([PRINCIPLES.md](PRINCIPLES.md)). Decisions carry `status: Accepted`, meaning they are the Foundation's current commitment; while Wax and HiveAR are pre-1.0, decisions remain open to revision through the process in [GOVERNANCE.md](GOVERNANCE.md), and community review is the point of publishing them. Wax is designed to stabilize early and change rarely; HiveAR is the active frontier where input matters most right now.
+The platform is in design. This repository records what has been decided (53 decisions so far), what remains open ([OPEN-QUESTIONS.md](OPEN-QUESTIONS.md)), and the principles that govern both ([PRINCIPLES.md](PRINCIPLES.md)). Decisions carry `status: Accepted`, meaning they are the Foundation's current commitment; while Wax and HiveAR are pre-1.0, decisions remain open to revision through the process in [GOVERNANCE.md](GOVERNANCE.md), and community review is the point of publishing them. Wax is designed to stabilize early and change rarely; HiveAR is the active frontier where input matters most right now.
 
 Decision history is the Git history; releases are tagged and summarized in [CHANGELOG.md](CHANGELOG.md).
 

@@ -67,6 +67,8 @@ Every event payload in core.event uses a uniform JSON model. The prior_value and
 
 A single-field phone correction writes { "primary_phone": "8175550001" } as prior_value and { "primary_phone": "8175550002" } as new_value. A multi-field account placement carries all changed fields as keys in the same object. There is no field_name column and no distinction between single-field and compound events. The event type name communicates what happened. The payload keys communicate which fields were affected.
 
+Monetary values in a payload are typed quantities, an amount and a currency code together, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md).
+
 This uniform structure has several consequences that apply throughout the platform: queries into the payload use PostgreSQL's jsonb operators consistently, PII encryption envelopes are applied at the field key level rather than wrapping the entire payload, and contributors writing new event types make no decisions about which shape to use.
 
 **PostgreSQL jsonb queries. **PostgreSQL provides full index support for jsonb columns. A GIN index on prior_value and new_value enables key-existence queries and containment queries without full table scans. Key-existence queries use the ? operator: WHERE new_value ? 'social_security_number'. Containment queries use the @> operator: WHERE new_value @> '{"status": "active"}'. Field value extraction uses the ->> operator: SELECT new_value ->> 'primary_phone' FROM core.event WHERE event_type = 'contact.phone_corrected'. These are first-class PostgreSQL capabilities, not workarounds.
@@ -140,12 +142,12 @@ Many facts in collections matter by the day, not by the moment, and the day that
 
 The following example walks through a payment being posted, showing every layer of the architecture in sequence.
 
-> **SCENARIO**: Collector posts a $500 payment on account-123
+> **SCENARIO**: Collector posts a 500.00 USD payment on account-123
 >
-> 1. Collector submits Post Payment $500 command via the API.
-> 2. Command handler loads ar.account where account_pk = account-123. Current balance: $1,500. Account is active. Command is valid.
+> 1. Collector submits Post Payment 500.00 USD command via the API.
+> 2. Command handler loads ar.account where account_pk = account-123. Current balance: 1,500.00 USD. Account is active. Command is valid.
 > 3. PaymentPosted event is written to core.event (see payload below).
-> 4. ar.account.current_balance is updated to $1,000 in the same transaction. Steps 3 and 4 succeed or fail together. They are never split.
+> 4. ar.account.current_balance is updated to 1,000.00 USD in the same transaction. Steps 3 and 4 succeed or fail together. They are never split.
 > 5. Event is published to subscribers asynchronously.
 > 6. workflow module projection updates collector_queue_read_model: new balance, last payment date, next action recalculated.
 > 7. reporting module projection updates aging_read_model: balance recalculated in the appropriate aging bucket.
@@ -163,8 +165,8 @@ The following example walks through a payment being posted, showing every layer 
 > actor_pk_ref: "user-0042"
 > actor_type: "user"
 > recorded_at: "2026-03-30T14:22:01Z"
-> prior_value: { "current_balance": 1500.00 }
-> new_value: { "current_balance": 1000.00 }
+> prior_value: { "current_balance": { "amount": "1500.00", "currency": "USD" } }
+> new_value: { "current_balance": { "amount": "1000.00", "currency": "USD" } }
 > reason_code_fk: "uuid-of-payment-received-ref-value"
 > source: "collector_ui"
 > correlation_pk_ref: null  (no workflow triggered this command)
@@ -265,3 +267,5 @@ No module may query core.event directly for user-facing workloads. All user-faci
 occurred_at is asserted by the actor or the source and may precede recorded_at. recorded_at is assigned by the store and is never supplied by a caller.
 
 An event type whose consequences depend on calendar days carries those days as civil-date payload fields and does not use occurred_at or recorded_at as a substitute.
+
+No monetary value appears in a payload as a bare number.
