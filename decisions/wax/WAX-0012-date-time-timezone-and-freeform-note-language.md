@@ -35,6 +35,10 @@ An instant and a civil date are different kinds of value, and neither stands in 
 
 When an event carries a civil date that the command did not supply, such as the day a payment is considered received, the platform derives the date from occurred_at in the organization's business zone and stores the derived date. The zone is applied once, at write time, and every later comparison is a comparison between dates. A statement run that takes a through date compares dates and never has to ask which midnight was meant.
 
+## Written Form of Dates and Instants
+
+Wherever a civil date or an instant is written as text, in an event payload or in the hashed content of an event, it is written in ISO 8601 form, and each value has exactly one string. A civil date is written as a calendar date, as in 2026-03-30. An instant is written in UTC with the Z designator and exactly six fractional digits of a second, as in 2026-03-30T14:22:01.318402Z, which is the precision at which PostgreSQL stores a timestamp with time zone, and it is never written with an offset. The single form is what lets a hash computed in one place verify in another, and [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md) pins it in the hash specification, as it pins the canonical form of a monetary amount. The serializer converts an instant to UTC and produces the string, and code never builds it by hand.
+
 ## The Organization's Business Zone
 
 Every organization carries a business zone, a named IANA zone set during installation. The platform uses it wherever it computes a day boundary on the organization's behalf, including the date derived for an event whose command supplied none and the day on which a scheduled job counts as running. An organization whose staff and debtors span several zones still has one business zone, because its books and statements close on one clock.
@@ -69,7 +73,7 @@ The translation module described above uses AI translation at read time for opti
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Full implementation. Store every instant as UTC and convert to the user's timezone at the presentation layer. Store every civil date as a date, derive a missing civil date once from occurred_at in the organization's business zone, and set the organization's business zone during installation. This is a coding discipline, not a feature.
+**Wax v1 (MVP):** Full implementation. Store every instant as UTC and convert to the user's timezone at the presentation layer. Store every civil date as a date, derive a missing civil date once from occurred_at in the organization's business zone, set the organization's business zone during installation, and write civil dates and instants in event payloads in the ISO 8601 form. This is a coding discipline, not a feature.
 
 **Wax v2:** The calendar and the date arithmetic service, which the Pending Event Register and the Job Scheduler depend on.
 
@@ -94,3 +98,5 @@ Module authors declare the kind of every date-bearing payload field, instant or 
 No code converts a civil date for display, or converts between a civil date and an instant, without naming a zone of reference. Code that needs a day boundary on the organization's behalf reads the organization's business zone, not the server's zone and not the current user's.
 
 In C#, a civil date is a DateOnly and an instant is a DateTimeOffset in UTC.
+
+Event payloads carry civil dates and instants in the ISO 8601 written form, produced by the serializer. Code never builds the string by hand.

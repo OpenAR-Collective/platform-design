@@ -134,7 +134,7 @@ Every event written to core.event will conform to the following schema. Module-s
 
 ## Event Time and Business Dates
 
-Two instants describe every event. occurred_at is the moment the fact happened, as asserted by whoever is recording it, and recorded_at is the moment the store wrote the row. They differ whenever a fact is entered late, and the gap between them is evidence in its own right: occurred_at is part of the hashed content and recorded_at is assigned by the store, so a backdated event shows both the time it asserts and the time it was actually recorded.
+Two instants describe every event. occurred_at is the moment the fact happened, as asserted by whoever is recording it, and recorded_at is the moment the store wrote the row. They differ whenever a fact is entered late, and the gap between them is evidence in its own right: both are part of the hashed content, and recorded_at is assigned by the store and never supplied by a caller, so a backdated event shows both the time it asserts and the time it was actually recorded, and neither can be altered without breaking the chain.
 
 Many facts in collections matter by the day, not by the moment, and the day that matters is often neither envelope instant: the day a death occurred, the day the collector received a notice, the day a fact takes effect, the day an effect ends. An event type whose consequences depend on calendar days carries those days as explicit civil-date fields in its own payload schema, and does not rely on occurred_at or recorded_at to stand in for them, as defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md). Where an event type records the day a notice or document was received, the day a fact took effect, or the day an effect ends, it names those fields received_date, effective_date, and end_date, so that rules, restrictions, and clocks defined in packs can refer to them uniformly. Which of these dates governs a given rule is rule content and belongs in packs.
 
@@ -161,10 +161,10 @@ The following example walks through a payment being posted, showing every layer 
 > event_type: "payment.posted"
 > aggregate_pk_ref: "account-123"
 > aggregate_type: "account"
-> occurred_at: "2026-03-30T14:22:01Z"
+> occurred_at: "2026-03-30T14:22:01.318402Z"
 > actor_pk_ref: "user-0042"
 > actor_type: "user"
-> recorded_at: "2026-03-30T14:22:01Z"
+> recorded_at: "2026-03-30T14:22:01.318402Z"
 > prior_value: { "current_balance": { "amount": "1500.00", "currency": "USD" } }
 > new_value: { "current_balance": { "amount": "1000.00", "currency": "USD" } }
 > reason_code_fk: "uuid-of-payment-received-ref-value"
