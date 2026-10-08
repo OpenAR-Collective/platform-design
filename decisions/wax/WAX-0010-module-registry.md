@@ -2,9 +2,9 @@
 id: WAX-0010
 title: "Module Registry"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -28,6 +28,7 @@ Modules are not second-class citizens identified by string constants. They are e
 | core.module | module_type | VARCHAR | Technical classifier: language_pack, region_pack, business_class, debt_type, treatment, vendor_integration, seed_package. Developer-facing only. |
 | core.module | is_i18n_compliant | Boolean | True if the module has provided translations for all installed language packs. |
 | core.module | is_active | Boolean | False if the module has been deactivated but not fully uninstalled. |
+| core.module | is_removed | Boolean | True for a Region Pack that has been removed and whose registry record is kept because retained rows still depend on it. False for every other module. |
 | core.module | installed_at | Timestamp | When the module was installed. |
 | core.module | installed_by_user_fk | UUID | References core.user. Who performed the installation. |
 | core.module | updated_at | Timestamp | Last modification to the registry record. |
@@ -53,7 +54,7 @@ Non-compliant modules are installable and functional. The compliance flag is inf
 
 ## Module Uninstall and Reversibility
 
-Module uninstall is a destructive operation and must be treated with appropriate caution. The module registry and the installed_by_module_fk mechanism exist precisely to make uninstall safe and complete. A partial uninstall, where some contributed rows are removed and others are not, is not a valid system state and must never be permitted.
+Module uninstall is a destructive operation and must be treated with appropriate caution. The module registry and the installed_by_module_fk mechanism exist precisely to make uninstall safe and complete. A partial uninstall, where some contributed rows are removed and others are not, is not a valid system state and must never be permitted. The one exception is the removal of a Region Pack, described under Region Pack Deactivation and Removal below.
 
 ## The uninstall sequence is:
 
@@ -69,6 +70,14 @@ The last-step removal of the core.module record is intentional. The registry rec
 
 A module that has been soft-deleted can be fully uninstalled at a later time once all live references to its contributed values have been migrated to replacement codes. The Collective will publish guidance on migration patterns for agencies transitioning away from a module's reference values.
 
+## Region Pack Deactivation and Removal
+
+A Region Pack contributes data and no code, and it contributes much more than reference values: currencies with their minor-unit scales and rounding conventions, date and number format preferences, locale configuration defaults, and translated standard labels. Deactivating a Region Pack is therefore an act on the whole pack. It applies soft deletion to everything the pack contributes. Reference values are set inactive as described above, and every other row that the pack owns is ignored wherever the platform resolves a setting, so the resolution falls through to the next source, as the locale chain of [Wax Design Decision 11](WAX-0011-internationalization-architecture-and-reference-value-system.md) falls from the system default to the hard fallback. Nothing is removed and nothing stored changes. The pack's registry record is marked inactive, and reactivating the pack restores everything it contributed.
+
+Removal of a Region Pack follows a different rule from the sequence above, because stored values depend on what a Region Pack defines in ways that cannot be migrated away. An event that names a currency names it permanently, and events are never deleted. Live references therefore do not halt the removal. The system first applies the soft deletion above. It then removes, in dependency order, every row that the pack contributed and that no stored value references. Each row that a stored value still references is kept, inactive and read-only, so that every stored value stays readable and verifiable and the kept row cannot be applied to a new record. The pack's registry record stays as the owner of the kept rows so that installed_by_module_fk references continue to resolve, and it is marked removed. Because rows of the pack are gone, a removed pack cannot be reactivated in place. Loading the Region Pack again reuses its kept registry record, restores the rows that were removed, and makes the kept rows usable again. A kept row is removed at a later time if every reference to it is ever migrated away, which can never happen for a row that an event references.
+
+This is the one exception to the rule that a partial uninstall is not a valid system state. It applies to Region Packs only, and every other module and Pack follows the sequence above. [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md) states what the rule means for currencies.
+
 ## Module Type Classifier
 
 The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are: language_pack, region_pack, business_class, debt_type, contract_type, treatment, vendor_integration, and seed_package. This list is fixed by the platform and may not be extended by module authors; contract_type was added per [Wax Design Decision 33](WAX-0033-module-composition-model.md) for the contract-type modules such as contingency, debt purchase, and servicing.
@@ -77,7 +86,7 @@ The module_type column on core.module is a technical classifier used by the plat
 
 **Wax v1 (MVP):** Not implemented at runtime. Installed modules are known at compile time.
 
-**Wax v2:** Full implementation. core.module_registry table, i18n module translations, module install and uninstall lifecycle.
+**Wax v2:** Full implementation. core.module_registry table, i18n module translations, module install and uninstall lifecycle, including the deactivation and removal of Region Packs.
 
 **Breaking change risk: NONE.** The registry is additive infrastructure.
 
@@ -90,3 +99,5 @@ Every module must provide translation records in i18n.module_translation for all
 Every row a module contributes to any core or i18n table must carry an installed_by_module_fk reference to that module's core.module record. Rows without this reference are not reversible and will fail the module contribution audit.
 
 Module authors are responsible for maintaining translation completeness as new language packs are released. The Collective will publish guidance on how to submit translation updates for existing modules.
+
+A Region Pack can be deactivated or removed while its rows remain in use. Code that reads a row a Region Pack contributed does not assume that the pack is active.
