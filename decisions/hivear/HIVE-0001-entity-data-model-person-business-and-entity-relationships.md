@@ -2,9 +2,9 @@
 id: HIVE-0001
 title: "Entity Data Model, Person, Business, and Entity Relationships"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -121,6 +121,8 @@ The entity record carries cached aggregate balance fields spanning all accounts 
 >
 > **inactive_account_count**: count of closed responsible-party accounts.
 
+Every amount field above is a sum of typed monetary values and is kept per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. An entity whose responsible-party accounts all share one currency, which is every entity in a single-currency installation, has one value of each amount field. An entity with responsible-party accounts in more than one currency has one value of each amount field for each currency, and no field adds amounts of different currencies. The count fields are not amounts and are unaffected.
+
 Aggregate fields are maintained by event-driven workflows, not computed at query time. When a payment posts to Account A and John is a responsible party on Account A, a workflow event fires and updates John's entity aggregate fields through the command handler path. Read model queries against the entity record read the cached values. This keeps the entity record query fast regardless of how many accounts the entity is associated with.
 
 ## Side Notes Captured For Future Discussion
@@ -144,5 +146,7 @@ Aggregate fields are maintained by event-driven workflows, not computed at query
 Wax defines the entity scaffold only. Locale Module authors contribute name, address, and identity satellite tables. No module other than a Locale Module may contribute to the entity name or identity schema.
 
 The is_responsible_party flag on entity-to-account relationships is the single source of truth for whether a relationship feeds entity aggregate balance calculations. Module authors who contribute new role types must declare whether the role is a responsible-party role in the role type registry.
+
+Entity aggregate amount fields are kept per currency. A workflow that maintains them never adds amounts of different currencies.
 
 Entity aggregate field updates must flow through command handlers and the event-driven workflow path. No module may directly write to entity aggregate fields.

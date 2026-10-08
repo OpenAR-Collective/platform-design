@@ -2,9 +2,9 @@
 id: HIVE-0007
 title: "Payment Application and Waterfall"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -35,6 +35,10 @@ When a debtor owes more than one account and makes a single payment, Federal law
 
 Above that floor, HiveAR offers configured cross-account allocation for the common case where the consumer gives no specific direction. Version 1 provides two options, an even split across the accounts in the set and oldest-first by list date, and later versions add more as agencies ask for them. The allocation across accounts runs first, and then each account's bucket waterfall runs on its share.
 
+## Currency in Application
+
+A payment carries one currency, and the waterfall runs in the currency of the account it pays. A payment in a currency other than the account's is converted first, and the conversion is an explicit recorded act under [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md), so a bucket is never paid in a currency it does not hold. The same holds when one payment is allocated across several accounts: the accounts share the payment's currency, or each share carries a recorded conversion, and an allocation that would mix currencies without one fails instead of guessing. In a single-currency installation every payment and every account share the one currency, and none of this is visible.
+
 ## Payment Arrangements Carry a Persisted Application Directive
 
 A consumer's direction can endure rather than apply only once. When a consumer sets up a payment arrangement and states how the payments should be applied, that instruction persists, so each scheduled payment applies the same way without re-asking. This decision models that persisted application directive, the standing instruction an arrangement payment carries into the waterfall, because honoring it is a continuation of the same consumer-direction rule that governs a single payment. It does not model the arrangement itself, the installment schedule, the amounts and due dates, promise tracking, and broken-arrangement handling, which is a separate decision that will reuse this directive.
@@ -51,7 +55,7 @@ This decision covers the distribution of payments and credits across accounts an
 
 **HiveAR v1 (MVP):** The configurable bucket waterfall with module-supplied defaults and contract-over-client-over-agency overrides. The per-payment bucket-amount override available to any payment-taker, whether cashier, file import, or API. The Federal multiple-debt floor of consumer-directed allocation and disputed-account exclusion. Two cross-account allocation options, even split across the set and oldest-first by list date. Application of held credit balances through the same waterfall. The persisted application directive that an arrangement payment carries. Reversals that unwind the original distribution.
 
-**HiveAR v2:** Pro-rata distribution across equal-priority buckets within a waterfall tier, with its rounding rule. Additional cross-account allocation options as agencies request them.
+**HiveAR v2:** Pro-rata distribution across equal-priority buckets within a waterfall tier, with its rounding rule, which rounds each share to the currency's minor unit under the rounding convention that the currency's Region Pack supplies. Additional cross-account allocation options as agencies request them.
 
 **HiveAR v3+:** Further allocation strategies and sequencing refinements as feedback warrants, all additive to the waterfall model defined here.
 
@@ -66,3 +70,5 @@ The Federal multiple-debt floor is absolute. Consumer allocation directions are 
 A payment-taker may always direct a payment. The right to post a payment includes the right to override the waterfall with explicit bucket amounts, and no separate permission gates it.
 
 Reversals unwind the recorded distribution, never a recomputed one. A reversal backs out the exact allocation and per-bucket amounts the original application produced, read from the event stream.
+
+The waterfall runs in the account's currency. A payment in another currency is converted by a recorded act before it applies, and no allocation mixes currencies without one.

@@ -2,9 +2,9 @@
 id: HIVE-0006
 title: "GAAP Journal and General Ledger"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -53,13 +53,21 @@ Because commission follows debt paydown, the difficult case resolves itself. Whe
 
 HiveAR's internal chart of accounts covers the AR domain: trust cash, operating cash, the client-dimensioned funds held and owed, commission revenue, recovery revenue, fee and interest revenue, and the consumer credit liability. A configurable mapping associates each internal account, and the bucket and event types that post to it, with the agency's external account codes, so exported entries arrive in the agency's own chart of accounts. Export in v1 is a generic flat tab-delimited journal-entry file, normally as summarized period entries with the underlying transaction detail kept in HiveAR for drill-down. Named-format exports follow in v2, targeting QuickBooks and a modern mid-market accounting system such as Dynamics 365 Business Central, Sage, or Xero. The generic file serves any other system, including the installed base of older platforms, without a dedicated integration.
 
+## Currency and Posting Dates
+
+Every amount in the journal and the general ledger is a typed monetary value, as defined in [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md). Debits and credits balance within each currency, and no entry balances one currency against another without an explicit conversion recorded under that decision. A single-currency installation has one currency, so every entry balances in it and no one specifies a currency.
+
+Each posting carries a civil accounting date, as defined in [Wax Design Decision 12](../wax/WAX-0012-date-time-timezone-and-freeform-note-language.md), which is the day the entry belongs to in the books. The accounting date is separate from the instant at which the store recorded the posting. When the command supplies no accounting date, the platform derives it once from the occurred_at instant in the organization's business zone, so that a posting made late still lands on the day the money moved, and every later comparison, summary, and export compares days.
+
+Which currency the ledger reports in and how exchange gains and losses post matter only to an installation that holds money in more than one currency. How an accounting period closes, and what a close locks, matters to every installation. None of the three is decided here, and they are recorded as an open question in [OPEN-QUESTIONS.md](../../OPEN-QUESTIONS.md).
+
 ## Scope and What Composes From This
 
 This decision establishes the ledger and the money model and leaves the rest to compose from it. Commission and fee rates and the rules that calculate them are the client-billing decision, and the ledger posts their result. The legal module assembles its accounting from these primitives: court, attorney, and service fees are buckets with origins and treatments, client cost advances use the held-funds model, post-judgment amounts route to their own ledger accounts through the configurable mapping, and a judgment for less than the balance is a balance adjustment with no revenue reversal, since the written-off amount was never collected. The debt-purchase contract-type module owns purchased-debt accounting: v1 posts purchased collections as gross recovery revenue, and the GAAP cost-recovery treatment, purchase funding, and cost recovery by file are advanced features that module adds later, so the portfolio's true net income lives in the agency's real books until then. Payroll, vendor payments, cost-to-collect, and agent goals, bonuses, and time cost remain outside the ledger entirely.
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The internal AR chart of accounts and self-balancing double-entry ledger, posting from the [HiveAR Design Decision 5](HIVE-0005-account-structure-and-balance-composition.md) financial event stream. The money-moves rule, with account load, balance adjustments, fee assessment, and interest accrual as sub-ledger events. Contract-type posting for third-party contingency and purchase. The client-dimensioned trust liability and trust cash balance for two-leg reconciliation support, with post-on-receipt, remit-as-posted, and reversals that reduce the next remittance. Net and gross remit with client AR and cost advances on the shared funds-held model. Commission recognized on debt paydown. Credit balances and overpayment handling with refund and cross-account application. The configurable external account mapping and the generic flat tab-delimited export.
+**HiveAR v1 (MVP):** The internal AR chart of accounts and self-balancing double-entry ledger, posting from the [HiveAR Design Decision 5](HIVE-0005-account-structure-and-balance-composition.md) financial event stream. Typed monetary amounts and a civil accounting date on every posting. The money-moves rule, with account load, balance adjustments, fee assessment, and interest accrual as sub-ledger events. Contract-type posting for third-party contingency and purchase. The client-dimensioned trust liability and trust cash balance for two-leg reconciliation support, with post-on-receipt, remit-as-posted, and reversals that reduce the next remittance. Net and gross remit with client AR and cost advances on the shared funds-held model. Commission recognized on debt paydown. Credit balances and overpayment handling with refund and cross-account application. The configurable external account mapping and the generic flat tab-delimited export.
 
 **HiveAR v2:** The servicing contract type and its posting rule. Named-format exports for QuickBooks and a modern mid-market system. An optional hold-for-clearing for agencies that want one.
 
@@ -78,3 +86,5 @@ Commission is recognized on debt paydown, never on payment receipt. The overpaid
 Client balances are one model. Remittance payable, cost advances, and client AR all use the client-dimensioned funds-held-and-owed structure. Contributors must not create a parallel client-money mechanism.
 
 Every posting is balanced double-entry and maps to the external chart of accounts through configuration. Contributors must not hard-code external account codes or emit unbalanced entries.
+
+Every ledger amount is a typed monetary value, and every posting carries a civil accounting date apart from its recorded instant. No entry balances one currency against another without a recorded conversion.

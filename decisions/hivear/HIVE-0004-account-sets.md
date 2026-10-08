@@ -2,9 +2,9 @@
 id: HIVE-0004
 title: "Account Sets"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -57,6 +57,8 @@ A set is created automatically when an account is created. The new set receives 
 >
 > **total_purchase_amount**: sum of purchase prices for member accounts in debt buyer deployments. Contributed by the debt buyer module.
 
+Every amount field above is a sum of typed monetary values and is kept per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. A set whose accounts all share one currency, which is every set in a single-currency installation, has one value of each amount field, and a set that holds accounts in more than one currency has one value of each amount field for each currency. The count fields are not amounts and are unaffected.
+
 All aggregate fields are maintained by event-driven workflows through the command handler path. A payment posted to a member account fires a workflow that updates the set's total_unpaid_balance. An account closing fires a workflow that decrements active_account_count and recalculates is_active. Read queries against the set record read cached values. No aggregate computation happens at query time.
 
 ## Set Lifecycle and State Flags
@@ -105,7 +107,7 @@ When a set of accounts is included in a legal case, the legal module sets is_loc
 
 The account_set_fk on the account table is non-nullable. Any command handler that creates an account must also create a single-member account set and assign the new account to it within the same atomic transaction.
 
-Account aggregate field updates must flow through the event-driven workflow path. No module may directly write to account set aggregate fields.
+Account aggregate field updates must flow through the event-driven workflow path. No module may directly write to account set aggregate fields. The amount fields are kept per currency, and a workflow that maintains them never adds amounts of different currencies.
 
 Wax-delivered workflows that maintain set aggregate fields are system infrastructure. Module authors must not create workflows that conflict with or duplicate these Wax workflows. The Wax workflow registry documents which events are handled by system workflows.
 

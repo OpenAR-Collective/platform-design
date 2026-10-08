@@ -2,9 +2,9 @@
 id: MOD-PURCHASE-0001
 title: "Chain of Title and Ownership Transitions"
 status: Accepted
-version: 1.0
+version: 1.1
 area: module:debt-purchase
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -21,7 +21,7 @@ A purchased debt is only as enforceable as the owner's ability to prove it owns 
 
 ## The Chain Structure
 
-An account carries an ordered chain of ownership links. Each link records the assignor and assignee as entities from [HiveAR Design Decision 1](../../hivear/HIVE-0001-entity-data-model-person-business-and-entity-relationships.md), the date of assignment, and references to the proving documents held in the [Wax Design Decision 30](../../wax/WAX-0030-document-storage.md) store, the bill of sale and the account-level schedule that places the specific account within the transfer. The original creditor and the current owner are projections of the chain rather than separately maintained fields, so they cannot drift from the underlying assignments. A purchased account whose chain is incomplete is flagged as such, since the gap bears directly on enforceability, and the agency may carry the account while knowing its title is clouded.
+An account carries an ordered chain of ownership links. Each link records the assignor and assignee as entities from [HiveAR Design Decision 1](../../hivear/HIVE-0001-entity-data-model-person-business-and-entity-relationships.md), the date of assignment, a civil date as defined in [Wax Design Decision 12](../../wax/WAX-0012-date-time-timezone-and-freeform-note-language.md), and references to the proving documents held in the [Wax Design Decision 30](../../wax/WAX-0030-document-storage.md) store, the bill of sale and the account-level schedule that places the specific account within the transfer. The original creditor and the current owner are projections of the chain rather than separately maintained fields, so they cannot drift from the underlying assignments. A purchased account whose chain is incomplete is flagged as such, since the gap bears directly on enforceability, and the agency may carry the account while knowing its title is clouded.
 
 ## Ownership Transitions
 
@@ -29,7 +29,7 @@ Three transitions move ownership, and each is an event on the account. Purchase 
 
 ## The Money Side Is Recorded Here, Posted Later
 
-This decision records the ownership transitions and their amounts as data: the purchase price, already a confidential account field under [HiveAR Design Decision 5](../../hivear/HIVE-0005-account-structure-and-balance-composition.md), the proceeds of a sale, and the refund on a buyback. It does not post the full general-ledger accounting of cost, proceeds, and refund. That accounting is the debt-purchase module's advanced accounting, deferred consistent with [HiveAR Design Decision 6](../../hivear/HIVE-0006-gaap-journal-and-general-ledger.md), where v1 posts purchased collections as gross recovery revenue and the GAAP cost-recovery treatment, purchase funding, and cost recovery by file arrive with that later module work. The transitions and amounts are captured now so the history is complete; their booking follows when the advanced accounting lands.
+This decision records the ownership transitions and their amounts as data: the purchase price, already a confidential account field under [HiveAR Design Decision 5](../../hivear/HIVE-0005-account-structure-and-balance-composition.md), the proceeds of a sale, and the refund on a buyback. Each of these is a typed monetary value under [Wax Design Decision 34](../../wax/WAX-0034-monetary-values-and-currency.md) that names its own currency, the one in which it was paid or received, which need not be the account's denomination currency from [HiveAR Design Decision 5](../../hivear/HIVE-0005-account-structure-and-balance-composition.md). It does not post the full general-ledger accounting of cost, proceeds, and refund. That accounting is the debt-purchase module's advanced accounting, deferred consistent with [HiveAR Design Decision 6](../../hivear/HIVE-0006-gaap-journal-and-general-ledger.md), where v1 posts purchased collections as gross recovery revenue and the GAAP cost-recovery treatment, purchase funding, and cost recovery by file arrive with that later module work. The transitions and amounts are captured now so the history is complete; their booking follows when the advanced accounting lands.
 
 ## Relationship to the Core and the Locale Layer
 
@@ -37,7 +37,7 @@ The chain of title is distinct from the concerns it sits near. It is not the Hiv
 
 ## Implementation Phasing
 
-**Debt-Purchase Module v1:** The chain-of-title structure as ordered assignment links, each referencing its proving documents in the document store and identifying the specific account. The purchase, sale, and buyback transitions as account events, with original owner and current owner as projections of the chain. Recording of the purchase price, sale proceeds, and buyback refund as data. The incomplete-chain flag.
+**Debt-Purchase Module v1:** The chain-of-title structure as ordered assignment links, each referencing its proving documents in the document store and identifying the specific account. The purchase, sale, and buyback transitions as account events, with original owner and current owner as projections of the chain. Recording of the purchase price, sale proceeds, and buyback refund as typed monetary values. The incomplete-chain flag.
 
 **Debt-Purchase Module v2+:** The advanced purchase accounting, the general-ledger treatment of cost, proceeds, and refund, cost recovery by file, and purchase funding and funding source. Richer chain validation and acquisition due-diligence support as practice and community feedback clarify what buyers need.
 
@@ -53,4 +53,4 @@ Original and current owner are projections. They are derived from the chain, nev
 
 Chain of title is module-only. It must not migrate into the HiveAR core. The core carries the current-owner fact from [HiveAR Design Decision 5](../../hivear/HIVE-0005-account-structure-and-balance-composition.md); the ownership history belongs to this module.
 
-The money side is recorded, not posted. Transition amounts are captured as data here; their general-ledger booking is the module's advanced accounting and is not implemented in this decision.
+The money side is recorded, not posted. Transition amounts are captured as typed monetary values here; their general-ledger booking is the module's advanced accounting and is not implemented in this decision.
