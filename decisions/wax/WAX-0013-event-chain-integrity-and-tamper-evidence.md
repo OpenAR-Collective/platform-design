@@ -65,7 +65,7 @@ Delta-based checkpoints are essential for the break-glass mechanism to remain us
 >
 > **created_at**: UTC timestamp when the checkpoint was computed and submitted.
 >
-> **tsa_timestamp**: the timestamp embedded in the RFC 3161 token, extracted for query convenience.
+> **tsa_stamped_at**: the timestamp embedded in the RFC 3161 token, extracted for query convenience.
 
 Checkpoint records are stored in a dedicated append-only table. For installations where the threat model includes a privileged insider, tokens should additionally be replicated to write-once cloud storage such as AWS S3 Object Lock in compliance mode. Write-once storage prevents token deletion even by the account owner during the configured retention period, closing the scenario where an attacker with database access attempts to delete tokens alongside the records they are trying to conceal.
 
