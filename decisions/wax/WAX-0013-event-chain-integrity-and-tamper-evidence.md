@@ -2,9 +2,9 @@
 id: WAX-0013
 title: "Event Chain Integrity and Tamper-Evidence"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -30,6 +30,8 @@ Hash chaining is per-aggregate rather than global. A global chain would require 
 Same-aggregate write serialization is enforced by a SELECT FOR UPDATE row lock on the aggregate's authoritative state row, acquired before any hash computation or event write begins. If two command handlers attempt to write to the same aggregate simultaneously, the second blocks on the lock until the first transaction commits. This guarantees that each event for a given aggregate sees the correct prior event hash and that no two events claim the same predecessor. The lock is held only for the duration of the write transaction and released immediately on commit.
 
 The hash is computed over the encrypted ciphertext of PII fields, not the plaintext. This means the hash remains stable after key destruction: the ciphertext does not change when the key is destroyed, so the chain continues to verify correctly even for records whose PII content is no longer decryptable. Verification of a record with a destroyed key confirms the record was not modified, even though its PII content is inaccessible.
+
+Each value enters the hash in the form in which it is stored in the payload. A monetary amount is hashed as the canonical string defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md), exactly as the framework's money type wrote it, and it is never derived again from a number at verification time. A later change to a currency's standard number of digits therefore cannot change the hash of an event already stored.
 
 ## Three Complementary Integrity Tiers
 
@@ -179,7 +181,7 @@ The checkpoint module defines an anchor interface with two methods: submit_check
 
 ## Implications For Contributors
 
-The hash computation specification, including which fields are included and their serialization order, must be formally specified and must never change after deployment. Any change breaks all existing chains.
+The hash computation specification, including which fields are included, their serialization order, and the written form of each kind of value, which for a monetary amount is the canonical string defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md), must be formally specified and must never change after deployment. Any change breaks all existing chains.
 
 The Wax Security Module (WSM) computes event_hash and prior_event_hash within the same atomic transaction as the event write. Command handlers do not compute hash values directly. Invoking the WSM hash computation is a required step in the command handler write path; a write that bypasses it is a critical invariant violation. Hash values may not be computed after the fact.
 
