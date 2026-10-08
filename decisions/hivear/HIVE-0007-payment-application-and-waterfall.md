@@ -37,7 +37,7 @@ Above that floor, HiveAR offers configured cross-account allocation for the comm
 
 ## Currency in Application
 
-A payment carries one currency, and the waterfall runs in the currency of the account it pays. A payment in a currency other than the account's is converted first, and the conversion is an explicit recorded act under [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md), so a bucket is never paid in a currency it does not hold. The same holds when one payment is allocated across several accounts: the accounts share the payment's currency, or each share carries a recorded conversion, and an allocation that would mix currencies without one fails instead of guessing. In a single-currency installation every payment and every account share the one currency, and none of this is visible.
+A payment carries one currency, and the waterfall runs in the currency of the account it pays. A payment in a currency other than the account's is converted first, and the conversion is an explicit recorded act under [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md), so a bucket is never paid in a currency it does not hold. One payment is never applied to accounts of different currencies. An allocation across accounts is confined to accounts in the payment's currency, and the accounts of an account set share one currency, as [HiveAR Design Decision 4](HIVE-0004-account-sets.md) provides, so a consumer with accounts in two currencies has a set for each and makes a separate payment for each. A held credit balance is in the currency of its account and applies only to accounts in that currency. In a single-currency installation every payment and every account share the one currency, and none of this is visible.
 
 ## Payment Arrangements Carry a Persisted Application Directive
 
@@ -71,4 +71,4 @@ A payment-taker may always direct a payment. The right to post a payment include
 
 Reversals unwind the recorded distribution, never a recomputed one. A reversal backs out the exact allocation and per-bucket amounts the original application produced, read from the event stream.
 
-The waterfall runs in the account's currency. A payment in another currency is converted by a recorded act before it applies, and no allocation mixes currencies without one.
+The waterfall runs in the account's currency. A payment in another currency is converted by a recorded act before it applies, and no payment is allocated across accounts of different currencies.

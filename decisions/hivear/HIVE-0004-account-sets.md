@@ -2,7 +2,7 @@
 id: HIVE-0004
 title: "Account Sets"
 status: Accepted
-version: 1.1
+version: 2.0
 area: hivear
 date: 2026-10-08
 supersedes: none
@@ -13,13 +13,13 @@ license: CC-BY-4.0
 
 ## Decision
 
-Every account in HiveAR belongs to exactly one Account Set at all times. This is a core architectural invariant, not a configurable feature. Account Sets are the unit of coordinated collection activity: when an agency collects from a person who has multiple accounts with the same client, those accounts are grouped in a set and collection activity addresses the set as a whole while each account retains individual sovereignty over its own balance, lifecycle, and debt identity. The account_set_fk on the account table is non-nullable. No code path exists for an account without a set.
+Every account in HiveAR belongs to exactly one Account Set at all times. This is a core architectural invariant, not a configurable feature. Account Sets are the unit of coordinated collection activity: when an agency collects from a person who has multiple accounts with the same client, those accounts are grouped in a set and collection activity addresses the set as a whole while each account retains individual sovereignty over its own balance, lifecycle, and debt identity. All accounts in a set are denominated in the same currency, so a person with accounts in more than one currency has a separate set for each currency. The person stays associated with every one of those accounts through the entity-to-account relationships of [HiveAR Design Decision 1](HIVE-0001-entity-data-model-person-business-and-entity-relationships.md), and only the grouping is by currency. The account_set_fk on the account table is non-nullable. No code path exists for an account without a set.
 
 ## Account Set as Core Architecture
 
 The forced-single-set model is the correct design because it eliminates conditional logic throughout the system. Letter templates, reporting queries, workflow conditions, and agent UI panels never need to branch on whether an account is grouped. Every account always has a set. A single-account set produces the same data structure as a thousand-account set. Aggregate fields on a single-account set simply reflect that one account's values.
 
-A set is created automatically when an account is created. The new set receives the new account as its sole member. If the account is subsequently grouped with other accounts, the grouping operation moves the account into an existing set. The original single-member set is then orphaned and administratively closed. This means account sets are a background infrastructure concern: agencies that never explicitly group accounts still benefit from the uniform data model because their accounts are always single-member sets.
+A set is created automatically when an account is created. The new set receives the new account as its sole member and takes the account's currency. If the account is subsequently grouped with other accounts, the grouping operation moves the account into an existing set. The original single-member set is then orphaned and administratively closed. This means account sets are a background infrastructure concern: agencies that never explicitly group accounts still benefit from the uniform data model because their accounts are always single-member sets.
 
 ## Account Set Schema
 
@@ -41,6 +41,8 @@ A set is created automatically when an account is created. The new set receives 
 >
 > **client_scope_fk**: the client this set belongs to. Default is the client of the founding account. Cross-client sets are reserved for future client hierarchy work.
 >
+> **currency_code**: the ISO 4217 code of the currency in which every member account is denominated. It is set from the founding account when the set is created and does not change.
+>
 > **ACCOUNT SET AGGREGATE BALANCE FIELDS**
 >
 > **total_initial_balance**: sum of placement amounts for all member accounts regardless of status.
@@ -57,7 +59,7 @@ A set is created automatically when an account is created. The new set receives 
 >
 > **total_purchase_amount**: sum of purchase prices for member accounts in debt buyer deployments. Contributed by the debt buyer module.
 
-Every amount field above is a sum of typed monetary values and is kept per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. A set whose accounts all share one currency, which is every set in a single-currency installation, has one value of each amount field, and a set that holds accounts in more than one currency has one value of each amount field for each currency. The count fields are not amounts and are unaffected.
+Every account in a set is denominated in the set's currency, so each amount field above is a sum of monetary values in that one currency, stored with the set's currency_code as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) provides for a row whose amounts share one currency. No set adds amounts of different currencies. The count fields are not amounts and are unaffected.
 
 All aggregate fields are maintained by event-driven workflows through the command handler path. A payment posted to a member account fires a workflow that updates the set's total_unpaid_balance. An account closing fires a workflow that decrements active_account_count and recalculates is_active. Read queries against the set record read cached values. No aggregate computation happens at query time.
 
@@ -75,9 +77,11 @@ Moving an account from one set to another is the single operation for all set me
 
 The move account operation checks whether the source set is locked before executing. A locked set does not permit account movement. The lock must be released through the appropriate event (legal case closure, hold release) before accounts can move.
 
+The move operation also checks currency. An account moves only into a set that has its currency, and a move that would mix currencies in a set is refused. A person's accounts in another currency stay in a set of their own.
+
 ## Split Behavior and New Set Initialization
 
-When accounts are moved from an existing set to a newly created set, the new set inherits the status_fk of the source set as an initial value. Status inheritance is pragmatic: if an agency splits a set in dispute status, it is likely that both resulting sets are also in dispute until further action resolves one. Status is not permanently bound by inheritance; either set's status can be changed independently after the split.
+When accounts are moved from an existing set to a newly created set, the new set inherits the status_fk of the source set as an initial value. Status inheritance is pragmatic: if an agency splits a set in dispute status, it is likely that both resulting sets are also in dispute until further action resolves one. Status is not permanently bound by inheritance; either set's status can be changed independently after the split. The new set takes the currency of the accounts moved into it, which all share one.
 
 is_active on the new set is computed fresh from its member accounts at creation time. If a closed account is moved from an active set into a new set, the new set starts as inactive because its only member is inactive. is_locked is not inherited: the lock condition applies to the original set and is not automatically propagated to a new set created by moving accounts out. Accounts that are locked cannot be moved in the first place, so accounts arriving in a new set are by definition unlocked.
 
@@ -107,7 +111,9 @@ When a set of accounts is included in a legal case, the legal module sets is_loc
 
 The account_set_fk on the account table is non-nullable. Any command handler that creates an account must also create a single-member account set and assign the new account to it within the same atomic transaction.
 
-Account aggregate field updates must flow through the event-driven workflow path. No module may directly write to account set aggregate fields. The amount fields are kept per currency, and a workflow that maintains them never adds amounts of different currencies.
+Account aggregate field updates must flow through the event-driven workflow path. No module may directly write to account set aggregate fields.
+
+An account set holds accounts of one currency. Any command handler that creates an account or moves one between sets keeps that true, and a move that would mix currencies in a set is refused.
 
 Wax-delivered workflows that maintain set aggregate fields are system infrastructure. Module authors must not create workflows that conflict with or duplicate these Wax workflows. The Wax workflow registry documents which events are handled by system workflows.
 
