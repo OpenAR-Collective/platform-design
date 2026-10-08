@@ -55,11 +55,11 @@ HiveAR's internal chart of accounts covers the AR domain: trust cash, operating 
 
 ## Currency and Posting Dates
 
-Every amount in the journal and the general ledger is a typed monetary value, as defined in [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md). Debits and credits balance within each currency, and no entry balances one currency against another without an explicit conversion recorded under that decision. A single-currency installation has one currency, so every entry balances in it and no one specifies a currency.
+Every amount in the journal and the general ledger is a typed monetary value, as defined in [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md). Debits and credits balance within each currency, and no entry balances one currency against another, because Wax does not convert between currencies. A single-currency installation has one currency, so every entry balances in it and no one specifies a currency.
 
 Each posting carries a civil accounting date, as defined in [Wax Design Decision 12](../wax/WAX-0012-date-time-timezone-and-freeform-note-language.md), which is the day the entry belongs to in the books. The accounting date is separate from the instant at which the store recorded the posting. When the command supplies no accounting date, the platform derives it once from the occurred_at instant in the organization's business zone, so that a posting made late still lands on the day the money moved, and every later comparison, summary, and export compares days.
 
-Which currency the ledger reports in and how exchange gains and losses post matter only to an installation that holds money in more than one currency. How an accounting period closes, and what a close locks, matters to every installation. None of the three is decided here, and they are recorded as an open question in [OPEN-QUESTIONS.md](../../OPEN-QUESTIONS.md).
+Wax does not convert between currencies, so the ledger has no reporting currency and posts no exchange gains or losses. An installation that holds money in more than one currency keeps its entries per currency, and consolidating or revaluing them is the work of the agency's accounting system, which remains the books of record. How an accounting period closes, and what a close locks, matters to every installation and is not decided here. It is recorded as an open question in [OPEN-QUESTIONS.md](../../OPEN-QUESTIONS.md).
 
 ## Scope and What Composes From This
 
@@ -87,4 +87,4 @@ Client balances are one model. Remittance payable, cost advances, and client AR 
 
 Every posting is balanced double-entry and maps to the external chart of accounts through configuration. Contributors must not hard-code external account codes or emit unbalanced entries.
 
-Every ledger amount is a typed monetary value, and every posting carries a civil accounting date apart from its recorded instant. No entry balances one currency against another without a recorded conversion.
+Every ledger amount is a typed monetary value, and every posting carries a civil accounting date apart from its recorded instant. No entry balances one currency against another.

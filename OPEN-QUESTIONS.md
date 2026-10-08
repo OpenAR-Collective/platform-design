@@ -96,11 +96,11 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Target:** HiveAR v2. Issue: #20.
 
-### Ledger currency and accounting period close
+### Accounting period close
 
-**Technical:** The currency the general ledger reports in, the posting of exchange gains and losses when money arrives in a currency other than the account's, and how an accounting period closes and what a close locks. Builds on [WAX-0034](decisions/wax/WAX-0034-monetary-values-and-currency.md) and [HIVE-0006](decisions/hivear/HIVE-0006-gaap-journal-and-general-ledger.md).
+**Technical:** How an accounting period closes and what a close locks, including what happens to a payment, reversal, or adjustment dated in a period that is already closed. Builds on [HIVE-0006](decisions/hivear/HIVE-0006-gaap-journal-and-general-ledger.md).
 
-**From experience:** If your books close each month, what happens when a payment or an adjustment arrives for a month that is already closed? If you ever collect or remit in more than one currency, which currency do your books and your client statements use, and how do you account for the difference between the rate on the day money arrives and the rate on the day it is booked?
+**From experience:** If your books close each month, what happens when a payment or an adjustment arrives for a month that is already closed? Who can post into the closed month, and what record does that leave?
 
 **Target:** HiveAR v2.
 
