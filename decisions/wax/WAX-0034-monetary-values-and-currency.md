@@ -1,10 +1,10 @@
 ---
 id: WAX-0034
 title: "Monetary Values and Currency"
-status: Proposed
-version: 0.1
+status: Accepted
+version: 1.0
 area: wax
-date: 2026-10-05
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
