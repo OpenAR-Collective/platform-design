@@ -37,11 +37,11 @@ Demographic history is organized in separate tables per attribute type rather th
 >
 > **entity_tax_id_history**: national identity and tax identification numbers. Fields: id_type (ssn, ein, itin, tin, umid, and others declared by Locale Modules), id_value (PII-encrypted), locale identifier.
 >
-> **entity_dob_history**: dates of birth. Fields: date_of_birth (PII).
+> **entity_birth_date_history**: dates of birth. Fields: birth_date (PII).
 >
 > **entity_employer_history**: employment records. Fields: employer_entity_fk (if the employer is also an entity in the system), employer_name_freeform, job_title, employment_status.
 
-Every row in every attribute history table carries: entity_fk, source_type_fk (client, skip_trace_vendor, credit_bureau, agency_verified, consumer_provided, court_record, and others), source_identifier (which specific client or vendor), recency_date (from the source file or defaulted to load date), load_batch_fk (which import batch introduced this record), account_fk (which account it arrived with, if applicable), current_composite_score, tier (gold, silver, or void), bad_flag, bad_flag_actor_fk, bad_flag_timestamp, and standard created_at, updated_at audit fields.
+Every row in every attribute history table carries: entity_fk, source_type_fk (client, skip_trace_vendor, credit_bureau, agency_verified, consumer_provided, court_record, and others), source_identifier (which specific client or vendor), recency_date (from the source file or defaulted to load date), load_batch_fk (which import batch introduced this record), account_fk (which account it arrived with, if applicable), current_composite_score, tier (gold, silver, or void), bad_flag, bad_flag_actor_fk, bad_flagged_at, and standard created_at, updated_at audit fields.
 
 ## Four Scoring Dimensions
 

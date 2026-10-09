@@ -2,9 +2,9 @@
 id: HIVE-0005
 title: "Account Structure and Balance Composition"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -37,7 +37,11 @@ Bucket definitions live in an agency-level registry, seeded by the loaded debt-t
 
 ## Three Amount Categories
 
-Three kinds of money live on an account, and conflating any two of them is the classic data-model failure this decision forecloses. Debtor balance buckets are what the consumer owes and what payments apply to. Internal-confidential amounts, the purchase price above all, are never debtor balances, never paid down, and never shown to agents or consumers by default; they exist for finance and analytics. Informational fields, such as the pre-placement total charges, total payments, and total adjustments, the original loan amount, and the itemization-date figures, are dated reference values used on letters and for reconciliation rather than amounts that are owed. A bucket is owed, a purchase price is internal, and an informational figure is neither; the model keeps the three apart at the root.
+Three kinds of money live on an account, and conflating any two of them is the classic data-model failure this decision forecloses. Debtor balance buckets are what the consumer owes and what payments apply to. Internal-confidential amounts, the purchase price above all, are never debtor balances, never paid down, and never shown to agents or consumers by default; they exist for finance and analytics. Informational fields, such as the pre-placement total charges, total payments, and total adjustments, the original loan amount, and the itemization-date figures, are dated reference values used on letters and for reconciliation rather than amounts that are owed. A bucket is owed, a purchase price is internal, and an informational figure is neither; the model keeps the three apart at the root. The dates these figures are keyed to, including the five reference dates described below, are civil dates, as defined in [Wax Design Decision 12](../wax/WAX-0012-date-time-timezone-and-freeform-note-language.md).
+
+## Denomination Currency
+
+An account is denominated in one currency, and every amount on it is a typed monetary value in that currency, as defined in [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md): the bucket balances, the informational figures such as the pre-placement totals and the original loan amount, and the postings that move them. In an installation whose Region Packs name one currency, the account takes that currency as its default and no one specifies it. In an installation that holds more than one currency, the account takes its currency from its contract or client, so that a payment, an import, and a statement never have to guess it. All accounts in an account set share one currency, as [HiveAR Design Decision 4](HIVE-0004-account-sets.md) provides, so a person with accounts in two currencies has a set for each. Purchase price is typed money like every other amount and names its own currency, the one in which the purchase was paid, which need not be the account's.
 
 ## The Itemization Date
 
@@ -57,7 +61,7 @@ This decision establishes the composition framework and deliberately stops there
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The two classifiers, with contract types third-party contingency and purchase, the balance bucket primitive and the agency-level registry, sparse and dynamic attachment, the three-category amount taxonomy, the itemization-date model, purchase price as a confidential account field, and whole-balance-due. At least one debt-type module is required for a working install. This composition is the foundation the v1 GAAP journal and general ledger post against.
+**HiveAR v1 (MVP):** The two classifiers, with contract types third-party contingency and purchase, the balance bucket primitive and the agency-level registry, sparse and dynamic attachment, the three-category amount taxonomy, the denomination currency of each account, the itemization-date model, purchase price as a confidential account field, and whole-balance-due. At least one debt-type module is required for a working install. This composition is the foundation the v1 GAAP journal and general ledger post against.
 
 **HiveAR v2:** The servicing contract type and the current-due-as-a-subset derivation.
 
@@ -74,3 +78,5 @@ The core ships no buckets. Bucket definitions come from debt-type modules and th
 The three amount categories stay separate. Purchase price and informational totals are never treated as debtor balance, never paid down, and never summed into the owed amount.
 
 Purchase price is internal-confidential. It must never be projected into an agent-facing or consumer-facing view by default, and its visibility is governed only through role-based access control.
+
+Every amount on an account is a typed monetary value in the account's denomination currency, except purchase price, which names its own. No bucket, informational figure, or posting is a bare number, and the five reference dates are civil dates.

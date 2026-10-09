@@ -96,6 +96,14 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Target:** HiveAR v2. Issue: #20.
 
+### Accounting period close
+
+**Technical:** How an accounting period closes and what a close locks, including what happens to a payment, reversal, or adjustment dated in a period that is already closed. Builds on [HIVE-0006](decisions/hivear/HIVE-0006-gaap-journal-and-general-ledger.md).
+
+**From experience:** If your books close each month, what happens when a payment or an adjustment arrives for a month that is already closed? Who can post into the closed month, and what record does that leave?
+
+**Target:** HiveAR v2.
+
 ## Wax (framework)
 
 ### Custom action type sandboxing

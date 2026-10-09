@@ -2,9 +2,9 @@
 id: WAX-0022
 title: "User-Defined Tables and User-Defined Windows"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-05
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -43,7 +43,7 @@ A one-to-one UDT has exactly one record per parent entity record, extending the 
 
 ## Field Types
 
-Initial supported field types include text (short and long), integer, decimal, boolean, date, datetime (UTC-stored), and reference value. File attachment is noted as a future addition pending the document storage architecture decision. Foreign key lookups to other entities are intentionally excluded: UDTs are satellite data structures, not structural extensions of the relational schema.
+Initial supported field types include text (short and long), integer, decimal, money, boolean, date, datetime, and reference value. A date field is a civil date with no zone, and a datetime field is an instant stored in UTC, as defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md). A money field carries its currency, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md). It takes the installation's default currency when one exists, so the schema builder asks for a currency only in an installation with more than one. A decimal field is for quantities that are not money. File attachment is noted as a future addition pending the document storage architecture decision. Foreign key lookups to other entities are intentionally excluded: UDTs are satellite data structures, not structural extensions of the relational schema.
 
 ## i18n Compliance for UDT Names and Event Labels
 

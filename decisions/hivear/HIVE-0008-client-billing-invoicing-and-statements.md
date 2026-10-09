@@ -2,9 +2,9 @@
 id: HIVE-0008
 title: "Client Billing, Invoicing, and Statements"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -37,7 +37,11 @@ Both remittance models are supported in v1. Under net remit, the agency deducts 
 
 Billing and remittance happen through a statement run, a process the agency initiates when it is ready, at roughly monthly or any other cadence, rather than on a rigid automated cycle. A run takes a through date and sweeps up everything not already invoiced or stated through that date for the selected clients. Selection is driven by user-defined statement frequency codes, labels the agency assigns to clients so it can run a whole group at once, run groups separately, or run a single client. The frequency code is purely a grouping-and-selection label, independent of the client's net-or-gross remit setting. A run also takes options, including whether to include washed reversals, the payment-and-reversal pairs that net to zero within the period, which some agencies want shown for transparency and others want suppressed for a clean statement, and the due date to stamp on the invoices the run produces.
 
+The through date is a civil date, as defined in [Wax Design Decision 12](../wax/WAX-0012-date-time-timezone-and-freeform-note-language.md), and the run compares it with the civil effective date of each transaction, so the cut-off is a comparison of days and does not depend on the zone of whoever starts the run. A transaction whose command supplied no effective date has one derived once, when it is written, from its occurred_at instant in the organization's business zone, so the same transaction falls on the same side of the same through date for everyone. The due date stamped on the invoices a run produces is a civil date as well.
+
 What a run produces follows from each client's remit model. It computes what is owed through the date, generates the statement document, and posts the period's transactions: the remittance that discharges the payable, and, under gross remit, the fee invoices that create client AR with the run's due date. The remittance posting discharges the payable in HiveAR's books and tells the agency what to pay; the physical disbursement from the trust bank account is the agency's own step, consistent with HiveAR being the AR subsystem rather than the bank. Because a run is initiated on demand for a chosen selection and through date, off-cycle situations need no separate mechanism: closing out a departing client, an expedited payout, and a correcting make-whole are each a statement run with the selection and through date that fit the case.
+
+An invoice, a remittance, and a statement each state one currency. A client whose accounts are held in more than one currency receives a separate invoice, remittance, and statement for each, because Wax does not convert between currencies and no total mixes them, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) provides. A single-currency installation states its one currency without anyone choosing it.
 
 ## Client Statements
 
@@ -49,7 +53,7 @@ This decision covers the client aggregate, the operator-posted and automatic cli
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The client as a two-sided posting-driven aggregate reusing the funds-held-and-owed model. The four operator-posted client transaction types and the automatic debtor-driven postings, with extensible transaction types. Invoice payment and client AR tracking with aging. The flat per-contract contingency rate with per-bucket commissionability. Net and gross remit. The statement run with manual initiation, user-defined frequency-code selection, through date, the washed-reversal option, and the due date. The canned statement that lists its transactions.
+**HiveAR v1 (MVP):** The client as a two-sided posting-driven aggregate reusing the funds-held-and-owed model. The four operator-posted client transaction types and the automatic debtor-driven postings, with extensible transaction types. Invoice payment and client AR tracking with aging. The flat per-contract contingency rate with per-bucket commissionability. Net and gross remit. The statement run with manual initiation, user-defined frequency-code selection, through date, the washed-reversal option, and the due date, with the through date and the due date as civil dates and one currency stated on each invoice, remittance, and statement. The canned statement that lists its transactions.
 
 **HiveAR v2:** Tiered and graduated rate rules by age, balance, or cumulative recovery. The servicing fee models, including per-account and per-seat billing, with the servicing contract type. Named-format accounting exports per [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md). A configurable statement designer.
 
@@ -66,3 +70,5 @@ Variation lives in transaction types, not in a fixed balance set. New client-mon
 Adjustments and write-offs carry reason codes. Any manual correction or write-off to a client balance records a reason code from the [Wax Design Decision 20](../wax/WAX-0020-reason-code-registry.md) registry.
 
 Remittance and invoicing flow from the statement run. Contributors must not post remittances ad hoc outside a run; an off-cycle need is met by initiating a run for the chosen selection and through date.
+
+A statement run compares civil dates and states one currency on each document. Contributors must not compare a through date with a recorded instant, and must not total across currencies.

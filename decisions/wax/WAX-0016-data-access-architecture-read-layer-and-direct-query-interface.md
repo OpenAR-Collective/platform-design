@@ -2,9 +2,9 @@
 id: WAX-0016
 title: "Data Access Architecture, Read Layer, and Direct Query Interface"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -40,6 +40,10 @@ Reference value fields in the underlying tables store UUID surrogate keys as est
 The locale resolution follows the three-level fallback chain established in Wax Design Decision 11: the user's configured locale first, the installation's system default second, and the installation's base locale third. A developer writing SELECT status_label FROM account_view receives the correctly translated status label for their locale without any awareness of the i18n architecture. The translation is invisible.
 
 The view for a given entity composes multiple SECURITY DEFINER function calls: one per PII field for decryption, one per reference value field for i18n label resolution. The view definition is generated automatically based on the entity's registered field schema. Module authors and UDT definitions supply the field metadata. The view generator produces the corresponding view definition. Developers never write view definitions that call decryption or translation functions manually.
+
+## Money Display Columns
+
+A database shows a stored amount at the scale of its column, which is not necessarily the standard number of fraction digits of the currency. For each monetary value in an entity, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md), the view generator emits a display column beside the exact amount. The display column rounds the amount to the currency's standard digits and writes it as text, as in "1500.00", and it stores nothing. The exact amount stays in its own column for calculation, so a reporting tool that sums amounts uses the exact column and a tool that shows an amount uses the display column. Symbol, grouping, and decimal mark depend on the viewer's locale and are not part of the display column.
 
 ## Row-Level Security as the Authorization Boundary
 
@@ -96,6 +100,8 @@ Every entity or read model that module authors expose for querying must have a c
 Module authors must register PII fields in the field registry so the view generator can produce the correct SECURITY DEFINER decryption calls. A PII field exposed through a view without decryption is a data exposure defect.
 
 Module authors must register reference value fields in the field registry so the view generator can produce the correct i18n label resolution calls. A reference value UUID exposed directly in a view without resolution is a usability defect.
+
+Module authors must register monetary fields with the money kind in the field registry so the view generator can produce the display column beside each amount. An amount exposed through a view without its display column is a usability defect.
 
 SECURITY DEFINER functions are owned and maintained by Wax. Module authors do not write SECURITY DEFINER functions. They declare their field types through the module contract and the view generator handles the rest.
 

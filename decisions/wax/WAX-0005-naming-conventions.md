@@ -2,9 +2,9 @@
 id: WAX-0005
 title: "Naming Conventions"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -21,7 +21,7 @@ Names are written in lowercase with underscores as word separators. Words are sp
 
 > **EXAMPLES: CORRECT VS. PROHIBITED**
 >
-> account_balance, not acct_bal or acct_balance social_security_number, not ssn date_of_birth, not dob original_creditor_name, not orig_cred_nm last_payment_amount, not last_pmt_amt consumer_address_line_one, not addr_ln_1
+> account_balance, not acct_bal or acct_balance social_security_number, not ssn birth_date, not dob original_creditor_name, not orig_cred_nm last_payment_amount, not last_pmt_amt consumer_address_line_one, not addr_ln_1
 
 ## No Exceptions for Industry Terms
 
@@ -54,6 +54,10 @@ Foreign key columns will be named using the root of the primary key they referen
 ## Surrogate Keys And Composite Uniqueness
 
 Every table carries a UUID surrogate primary key as its sole primary key column. Business or natural composite keys are never used as primary keys. Where the domain requires that a combination of fields be unique (for example, an account may have only one active assignment at a time), that uniqueness is enforced through a unique constraint or unique index, not through a composite primary key. This keeps the foreign key referencing convention uniform across the entire schema and eliminates a category of contributor confusion.
+
+## Date and Time Column Suffixes
+
+A column that holds a calendar day is typed date and ends in the _date suffix, as in birth_date and effective_date. A column that holds a moment in time is typed timestamptz and ends in the _at suffix, as in created_at and occurred_at. The two kinds of value are defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md), and the suffix tells a reader which kind a column holds before the type is checked. Like the _pk and _fk suffixes, these suffixes are classifiers and not abbreviations, and the enforcement described below applies to them in the same way.
 
 ## Object Type Prefixes
 

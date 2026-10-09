@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-05
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -67,6 +67,8 @@ Every event payload in core.event uses a uniform JSON model. The prior_value and
 
 A single-field phone correction writes { "primary_phone": "8175550001" } as prior_value and { "primary_phone": "8175550002" } as new_value. A multi-field account placement carries all changed fields as keys in the same object. There is no field_name column and no distinction between single-field and compound events. The event type name communicates what happened. The payload keys communicate which fields were affected.
 
+Monetary values in a payload are typed quantities, an amount and a currency code together, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md).
+
 This uniform structure has several consequences that apply throughout the platform: queries into the payload use PostgreSQL's jsonb operators consistently, PII encryption envelopes are applied at the field key level rather than wrapping the entire payload, and contributors writing new event types make no decisions about which shape to use.
 
 **PostgreSQL jsonb queries. **PostgreSQL provides full index support for jsonb columns. A GIN index on prior_value and new_value enables key-existence queries and containment queries without full table scans. Key-existence queries use the ? operator: WHERE new_value ? 'social_security_number'. Containment queries use the @> operator: WHERE new_value @> '{"status": "active"}'. Field value extraction uses the ->> operator: SELECT new_value ->> 'primary_phone' FROM core.event WHERE event_type = 'contact.phone_corrected'. These are first-class PostgreSQL capabilities, not workarounds.
@@ -112,8 +114,8 @@ Every event written to core.event will conform to the following schema. Module-s
 | schema_version | smallint | Yes | Revision of this event type's payload schema. Event-type-specific; starts at 1 and increments only on breaking changes. Included in the hash input. Semantics defined in [Wax Design Decision 26](WAX-0026-event-schema-versioning.md). |
 | aggregate_pk_ref | uuid | Yes | Primary key of the aggregate root this event belongs to. Polymorphic: resolved via aggregate_type. Not a traditional foreign key. See the aggregate callout in this decision. |
 | aggregate_type | text | Yes | Discriminator for aggregate_pk_ref. Identifies the aggregate root type (e.g., account, entity, payment, payment_arrangement). |
-| occurred_at | timestamptz | Yes | When the event occurred, stored in UTC. |
-| recorded_at | timestamptz | Yes | When the row was written to the store, stored in UTC. |
+| occurred_at | timestamptz | Yes | The instant at which the fact happened, as asserted by the actor or the source, stored in UTC. It equals recorded_at unless the command asserts an earlier instant, as when a fact is entered late, for example a payment received by mail and keyed days afterward. |
+| recorded_at | timestamptz | Yes | The instant the store wrote the row, stored in UTC. Assigned by the store and never supplied by a caller. |
 | actor_pk_ref | uuid | Yes | Primary key of the user or system process that caused the event. Polymorphic: resolved via actor_type. Not a traditional foreign key. |
 | actor_type | text | Yes | Discriminator for actor_pk_ref. Values: user, system, integration, batch. |
 | prior_value | jsonb | Conditional | Keyed JSON object representing field values before this event. Each key is a field name; each value is the prior field value, or an encryption envelope if PII-classified. Null for creation events. Never a bare scalar. |
@@ -130,16 +132,22 @@ Every event written to core.event will conform to the following schema. Module-s
 >
 > aggregate_pk_ref and actor_pk_ref do not follow the standard _fk naming convention because they are polymorphic: each can reference the primary key of multiple different tables depending on the value of its discriminator column (aggregate_type and actor_type respectively). This is a documented exception to the naming convention, not a violation. The _pk_ref suffix signals that the field holds a primary key value from another table but that the target table varies at runtime. Standard _fk fields in all other tables reference a single, fixed target table and follow the convention without exception. correlation_pk_ref joins aggregate_pk_ref and actor_pk_ref as a third documented polymorphic field, paired with its own discriminator correlation_type. The _pk_ref suffix applies for the same reason: the target table varies at runtime depending on the correlation_type value.
 
+## Event Time and Business Dates
+
+Two instants describe every event. occurred_at is the moment the fact happened, as asserted by whoever is recording it, and recorded_at is the moment the store wrote the row. They differ whenever a fact is entered late, and the gap between them is evidence in its own right: both are part of the hashed content, and recorded_at is assigned by the store and never supplied by a caller, so a backdated event shows both the time it asserts and the time it was actually recorded, and neither can be altered without breaking the chain.
+
+Many facts in collections matter by the day, not by the moment, and the day that matters is often neither envelope instant: the day a death occurred, the day the collector received a notice, the day a fact takes effect, the day an effect ends. An event type whose consequences depend on calendar days carries those days as explicit civil-date fields in its own payload schema, and does not rely on occurred_at or recorded_at to stand in for them, as defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md). Where an event type records the day a notice or document was received, the day a fact took effect, or the day an effect ends, it names those fields received_date, effective_date, and end_date, so that rules, restrictions, and clocks defined in packs can refer to them uniformly. Which of these dates governs a given rule is rule content and belongs in packs.
+
 ## Illustrative Example: Full Write Cycle
 
 The following example walks through a payment being posted, showing every layer of the architecture in sequence.
 
-> **SCENARIO**: Collector posts a $500 payment on account-123
+> **SCENARIO**: Collector posts a 500.00 USD payment on account-123
 >
-> 1. Collector submits Post Payment $500 command via the API.
-> 2. Command handler loads ar.account where account_pk = account-123. Current balance: $1,500. Account is active. Command is valid.
+> 1. Collector submits Post Payment 500.00 USD command via the API.
+> 2. Command handler loads ar.account where account_pk = account-123. Current balance: 1,500.00 USD. Account is active. Command is valid.
 > 3. PaymentPosted event is written to core.event (see payload below).
-> 4. ar.account.current_balance is updated to $1,000 in the same transaction. Steps 3 and 4 succeed or fail together. They are never split.
+> 4. ar.account.current_balance is updated to 1,000.00 USD in the same transaction. Steps 3 and 4 succeed or fail together. They are never split.
 > 5. Event is published to subscribers asynchronously.
 > 6. workflow module projection updates collector_queue_read_model: new balance, last payment date, next action recalculated.
 > 7. reporting module projection updates aging_read_model: balance recalculated in the appropriate aging bucket.
@@ -153,12 +161,12 @@ The following example walks through a payment being posted, showing every layer 
 > event_type: "payment.posted"
 > aggregate_pk_ref: "account-123"
 > aggregate_type: "account"
-> occurred_at: "2026-03-30T14:22:01Z"
+> occurred_at: "2026-03-30T14:22:01.318402Z"
 > actor_pk_ref: "user-0042"
 > actor_type: "user"
-> recorded_at: "2026-03-30T14:22:01Z"
-> prior_value: { "current_balance": 1500.00 }
-> new_value: { "current_balance": 1000.00 }
+> recorded_at: "2026-03-30T14:22:01.318402Z"
+> prior_value: { "current_balance": { "amount": "1500.00", "currency": "USD" } }
+> new_value: { "current_balance": { "amount": "1000.00", "currency": "USD" } }
 > reason_code_fk: "uuid-of-payment-received-ref-value"
 > source: "collector_ui"
 > correlation_pk_ref: null  (no workflow triggered this command)
@@ -255,3 +263,9 @@ Reason codes must be drawn from the published Reason Code Registry. If a require
 Read models are owned by the module that needs them. A module requiring a specific query shape defines and maintains its own projection in its own schema.
 
 No module may query core.event directly for user-facing workloads. All user-facing queries must go through read models.
+
+occurred_at is asserted by the actor or the source and may precede recorded_at. recorded_at is assigned by the store and is never supplied by a caller.
+
+An event type whose consequences depend on calendar days carries those days as civil-date payload fields and does not use occurred_at or recorded_at as a substitute.
+
+No monetary value appears in a payload as a bare number.

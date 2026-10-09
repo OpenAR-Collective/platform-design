@@ -27,7 +27,7 @@ An AI assistant helping with this repository should read this index first, then 
 - **[WAX-0009](decisions/wax/WAX-0009-module-contract-standard.md)** Module Contract Standard. The Wax module contract standard will use a hybrid model: a manifest file for discovery, metadata, and dependency declarations, combined with a C# interface for runtime behavioral contracts.
 - **[WAX-0010](decisions/wax/WAX-0010-module-registry.md)** Module Registry. The Wax will maintain a module registry in the core schema.
 - **[WAX-0011](decisions/wax/WAX-0011-internationalization-architecture-and-reference-value-system.md)** Internationalization Architecture and Reference Value System. The Wax will store all reference values, status codes, reason codes, and lookup values as language-neutral UUID surrogate keys.
-- **[WAX-0012](decisions/wax/WAX-0012-date-time-timezone-and-freeform-note-language.md)** Date, Time, Timezone, and Freeform Note Language. All date and time values will be stored in UTC.
+- **[WAX-0012](decisions/wax/WAX-0012-date-time-timezone-and-freeform-note-language.md)** Date, Time, Timezone, and Freeform Note Language. All instants, meaning values that name a moment in time, will be stored in UTC, and display to users will be rendered in each user's configured timezone.
 - **[WAX-0013](decisions/wax/WAX-0013-event-chain-integrity-and-tamper-evidence.md)** Event Chain Integrity and Tamper-Evidence. Wax will implement cryptographically verifiable, tamper-evident audit history through three complementary mechanisms: per-aggregate hash chaining within core.event, delta-based periodic checkpoint anchoring to an external RFC 3161 trusted timestamp authority, and a formal break-glass process for authorized chain modifications.
 - **[WAX-0014](decisions/wax/WAX-0014-encryption-and-data-protection.md)** Encryption and Data Protection. TLS is required and enforced for all API and UI connections.
 - **[WAX-0015](decisions/wax/WAX-0015-security-module.md)** Security Module. Wax will ship a distinct, self-contained component called the Wax Security Module (WSM).
@@ -49,6 +49,7 @@ An AI assistant helping with this repository should read this index first, then 
 - **[WAX-0031](decisions/wax/WAX-0031-ai-agent-infrastructure.md)** AI Agent Infrastructure. Wax will provide infrastructure for AI agents to operate against the platform.
 - **[WAX-0032](decisions/wax/WAX-0032-reporting-and-business-intelligence.md)** Reporting and Business Intelligence. Wax will not build a reporting or business intelligence engine.
 - **[WAX-0033](decisions/wax/WAX-0033-module-composition-model.md)** Module Composition Model. Wax modules will compose from a shared pool of primitive definitions rather than redefining the primitives they have in common.
+- **[WAX-0034](decisions/wax/WAX-0034-monetary-values-and-currency.md)** Monetary Values and Currency. Wax will represent every monetary value as a typed quantity: an exact decimal amount together with an ISO 4217 currency code, carried together everywhere the value appears, in event payloads, authoritative state tables, read models, and user-defined fields.
 
 ## HiveAR Domain Decisions
 

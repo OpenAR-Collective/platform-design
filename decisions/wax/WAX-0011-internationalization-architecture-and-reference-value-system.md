@@ -2,9 +2,9 @@
 id: WAX-0011
 title: "Internationalization Architecture and Reference Value System"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-08
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -188,7 +188,7 @@ Once a Pack is installed, its contributed records behave like any other agency-d
 
 The installed_by_module_fk on Pack rows serves only the reversibility function. It identifies which rows the Pack contributed so they can be managed cleanly at uninstall time. It does not restrict the agency from modifying those rows in any way.
 
-Agencies that outgrow a Pack configuration entirely may uninstall it and replace its values with their own. The uninstall sequence described in the Reversibility section applies: if Pack values are in use on live records, soft deletion is the appropriate path. Over time, as the agency defines their own replacement codes, they can migrate records off the Pack values and eventually remove the soft-deleted values when no live references remain.
+Agencies that outgrow a Pack configuration entirely may uninstall it and replace its values with their own. The uninstall sequence described in the Reversibility section applies: if Pack values are in use on live records, soft deletion is the appropriate path. Over time, as the agency defines their own replacement codes, they can migrate records off the Pack values and eventually remove the soft-deleted values when no live references remain. A Region Pack follows its own rule for deactivation and removal, which [Wax Design Decision 10](WAX-0010-module-registry.md) defines.
 
 ## Packs and the Evaluation Experience
 
@@ -214,6 +214,8 @@ Soft deletion is available as an alternative to blocking when live references ex
 
 Soft deletion is the recommended path in production systems with active data. Physical uninstall is appropriate for development environments, for modules that were installed in error and never used, and for Packs whose contributed values have been fully replaced by agency-defined codes.
 
+A Region Pack is the exception to blocking and to the rule that a partial uninstall is invalid. Deactivating a Region Pack applies soft deletion to everything the pack contributes, including its currencies, format preferences, locale configuration defaults, and translated standard labels. Removing a Region Pack never blocks on live references. The system removes every contributed row that no live record references and keeps each row that one does, inactive and read-only, under the pack's registry record, which is marked removed. [Wax Design Decision 10](WAX-0010-module-registry.md) defines the sequence, and [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md) states what it means for currencies.
+
 ## Implementation Phasing
 
 **Wax v1 (MVP):** Schema ships complete, English only. This is the canonical example of the "schema now, features later" principle. Ship: core.reference_type and core.reference_value tables with UUID surrogate keys; i18n.reference_value_translation table populated with en-US rows only; the three-tier locale resolution chain in code (system default, type override, value override) even though only one locale exists; all status codes, reason codes, debt types, and domain lookups stored as UUID references with translations, never as hardcoded strings. No locale resolution UI. No Language Pack installation pipeline. No RTL support.
@@ -233,3 +235,5 @@ Every reference value contributed by a module must include translation records f
 Modules that fail to provide complete translations for all installed locales will be flagged as i18n non-compliant in the module registry ([Wax Design Decision 10](WAX-0010-module-registry.md)).
 
 All foreign key references to reference values in module-owned tables must reference reference_value_pk. Short codes and labels are never stored as foreign keys or repeated in module tables.
+
+Code that reads a value contributed by a Region Pack must not assume that the pack is active, because a Region Pack can be deactivated or removed while its rows remain in use.
