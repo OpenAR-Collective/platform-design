@@ -29,7 +29,7 @@ Simple CQRS delivers the primary benefits without that overhead. The write side 
 
 Every state change enters the system as a command. A command is a named instruction carrying all data required to process it. Command handlers are single-responsibility classes: one handler per command type. The handler loads current state from the authoritative state table, validates the command against that state, produces one or more events, and writes the event and the updated state in a single atomic transaction. Commands return only success or failure, never data.
 
-A batch job type designated as a bulk operation in [Wax Design Decision 24](WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md) is the one case where several commands share a transaction. Its worker processes a chunk of commands in one transaction, with the same handler logic and the same resulting events as the single-command path. Each command's events and state changes still commit together, because the whole chunk commits or rolls back as one.
+A batch job type designated as a bulk operation in [Wax Design Decision 24](WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md) is the one case where several commands share a transaction. Its worker processes a chunk of commands in one transaction through the bulk write framework that Wax ships, which runs the same handler logic and produces the same events as the single-command path. Each command's events and state changes still commit together, because the whole chunk commits or rolls back as one.
 
 > **WRITE SIDE FLOW**
 >
