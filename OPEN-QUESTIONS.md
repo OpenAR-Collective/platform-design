@@ -104,6 +104,22 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Target:** HiveAR v2.
 
+### Interest calculation and posting points
+
+**Technical:** How interest is calculated, shown, and recorded. The leading direction is to calculate accrued interest at read time for display, without writing anything, and to record it as an event on the account only at posting points, the first of which is applying a payment. A daily accrual event for every account is not the design. Still open are which other events post accrued interest, such as statements, rate changes, balance adjustments, judgments, and closing an account; how interest is calculated across a period in which the rate or the balance changed; and how the amount quoted to a consumer is kept consistent with the amount later posted. For unsecured consumer debt, interest stays off unless a region pack and the contract authorize it, per [MOD-UNSECURED-0001](decisions/modules/unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md). The disclosure and itemization rules that apply to interest need verification by someone with compliance standing. Builds on [HIVE-0005](decisions/hivear/HIVE-0005-account-structure-and-balance-composition.md).
+
+**From experience:** When a consumer calls for a payoff amount, how does your system work out the interest owed as of today, and when does that interest actually land on the account? Have you seen a quoted payoff and the posted amount disagree, and what did it cost you?
+
+**Target:** HiveAR v2.
+
+### Credit reporting history
+
+**Technical:** How the platform keeps the record of what it reported to the credit bureaus without bloating the event store. Reporting every active account twice a month, with the full reported record stored each time, would add an event per account per cycle, each one hashed and kept forever. A candidate design stores each generated file once in document storage ([WAX-0030](decisions/wax/WAX-0030-document-storage.md)) with its hash anchored, writes an event on an account only when its reportable values change, and keeps a compact index that answers what was reported for an account on a given date. Whether that record satisfies dispute investigation and record retention obligations needs verification by someone with compliance standing. How a correction to a past report is recorded is also open. Relates to the credit reporting item under Module roadmap: integrations and portals.
+
+**From experience:** When a consumer disputes what you reported, what do you need to pull up to answer it, and how far back do you go? How much of your current system's storage goes to credit reporting history, and what in it have you never once looked at?
+
+**Target:** HiveAR v2.
+
 ## Wax (framework)
 
 ### Custom action type sandboxing
