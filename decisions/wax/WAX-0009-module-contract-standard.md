@@ -35,7 +35,7 @@ The manifest is the right place for information that must be readable outside th
 >
 > **i18n compliance**: the locales for which translations are provided.
 >
-> **Supported regions**: the Region Packs the module is built for. A module that names a currency in code declares the Region Pack that supplies it, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md).
+> **Supported regions**: the Region Packs the module is built for. A module that names a currency in code declares the Region Pack that supplies it, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md). A module with no regional dependence declares no supported regions.
 >
 > **Capability flags**: a structured declaration of the commands, events, and query endpoints this module contributes, at a summary level suitable for tooling and certification review.
 >
@@ -96,5 +96,7 @@ The manifest and the C# interface are both required. A module that implements on
 The manifest must be kept current with the implementation. A manifest that declares capabilities the module does not implement, or omits capabilities it does implement, is a contract violation.
 
 A module declares the Region Packs it supports in its manifest, as it declares the locales it provides translations for. A module that names a currency in code and does not declare the Region Pack that supplies it is a contract violation.
+
+A module that declares no supported regions is treated as region-neutral. The certification review checks such a module for violations of the currency, language, and other region and language pack requirements, and a module found to depend on any of them must declare the regions it supports or remove the dependence.
 
 Module authors building against the platform before the full specification is published should follow the architectural principles in this document and expect that some implementation details will be clarified during Year 1.
