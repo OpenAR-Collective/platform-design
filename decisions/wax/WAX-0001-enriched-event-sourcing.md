@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-05
+date: 2026-10-09
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -91,7 +91,9 @@ Two distinct sequence numbers are stored in every core.event row. They serve dif
 
 **aggregate_sequence_number **is a per-aggregate ordinal that starts at 1 for the first event written for a given aggregate_pk_ref and increments by one for each subsequent event on that aggregate. It is the stored representation of the expectedVersion parameter in the event store abstraction interface's append call. When a command handler loads an aggregate and prepares to write an event, it passes the last known aggregate_sequence_number as expectedVersion. If another process wrote to that aggregate concurrently, the sequence will not match and the append is rejected, enforcing optimistic concurrency without a full table lock. The aggregate_sequence_number also defines the ordering within a per-aggregate hash chain: prior_event_hash at sequence N references the event_hash of the event at sequence N-1 for the same aggregate. No gaps are expected within a healthy chain; a gap is evidence of data loss or tampering.
 
-**global_sequence_number **is assigned by a single PostgreSQL SEQUENCE object (core.event_global_sequence_seq) and is monotonically increasing across the entire table, regardless of aggregate. It establishes a total ordering of all writes to the event store and serves as the window anchor for delta checkpoint hashing in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). The global sequence is gap-tolerant by design: a transaction that acquires a sequence value and then rolls back leaves a gap. Checkpoint verification accounts for this; it does not assume a contiguous range. The UUID event_pk remains the surrogate primary key and deduplication mechanism. The two sequence numbers serve ordering and integrity purposes that a UUID cannot provide.
+**global_sequence_number **is assigned by a single PostgreSQL SEQUENCE object (core.event_global_sequence_seq) and is monotonically increasing across the entire table, regardless of aggregate. It establishes a total ordering of all writes to the event store: projections and other readers follow the stream by it, and it serves as the window anchor for delta checkpoint hashing in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). It is an ordering and has no integrity role. It is not part of an event's hashed content, and it is gap-tolerant by design: a transaction that acquires a sequence value and then rolls back leaves a gap, and nothing in the platform assumes a contiguous range. The UUID event_pk remains the surrogate primary key and deduplication mechanism. The two sequence numbers provide the per-aggregate and global orderings that a UUID cannot.
+
+A sequence value is drawn when a row is inserted, not when its transaction commits, so an event with a lower global_sequence_number can become visible after an event with a higher one. A reader that follows the whole stream therefore reads only up to the high-water mark: the highest number at or below which every transaction that drew a value has either committed or rolled back. A reader that moved past an event still in flight would never see it. The same mark ends each checkpoint window in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). A long-running write transaction holds the mark back for every reader until it finishes, which is one reason write transactions are kept short.
 
 ## Hash Fields
 
@@ -99,7 +101,7 @@ Two hash columns are declared in core.event. Their purpose and chain mechanics a
 
 **prior_event_hash **stores the event_hash of the immediately preceding event for the same aggregate, in aggregate_sequence_number order. It is null for aggregate_sequence_number = 1. Its presence binds each event to its predecessor, forming the per-aggregate hash chain.
 
-**event_hash **stores the SHA-256 hash of this event's full payload, including prior_event_hash, computed by the WSM before the row is committed. It is stored as a hex string: human-readable in diagnostic queries, portable into verification reports, and compatible with standard tooling. The WSM owns this computation. Application code cannot write an event that bypasses it. The hash is computed over the encrypted ciphertext of PII fields, not the plaintext, ensuring the chain remains verifiable after key destruction.
+**event_hash **stores the SHA-256 hash of this event's full payload, including prior_event_hash and excluding global_sequence_number, computed by the WSM before the row is committed. It is stored as a hex string: human-readable in diagnostic queries, portable into verification reports, and compatible with standard tooling. The WSM owns this computation. Application code cannot write an event that bypasses it. The hash is computed over the encrypted ciphertext of PII fields, not the plaintext, ensuring the chain remains verifiable after key destruction.
 
 ## Standard Event Payload Schema
 
@@ -108,7 +110,7 @@ Every event written to core.event will conform to the following schema. Module-s
 | **Field** | **Type** | **Required** | **Description** |
 | --- | --- | --- | --- |
 | event_pk | uuid | Yes | Surrogate primary key for this event row. Used for deduplication and as a foreign reference target. |
-| global_sequence_number | bigint | Yes | Monotonically increasing integer assigned by a PostgreSQL sequence at insert time. Establishes total ordering across all aggregates. Used as the window anchor for delta checkpoint hashing. Gap-tolerant: rolled-back transactions leave gaps, which is expected behavior. See [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). |
+| global_sequence_number | bigint | Yes | Monotonically increasing integer assigned by a PostgreSQL sequence at insert time. Establishes total ordering across all aggregates. Readers follow the stream by it up to the high-water mark, and it is the window anchor for delta checkpoint hashing. Not part of the hashed content. Gap-tolerant: rolled-back transactions leave gaps, which is expected behavior. See [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). |
 | aggregate_sequence_number | integer | Yes | Per-aggregate ordinal (1, 2, 3...) for a given aggregate_pk_ref. Resets independently per aggregate. Resolves the expectedVersion parameter in the event store abstraction interface, enforcing optimistic concurrency. Defines ordering within an aggregate's hash chain. No gaps are expected within a healthy chain. |
 | event_type | text | Yes | Namespaced event type identifier (e.g., contact.phone_corrected, account.placed). The namespace identifies the owning module or Core. |
 | schema_version | smallint | Yes | Revision of this event type's payload schema. Event-type-specific; starts at 1 and increments only on breaking changes. Included in the hash input. Semantics defined in [Wax Design Decision 26](WAX-0026-event-schema-versioning.md). |
@@ -126,7 +128,7 @@ Every event written to core.event will conform to the following schema. Module-s
 | correlation_type | text | Conditional | Discriminator for correlation_pk_ref. Required when correlation_pk_ref is set. Known values: workflow_execution, batch_job_run, api_request, manual. Follows the same polymorphic pair pattern as aggregate_type and actor_type. |
 | metadata | jsonb | No | Module-specific extension data not appropriate for the standard payload. |
 | prior_event_hash | text | Conditional | The event_hash of the immediately preceding event for this aggregate, in aggregate_sequence_number order. Null for aggregate_sequence_number = 1. Forms the cryptographic link in the per-aggregate hash chain. See [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). |
-| event_hash | text | Yes | SHA-256 hash of this event's full payload including prior_event_hash, computed by the WSM before the row is committed. Stored as a hex string. Application code cannot write an event that bypasses this computation. See [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). |
+| event_hash | text | Yes | SHA-256 hash of this event's full payload including prior_event_hash and excluding global_sequence_number, computed by the WSM before the row is committed. Stored as a hex string. Application code cannot write an event that bypasses this computation. See [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). |
 
 > **POLYMORPHIC REFERENCE FIELDS**
 >
