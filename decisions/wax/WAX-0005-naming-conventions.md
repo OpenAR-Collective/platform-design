@@ -21,7 +21,7 @@ Names are written in lowercase with underscores as word separators. Words are sp
 
 > **EXAMPLES: CORRECT VS. PROHIBITED**
 >
-> account_balance, not acct_bal or acct_balance social_security_number, not ssn birth_date, not dob original_creditor_name, not orig_cred_nm last_payment_amount, not last_pmt_amt consumer_address_line_one, not addr_ln_1
+> debt_balance, not dbt_bal or dbt_balance social_security_number, not ssn birth_date, not dob original_creditor_name, not orig_cred_nm last_payment_amount, not last_pmt_amt consumer_address_line_one, not addr_ln_1
 
 ## No Exceptions for Industry Terms
 
@@ -33,7 +33,7 @@ All table names will be singular. A table defines an entity type, not a collecti
 
 > **WHY SINGULAR PRODUCES CLEAN KEY NAMING**
 >
-> Table: account. Primary key: account_pk. Foreign key in any other table: account_fk. The table name, the primary key root, and the foreign key root are all identical: account. With a plural table name (accounts), the key root (account) differs from the table name. Contributors must mentally singularize the table name to derive the key name. Singular eliminates that step entirely. Reading account_fk, any contributor immediately knows it references account.account_pk without having to reason about pluralization.
+> Table: debt. Primary key: debt_pk. Foreign key in any other table: debt_fk. The table name, the primary key root, and the foreign key root are all identical: debt. With a plural table name (debts), the key root (debt) differs from the table name. Contributors must mentally singularize the table name to derive the key name. Singular eliminates that step entirely. Reading debt_fk, any contributor immediately knows it references debt.debt_pk without having to reason about pluralization.
 
 ## Primary Keys
 
@@ -41,7 +41,7 @@ Every table will have exactly one primary key column. The column will be named u
 
 > **PRIMARY KEY EXAMPLES**
 >
-> account.account_pk contact.contact_pk payment.payment_pk account_collector_assignment.account_collector_assignment_pk
+> debt.debt_pk contact.contact_pk payment.payment_pk debt_collector_assignment.debt_collector_assignment_pk
 
 ## Foreign Keys
 
@@ -49,11 +49,11 @@ Foreign key columns will be named using the root of the primary key they referen
 
 > **FOREIGN KEY EXAMPLES**
 >
-> account_fk references account.account_pk contact_fk references contact.contact_pk payment_fk references payment.payment_pk
+> debt_fk references debt.debt_pk contact_fk references contact.contact_pk payment_fk references payment.payment_pk
 
 ## Surrogate Keys And Composite Uniqueness
 
-Every table carries a UUID surrogate primary key as its sole primary key column. Business or natural composite keys are never used as primary keys. Where the domain requires that a combination of fields be unique (for example, an account may have only one active assignment at a time), that uniqueness is enforced through a unique constraint or unique index, not through a composite primary key. This keeps the foreign key referencing convention uniform across the entire schema and eliminates a category of contributor confusion.
+Every table carries a UUID surrogate primary key as its sole primary key column. Business or natural composite keys are never used as primary keys. Where the domain requires that a combination of fields be unique (for example, a debt may have only one active assignment at a time), that uniqueness is enforced through a unique constraint or unique index, not through a composite primary key. This keeps the foreign key referencing convention uniform across the entire schema and eliminates a category of contributor confusion.
 
 ## Date and Time Column Suffixes
 
@@ -65,12 +65,12 @@ Object type prefixes are permitted and encouraged. These are type classifiers, n
 
 | **Prefix** | **Object Type** | **Example** |
 | --- | --- | --- |
-| vw_ | View | vw_active_accounts |
+| vw_ | View | vw_active_debts |
 | fn_ | Function | fn_calculate_aging_bucket |
 | sp_ | Stored procedure | sp_apply_payment |
-| idx_ | Index | idx_accounts_assigned_collector |
-| trg_ | Trigger | trg_accounts_after_update |
-| seq_ | Sequence | seq_account_number |
+| idx_ | Index | idx_debts_assigned_collector |
+| trg_ | Trigger | trg_debts_after_update |
+| seq_ | Sequence | seq_debt_number |
 
 ## Enforcement
 

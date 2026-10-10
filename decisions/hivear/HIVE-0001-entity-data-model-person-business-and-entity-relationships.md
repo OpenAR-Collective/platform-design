@@ -2,9 +2,9 @@
 id: HIVE-0001
 title: "Entity Data Model, Person, Business, and Entity Relationships"
 status: Accepted
-version: 1.1
+version: 2.0
 area: hivear
-date: 2026-10-08
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR models people and businesses as Entity records. Entity is the universal parent type. Person and Business are subtypes that inherit from Entity and extend it through Locale Module satellite tables. Wax owns no locale-specific schema: address fields, national identity number fields, and name component fields are entirely contributed by Locale Modules as satellite tables. Two bridge tables govern relationships between entities and between entities and accounts. Entity aggregate balance fields are maintained by event-driven workflows and cover only responsible-party associations.
+HiveAR models people and businesses as Entity records. Entity is the universal parent type. Person and Business are subtypes that inherit from Entity and extend it through Locale Module satellite tables. Wax owns no locale-specific schema: address fields, national identity number fields, and name component fields are entirely contributed by Locale Modules as satellite tables. Two bridge tables govern relationships between entities and between entities and debts. Entity aggregate balance fields are maintained by event-driven workflows and cover only responsible-party associations.
 
 ## Entity as the Universal Parent
 
@@ -37,7 +37,7 @@ Wax defines the entity scaffold with genuinely universal attributes only. Locale
 >
 > **created_by_user_fk and updated_by_user_fk**: actor references.
 >
-> **is_active**: boolean, derived from account set associations. True if the entity has at least one active account.
+> **is_active**: boolean, derived from debt group associations. True if the entity has at least one active debt.
 
 ## Person and Business Subtypes
 
@@ -71,19 +71,19 @@ A bridge table between two entity records defines their relationship. This is th
 >
 > **created_at, updated_at, created_by_user_fk, updated_by_user_fk**: standard audit fields.
 
-When viewing a person record, the entity relationship panel surfaces related entities and their relationship types. A spouse relationship shows Jane with role spouse. An employer relationship shows ACME Corp. An agent viewing John's entity record can see that Jane exists as John's spouse and navigate to Jane's entity record to see her summary. Jane's accounts are not shown on John's record unless John has a direct entity-to-account relationship on those accounts.
+When viewing a person record, the entity relationship panel surfaces related entities and their relationship types. A spouse relationship shows Jane with role spouse. An employer relationship shows ACME Corp. An agent viewing John's entity record can see that Jane exists as John's spouse and navigate to Jane's entity record to see her summary. Jane's debts are not shown on John's record unless John has a direct entity-to-debt relationship on those debts.
 
-## Entity-to-Account Relationships and Role Types
+## Entity-to-Debt Relationships and Role Types
 
-A second bridge table governs relationships between entity records and account records. This is distinct from entity-to-entity relationships and serves a different purpose: it defines who is associated with a debt and in what capacity. An account can have multiple entity associations in different roles. An entity can appear on multiple accounts in different roles.
+A second bridge table governs relationships between entity records and debt records. This is distinct from entity-to-entity relationships and serves a different purpose: it defines who is associated with a debt and in what capacity. A debt can have multiple entity associations in different roles. An entity can appear on multiple debts in different roles.
 
-> **ENTITY-TO-ACCOUNT RELATIONSHIP BRIDGE SCHEMA**
+> **ENTITY-TO-DEBT RELATIONSHIP BRIDGE SCHEMA**
 >
-> **entity_account_relationship_pk**: UUID surrogate primary key.
+> **entity_debt_relationship_pk**: UUID surrogate primary key.
 >
-> **entity_fk**: the entity associated with this account.
+> **entity_fk**: the entity associated with this debt.
 >
-> **account_fk**: the account.
+> **debt_fk**: the debt.
 >
 > **role_type_fk**: reference value defining the role: responsible_party, co_maker, guarantor, patient, authorized_contact, deceased_estate_contact, and others.
 >
@@ -93,47 +93,47 @@ A second bridge table governs relationships between entity records and account r
 >
 > **created_at, updated_at, created_by_user_fk, updated_by_user_fk**: standard audit fields.
 
-Multiple relationship records between the same entity and the same account are valid when the entity occupies multiple roles. A person who is both the responsible party and the patient on their own medical bill has two entity-to-account relationship records for that account. The is_responsible_party flag on each record determines whether each role contributes to entity aggregate balance calculations. The responsible-party role does. The patient role does not. No double-counting occurs because aggregates are computed by summing across accounts where is_responsible_party is true, not across relationship records.
+Multiple relationship records between the same entity and the same debt are valid when the entity occupies multiple roles. A person who is both the responsible party and the patient on their own medical bill has two entity-to-debt relationship records for that debt. The is_responsible_party flag on each record determines whether each role contributes to entity aggregate balance calculations. The responsible-party role does. The patient role does not. No double-counting occurs because aggregates are computed by summing across debts where is_responsible_party is true, not across relationship records.
 
-When an agent works a person, they see all accounts where that person has any entity-to-account relationship, labeled by role. John is shown as Primary RP on Account A, Co-Maker on Account B, and Patient on Account C (the last of which carries no liability). The agent works John with full visibility of all associations without needing to navigate through separate screens.
+When an agent works a person, they see all debts where that person has any entity-to-debt relationship, labeled by role. John is shown as Primary RP on Debt A, Co-Maker on Debt B, and Patient on Debt C (the last of which carries no liability). The agent works John with full visibility of all associations without needing to navigate through separate screens.
 
 ## Entity Aggregate Fields
 
-The entity record carries cached aggregate balance fields spanning all accounts where the entity is a responsible party. These fields mirror the account set aggregate structure but are scoped to one entity's responsible-party associations across all account sets.
+The entity record carries cached aggregate balance fields spanning all debts where the entity is a responsible party. These fields mirror the debt group aggregate structure but are scoped to one entity's responsible-party associations across all debt groups.
 
 > **ENTITY AGGREGATE BALANCE FIELDS**
 >
-> **total_initial_balance**: sum of placement amounts across all responsible-party accounts.
+> **total_initial_balance**: sum of placement amounts across all responsible-party debts.
 >
-> **open_accounts_initial_balance**: sum of placement amounts for open responsible-party accounts.
+> **open_debts_initial_balance**: sum of placement amounts for open responsible-party debts.
 >
-> **total_unpaid_balance**: sum of current balances across all responsible-party accounts, excluding SIF writeoff remaining amounts.
+> **total_unpaid_balance**: sum of current balances across all responsible-party debts, excluding SIF writeoff remaining amounts.
 >
-> **open_accounts_unpaid_balance**: unpaid balance for open responsible-party accounts only.
+> **open_debts_unpaid_balance**: unpaid balance for open responsible-party debts only.
 >
-> **total_balance_canceled**: sum of balances on responsible-party accounts closed with a canceled status.
+> **total_balance_canceled**: sum of balances on responsible-party debts closed with a canceled status.
 >
-> **total_sif_writeoff_amount**: the forgiven portion across all settled responsible-party accounts.
+> **total_sif_writeoff_amount**: the forgiven portion across all settled responsible-party debts.
 >
-> **total_purchase_amount**: sum of purchase prices for responsible-party accounts in debt buyer deployments. Contributed by the debt buyer module.
+> **total_purchase_amount**: sum of purchase prices for responsible-party debts in debt buyer deployments. Contributed by the debt buyer module.
 >
-> **active_account_count**: count of open responsible-party accounts.
+> **active_debt_count**: count of open responsible-party debts.
 >
-> **inactive_account_count**: count of closed responsible-party accounts.
+> **inactive_debt_count**: count of closed responsible-party debts.
 
-Every amount field above is a sum of typed monetary values and is kept per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. An account set holds accounts of one currency ([HiveAR Design Decision 4](HIVE-0004-account-sets.md)), so an entity whose responsible-party accounts are in more than one currency has a set for each currency and stays associated with all of those accounts. Such an entity has one value of each amount field for each currency, and no field adds amounts of different currencies. An entity whose responsible-party accounts all share one currency, which is every entity in a single-currency installation, has one value of each amount field. The count fields are not amounts and are unaffected.
+Every amount field above is a sum of typed monetary values and is kept per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. A debt group holds debts of one currency ([HiveAR Design Decision 4](HIVE-0004-debt-groups.md)), so an entity whose responsible-party debts are in more than one currency has a debt group for each currency and stays associated with all of those debts. Such an entity has one value of each amount field for each currency, and no field adds amounts of different currencies. An entity whose responsible-party debts all share one currency, which is every entity in a single-currency installation, has one value of each amount field. The count fields are not amounts and are unaffected.
 
-Aggregate fields are maintained by event-driven workflows, not computed at query time. When a payment posts to Account A and John is a responsible party on Account A, a workflow event fires and updates John's entity aggregate fields through the command handler path. Read model queries against the entity record read the cached values. This keeps the entity record query fast regardless of how many accounts the entity is associated with.
+Aggregate fields are maintained by event-driven workflows, not computed at query time. When a payment posts to Debt A and John is a responsible party on Debt A, a workflow event fires and updates John's entity aggregate fields through the command handler path. Read model queries against the entity record read the cached values. This keeps the entity record query fast regardless of how many debts the entity is associated with.
 
 ## Side Notes Captured For Future Discussion
 
-**Account lineage**: prior instances of an account (rollover, re-placement) need a separate relationship mechanism distinct from entity-to-account relationships. The label for this mechanism is Account Lineage.
+**Debt lineage**: prior instances of a debt (rollover, re-placement) need a separate relationship mechanism distinct from entity-to-debt relationships. The label for this mechanism is Debt Lineage.
 
-**Charge detail and service lines**: accounts with itemized charge breakdowns (hospital service lines, physician procedure codes) need a sub-account table for charge detail. Charge detail records are not distinct debts and do not stand alone as accounts.
+**Charge detail and service lines**: whether a charge is itself a debt, or only supporting detail on one, depends on how the client tracks balances, as [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) describes. Supporting detail such as hospital service lines is a sub-entity attached to the debt. A charge that the client collects against is a debt, grouped with its siblings under [HiveAR Design Decision 4](HIVE-0004-debt-groups.md).
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Core implementation. ar.entity as the universal parent table. Person and Business subtypes with basic fields. Entity-to-account relationships with role types (debtor, co-signer, guarantor, authorized contact). is_responsible_party flag on relationships. Entity aggregate fields (total balance, account count) updated via command handlers. Entity-to-entity relationship table exists in the schema but can remain empty until v2 surfaces it in the UI.
+**HiveAR v1 (MVP):** Core implementation. ar.entity as the universal parent table. Person and Business subtypes with basic fields. Entity-to-debt relationships with role types (debtor, co-signer, guarantor, authorized contact). is_responsible_party flag on relationships. Entity aggregate fields (total balance, debt count) updated via command handlers. Entity-to-entity relationship table exists in the schema but can remain empty until v2 surfaces it in the UI.
 
 **HiveAR v2:** Entity-to-entity relationships with UI. Business entity hierarchy support. Entity search and filtering.
 
@@ -145,7 +145,7 @@ Aggregate fields are maintained by event-driven workflows, not computed at query
 
 Wax defines the entity scaffold only. Locale Module authors contribute name, address, and identity satellite tables. No module other than a Locale Module may contribute to the entity name or identity schema.
 
-The is_responsible_party flag on entity-to-account relationships is the single source of truth for whether a relationship feeds entity aggregate balance calculations. Module authors who contribute new role types must declare whether the role is a responsible-party role in the role type registry.
+The is_responsible_party flag on entity-to-debt relationships is the single source of truth for whether a relationship feeds entity aggregate balance calculations. Module authors who contribute new role types must declare whether the role is a responsible-party role in the role type registry.
 
 Entity aggregate amount fields are kept per currency. A workflow that maintains them never adds amounts of different currencies.
 

@@ -2,9 +2,9 @@
 id: WAX-0004
 title: "Schema Architecture and Module Extension Pattern"
 status: Accepted
-version: 1.0
+version: 2.0
 area: wax
-date: 2026-08-30
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-Wax will own a dedicated database schema named core. All entity tables (account, contact, payment, event, and related objects) reside in this schema. Wax controls these tables exclusively: their structure, their migration cycle, and their fields. No module may alter, extend, or add columns to any Wax-owned table.
+Wax will own a dedicated database schema named core. All entity tables (debt, contact, payment, event, and related objects) reside in this schema. Wax controls these tables exclusively: their structure, their migration cycle, and their fields. No module may alter, extend, or add columns to any Wax-owned table.
 
 Modules that require additional data fields extend Wax-owned entities through module-owned satellite tables in their own dedicated schemas. A satellite table carries a foreign key reference to the Wax-owned entity it extends and owns all fields it introduces. One-to-one satellite tables are used when the extension always applies to that entity type. One-to-many child tables are used when the module produces multiple related records per Wax-owned entity.
 
@@ -24,10 +24,10 @@ Modules that require additional data fields extend Wax-owned entities through mo
 | **Schema** | **Owner** | **Examples** |
 | --- | --- | --- |
 | core | Wax | event, reference_type, reference_value, module_registry, workflow_definition, user, role, permission, organization |
-| ar | HiveAR | account, entity, payment, payment_arrangement, account_set, dispute, communication, demographic history tables, entity_merge |
-| healthcare | Healthcare Business Class module | account_extension, claim_detail |
-| auto | Auto Business Class module | account_extension, vehicle |
-| legal_collections | Legal Collections Treatment Module | account_extension, matter |
+| ar | HiveAR | debt, entity, payment, payment_arrangement, debt_group, dispute, communication, demographic history tables, entity_merge |
+| healthcare | Healthcare Business Class module | debt_extension, claim_detail |
+| auto | Auto Business Class module | debt_extension, vehicle |
+| legal_collections | Legal Collections Treatment Module | debt_extension, matter |
 | us_region | United States Region Pack | state_configuration, address_validation |
 | [module_name] | Any future module | Module-specific tables, owned entirely by that module |
 

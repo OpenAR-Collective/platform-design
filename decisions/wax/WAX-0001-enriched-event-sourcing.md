@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 1.1
+version: 2.0
 area: wax
-date: 2026-10-05
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,13 +13,13 @@ license: CC-BY-4.0
 
 ## Decision
 
-The Wax will use enriched event sourcing as its primary audit and persistence strategy. Every state change to a domain entity (accounts, contacts, payments, disputes, assignments, and all other core objects) will be recorded as a discrete, immutable event in a single append-only event store. Each event carries both the prior state and the new state of the changed fields, along with the actor, timestamp, reason code, and source of the change.
+The Wax will use enriched event sourcing as its primary audit and persistence strategy. Every state change to a domain entity (debts, contacts, payments, disputes, assignments, and all other core objects) will be recorded as a discrete, immutable event in a single append-only event store. Each event carries both the prior state and the new state of the changed fields, along with the actor, timestamp, reason code, and source of the change.
 
 The event store is the permanent record of truth. Authoritative state tables are maintained transactionally alongside the event store to serve as the current-state representation for command processing and queries. Read models owned by individual modules serve all user-facing query workloads.
 
 > **WHAT THIS MEANS IN PRACTICE**
 >
-> An event is a record of something that happened, not a diff or a mutation log. Events are immutable once written. Nothing in the system ever updates or deletes an event. There is one events table for the entire platform. All aggregate types write to core.event. Authoritative state tables (e.g., ar.account) are always current and always consistent with the event store, written in the same transaction. Read models are pre-built query tables owned by modules, updated asynchronously from the event stream. All user-facing queries hit read models, never the event store directly. The event store is the recovery mechanism. If an authoritative state table is ever in doubt, it can be rebuilt by replaying the full event history.
+> An event is a record of something that happened, not a diff or a mutation log. Events are immutable once written. Nothing in the system ever updates or deletes an event. There is one events table for the entire platform. All aggregate types write to core.event. Authoritative state tables (e.g., ar.debt) are always current and always consistent with the event store, written in the same transaction. Read models are pre-built query tables owned by modules, updated asynchronously from the event stream. All user-facing queries hit read models, never the event store directly. The event store is the recovery mechanism. If an authoritative state table is ever in doubt, it can be rebuilt by replaying the full event history.
 
 ## Why Enriched Rather Than Pure
 
@@ -35,7 +35,7 @@ There is no per-entity events table. A contact.phone_corrected event and a payme
 
 ## Authoritative State Tables
 
-Each aggregate-backed entity type has an authoritative state table in the core schema (e.g., ar.account, ar.payment, ar.entity). These tables always reflect the current state of their entities and are written in the same database transaction as the event that caused the state change. The atomicity of this write is a critical invariant: the event and the state update either both succeed or both fail. They are never written independently.
+Each aggregate-backed entity type has an authoritative state table in the core schema (e.g., ar.debt, ar.payment, ar.entity). These tables always reflect the current state of their entities and are written in the same database transaction as the event that caused the state change. The atomicity of this write is a critical invariant: the event and the state update either both succeed or both fail. They are never written independently.
 
 Authoritative state tables serve two purposes. First, they provide a fast, always-current starting point for command handlers that need to load an aggregate before processing a command. Second, they provide a transactionally consistent current-state reference that does not depend on the asynchronous propagation lag inherent in read models.
 
@@ -63,9 +63,9 @@ subscribe(streamId, fromVersion, handler): registers a projection or read model 
 
 ## JSON Payload Model
 
-Every event payload in core.event uses a uniform JSON model. The prior_value and new_value columns are always a jsonb keyed object: each key is a field name and each value is the field's value at the time of the event. There are no scalar payloads, no bare strings, and no arrays at the top level. Every event, from a single-field correction to a fifty-field account placement, uses the same structure.
+Every event payload in core.event uses a uniform JSON model. The prior_value and new_value columns are always a jsonb keyed object: each key is a field name and each value is the field's value at the time of the event. There are no scalar payloads, no bare strings, and no arrays at the top level. Every event, from a single-field correction to a fifty-field debt placement, uses the same structure.
 
-A single-field phone correction writes { "primary_phone": "8175550001" } as prior_value and { "primary_phone": "8175550002" } as new_value. A multi-field account placement carries all changed fields as keys in the same object. There is no field_name column and no distinction between single-field and compound events. The event type name communicates what happened. The payload keys communicate which fields were affected.
+A single-field phone correction writes { "primary_phone": "8175550001" } as prior_value and { "primary_phone": "8175550002" } as new_value. A multi-field debt placement carries all changed fields as keys in the same object. There is no field_name column and no distinction between single-field and compound events. The event type name communicates what happened. The payload keys communicate which fields were affected.
 
 Monetary values in a payload are typed quantities, an amount and a currency code together, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md).
 
@@ -91,7 +91,7 @@ Two distinct sequence numbers are stored in every core.event row. They serve dif
 
 **aggregate_sequence_number **is a per-aggregate ordinal that starts at 1 for the first event written for a given aggregate_pk_ref and increments by one for each subsequent event on that aggregate. It is the stored representation of the expectedVersion parameter in the event store abstraction interface's append call. When a command handler loads an aggregate and prepares to write an event, it passes the last known aggregate_sequence_number as expectedVersion. If another process wrote to that aggregate concurrently, the sequence will not match and the append is rejected, enforcing optimistic concurrency without a full table lock. The aggregate_sequence_number also defines the ordering within a per-aggregate hash chain: prior_event_hash at sequence N references the event_hash of the event at sequence N-1 for the same aggregate. No gaps are expected within a healthy chain; a gap is evidence of data loss or tampering.
 
-**global_sequence_number **is assigned by a single PostgreSQL SEQUENCE object (core.event_global_sequence_seq) and is monotonically increasing across the entire table, regardless of aggregate. It establishes a total ordering of all writes to the event store and serves as the window anchor for delta checkpoint hashing in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). The global sequence is gap-tolerant by design: a transaction that acquires a sequence value and then rolls back leaves a gap. Checkpoint verification accounts for this; it does not assume a contiguous range. The UUID event_pk remains the surrogate primary key and deduplication mechanism. The two sequence numbers serve ordering and integrity purposes that a UUID cannot provide.
+**global_sequence_number **is assigned by a single PostgreSQL SEQUENCE object (core.event_global_sequence_seq) and is monotonically increasing across the entire table, regardless of aggregate. It establishes a total ordering of all writes to the event store and serves as the window anchor for delta checkpoint hashing in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). The global sequence is gap-tolerant by design: a transaction that acquires a sequence value and then rolls back leaves a gap. Checkpoint verification debts for this; it does not assume a contiguous range. The UUID event_pk remains the surrogate primary key and deduplication mechanism. The two sequence numbers serve ordering and integrity purposes that a UUID cannot provide.
 
 ## Hash Fields
 
@@ -110,10 +110,10 @@ Every event written to core.event will conform to the following schema. Module-s
 | event_pk | uuid | Yes | Surrogate primary key for this event row. Used for deduplication and as a foreign reference target. |
 | global_sequence_number | bigint | Yes | Monotonically increasing integer assigned by a PostgreSQL sequence at insert time. Establishes total ordering across all aggregates. Used as the window anchor for delta checkpoint hashing. Gap-tolerant: rolled-back transactions leave gaps, which is expected behavior. See [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). |
 | aggregate_sequence_number | integer | Yes | Per-aggregate ordinal (1, 2, 3...) for a given aggregate_pk_ref. Resets independently per aggregate. Resolves the expectedVersion parameter in the event store abstraction interface, enforcing optimistic concurrency. Defines ordering within an aggregate's hash chain. No gaps are expected within a healthy chain. |
-| event_type | text | Yes | Namespaced event type identifier (e.g., contact.phone_corrected, account.placed). The namespace identifies the owning module or Core. |
+| event_type | text | Yes | Namespaced event type identifier (e.g., contact.phone_corrected, debt.placed). The namespace identifies the owning module or Core. |
 | schema_version | smallint | Yes | Revision of this event type's payload schema. Event-type-specific; starts at 1 and increments only on breaking changes. Included in the hash input. Semantics defined in [Wax Design Decision 26](WAX-0026-event-schema-versioning.md). |
 | aggregate_pk_ref | uuid | Yes | Primary key of the aggregate root this event belongs to. Polymorphic: resolved via aggregate_type. Not a traditional foreign key. See the aggregate callout in this decision. |
-| aggregate_type | text | Yes | Discriminator for aggregate_pk_ref. Identifies the aggregate root type (e.g., account, entity, payment, payment_arrangement). |
+| aggregate_type | text | Yes | Discriminator for aggregate_pk_ref. Identifies the aggregate root type (e.g., debt, entity, payment, payment_arrangement). |
 | occurred_at | timestamptz | Yes | The instant at which the fact happened, as asserted by the actor or the source, stored in UTC. It equals recorded_at unless the command asserts an earlier instant, as when a fact is entered late, for example a payment received by mail and keyed days afterward. |
 | recorded_at | timestamptz | Yes | The instant the store wrote the row, stored in UTC. Assigned by the store and never supplied by a caller. |
 | actor_pk_ref | uuid | Yes | Primary key of the user or system process that caused the event. Polymorphic: resolved via actor_type. Not a traditional foreign key. |
@@ -142,12 +142,12 @@ Many facts in collections matter by the day, not by the moment, and the day that
 
 The following example walks through a payment being posted, showing every layer of the architecture in sequence.
 
-> **SCENARIO**: Collector posts a 500.00 USD payment on account-123
+> **SCENARIO**: Collector posts a 500.00 USD payment on debt-123
 >
 > 1. Collector submits Post Payment 500.00 USD command via the API.
-> 2. Command handler loads ar.account where account_pk = account-123. Current balance: 1,500.00 USD. Account is active. Command is valid.
+> 2. Command handler loads ar.debt where debt_pk = debt-123. Current balance: 1,500.00 USD. Debt is active. Command is valid.
 > 3. PaymentPosted event is written to core.event (see payload below).
-> 4. ar.account.current_balance is updated to 1,000.00 USD in the same transaction. Steps 3 and 4 succeed or fail together. They are never split.
+> 4. ar.debt.current_balance is updated to 1,000.00 USD in the same transaction. Steps 3 and 4 succeed or fail together. They are never split.
 > 5. Event is published to subscribers asynchronously.
 > 6. workflow module projection updates collector_queue_read_model: new balance, last payment date, next action recalculated.
 > 7. reporting module projection updates aging_read_model: balance recalculated in the appropriate aging bucket.
@@ -159,8 +159,8 @@ The following example walks through a payment being posted, showing every layer 
 > global_sequence_number: 1042871
 > aggregate_sequence_number: 47
 > event_type: "payment.posted"
-> aggregate_pk_ref: "account-123"
-> aggregate_type: "account"
+> aggregate_pk_ref: "debt-123"
+> aggregate_type: "debt"
 > occurred_at: "2026-03-30T14:22:01.318402Z"
 > actor_pk_ref: "user-0042"
 > actor_type: "user"
@@ -178,7 +178,7 @@ The following example walks through a payment being posted, showing every layer 
 
 ## Illustrative Example: Audit Query
 
-When a compliance officer opens the account history view, the API queries core.event where aggregate_pk_ref = account-123, ordered by aggregate_sequence_number. Every change ever made to the account is returned, in sequence, self-describing. No reconstruction is required. The prior and new values for every field change are directly readable in the event record.
+When a compliance officer opens the debt history view, the API queries core.event where aggregate_pk_ref = debt-123, ordered by aggregate_sequence_number. Every change ever made to the debt is returned, in sequence, self-describing. No reconstruction is required. The prior and new values for every field change are directly readable in the event record.
 
 This is the audit trail a regulator, plaintiff's attorney, or internal compliance team would see in a dispute. It is complete, immutable, and requires no engineering effort to produce.
 
@@ -189,12 +189,12 @@ The following illustrates how the layers of the architecture relate to each othe
 | **Schema** | **Table / Object** | **Purpose** |
 | --- | --- | --- |
 | core | core.event | Single append-only event store for all aggregate types |
-| core | ar.account | Authoritative current state for accounts |
+| core | ar.debt | Authoritative current state for debts |
 | core | ar.entity | Authoritative current state for entities (persons and businesses) |
 | core | ar.payment | Authoritative current state for payments |
 | workflow | workflow.collector_queue_read_model | Read model for collector queue view, owned by workflow module |
 | reporting | reporting.aging_read_model | Read model for aging reports, owned by reporting module |
-| healthcare | healthcare.account_extension | Satellite table extending ar.account for healthcare module |
+| healthcare | healthcare.debt_extension | Satellite table extending ar.debt for healthcare module |
 
 > **AGGREGATES, AGGREGATE ROOTS, AND EVENT ATTRIBUTION**
 >
@@ -204,39 +204,39 @@ The following illustrates how the layers of the architecture relate to each othe
 >
 > **The boundary test.** An object warrants its own aggregate root if it has business rules it enforces independently, and if it can change in ways that do not require another aggregate to be locked or loaded at the same time. Two aggregates may reference each other by primary key. Neither owns the other. The clearest signal that an object needs its own aggregate root is when its lifecycle inherently spans more than one other aggregate from start to finish: not just at initiation, but throughout.
 >
-> **Cross-aggregate events and fan-out.** Some domain operations inherently affect more than one aggregate. A split payment is received from an entity and applied across multiple accounts. A payment arrangement covers a payer-designated subset of the entity's accounts. A letter is sent to a person and covers some or all of their accounts. In these cases, the operation itself is its own aggregate with its own lifecycle. The cross-aggregate effect is handled by fan-out: one event on the originating aggregate, followed by a corresponding event on each affected aggregate, all linked by the originating aggregate's primary key. No single event claims more than one aggregate root.
+> **Cross-aggregate events and fan-out.** Some domain operations inherently affect more than one aggregate. A split payment is received from an entity and applied across multiple debts. A payment arrangement covers a payer-designated subset of the entity's debts. A letter is sent to a person and covers some or all of their debts. In these cases, the operation itself is its own aggregate with its own lifecycle. The cross-aggregate effect is handled by fan-out: one event on the originating aggregate, followed by a corresponding event on each affected aggregate, all linked by the originating aggregate's primary key. No single event claims more than one aggregate root.
 >
-> **Initiation versus lifecycle.** Not every operation that touches multiple accounts at once belongs to its own aggregate. A person may initiate a dispute against several accounts simultaneously. However, once initiated, each account's dispute follows a fully independent path: separate investigations, separate credit bureau responses, separate resolutions, potentially separate outcomes. The cross-account nature is a workflow concern at initiation, not a shared lifecycle concern. The command handler fires independent commands at each account aggregate. Each account's dispute.opened event may carry a reference to the initiating batch for traceability, but no dispute aggregate governs their shared lifecycle because no such shared lifecycle exists. When an operation's cross-aggregate span ends at initiation, it belongs to the member objects of each affected aggregate, not to a root of its own.
+> **Initiation versus lifecycle.** Not every operation that touches multiple debts at once belongs to its own aggregate. A person may initiate a dispute against several debts simultaneously. However, once initiated, each debt's dispute follows a fully independent path: separate investigations, separate credit bureau responses, separate resolutions, potentially separate outcomes. The cross-debt nature is a workflow concern at initiation, not a shared lifecycle concern. The command handler fires independent commands at each debt aggregate. Each debt's dispute.opened event may carry a reference to the initiating batch for traceability, but no dispute aggregate governs their shared lifecycle because no such shared lifecycle exists. When an operation's cross-aggregate span ends at initiation, it belongs to the member objects of each affected aggregate, not to a root of its own.
 >
 > **Known Wax aggregate roots.** The following aggregate types are established for Wax. The list will grow as modules are specified.
 >
-> **entity:** A person or business. Owns demographic history, address and phone history, contact outcome tracking, and the demographic scoring model. An entity can be updated independently of any account.
+> **entity:** A person or business. Owns demographic history, address and phone history, contact outcome tracking, and the demographic scoring model. An entity can be updated independently of any debt.
 >
-> **account:** A placed debt. Owns balance, status, dispute lifecycle, assignment history, and payment split application records. The account knows which entities are associated with it and in what capacity (primary debtor, co-signer, guarantor, and similar roles).
+> **debt:** A placed debt. Owns balance, status, dispute lifecycle, assignment history, and payment split application records. The debt knows which entities are associated with it and in what capacity (primary debtor, co-signer, guarantor, and similar roles).
 >
-> **account_set:** A named grouping of accounts. Owns membership rules, lock state during legal proceedings, and aggregate lifecycle flags derived from member composition.
+> **debt_group:** A named grouping of debts. Owns membership rules, lock state during legal proceedings, and aggregate lifecycle flags derived from member composition.
 >
-> **payment:** A payment received from an entity. Owns the full payment lifecycle: receipt, split calculation by the configured methodology, application of splits to target accounts, and reversal. A split payment is not owned by any single account. It is its own aggregate, and each target account receives a corresponding fan-out event recording the split applied to it.
+> **payment:** A payment received from an entity. Owns the full payment lifecycle: receipt, split calculation by the configured methodology, application of splits to target debts, and reversal. A split payment is not owned by any single debt. It is its own aggregate, and each target debt receives a corresponding fan-out event recording the split applied to it.
 >
-> **payment_arrangement:** A payment arrangement made by an entity covering one or more payer-designated accounts. Owns the full arrangement lifecycle: proposal, acceptance, modification, fulfillment, and breach. The payer's designation of which accounts are covered is a core term of the arrangement, not a workflow detail, and the arrangement governs all covered accounts throughout its lifecycle. Each covered account and the arranging entity receive corresponding fan-out events.
+> **payment_arrangement:** A payment arrangement made by an entity covering one or more payer-designated debts. Owns the full arrangement lifecycle: proposal, acceptance, modification, fulfillment, and breach. The payer's designation of which debts are covered is a core term of the arrangement, not a workflow detail, and the arrangement governs all covered debts throughout its lifecycle. Each covered debt and the arranging entity receive corresponding fan-out events.
 >
-> **communication:** An outbound communication: a letter, a notice, or a contact attempt. Owns the communication lifecycle: generation, queuing, delivery, and outcome. Both the addressed entity and any covered accounts receive corresponding fan-out events. The communication aggregate type is provisional; the communications module specification may define more granular types if letter and contact attempt lifecycles diverge sufficiently to warrant it.
+> **communication:** An outbound communication: a letter, a notice, or a contact attempt. Owns the communication lifecycle: generation, queuing, delivery, and outcome. Both the addressed entity and any covered debts receive corresponding fan-out events. The communication aggregate type is provisional; the communications module specification may define more granular types if letter and contact attempt lifecycles diverge sufficiently to warrant it.
 >
 > **client:** A creditor client. Owns placement history, billing terms, and client configuration.
 >
-> **legal_case:** A legal proceeding. Defined by the legal module. Owns case lifecycle, account and set associations, and filing and judgment history.
+> **legal_case:** A legal proceeding. Defined by the legal module. Owns case lifecycle, debt and debt group associations, and filing and judgment history.
 >
 > **workflow_definition:** A configured workflow. A configuration aggregate with its own versioned lifecycle.
 >
 > **user:** A staff member or system actor. Owns credential and role assignment history.
 >
-> **Member objects are not aggregate roots.** Disputes, assignments, address history records, and phone history records are members of their parent aggregate. They do not have their own aggregate roots. Events that describe changes to these objects are attributed to the parent aggregate root, with the member object's identity carried in the event payload. A dispute.opened event has aggregate_type = 'account' and aggregate_pk_ref pointing to the account. The fact that a person may initiate disputes against multiple accounts simultaneously does not make dispute its own aggregate: each dispute follows a fully independent lifecycle from initiation onward and is governed entirely by its own account. The dispute is not a separate aggregate.
+> **Member objects are not aggregate roots.** Disputes, assignments, address history records, and phone history records are members of their parent aggregate. They do not have their own aggregate roots. Events that describe changes to these objects are attributed to the parent aggregate root, with the member object's identity carried in the event payload. A dispute.opened event has aggregate_type = 'debt' and aggregate_pk_ref pointing to the debt. The fact that a person may initiate disputes against multiple debts simultaneously does not make dispute its own aggregate: each dispute follows a fully independent lifecycle from initiation onward and is governed entirely by its own debt. The dispute is not a separate aggregate.
 
 ## Compliance Rationale
 
-The FDCPA, FCRA, Regulation F, and state consumer protection statutes impose specific record-keeping obligations on collection agencies. The enriched event sourcing model satisfies these obligations structurally rather than procedurally. Compliance is not dependent on staff following a documented procedure; it is a property of the system itself. Every change to every account is recorded automatically, immutably, and with full context.
+The FDCPA, FCRA, Regulation F, and state consumer protection statutes impose specific record-keeping obligations on collection agencies. The enriched event sourcing model satisfies these obligations structurally rather than procedurally. Compliance is not dependent on staff following a documented procedure; it is a property of the system itself. Every change to every debt is recorded automatically, immutably, and with full context.
 
-A regulator or auditor who questions whether an account's current state is accurate can be shown the complete event history that produced it, event by event. The current state can be mathematically derived from that history on demand. There is no ambiguity and no trust-us involved. This architecture directly supports the Collective's compliance-first design principle. It is not an optional feature; it is the foundation the platform is built on.
+A regulator or auditor who questions whether a debt's current state is accurate can be shown the complete event history that produced it, event by event. The current state can be mathematically derived from that history on demand. There is no ambiguity and no trust-us involved. This architecture directly supports the Collective's compliance-first design principle. It is not an optional feature; it is the foundation the platform is built on.
 
 ## Implementation Phasing
 

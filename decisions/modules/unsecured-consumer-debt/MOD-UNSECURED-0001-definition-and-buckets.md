@@ -2,9 +2,9 @@
 id: MOD-UNSECURED-0001
 title: "Definition and Buckets"
 status: Accepted
-version: 1.0
+version: 2.0
 area: module:unsecured-consumer-debt
-date: 2026-08-30
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The unsecured consumer debt module is the platform's first debt-type module and its reference example, the canonical bundle of the common consumer-debt primitives. It is a manifest under the module composition model from Wax Design Decision 33: it references shared primitives by key, selects five balance buckets, declares two properties and three account role types, ships with interest accrual off, and supplies a default payment waterfall. It adds no subject-matter structure, since unsecured consumer debt has nothing to itemize beyond its buckets, which makes it the cleanest exercise of the debt-type extension framework from [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-account-structure-extension.md). Its module type is debt_type, and it is compatible with the contingency contract type in v1.
+The unsecured consumer debt module is the platform's first debt-type module and its reference example, the canonical bundle of the common consumer-debt primitives. It is a manifest under the module composition model from Wax Design Decision 33: it references shared primitives by key, selects five balance buckets, declares two properties and three debt role types, ships with interest accrual off, and supplies a default payment waterfall. It adds no subject-matter structure, since unsecured consumer debt has nothing to itemize beyond its buckets, which makes it the cleanest exercise of the debt-type extension framework from [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md). Its module type is debt_type, and it is compatible with the contingency contract type in v1.
 
 ## A Manifest Over Shared Primitives
 
@@ -29,21 +29,21 @@ The module declares the debt interest-bearing-capable but ships interest accrual
 
 ## Properties and Roles
 
-The module declares two standardized properties from the Foundation-governed vocabulary, consumer regulatory nature and unsecured, which region packs read to apply the right regime. Its account role types are the primary debtor, a co-borrower or co-signer, and an authorized contact, the realistic set for generic consumer debt. Both the properties and the roles are shared primitives referenced by key, not defined in this module.
+The module declares two standardized properties from the Foundation-governed vocabulary, consumer regulatory nature and unsecured, which region packs read to apply the right regime. Its debt role types are the primary debtor, a co-borrower or co-signer, and an authorized contact, the realistic set for generic consumer debt. Both the properties and the roles are shared primitives referenced by key, not defined in this module.
 
 ## The Default Waterfall
 
-The module ships a default application order of client fees, agency fees, client interest, agency interest, and principal. A payment fills the buckets in that order, subject to the contract, a region-pack mandate, and the per-payment override from [HiveAR Design Decision 7](../../hivear/HIVE-0007-payment-application-and-waterfall.md), and subject to the cross-account Federal floor, which governs allocation across a debtor's accounts and not allocation across buckets within one account.
+The module ships a default application order of client fees, agency fees, client interest, agency interest, and principal. A payment fills the buckets in that order, subject to the contract, a region-pack mandate, and the per-payment override from [HiveAR Design Decision 7](../../hivear/HIVE-0007-payment-application-and-waterfall.md), and subject to the cross-debt Federal floor, which governs allocation across a debtor's debts and not allocation across buckets within one debt.
 
 Confidence on this default order is Medium. It is the conventional fees-then-interest-then-principal sequence with client charges ahead of agency charges, and it is a defensible default, but a client-whole-first alternative, client fees, client interest, principal, then the agency's own add-ons, would pay the client's principal ahead of the agency's most legally exposed charges and is a live candidate for revision on fairness and exposure grounds. The order is an overridable default, so the choice is not load-bearing.
 
 ## Itemization
 
-The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the itemization a validation notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the account-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-account-structure-and-balance-composition.md).
+The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the itemization a validation notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md).
 
 ## No Subject-Matter Structure
 
-This module deliberately attaches no subject-matter fields or sub-entities. Unsecured consumer debt has no collateral, no service lines, and no itemized charge detail beyond its buckets, so there is nothing for the debt-type extension framework to attach. The module stands as proof that the framework imposes nothing: a debt type with no subject matter is fully served by the core account, its buckets, its roles, and its properties.
+This module deliberately attaches no subject-matter fields or sub-entities. Unsecured consumer debt has no collateral, no service lines, and no itemized charge detail beyond its buckets, so there is nothing for the debt-type extension framework to attach. The module stands as proof that the framework imposes nothing: a debt type with no subject matter is fully served by the core debt, its buckets, its roles, and its properties.
 
 ## Scope
 
@@ -65,6 +65,6 @@ This module is a manifest, not a schema. It references shared primitives by key 
 
 The bucket split is by ownership and kind. Client-side buckets are commissionable and remitted; agency-side buckets are agency revenue, and the distinction drives remittance and commission, so it must not be collapsed.
 
-Interest is off until compliance turns it on. No code may accrue interest on these accounts unless a region pack and the contract authorize it.
+Interest is off until compliance turns it on. No code may accrue interest on these debts unless a region pack and the contract authorize it.
 
 The waterfall is a default, not a rule. The shipped order is overridable by contract, region pack, and per-payment direction, and it is held at Medium confidence pending review.

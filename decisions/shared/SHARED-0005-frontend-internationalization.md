@@ -17,7 +17,7 @@ The HiveAR frontend will implement internationalization at two distinct layers: 
 
 ## Data Layer: Reference Values and Domain Labels
 
-The frontend never stores or resolves reference value labels. All status codes, reason codes, debt types, and other domain lookup values are stored in the database as UUID surrogate keys ([Wax Design Decision 11](../wax/WAX-0011-internationalization-architecture-and-reference-value-system.md)). When the API returns an account record, it includes resolved, translated labels for all reference values, already rendered in the session locale through the three-level locale resolution chain. The frontend renders what the API delivers.
+The frontend never stores or resolves reference value labels. All status codes, reason codes, debt types, and other domain lookup values are stored in the database as UUID surrogate keys ([Wax Design Decision 11](../wax/WAX-0011-internationalization-architecture-and-reference-value-system.md)). When the API returns a debt record, it includes resolved, translated labels for all reference values, already rendered in the session locale through the three-level locale resolution chain. The frontend renders what the API delivers.
 
 This means adding a new language to the platform requires no frontend code changes. Installing a new Language Pack updates the backend translation tables. The existing API endpoints and frontend components automatically serve the new language the next time a user with that locale preference makes a request.
 

@@ -18,7 +18,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Settlement rules
 
-**Technical:** Settlement of an account for less than the full balance: settlement offers and approval authority, settlement-in-full versus partial settlement, payment terms and settlement arrangements, the write-off of the forgiven remainder, and the commission and remittance treatment of settled amounts. The settlement payment itself applies through the [HIVE-0007](decisions/hivear/HIVE-0007-payment-application-and-waterfall.md) waterfall.
+**Technical:** Settlement of a debt for less than the full balance: settlement offers and approval authority, settlement-in-full versus partial settlement, payment terms and settlement arrangements, the write-off of the forgiven remainder, and the commission and remittance treatment of settled amounts. The settlement payment itself applies through the [HIVE-0007](decisions/hivear/HIVE-0007-payment-application-and-waterfall.md) waterfall.
 **From experience:** Walk through the last settlement that got complicated. Who had authority to approve it, what got documented, and what happened to the forgiven remainder in your books and in the client's?
 **Target:** HiveAR v2. Issue: #2.
 
@@ -28,33 +28,51 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** What action and result codes does your company actually use every day, which ones exist only because a client demands them, and where does your current system's vocabulary fail to describe what really happened on a call?
 **Target:** HiveAR v2. Issue: #3.
 
-### Account lineage
+### Debt lineage
 
-**Technical:** Architecture for recording prior instances of an account created by rollover or re-placement. Prior instances are never simultaneously active. Display label is Account Lineage.
-**From experience:** When an account leaves and comes back, whether recalled and re-placed, rolled from first to second placement, or returned and resold, what history do you wish traveled with it, and what history must **not** travel with it?
+**Technical:** Architecture for recording prior instances of a debt created by rollover or re-placement. Prior instances are never simultaneously active. Display label is Debt Lineage.
+**From experience:** When a debt leaves and comes back, whether recalled and re-placed, rolled from first to second placement, or returned and resold, what history do you wish traveled with it, and what history must **not** travel with it?
 **Target:** HiveAR v2. Issue: #4.
 
-### Account Set system actions
+### Debt Group system actions
 
-**Technical:** Automatic lifecycle actions on sets: orphan detection, aggregate field maintenance workflows, status propagation, and lock and unlock event handling. Specification of Core-delivered workflow definitions for set maintenance. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-account-sets.md).
-**From experience:** When you group accounts, for a lawsuit, a payment plan, or a family of debts, what should happen automatically when one account in the group changes status, gets paid, or gets recalled?
+**Technical:** Automatic lifecycle actions on debt groups at every level of a grouping scheme: orphan detection, aggregate field maintenance workflows, status propagation, and lock and unlock event handling. Specification of Core-delivered workflow definitions for debt group maintenance. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
+**From experience:** When you group debts, for a lawsuit, a payment plan, or a family of debts, what should happen automatically when one debt in the group changes status, gets paid, or gets recalled?
 **Target:** HiveAR v2. Issue: #5.
+
+### Compliance unit in a grouping hierarchy
+
+**Technical:** When each charge is a debt, which level of the grouping hierarchy a validation notice, a dispute, a cease-communication request, and a payment arrangement attach to, so that a charge-level debt does not multiply notices. The regional rules that bear on this need verification by someone with compliance standing. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md) and [HIVE-0005](decisions/hivear/HIVE-0005-debt-structure-and-balance-composition.md).
+**From experience:** When a physician practice or a toll agency places individual charges with you, what do you send the consumer a validation notice for: each charge, each invoice, each visit, or the patient? What happens when the consumer disputes just one charge?
+**Target:** HiveAR v2.
+
+### Group-level entity relationships
+
+**Technical:** Whether an entity can be related to a debt group and inherited by every debt beneath it, such as a guarantor responsible for everything under one patient, instead of being related to each debt. Builds on [HIVE-0001](decisions/hivear/HIVE-0001-entity-data-model-person-business-and-entity-relationships.md) and [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
+**From experience:** When one person is responsible for every charge for a patient, how does your system record that, and what breaks when a new charge arrives for the same patient?
+**Target:** HiveAR v2.
+
+### Changing a debt's grouping scheme
+
+**Technical:** Moving existing debts from one grouping scheme to another when a client changes how it places, including what happens to the groups, their aggregates, and their history. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
+**From experience:** When a client changes how it sends you data, for example from account-level to charge-level placements, what do you do with the debts you already hold?
+**Target:** HiveAR v3.
 
 ### Client hierarchies
 
-**Technical:** Architecture for parent-company and subsidiary-client relationships, including whether cross-client account sets and entity associations are supported within a client hierarchy.
+**Technical:** Architecture for parent-company and subsidiary-client relationships, including whether cross-client debt groups and entity associations are supported within a client hierarchy.
 **From experience:** Where do parent and subsidiary client relationships actually bite in daily work: reporting, remittance, work standards, or consumer conversations that span both?
 **Target:** HiveAR v2. Issue: #6.
 
 ### Legal module
 
-**Technical:** Legal case lifecycle, account and set association with cases, set lock behavior during legal proceedings, interaction between legal status and account status codes, appeals and re-filings.
-**From experience:** Walk through an account's handoff to legal at your company. What gets locked, what keeps moving, who can still touch it, and where has your current system let something happen on an account that should have been frozen?
+**Technical:** Legal case lifecycle, debt and debt group association with cases, debt group lock behavior during legal proceedings, interaction between legal status and debt status codes, appeals and re-filings.
+**From experience:** Walk through a debt's handoff to legal at your company. What gets locked, what keeps moving, who can still touch it, and where has your current system let something happen on a debt that should have been frozen?
 **Target:** HiveAR v2. Issue: #7.
 
 ### Charge detail and service lines
 
-**Technical:** Full healthcare and itemized-charge module specification: the complete service-line field set, payer and claim detail, and service-line semantics. The structural mechanism for attaching sub-entities is [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-account-structure-extension.md); this item is the module realization. Charge detail records are not distinct debts.
+**Technical:** Full healthcare and itemized-charge module specification: the complete service-line field set, payer and claim detail, and service-line semantics. The structural mechanism for attaching sub-entities is [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md); this item is the module realization. Whether a charge is supporting detail on a debt or a debt in its own right depends on how the client tracks balances, as [HIVE-0005](decisions/hivear/HIVE-0005-debt-structure-and-balance-composition.md) describes: detail for a credit card or a hospital claim, a debt for a physician charge or a toll. Where a charge is a debt, the grouping scheme of [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md) supplies the invoice, visit, and patient levels above it.
 **From experience:** For medical or itemized debt, which line-level details do collectors and consumers actually ask about, and which does your system fail to show you?
 **Target:** HiveAR v2. Issue: #8.
 
@@ -66,7 +84,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### AI toolbox implementation
 
-**Technical:** AR-specific AI tools and the account-data and compliance-documentation content exposed through the AI toolbox infrastructure ([WAX-0031](decisions/wax/WAX-0031-ai-agent-infrastructure.md)).
+**Technical:** AR-specific AI tools and the debt-data and compliance-documentation content exposed through the AI toolbox infrastructure ([WAX-0031](decisions/wax/WAX-0031-ai-agent-infrastructure.md)).
 **From experience:** What is the most tedious judgment-free task in your day that you would hand to an assistant tomorrow, and what task would you never hand over?
 **Target:** HiveAR v2. Issue: #10.
 
@@ -92,7 +110,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Technical:** Client-level restrictions on data co-mingling applied to entity matching and the golden record. Provenance becomes a rich record carrying not just where a value came from but how it may be used. Merge scope is constrained by client policy: a restricted client's consumer records resolve to an isolated canonical record that neither contributes values to nor draws values from other clients' records, while merging within that client's own records continues. Extends [HIVE-0002](decisions/hivear/HIVE-0002-entity-matching-golden-record-and-locale-aware-identity-resolution.md) and [HIVE-0003](decisions/hivear/HIVE-0003-demographic-history-golden-record-and-contact-intelligence.md).
 
-**From experience:** Which of your clients restrict how their account data may be used, what exactly do the restrictions forbid (discussing other accounts on a call, combined letters, shared contact data), and how does your shop enforce those restrictions today?
+**From experience:** Which of your clients restrict how their debt data may be used, what exactly do the restrictions forbid (discussing other debts on a call, combined letters, shared contact data), and how does your shop enforce those restrictions today?
 
 **Target:** HiveAR v2. Issue: #20.
 

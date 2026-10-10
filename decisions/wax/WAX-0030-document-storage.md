@@ -33,7 +33,7 @@ The document's content hash is recorded in the document-created and reference ev
 
 ## Typed, Many-to-Many References
 
-A document is linked to the aggregates that use it through a many-to-many bridge, polymorphic on the aggregate side the way core.event already references aggregates. One document may be referenced by many aggregates, and one aggregate may reference many documents. Each reference carries a type and label, so the same validation document shared by a set of accounts is labeled as the validation of debt by each account that points to it. Attaching and detaching a reference are document events, so the bridge table is a projection and the question of who attached a document, to what, and when remains auditable. An account-relevant attachment also surfaces as an account domain fact through the normal command handler, the same pattern tasking uses.
+A document is linked to the aggregates that use it through a many-to-many bridge, polymorphic on the aggregate side the way core.event already references aggregates. One document may be referenced by many aggregates, and one aggregate may reference many documents. Each reference carries a type and label, so the same validation document shared by a set of debts is labeled as the validation of debt by each debt that points to it. Attaching and detaching a reference are document events, so the bridge table is a projection and the question of who attached a document, to what, and when remains auditable. A debt-relevant attachment also surfaces as a debt domain fact through the normal command handler, the same pattern tasking uses.
 
 ## Retention and Destruction Reclaim Space
 
@@ -41,7 +41,7 @@ Documents diverge from core.event on destruction. Crypto-shredding alone does no
 
 ## Shared Documents and Most-Restrictive Retention
 
-Because a document may be referenced by many aggregates, its destruction eligibility is computed across the whole reference set rather than from a single timer. A validation document shared by a set of accounts cannot be destroyed when one account's retention lapses if the others still require it, and a legal hold on any one referencing aggregate freezes the document for all of them. A shared document is destroyable only when no remaining reference requires it and no hold touches it anywhere, the document analog of most-restrictive-wins. The Job Scheduler sweep evaluates that condition before deleting any bytes.
+Because a document may be referenced by many aggregates, its destruction eligibility is computed across the whole reference set rather than from a single timer. A validation document shared by a set of debts cannot be destroyed when one debt's retention lapses if the others still require it, and a legal hold on any one referencing aggregate freezes the document for all of them. A shared document is destroyable only when no remaining reference requires it and no hold touches it anywhere, the document analog of most-restrictive-wins. The Job Scheduler sweep evaluates that condition before deleting any bytes.
 
 ## Optional Encryption and the Intake Pipeline
 

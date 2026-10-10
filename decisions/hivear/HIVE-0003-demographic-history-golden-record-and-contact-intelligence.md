@@ -41,7 +41,7 @@ Demographic history is organized in separate tables per attribute type rather th
 >
 > **entity_employer_history**: employment records. Fields: employer_entity_fk (if the employer is also an entity in the system), employer_name_freeform, job_title, employment_status.
 
-Every row in every attribute history table carries: entity_fk, source_type_fk (client, skip_trace_vendor, credit_bureau, agency_verified, consumer_provided, court_record, and others), source_identifier (which specific client or vendor), recency_date (from the source file or defaulted to load date), load_batch_fk (which import batch introduced this record), account_fk (which account it arrived with, if applicable), current_composite_score, tier (gold, silver, or void), bad_flag, bad_flag_actor_fk, bad_flagged_at, and standard created_at, updated_at audit fields.
+Every row in every attribute history table carries: entity_fk, source_type_fk (client, skip_trace_vendor, credit_bureau, agency_verified, consumer_provided, court_record, and others), source_identifier (which specific client or vendor), recency_date (from the source file or defaulted to load date), load_batch_fk (which import batch introduced this record), debt_fk (which debt it arrived with, if applicable), current_composite_score, tier (gold, silver, or void), bad_flag, bad_flag_actor_fk, bad_flagged_at, and standard created_at, updated_at audit fields.
 
 ## Four Scoring Dimensions
 
@@ -115,13 +115,13 @@ This architecture is intentional. Periodic decay is not a special subsystem. It 
 
 Contactability is not a stored field on the entity record. It is a derived ranking produced on demand by querying the demographic history tables and applying the current scoring state. For a given entity, contactability produces: best phone to call (highest Gold or Silver phone by composite score), best phone to text (which may differ if cellular versus landline is tracked), best address for mail, and best email.
 
-Contact pools are dynamically computed sets of contact methods across a population of entities or accounts, ranked by contactability score. A dialer campaign specifies a population scope (all active accounts for client XYZ in payment arrangement status) and a contact method type (phone). The pool computation queries the demographic history tables for all entities associated with those accounts, ranks available phone numbers by composite score, and returns a prioritized contact list. The pool updates continuously as new contact outcomes are recorded and scores change.
+Contact pools are dynamically computed sets of contact methods across a population of entities or debts, ranked by contactability score. A dialer campaign specifies a population scope (all active debts for client XYZ in payment arrangement status) and a contact method type (phone). The pool computation queries the demographic history tables for all entities associated with those debts, ranks available phone numbers by composite score, and returns a prioritized contact list. The pool updates continuously as new contact outcomes are recorded and scores change.
 
-Dynamic work queues for agents working accounts manually are a direct extension of contact intelligence. A queue sorted by highest contactability ranking presents accounts where the best available phone or address is most likely to produce successful contact. An agent working from a contactability-sorted queue naturally calls the best numbers first without needing to know the underlying scoring mechanics.
+Dynamic work queues for agents working debts manually are a direct extension of contact intelligence. A queue sorted by highest contactability ranking presents debts where the best available phone or address is most likely to produce successful contact. An agent working from a contactability-sorted queue naturally calls the best numbers first without needing to know the underlying scoring mechanics.
 
 ## Agent Visibility and Bad Flagging
 
-For any demographic value currently in Gold status, an agent can see its full provenance: which source it came from, when it was loaded, its recency date, which account it arrived with, how many corroborating sources provided the same value, and its current composite score breakdown by dimension. The agent can also see all Silver and Void values for the same attribute type, their scores, and why each is ranked where it is.
+For any demographic value currently in Gold status, an agent can see its full provenance: which source it came from, when it was loaded, its recency date, which debt it arrived with, how many corroborating sources provided the same value, and its current composite score breakdown by dimension. The agent can also see all Silver and Void values for the same attribute type, their scores, and why each is ranked where it is.
 
 Agents and automated processes can mark a specific demographic value as bad by setting its bad_flag. A bad flag records the flagging actor, the timestamp, and an optional reason. Bad-flagged values receive a severe score demotion that moves them to void tier. They are never deleted. They remain in history with the bad flag visible. If a bad flag was applied in error, it can be reversed by an authorized agent, which removes the demotion and allows the scoring engine to re-evaluate the value's tier.
 
@@ -135,7 +135,7 @@ False merge signals surface as agent review items, not as automatic splits. The 
 
 NCOA (National Change of Address) processing typically arrives through letter vendor integrations. A certified letter vendor module handles NCOA match detection automatically: when a mailed letter receives an NCOA match response, the vendor module records the old address as an NCOA-hit return and creates a new address history instance from the forwarding address, sourced as a postal service update.
 
-Agencies printing in-house receive returned mail physically. A collector retrieves the account, logs an NCOA action code, and the system prompts them to select which address the letter was returned from (from the entity's address history) and to enter or select the new address from the change-of-address sticker. The system records the old address as returned and creates the new address history instance. The scoring engine processes both updates through the normal event and workflow path.
+Agencies printing in-house receive returned mail physically. A collector retrieves the debt, logs an NCOA action code, and the system prompts them to select which address the letter was returned from (from the entity's address history) and to enter or select the new address from the change-of-address sticker. The system records the old address as returned and creates the new address history instance. The scoring engine processes both updates through the normal event and workflow path.
 
 ## Side Notes Captured For Future Discussion
 

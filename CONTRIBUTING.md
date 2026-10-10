@@ -75,7 +75,7 @@ Welcome, and expected: [START-HERE.md](START-HERE.md) is built for them. Two con
 ## Guardrails
 
 - **Antitrust.** Contributors come from competing companies. Describe operational mechanics; never share or solicit pricing, fee structures, contingency or commission rates, market or customer allocation, or statements about refusing to deal with particular parties. The Foundation's Antitrust Policy governs all community spaces, this repository included.
-- **Confidentiality.** General practice only. No consumer data, no account-level detail, no client-identifying specifics, nothing covered by an agreement you have signed.
+- **Confidentiality.** General practice only. No consumer data, no debt-level detail, no client-identifying specifics, nothing covered by an agreement you have signed.
 - **No legal advice.** Decision files describe what the platform records and supports. They are not legal or compliance advice, and contributions must not be framed as such.
 
 ## What happens to your contribution

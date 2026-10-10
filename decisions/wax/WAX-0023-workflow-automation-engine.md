@@ -17,15 +17,15 @@ Wax will include a user-configurable workflow automation engine. The engine supp
 
 ## Event Scopes
 
-Every event type declares a scope: account, debtor, user, client, payment, legal case, payment arrangement, or other entity types defined by modules. The scope is not metadata. It is the structural boundary that determines which fields are available as conditions and which action categories are applicable. The workflow designer validates scope-action compatibility at definition time. A condition referencing client billing status cannot be added to a user-scope workflow. An action that updates account status is not offered for a user-scope workflow. The scope-action matrix is enforced by the designer UI and by the engine at runtime.
+Every event type declares a scope: debt, debtor, user, client, payment, legal case, payment arrangement, or other entity types defined by modules. The scope is not metadata. It is the structural boundary that determines which fields are available as conditions and which action categories are applicable. The workflow designer validates scope-action compatibility at definition time. A condition referencing client billing status cannot be added to a user-scope workflow. An action that updates debt status is not offered for a user-scope workflow. The scope-action matrix is enforced by the designer UI and by the engine at runtime.
 
 ## The Two-Keyring Model
 
-Every event type declares a key ring: a typed list of primary key references to the entities in scope. A payment_posted event declares account_pk, payment_pk, and user_pk. The condition engine loads the current state of those entities and all reachable related entities through declared foreign key relationships at evaluation time. A condition can therefore evaluate any field reachable through the key ring without the event payload needing to carry that data.
+Every event type declares a key ring: a typed list of primary key references to the entities in scope. A payment_posted event declares debt_pk, payment_pk, and user_pk. The condition engine loads the current state of those entities and all reachable related entities through declared foreign key relationships at evaluation time. A condition can therefore evaluate any field reachable through the key ring without the event payload needing to carry that data.
 
 Every event carries two key rings. The pre_state_keys ring points to entity state before the triggering change. The post_state_keys ring points to entity state after the triggering change. For post-events, pre_state_keys resolves against the prior_value fields already stored in core.event by the enriched event sourcing architecture, and post_state_keys resolves against the current committed authoritative state tables. For pre-events, pre_state_keys resolves against the current authoritative state tables (which are the pre-change values) and post_state_keys resolves against a provisional state object constructed from the proposed write, held in a temporary evaluation context for the duration of the pre-event workflow execution.
 
-Conditions are always expressed as key ring traversal. For example: post_state.account.current_balance, or pre_state.address.postal_code. The engine resolves these consistently regardless of whether the value comes from committed database state or a provisional context. This means conditions are written identically for pre and post events, which is a significant contributor-friendliness benefit.
+Conditions are always expressed as key ring traversal. For example: post_state.debt.current_balance, or pre_state.address.postal_code. The engine resolves these consistently regardless of whether the value comes from committed database state or a provisional context. This means conditions are written identically for pre and post events, which is a significant contributor-friendliness benefit.
 
 The event payload may also carry event-specific properties, for example an address_changed event carries the full before and after address fields directly. These are redundant with what is reachable through the key ring but are provided as a convenience. The payload is the permanent audit record. The key rings are the condition evaluation interface. Both surfaces expose the same values through different access paths.
 
@@ -113,11 +113,11 @@ The trigger unit is the event_type string on a domain event row, or a named non-
 
 > **EVENT TYPE REGISTRY FIELDS**
 >
-> **event_type_code**: The namespaced string identifier (e.g., contact.phone_corrected, account.placed). Unique across the registry. Matches the event_type value written to core.event for domain event triggers. Non-domain triggers use a reserved namespace: scheduler.nightly_run, api.inbound_request.
+> **event_type_code**: The namespaced string identifier (e.g., contact.phone_corrected, debt.placed). Unique across the registry. Matches the event_type value written to core.event for domain event triggers. Non-domain triggers use a reserved namespace: scheduler.nightly_run, api.inbound_request.
 >
 > **owning_module**: The module that defined this event type. Core-defined types carry the module identifier 'core'. Module-defined types carry that module's identifier. The owning module is responsible for maintaining the registry entry when its event type schema changes.
 >
-> **category and subcategory**: Hierarchical classification for catalog browsing and search. Example categories: Account Lifecycle, Entity Demographics, Payment, Communication, System. Subcategories provide a second level within each category. The category taxonomy is owned by Core and extended by modules through the module contract.
+> **category and subcategory**: Hierarchical classification for catalog browsing and search. Example categories: Debt Lifecycle, Entity Demographics, Payment, Communication, System. Subcategories provide a second level within each category. The category taxonomy is owned by Core and extended by modules through the module contract.
 >
 > **display_label_fk**: Foreign key to the i18n translation table. The label shown in the designer UI trigger picker. Follows the full i18n architecture: no English strings stored directly in the registry.
 >
@@ -131,9 +131,9 @@ The trigger unit is the event_type string on a domain event row, or a named non-
 >
 > **property_payload_schema**: The typed schema of fields available to workflow conditions and actions when this trigger fires. Declared as a structured schema so the condition builder can present field navigation for the specific event type without requiring the workflow author to know the raw jsonb structure.
 
-The category taxonomy is the primary navigation structure for the catalog. Categories group related trigger types so a workflow author looking for account lifecycle triggers does not need to scroll through contact, payment, and communication types to find them. Search operates across event_type_code, display label, description, category, and subcategory. A workflow author can search for 'phone' and receive contact.phone_corrected, contact.phone_added, contact.phone_voided, and any module-contributed phone-related event types registered under the same search surface.
+The category taxonomy is the primary navigation structure for the catalog. Categories group related trigger types so a workflow author looking for debt lifecycle triggers does not need to scroll through contact, payment, and communication types to find them. Search operates across event_type_code, display label, description, category, and subcategory. A workflow author can search for 'phone' and receive contact.phone_corrected, contact.phone_added, contact.phone_voided, and any module-contributed phone-related event types registered under the same search surface.
 
-The registry also answers provenance questions in the audit trail. When a compliance officer asks 'what workflow fired when this account was placed?' the workflow execution log carries the trigger event_type and the workflow definition version. The registry entry for that event_type identifies the owning module, category, and description, making the audit trail self-describing without requiring the reader to know the platform internals.
+The registry also answers provenance questions in the audit trail. When a compliance officer asks 'what workflow fired when this debt was placed?' the workflow execution log carries the trigger event_type and the workflow definition version. The registry entry for that event_type identifies the owning module, category, and description, making the audit trail self-describing without requiring the reader to know the platform internals.
 
 ## Scheduled Future Events
 
@@ -177,7 +177,7 @@ Custom action types installed locally are the installing agency's responsibility
 
 ## Workflow Provenance and System Workflow Visibility
 
-Workflows in Wax carry a source type: Wax-delivered, Seed Pack-delivered, or User-defined. Wax-delivered workflows are the nuts-and-bolts system operations: updating aggregate balance fields when a payment posts, updating is_active when an account closes, detecting orphaned sets when an account leaves. These workflows are hidden by default from the workflow designer UI. An administrator with an explicit RBAC privilege and a 'show system workflows' toggle can view them. They may be modified (it is OSS) but the UI makes clear that modification of system workflows affects platform integrity.
+Workflows in Wax carry a source type: Wax-delivered, Seed Pack-delivered, or User-defined. Wax-delivered workflows are the nuts-and-bolts system operations: updating aggregate balance fields when a payment posts, updating is_active when a debt closes, detecting orphaned debt groups when a debt leaves. These workflows are hidden by default from the workflow designer UI. An administrator with an explicit RBAC privilege and a 'show system workflows' toggle can view them. They may be modified (it is OSS) but the UI makes clear that modification of system workflows affects platform integrity.
 
 The workflow definition record carries source_type (core, seed_pack, or user) and source_identifier (the contributing pack, for pack-delivered workflows). These fields establish the origin of a workflow definition. The full clone-and-override provenance model, including source_workflow_version_fk and the immutable clone entry in the version history table, is described in the Workflow Provenance and Version Tracking section below.
 
@@ -193,7 +193,7 @@ Three distinct concepts share the word "event" in workflow engine literature. Wa
 
 ## Wax-Delivered Workflows and the Clone-and-Override Model
 
-Wax ships a set of structural workflows that implement the platform's own operational logic: nightly user inactivity checks, orphan detection on account sets, key retention scheduling, aggregate balance maintenance, and similar. These are real workflow definitions that run through the same engine as agency-defined workflows. They are not hardcoded logic paths. An administrator with the appropriate RBAC privilege can enable a "show system workflows" view in the designer and inspect exactly what Wax does and why.
+Wax ships a set of structural workflows that implement the platform's own operational logic: nightly user inactivity checks, orphan detection on debt groups, key retention scheduling, aggregate balance maintenance, and similar. These are real workflow definitions that run through the same engine as agency-defined workflows. They are not hardcoded logic paths. An administrator with the appropriate RBAC privilege can enable a "show system workflows" view in the designer and inspect exactly what Wax does and why.
 
 Wax-delivered workflows are read-only in their delivered form. The agency cannot edit the Wax section of the catalog directly. To customize the behavior of a Wax-delivered workflow, the agency clones it. The clone lives in the Custom section of the catalog. The agency attaches the clone and detaches the Wax original. The Wax original remains present, visible, and reactivatable at any time. The override relationship is visible in both directions: the Wax entry shows which Custom workflow overrides it, and the Custom entry shows which Wax workflow it was cloned from.
 

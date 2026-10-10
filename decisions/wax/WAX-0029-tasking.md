@@ -2,9 +2,9 @@
 id: WAX-0029
 title: "Tasking"
 status: Accepted
-version: 1.0
+version: 2.0
 area: wax
-date: 2026-08-30
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-Wax will provide a Tasking subsystem for human work: assigning, tracking, discussing, and completing units of work performed by people. A task is an event-sourced aggregate in its own right. Its lifecycle, creation, assignment, reassignment, status change, comment, linkage, and completion, is a stream of task events, and the operational task store that worklists and queues read from is a projection of those events. A task may reference an account or another aggregate, or none, but always has its own task identity.
+Wax will provide a Tasking subsystem for human work: assigning, tracking, discussing, and completing units of work performed by people. A task is an event-sourced aggregate in its own right. Its lifecycle, creation, assignment, reassignment, status change, comment, linkage, and completion, is a stream of task events, and the operational task store that worklists and queues read from is a projection of those events. A task may reference a debt or another aggregate, or none, but always has its own task identity.
 
 ## Not To Be Confused With the Schedulers
 
@@ -21,13 +21,13 @@ Tasking is the third of three scheduling-adjacent subsystems and the only one wh
 
 ## Why Tasks Are Event-Sourced
 
-Tasks are event-sourced for the same reason domain facts are: the history must be trustworthy and queryable. The lifecycle of a task, who created it, who it was assigned to, who commented and what they said, when it escalated, and how it resolved, is exactly the kind of account narrative agencies reconstruct today from fuzzy free-text notes. As task events in core.event, that narrative is structured, attributed, timestamped, hash-chained, and queryable. The thread of comments is the task's event stream, so the back-and-forth between people is auditable by construction rather than by building a separate messaging log. Comment bodies that contain personal information sit in the same encryption envelopes as other payloads and are crypto-shreddable on the same terms, because a task is a standard aggregate and inherits the platform's encryption, retention, and integrity behavior uniformly.
+Tasks are event-sourced for the same reason domain facts are: the history must be trustworthy and queryable. The lifecycle of a task, who created it, who it was assigned to, who commented and what they said, when it escalated, and how it resolved, is exactly the kind of debt narrative agencies reconstruct today from fuzzy free-text notes. As task events in core.event, that narrative is structured, attributed, timestamped, hash-chained, and queryable. The thread of comments is the task's event stream, so the back-and-forth between people is auditable by construction rather than by building a separate messaging log. Comment bodies that contain personal information sit in the same encryption envelopes as other payloads and are crypto-shreddable on the same terms, because a task is a standard aggregate and inherits the platform's encryption, retention, and integrity behavior uniformly.
 
 Task volume is human-paced, so the cost of event-sourcing tasks is negligible against a chain that already carries every payment, contact, and status change. The uniformity is worth more than any selectivity would save: every task is recorded the same way, so no one consults a definition to learn whether a given task is in the record.
 
 ## The Task Aggregate
 
-A task carries its own status lifecycle, open, in progress, blocked, completed, and cancelled, independent of any account or other aggregate status. Each transition is a task event. A task holds a title and a description, a set of classification tags, an optional due time, an optional reference to a related aggregate such as an account, and a participant set. The task accumulates a thread of comment events from any participant, in order, each attributed and timestamped.
+A task carries its own status lifecycle, open, in progress, blocked, completed, and cancelled, independent of any debt or other aggregate status. Each transition is a task event. A task holds a title and a description, a set of classification tags, an optional due time, an optional reference to a related aggregate such as a debt, and a participant set. The task accumulates a thread of comment events from any participant, in order, each attributed and timestamped.
 
 ## Participants and Roles
 
@@ -49,27 +49,27 @@ The Tasking subsystem deliberately contains no timer and no rules engine of its 
 
 A task may reference other tasks through typed, directional links such as spawned-from, blocks, and relates-to. Each link is itself a task event, so the relationship is part of the auditable history rather than an informal note. In the interface, links render as navigable references: from one task a user jumps to a linked task and reads its closed thread. The most common pattern is spin-off work, where completing one task triggers a workflow that creates a follow-up task carrying a spawned-from link back to the task that produced it. The whole pattern is expressible with the existing workflow engine: task lifecycle events are triggers, create task is an existing action, and the link is a parameter that action sets.
 
-## Account Domain Facts Emerge From the Work
+## Debt Domain Facts Emerge From the Work
 
-Working a task produces domain facts on an account only when the work touches account state, and it does so through the normal command handlers, not through any task-specific mechanism. Requesting validation of debt, recording a contact, or instructing cancellation of a garnishment each lands on the account chain because a command was issued, while completing a purely internal task such as coaching an employee touches no account and produces no account event. The account record therefore fills with exactly the right domain facts and none of the operational churn, with no per-task configuration, because emission is emergent from whether the work touched account state.
+Working a task produces domain facts on a debt only when the work touches debt state, and it does so through the normal command handlers, not through any task-specific mechanism. Requesting validation of debt, recording a contact, or instructing cancellation of a garnishment each lands on the debt chain because a command was issued, while completing a purely internal task such as coaching an employee touches no debt and produces no debt event. The debt record therefore fills with exactly the right domain facts and none of the operational churn, with no per-task configuration, because emission is emergent from whether the work touched debt state.
 
 ## Attachments
 
-A task attachment is a reference to a document in the shared document store, not a copy of the document held on the task. The same stored document may be referenced from the task, from the account, and from other aggregates at once, so the interface shows the attachment on the task and the identical document on the account because they are one stored object with several references. The document entity, the multi-aggregate referencing model, and the underlying storage mechanism are specified in the Document Storage Architecture decision. Tasking holds the pointer; the document store owns the bytes.
+A task attachment is a reference to a document in the shared document store, not a copy of the document held on the task. The same stored document may be referenced from the task, from the debt, and from other aggregates at once, so the interface shows the attachment on the task and the identical document on the debt because they are one stored object with several references. The document entity, the multi-aggregate referencing model, and the underlying storage mechanism are specified in the Document Storage Architecture decision. Tasking holds the pointer; the document store owns the bytes.
 
 > **ILLUSTRATIVE WORKFLOW: VALIDATION OF DEBT, END TO END**
 >
 > **Step 1, request.
 >
-> **A workflow creates a task assigned to a client-portal user: provide validation of debt for this account. The task references the account, carries a debt-validation tag, and surfaces in the client portal.
+> **A workflow creates a task assigned to a client-portal user: provide validation of debt for this debt. The task references the debt, carries a debt-validation tag, and surfaces in the client portal.
 >
 > **Step 2, client responds.
 >
-> **The client completes the task in the portal and attaches the validation document. The attachment is a reference to the document store, and the same document is now referenced from the account as well.
+> **The client completes the task in the portal and attaches the validation document. The attachment is a reference to the document store, and the same document is now referenced from the debt as well.
 >
 > **Step 3, two events fire.
 >
-> **The task completion is recorded as a task event. Separately, validation of debt received lands on the account chain through the normal command handler, because real domain work occurred.
+> **The task completion is recorded as a task event. Separately, validation of debt received lands on the debt chain through the normal command handler, because real domain work occurred.
 >
 > **Step 4, the engine reacts.
 >
