@@ -131,3 +131,8 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Technical:** Purpose-built interface for promoting configuration between instances with diff preview, mandatory comments, and full audit history. Extends [WAX-0021](decisions/wax/WAX-0021-configuration-management-and-environment-lifecycle.md).
 **Target:** Wax v3+. Issue: #15.
+
+### Running bulk writes during live hours
+
+**Technical:** How bulk chunk writes coexist with live users, workflow rules, and readers while the system is in use. A chunk locks the state row of every aggregate in it until its transaction commits, so a user's write to one of those aggregates waits for the chunk, and a burst of bulk writes loads the database and the read models that follow it. Ideas to settle for the live system: throttling by working hours, with fewer workers and smaller chunks while people are working and full speed in the batch window; a lock-wait policy, such as skipping aggregates that are already locked and retrying them later, or a lock timeout with a retry; limits on chunk size and on concurrent chunks; how bulk workers and live commands that lock several aggregates avoid deadlocking one another; and whether a chunk could read and decide without holding locks, then lock, verify each aggregate's version, and write briefly, which would shorten lock time but loosens the rule that locks come before any read. Extends [WAX-0024](decisions/wax/WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md) and builds on [WAX-0013](decisions/wax/WAX-0013-event-chain-integrity-and-tamper-evidence.md).
+**Target:** Wax v2, with the bulk framework.
