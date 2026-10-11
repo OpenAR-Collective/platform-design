@@ -54,9 +54,15 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Changing a debt's grouping scheme
 
-**Technical:** Moving existing debts from one grouping scheme to another when a client changes how it places, including what happens to the groups, their aggregates, and their history. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
+**Technical:** Moving existing debts from one grouping scheme to another when a client changes how it places, including what happens to the groups and their history. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
 **From experience:** When a client changes how it sends you data, for example from account-level to charge-level placements, what do you do with the debts you already hold?
 **Target:** HiveAR v3.
+
+### Materialized totals
+
+**Technical:** Whether some totals of debt groups, which [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md) calculates when they are read, should also be kept as materialized views for speed, and how such a view would stay consistent with the buckets of the debts beneath it. A balance is stored only in a debt's buckets, so a materialized total would be a derived copy and never a second source of truth.
+**From experience:** Which totals do your collectors and reports need instantly, such as a patient's balance across visits, across how many debts, and how fresh must they be?
+**Target:** HiveAR v2.
 
 ### Client hierarchies
 
