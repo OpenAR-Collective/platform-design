@@ -61,7 +61,7 @@ A task attachment is a reference to a document in the shared document store, not
 >
 > **Step 1, request.
 >
-> **A workflow creates a task assigned to a client-portal user: provide validation of debt for this debt. The task references the debt, carries a debt-validation tag, and surfaces in the client portal.
+> **A workflow creates a task assigned to a client-portal user: provide validation for this debt. The task references the debt, carries a debt-validation tag, and surfaces in the client portal.
 >
 > **Step 2, client responds.
 >
