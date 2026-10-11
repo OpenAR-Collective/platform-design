@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR will record a dispute as a member object of the debt it concerns. A dispute says that the consumer disputes some or all of what the debt shows owed, and it names the amounts. Opening a dispute moves each named amount out of its bucket and into that bucket's disputed counterpart, where payments never reach it, and a dispute that names no amounts moves every balance that payments can reach. An amount comes back out of a counterpart in only two ways: it moves back to its bare bucket, which needs the consumer's recorded direction, or it leaves through the resolution of the dispute. Every move posts nothing to the ledger. The mechanism is the same in every jurisdiction. What a jurisdiction requires of a collector when a consumer disputes a debt is Compliance Pack content, and this decision states none of it.
+HiveAR will record a dispute as a member object of the debt it concerns. A dispute says that the consumer disputes some or all of what the debt shows owed, and it names the amounts. Opening a dispute moves each named amount out of its bucket and into that bucket's disputed counterpart, where payments never reach it, and a dispute that names no amounts moves every balance that payments can reach. An amount leaves a counterpart in only three ways: it moves back to its bare bucket, which needs the consumer's recorded direction, it leaves through the resolution of the dispute, or a balance adjustment reduces it. Every move posts nothing to the ledger. The mechanism is the same in every jurisdiction. What a jurisdiction requires of a collector when a consumer disputes a debt is Compliance Pack content, and this decision states none of it.
 
 ## A Dispute Is a Member of the Debt
 
@@ -31,7 +31,7 @@ HiveAR will record a dispute as a member object of the debt it concerns. A dispu
 >
 > **Reason**: the consumer's stated reason, as a free-text note under Wax Design Decision 12.
 >
-> **Status and outcome**: open, resolved, or withdrawn and, when resolved, whether the dispute was upheld, partly upheld, or not upheld.
+> **Status and outcome**: open, resolved, or withdrawn and, when resolved, whether the dispute was upheld, partly upheld, or not upheld. A dispute that a balance adjustment ends has no finding, and it is resolved with that adjustment recorded as the way it ended.
 
 ## Opening a Dispute
 
@@ -41,13 +41,17 @@ The debt's balance is the sum of its buckets, disputed counterparts included, so
 
 ## Narrowing and Withdrawing
 
-While a dispute is open, the consumer can narrow it. Narrowing moves some of the amount the dispute holds back to its bare bucket and is recorded as a dispute.narrowed event. The move back needs the consumer's direction, recorded as [HiveAR Design Decision 7](HIVE-0007-payment-application-and-waterfall.md) defines it, so a narrowing is accepted only when its command states that the consumer directed it, whoever enters the command. A payment whose explicit bucket amounts direct money to a held amount carries that direction, and its narrowing and its payment are one transaction. A narrowing that moves the last held amount back ends the dispute. The consumer can also withdraw the dispute outright, which moves everything it still holds back to the bare buckets, carries the same recorded direction, and is recorded as a dispute.withdrawn event.
+While a dispute is open, the consumer can narrow it. Narrowing moves some of the amount the dispute holds back to its bare bucket and is recorded as a dispute.narrowed event. The move back needs the consumer's direction, recorded as [HiveAR Design Decision 7](HIVE-0007-payment-application-and-waterfall.md) defines it, so a narrowing is accepted only when its command states that the consumer directed it, whoever enters the command. A payment whose explicit bucket amounts direct money to a held amount carries that direction, and its narrowing and its payment are one transaction. A narrowing that moves the last held amount back is a withdrawal of the dispute and is recorded as one. The consumer can also withdraw the dispute outright, which moves everything it still holds back to the bare buckets, carries the same recorded direction, and is recorded as a dispute.withdrawn event.
 
 ## Resolving
 
 A dispute is resolved by a finding, recorded as a dispute.resolved event with who made the finding and the source, that decides each amount the dispute still holds. An amount that the finding upholds is adjusted off by a balance adjustment taken from the disputed counterpart, with a dispute resolution reason code from the registry of [Wax Design Decision 20](../wax/WAX-0020-reason-code-registry.md). The adjustment follows HiveAR Design Decision 6: it posts nothing to the ledger and reverses no revenue, since the adjusted amount was never collected. An amount that the finding does not uphold stays in the counterpart until the consumer directs it back. A pack may set that a resolution moves such an amount back without a new direction, and a pack's value for that setting stays flagged until someone with compliance standing verifies it.
 
 A finding can also direct an amount to a bucket other than its bare bucket. The legal module is expected to do this for a court's judgment: the amount that the court awards moves by transfer to a judgment bucket, which can bear interest, and any held amount the court does not award is adjusted off. This decision provides the transfer and the adjustment that the module will use, and it does not define the judgment bucket. A dispute is upheld when its finding upholds everything it held, partly upheld when the finding upholds some of it, and not upheld when the finding upholds none of it.
+
+## Adjusting an Amount in Dispute
+
+A balance adjustment posts to a counterpart as it does to any bucket, because the counterpart is part of the debt's balance and a dispute does not block an adjustment. A client's balance-reducing adjustment and the forgiven remainder of a settlement can therefore take an amount out of a counterpart. A payment is the one thing that never posts there. An adjustment that reduces a counterpart names the dispute whose held amount it reduces, so that the counterpart still equals the sum of what the debt's open disputes hold. When the adjustment names none, it reduces the held amounts in the order in which the disputes were opened, the earliest first, each down to zero before the next. An adjustment reduces a held amount by at most what it holds. When an adjustment takes everything a dispute holds to zero, the dispute ends, as the status and outcome entry above describes. Whether a balance adjustment may increase a counterpart, such as a fee assessed on an amount in dispute, is not decided here, and OPEN-QUESTIONS.md records it as an open question.
 
 ## Defaults and Where Values Come From
 
@@ -69,7 +73,7 @@ This decision defines the dispute object, its scope, and its events. It does not
 
 A dispute is a member of the debt and never an aggregate root. No code creates a dispute aggregate or attributes a dispute event to anything but the debt.
 
-No code applies a payment to a disputed counterpart. An amount leaves a counterpart only through the events this decision defines: a move back with the consumer's recorded direction, an adjustment when a finding upholds it, or a transfer that a finding directs.
+No code applies a payment to a disputed counterpart. An amount leaves a counterpart only through the events this decision defines: a move back with the consumer's recorded direction, an adjustment when a finding upholds it or an ordinary balance adjustment reduces it, or a transfer that a finding directs.
 
 Every move between a bucket and its counterpart is a transfer, and a transfer posts nothing to the ledger.
 
