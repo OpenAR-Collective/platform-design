@@ -39,11 +39,11 @@ Confidence on this default order is Medium. It is the conventional fees-then-int
 
 ## Validation Itemization
 
-The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the validation itemization a notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The validation itemization is not the same thing as a debt's itemization, the static line-item history that a client may send at placement, which that decision also defines and which is never read into the balances.
+The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the validation itemization a notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The validation itemization is not the same thing as a debt's itemization, the static set of line items that a client may send at placement, although that decision describes how the lines dated after the itemization date help supply it. The itemization is never read into the balances.
 
 ## No Subject-Matter Structure
 
-This module deliberately attaches no subject-matter fields or sub-entities. Unsecured consumer debt has no collateral, no service lines, and no other subject matter beyond its buckets, so there is nothing for the debt-type extension framework to attach. The module stands as proof that the framework imposes nothing: a debt type with no subject matter is fully served by the core debt, its buckets, its roles, and its properties.
+This module deliberately attaches no subject-matter fields or sub-entities. Unsecured consumer debt has no collateral, no service lines, and no other subject matter beyond its buckets, so there is nothing for the debt-type extension framework to attach. The module stands as proof that the framework imposes nothing: a debt type with no subject matter is fully served by the core debt, its buckets, its roles, its properties, and the core itemization where the client sends one.
 
 ## Scope
 
