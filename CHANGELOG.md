@@ -9,7 +9,7 @@ To cite a decision, use its ID and version, for example "WAX-0006 v1.0". To pin 
 
 ## v0.2.0 (unreleased)
 
-- New decision family MOD-US for the United States layer, the content of HiveAR that depends on United States law or conventions, carried by the Locale Module, Region Pack, Language Pack, Compliance Pack, and Reference Pack constructs of WAX-0008. The validator accepts the MOD-US prefix. The first decision is MOD-US-0001 Itemization Date and Validation Itemization.
+- New decision family MOD-US for the United States layer, the content of HiveAR that depends on United States law or conventions, carried by the Locale Module, Region Pack, Language Pack, Compliance Pack, and Boilerplate Pack constructs of WAX-0008. The validator accepts the MOD-US prefix. The first decision is MOD-US-0001 Itemization Date and Validation Itemization.
 
 ## v0.1.0 (2026-08-30)
 
