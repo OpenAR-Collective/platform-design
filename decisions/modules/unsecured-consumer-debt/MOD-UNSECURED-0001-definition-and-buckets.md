@@ -2,9 +2,9 @@
 id: MOD-UNSECURED-0001
 title: "Definition and Buckets"
 status: Accepted
-version: 2.0
+version: 2.1
 area: module:unsecured-consumer-debt
-date: 2026-10-10
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -21,11 +21,11 @@ Almost the whole of this module is a declarative selection from the shared seed 
 
 ## The Buckets
 
-The module selects five balance buckets: client fees, agency fees, client interest, agency interest, and principal. The split is by ownership as well as by kind, because it drives remittance and commission under HiveAR Design Decisions 6 and 8. The three client-side buckets, client fees, client interest, and principal, are commissionable and remitted to the client. The two agency-side buckets, agency fees and agency interest, are the agency's own revenue, the charges it adds where the agreement or law allows. The buckets map to the categories of the United States validation itemization, so the validation itemization falls out of the balances rather than being assembled separately.
+The module selects five balance buckets: client fees, agency fees, client interest, agency interest, and principal. The split is by ownership as well as by kind, because it drives remittance and commission under HiveAR Design Decisions 6 and 8. The three client-side buckets, client fees, client interest, and principal, are commissionable and remitted to the client. The two agency-side buckets, agency fees and agency interest, are the agency's own revenue, the charges it adds where the agreement or law allows. The buckets map to the categories of a notice itemization, so the notice itemization falls out of the balances rather than being assembled separately.
 
 ## Interest Off by Default
 
-The module declares the debt interest-bearing-capable but ships interest accrual off. Post-charge-off interest is exactly the charge the FDCPA bars unless the agreement or law authorizes it, so whether interest accrues, and at what rate, is the Compliance Pack and the contract speaking, not the module asserting. The client-interest bucket holds interest that arrived in the placed balance, which is remitted; the agency-interest bucket holds interest the agency adds where it is permitted, which is its own revenue. With accrual off, both simply carry whatever interest was placed and nothing more.
+The module declares the debt interest-bearing-capable but ships interest accrual off, the cautious default. Whether interest accrues, and at what rate, is the contract and the Compliance Pack speaking, not the module asserting, and [United States Module Design Decision 5](../united-states/MOD-US-0005-interest-and-fees.md) states the United States federal rule on interest and fees that the federal pack applies. The client-interest bucket holds interest that arrived in the placed balance, which is remitted; the agency-interest bucket holds interest the agency adds where it is permitted, which is its own revenue. With accrual off, both simply carry whatever interest was placed and nothing more.
 
 ## Properties and Roles
 
@@ -33,13 +33,13 @@ The module declares two standardized properties from the Foundation-governed voc
 
 ## The Default Waterfall
 
-The module ships a default application order of client fees, agency fees, client interest, agency interest, and principal. A payment fills the buckets in that order, subject to the contract, a Compliance Pack mandate, and the per-payment override from [HiveAR Design Decision 7](../../hivear/HIVE-0007-payment-application-and-waterfall.md), and subject to the cross-debt Federal floor, which governs allocation across a debtor's debts and not allocation across buckets within one debt.
+The module ships a default application order of client fees, agency fees, client interest, agency interest, and principal. A payment fills the buckets in that order, subject to the contract, a Compliance Pack mandate, and the per-payment override from [HiveAR Design Decision 7](../../hivear/HIVE-0007-payment-application-and-waterfall.md), and subject to the rules for consumer directions and disputed amounts in HiveAR Design Decision 7.
 
 Confidence on this default order is Medium. It is the conventional fees-then-interest-then-principal sequence with client charges ahead of agency charges, and it is a defensible default, but a client-whole-first alternative, client fees, client interest, principal, then the agency's own add-ons, would pay the client's principal ahead of the agency's most legally exposed charges and is a live candidate for revision on fairness and exposure grounds. The order is an overridable default, so the choice is not load-bearing.
 
-## Validation Itemization
+## Notice Itemization
 
-The buckets correspond to the categories of the United States validation itemization, which [United States Module Design Decision 1](../united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) describes. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the validation itemization a notice presents is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The validation itemization is not the same thing as a debt's itemization, the static set of line items that a client may send at placement, although that decision describes how the lines dated after the itemization date help supply it. The itemization is never read into the balances. Which buckets carry interest and fees for this purpose is this module's statement, and what the notice must contain is not.
+The buckets correspond to the categories of the notice itemization that [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md) defines, such as the interest, fees, payments, and credits of the United States validation itemization that [United States Module Design Decision 1](../united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) describes. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the notice itemization a notice presents is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The notice itemization is not the same thing as a debt's itemization, the static set of line items that a client may send at placement, although that decision describes how the lines dated after the itemization date help supply it. The itemization is never read into the balances. Which buckets carry interest and fees for this purpose is this module's statement, and what the notice must contain is not.
 
 ## No Subject-Matter Structure
 
@@ -51,13 +51,13 @@ This module covers charged-off, contingency-placed consumer debt, a placed balan
 
 ## Implementation Phasing
 
-**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the mapping of its buckets to the categories of the validation itemization. No subject-matter structure. Compatible with the contingency contract type.
+**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the mapping of its buckets to the categories of the notice itemization. No subject-matter structure. Compatible with the contingency contract type.
 
 **Unsecured Consumer Debt Module v2+:** Interest accrual configuration where a Compliance Pack and the contract permit it. Compatibility with the debt-purchase contract type as that module matures. Any refinement the default waterfall warrants after review.
 
 **Breaking change risk: LOW. The module is a manifest selecting shared primitives and adds no structure, so it changes nothing in the core or the framework, and its elements are additive and overridable.**
 
-**Confidence: HIGH. Contingency-collected, charged-off unsecured consumer debt is well-trodden ground, and the buckets, properties, roles, and validation itemization are settled. The one element held at Medium is the default waterfall order, as noted in that section.**
+**Confidence: HIGH. Contingency-collected, charged-off unsecured consumer debt is well-trodden ground, and the buckets, properties, roles, and notice itemization are settled. The one element held at Medium is the default waterfall order, as noted in that section.**
 
 ## Implications For Contributors
 

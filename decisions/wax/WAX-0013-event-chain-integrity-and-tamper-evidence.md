@@ -2,9 +2,9 @@
 id: WAX-0013
 title: "Event Chain Integrity and Tamper-Evidence"
 status: Accepted
-version: 2.0
+version: 2.1
 area: wax
-date: 2026-10-09
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -103,7 +103,7 @@ Encryption happens at the serialization layer, not in application code. When an 
 >
 > **Runtime write validation**: before commit, the write path verifies that all PII-annotated fields in the payload are present as ciphertext, not plaintext. A payload containing recognizable plaintext in a PII-annotated field is rejected.
 >
-> **Periodic audit scanning**: a scheduled tool scans event payloads for values matching known PII patterns (SSN format, date of birth, credit card numbers). Any match in a non-encrypted field triggers an alert.
+> **Periodic audit scanning**: a scheduled tool scans event payloads for values matching known PII patterns (the national identity number formats that the installed Locale Modules declare, dates of birth, credit card numbers). Any match in a non-encrypted field triggers an alert.
 >
 > **UDT field default-to-encrypt**: UDT fields cannot be validated at compile time because their schema is defined at runtime. All UDT fields default to encrypted unless the agency explicitly marks them as non-PII during field definition. The schema builder UI requires a PII classification for every field and surfaces a prominent warning when the agency selects non-PII for a free-text field.
 >

@@ -2,9 +2,9 @@
 id: HIVE-0002
 title: "Entity Matching, Golden Record, and Locale-Aware Identity Resolution"
 status: Accepted
-version: 2.0
+version: 2.1
 area: hivear
-date: 2026-09-01
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -67,7 +67,7 @@ The specific matching algorithm (edit distance thresholds, phonetic matching lib
 
 **HiveAR v1 (MVP):** Not implemented; schema prepared. Entity primary keys must be UUIDs from day one. The entity-to-debt relationship table must support the canonical survivor pattern. The merge history table schema (ar.entity_merge) exists but remains empty, with columns for survivor, absorbed, merge_type, confidence_score, merged_by, merged_at.
 
-**HiveAR v2:** Basic entity matching: exact-match on SSN, name + DOB + address. Manual merge and unmerge with full audit trail. Golden record view (simple: most recent non-null value per field, no scoring).
+**HiveAR v2:** Basic entity matching: exact-match on a national identity number that a Locale Module declares, such as the SSN, and on name + DOB + address. Manual merge and unmerge with full audit trail. Golden record view (simple: most recent non-null value per field, no scoring).
 
 **HiveAR v3+:** Fuzzy and phonetic matching with confidence scoring. Locale-aware matching field registries. Automated matching with configurable thresholds. Full four-dimension scoring engine.
 

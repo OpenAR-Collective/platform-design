@@ -2,9 +2,9 @@
 id: WAX-0016
 title: "Data Access Architecture, Read Layer, and Direct Query Interface"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-08
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -27,7 +27,7 @@ Read access is provided through a view layer built on top of the authoritative s
 
 PII fields in the underlying tables are stored as ciphertext using pgcrypto column-level encryption as established in [Wax Design Decision 14](WAX-0014-encryption-and-data-protection.md). The corresponding view column calls a SECURITY DEFINER function to decrypt the value before returning it. SECURITY DEFINER is a PostgreSQL mechanism that executes the function with the privileges of the function's owner rather than the calling user. The function owner has SELECT permission on the key table. The calling user does not. The key material is therefore only accessible through the function's controlled code path, enforced by PostgreSQL's own permission system rather than by application convention.
 
-The result is that a developer, a reporting user, or a BI tool can write SELECT ssn FROM person_view and receive the plaintext social security number for any row their role permits them to see, without any knowledge of encryption, without any session variable setup, and without any application code involvement. The decryption is invisible.
+The result is that a developer, a reporting user, or a BI tool can select a national identity number from person_view, such as the ssn column that the US Locale Module contributes, and receive the plaintext value for any row their role permits them to see, without any knowledge of encryption, without any session variable setup, and without any application code involvement. The decryption is invisible.
 
 > **SECURITY DEFINER FUNCTION PROPERTIES**
 >
@@ -49,7 +49,7 @@ A database shows a stored amount at the scale of its column, which is not necess
 
 SECURITY DEFINER functions handle the column-level concern: decrypting a field value for an authorized caller. Row-level security handles the row-level concern: determining which records a given principal is permitted to see at all. The two mechanisms are complementary and independent.
 
-RLS policies on the underlying tables and views enforce that a principal only sees rows within their authorized scope: their organization, their assigned debts, their permitted business classes. The WSM's SECURITY DEFINER functions fire only for rows that RLS has already permitted. A principal cannot retrieve the decrypted SSN for a record they are not authorized to see, because RLS prevents the record from appearing in their result set before the decryption function is ever called.
+RLS policies on the underlying tables and views enforce that a principal only sees rows within their authorized scope: their organization, their assigned debts, their permitted business classes. The WSM's SECURITY DEFINER functions fire only for rows that RLS has already permitted. A principal cannot retrieve the decrypted national identity number for a record they are not authorized to see, because RLS prevents the record from appearing in their result set before the decryption function is ever called.
 
 This provides defense in depth. A bug in the application layer that incorrectly grants a user access to a record they should not see would still need to pass through RLS before that record appears in any query result. RLS is enforced by the database, not by the application, and cannot be bypassed by any query the principal submits directly to the database.
 

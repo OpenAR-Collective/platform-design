@@ -2,9 +2,9 @@
 id: HIVE-0007
 title: "Payment Application and Waterfall"
 status: Accepted
-version: 2.0
+version: 3.0
 area: hivear
-date: 2026-10-10
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR will apply each incoming payment or credit to a debt's balance buckets through a configurable waterfall, an ordered priority that determines which buckets a payment pays down and in what order. Application is the distribution step that decides where money lands; the general ledger from [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) is the posting step that books the result. When a debtor owes multiple debts and makes one payment, the payment is first allocated across debts, honoring the consumer's directions and excluding any disputed debt as Federal law requires, and then each debt's waterfall runs. Any money remaining after all eligible buckets are satisfied becomes the consumer credit balance from [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md).
+HiveAR will apply each incoming payment or credit to a debt's balance buckets through a configurable waterfall, an ordered priority that determines which buckets a payment pays down and in what order. Application is the distribution step that decides where money lands; the general ledger from [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) is the posting step that books the result. When a debtor owes multiple debts and makes one payment, the payment is first allocated across debts, honoring the consumer's directions and keeping any amount in dispute out of an allocation the consumer did not direct, and then each debt's waterfall runs. Any money remaining after all eligible buckets are satisfied becomes the consumer credit balance from [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md).
 
 ## Application Decides Where Money Lands; the Ledger Decides How It Books
 
@@ -29,11 +29,11 @@ Defaults come from modules and overrides from configuration, consistent with the
 
 The configured waterfall is the default path, not a constraint on the payment-taker. Whoever posts a payment, a cashier on the phone with the consumer, a file import, or an API caller, may override the waterfall by specifying explicit bucket amounts for that payment. There is no separate override permission, because the authority to take a payment is the authority to direct it: a payment-taker may at any moment be receiving the consumer's instructions about how to apply it, so the two cannot be separated. An override applies only to the payment that carries it and does not alter the debt's configured waterfall.
 
-## Multiple Debts and the Federal Floor
+## Multiple Debts, Consumer Directions, and Disputed Amounts
 
-When a debtor owes more than one debt and makes a single payment, Federal law governs how it is allocated across those debts. Under the Fair Debt Collection Practices Act, a collector may not apply any part of the payment to a disputed debt, and must apply the payment in accordance with the consumer's directions. A dispute may be raised orally, and the exclusion still binds. HiveAR treats this as a non-negotiable floor: the consumer's allocation directions are honored above any default, and a debt flagged as disputed is excluded from any allocation the consumer did not specifically direct.
+When a debtor owes more than one debt and makes a single payment, two rules govern how it is allocated across those debts, and no configuration relaxes either of them. The consumer's allocation directions are honored above any configured default. Money that the consumer did not direct applies only to amounts that are not in dispute: a debt whose whole balance is disputed receives nothing from it, a debt with a disputed part receives it only for the rest, and what cannot be applied becomes the consumer credit balance of [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md). Money reaches an amount in dispute only by the consumer's specific direction. Disputes arise in every jurisdiction, so both rules are core mechanisms that hold for every debt. What a jurisdiction's law says about them, such as how a debtor may raise a dispute and which debts its rule governs, is Compliance Pack content under [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md), and [United States Module Design Decision 4](../modules/united-states/MOD-US-0004-federal-payment-allocation-across-debts.md) describes the United States federal values.
 
-Above that floor, HiveAR offers configured cross-debt allocation for the common case where the consumer gives no specific direction. Version 1 provides two options, an even split across the debts in the working-level debt group and oldest-first by list date, and later versions add more as agencies ask for them. A consumer's direction can name a single debt or any group in the hierarchy, such as an invoice or a visit, and an allocation to a group is spread across the debts beneath it by the same options. The allocation across debts runs first, and then each debt's bucket waterfall runs on its share.
+Within those rules, HiveAR offers configured cross-debt allocation for the common case where the consumer gives no specific direction. Version 1 provides two options, an even split across the debts in the working-level debt group and oldest-first by list date, and later versions add more as agencies ask for them. A consumer's direction can name a single debt or any group in the hierarchy, such as an invoice or a visit, and an allocation to a group is spread across the debts beneath it by the same options. The allocation across debts runs first, and then each debt's bucket waterfall runs on its share.
 
 ## Currency in Application
 
@@ -49,23 +49,23 @@ A returned payment is reversed by backing out the exact distribution the origina
 
 ## Scope and Boundaries
 
-This decision covers the distribution of payments and credits across debts and buckets, the configurable waterfall, the per-payment override, the Federal multiple-debt floor, the v1 cross-debt allocation options, and the persisted application directive. It does not set commission rates or the rules that calculate the split, which belong to the client-billing decision and which the ledger consumes. Settlements, where a consumer resolves a debt for less than the full balance, are a complex area with their own decision; this waterfall applies the settlement payment, and the forgiven remainder is a balance adjustment under HiveAR Design Decisions 5 and 6 with no revenue reversal, since it was never collected. The full payment-arrangement definition is likewise its own decision and reuses the directive defined here. A debt's itemization is outside the waterfall: an itemization is static reference detail that is never posted against, as [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) describes, and this waterfall operates over a debt's buckets.
+This decision covers the distribution of payments and credits across debts and buckets, the configurable waterfall, the per-payment override, the rules for consumer directions and disputed amounts, the v1 cross-debt allocation options, and the persisted application directive. It does not set commission rates or the rules that calculate the split, which belong to the client-billing decision and which the ledger consumes. Settlements, where a consumer resolves a debt for less than the full balance, are a complex area with their own decision; this waterfall applies the settlement payment, and the forgiven remainder is a balance adjustment under HiveAR Design Decisions 5 and 6 with no revenue reversal, since it was never collected. The full payment-arrangement definition is likewise its own decision and reuses the directive defined here. A debt's itemization is outside the waterfall: an itemization is static reference detail that is never posted against, as [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) describes, and this waterfall operates over a debt's buckets.
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The configurable bucket waterfall with module-supplied defaults and contract-over-client-over-agency overrides. The per-payment bucket-amount override available to any payment-taker, whether cashier, file import, or API. The Federal multiple-debt floor of consumer-directed allocation and disputed-debt exclusion. Two cross-debt allocation options, even split across the working-level debt group and oldest-first by list date. Application of held credit balances through the same waterfall. The persisted application directive that an arrangement payment carries. Reversals that unwind the original distribution.
+**HiveAR v1 (MVP):** The configurable bucket waterfall with module-supplied defaults and contract-over-client-over-agency overrides. The per-payment bucket-amount override available to any payment-taker, whether cashier, file import, or API. The rules for consumer directions and disputed amounts: consumer-directed allocation above any default, and no money the consumer did not direct applied to an amount in dispute. Two cross-debt allocation options, even split across the working-level debt group and oldest-first by list date. Application of held credit balances through the same waterfall. The persisted application directive that an arrangement payment carries. Reversals that unwind the original distribution.
 
 **HiveAR v2:** Pro-rata distribution across equal-priority buckets within a waterfall tier, with its rounding rule, which rounds each share to the currency's minor unit under the rounding convention that the currency's Region Pack supplies. Additional cross-debt allocation options as agencies request them.
 
 **HiveAR v3+:** Further allocation strategies and sequencing refinements as feedback warrants, all additive to the waterfall model defined here.
 
-**Breaking change risk: LOW. Application consumes the [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) buckets and feeds the [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) ledger without changing either, and the waterfall, the allocation options, and the override are additive. The Federal multiple-debt floor is a correctness-critical behavior to get right at the start, since misapplied or wrongly directed payments are a compliance exposure, but the model itself is stable because it rests on the existing bucket and event-sourcing foundations.**
+**Breaking change risk: LOW. Application consumes the [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) buckets and feeds the [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) ledger without changing either, and the waterfall, the allocation options, and the override are additive. The rules for consumer directions and disputed amounts are correctness-critical behavior to get right at the start, since misapplied or wrongly directed payments are a compliance exposure, but the model itself is stable because it rests on the existing bucket and event-sourcing foundations.**
 
 ## Implications For Contributors
 
 Application distributes; the ledger posts. This decision produces per-bucket paydown amounts, and [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) books them. No code in the application path may post to the general ledger or compute commission directly.
 
-The Federal multiple-debt floor is absolute. Consumer allocation directions are honored above any default, and a disputed debt is never paid from a payment the consumer did not direct to it. This rule may not be overridden by configuration.
+The rules for consumer directions and disputed amounts are absolute. Consumer allocation directions are honored above any default, and an amount in dispute is never paid from money the consumer did not direct to it. No configuration overrides them, and a jurisdiction's law reaches them only through its Compliance Pack.
 
 A payment-taker may always direct a payment. The right to post a payment includes the right to override the waterfall with explicit bucket amounts, and no separate permission gates it.
 

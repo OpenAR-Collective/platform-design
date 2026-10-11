@@ -2,9 +2,9 @@
 id: WAX-0003
 title: "Database Platform"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -17,7 +17,7 @@ The Wax will use PostgreSQL as its primary relational database. This decision ap
 
 ## Rationale
 
-The accounts receivable domain has a well-understood, legally defined data model. The FDCPA, FCRA, Regulation F, and state consumer protection statutes prescribe what data must be captured, maintained, and auditable. That clarity is an asset, not a constraint. A fixed, enforced schema at the database level is a compliance feature, not a limitation to design around.
+The accounts receivable domain has a well-understood data model, and in the jurisdictions where agencies collect, collection and consumer protection law shapes what data must be captured, maintained, and auditable. That clarity is an asset, not a constraint. A fixed, enforced schema at the database level is a compliance feature, not a limitation to design around.
 
 ## PostgreSQL is the correct tool for this workload for several reasons:
 
