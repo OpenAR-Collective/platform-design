@@ -156,7 +156,7 @@ Each contributed value includes translations for every Language Pack installed o
 
 ## Multiple Packs
 
-The Collective will develop and maintain multiple Packs targeting different operation types. These packages are independently installable and can be layered: an agency doing healthcare collections might install the generic third-party Pack as a foundation and then install the healthcare-specific Pack on top, which adds healthcare-specific values without duplicating the generic ones. The packs for operation types below are Vocabulary Packs, and the packs for jurisdictions are Compliance Packs, as [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) distinguishes them.
+The Collective will develop and maintain multiple Packs targeting different operation types. These packages are independently installable and can be layered: an agency doing healthcare collections might install the generic third-party Pack as a foundation and then install the healthcare-specific Pack on top, which adds healthcare-specific values without duplicating the generic ones. The packs for operation types below are Reference Packs, and the packs for the compliance rules of jurisdictions are Compliance Packs, as [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) distinguishes them.
 
 ## Planned Packs include:
 
