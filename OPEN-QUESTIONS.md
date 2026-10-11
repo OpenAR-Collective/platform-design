@@ -90,8 +90,20 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Commercial collection rules in the United States
 
-**Technical:** The federal and state rules that govern collecting commercial debt in the United States, such as licensing, bonding, conduct, and contact rules for collectors of business debts, researched separately from the consumer rules of [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) and [MOD-US-0003](decisions/modules/united-states/MOD-US-0003-federal-contact-times-and-call-frequency.md) and supplied as Compliance Pack content for debts whose debt type declares the commercial regulatory nature under [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md). Which consumer protections do not reach commercial debt, and which apply anyway, needs verification by someone with compliance standing.
+**Technical:** The federal and state rules that govern collecting commercial debt in the United States beyond the licensing values that [MOD-US-0006](decisions/modules/united-states/MOD-US-0006-state-collection-licensing.md) records, such as the conduct and contact rules that several states attach to their licensees and that reach commercial debtors, the limits on what a collector may add to a commercial claim, and the federal rules that apply whatever a debt's nature, researched separately from the consumer rules of [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) and [MOD-US-0003](decisions/modules/united-states/MOD-US-0003-federal-contact-times-and-call-frequency.md) and supplied as Compliance Pack content for debts whose debt type declares the commercial regulatory nature under [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md). Which consumer protections do not reach commercial debt, and which apply anyway, needs verification by someone with compliance standing.
 **From experience:** If you collect business debts, which rules do you follow that differ from consumer collection: licensing, bonding, when and how you may call, or something else?
+**Target:** HiveAR v2.
+
+### Conditions that a collector's authorization carries
+
+**Technical:** How the platform honors the conditions that a license or registration carries under [HIVE-0011](decisions/hivear/HIVE-0011-collector-licensing.md), such as keeping a bond in force, depositing collections in a trust account within a set time, and remitting to clients within a deadline, which touch the client billing of [HIVE-0008](decisions/hivear/HIVE-0008-client-billing-invoicing-and-statements.md) and a trust accounting capability. The conditions differ by jurisdiction and need verification.
+**From experience:** Which license conditions do you track by hand today, such as bond renewals, trust deposit timing, or remittance deadlines, and what happens when one slips?
+**Target:** HiveAR v3.
+
+### Facts that a rule reads beyond the debt type
+
+**Technical:** The facts that a Compliance Pack rule may read to decide which debts and parties it governs, beyond the regulatory nature that a debt type declares under [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md): whether a party is a person or a business and its role, such as guarantor, under [HIVE-0001](decisions/hivear/HIVE-0001-entity-data-model-person-business-and-entity-relationships.md), the creditor's type, the dates on which a debt was originated, renewed, sold, or assigned, the amount owed to one creditor, and whether the collector holds a license under [HIVE-0011](decisions/hivear/HIVE-0011-collector-licensing.md). Some state rules for commercial debt read such facts, and which ones they read needs verification.
+**From experience:** When a rule applies to some of your business debts and not others, what decides it: who owes the debt, who guaranteed it, who the creditor is, when the debt was sold to you, or something else?
 **Target:** HiveAR v2.
 
 ### Generative consumer-facing content
@@ -177,4 +189,10 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Technical:** How a federal Compliance Pack and a state pack combine when both speak to one subject, which one controls, and how a pack states that no rule was found or that a jurisdiction is not yet researched. Builds on [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md) and [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md).
 **From experience:** When a federal rule and a state rule differ on the same point, how does your company decide which one governs, and who signs off on that choice?
+**Target:** Wax v2.
+
+### Jurisdictions below the state or province level
+
+**Technical:** How a Compliance Pack for a city or another local government is identified and layered, since the ISO 3166 identifiers of [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md) reach countries and their subdivisions only, while some collection rules are local, such as a city's license for collection agencies that [MOD-US-0006](decisions/modules/united-states/MOD-US-0006-state-collection-licensing.md) notes. Which local rules exist needs verification.
+**From experience:** Do you hold a city or county license or follow a local rule for collection, and how do you track it today?
 **Target:** Wax v2.
