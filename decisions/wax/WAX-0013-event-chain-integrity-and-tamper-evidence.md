@@ -2,9 +2,9 @@
 id: WAX-0013
 title: "Event Chain Integrity and Tamper-Evidence"
 status: Accepted
-version: 1.1
+version: 2.0
 area: wax
-date: 2026-10-08
+date: 2026-10-09
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -15,17 +15,19 @@ license: CC-BY-4.0
 
 Wax will implement cryptographically verifiable, tamper-evident audit history through three complementary mechanisms: per-aggregate hash chaining within core.event, delta-based periodic checkpoint anchoring to an external RFC 3161 trusted timestamp authority, and a formal break-glass process for authorized chain modifications. PII fields in event payloads will be protected through serialization-layer cryptographic erasure, with the encryption key as the retention mechanism rather than record deletion. A pluggable anchor interface allows alternative anchoring mechanisms to be added in future. The Foundation will not operate a timestamp authority, a blockchain, or any other anchoring service; anchoring relies on independent third parties, and the Foundation's role is limited to shipping a recommended default and, on request, suggesting alternatives.
 
+Integrity rests on the aggregate-level hash chains and the checkpoints. The global sequence number orders the event store and bounds the checkpoint windows, but it has no integrity role of its own: gaps in it are expected and prove nothing, and it is not part of an event's hashed content.
+
 ## Why This Matters
 
 Incumbent collections platforms were largely built when an audit trail meant a log table that a system administrator could edit. Regulatory requirements and litigation exposure have grown enormously since then, but the underlying infrastructure has not kept pace. Wax will be the first platform in the AR industry to build cryptographically sealed, independently verifiable audit history into its core architecture from inception. Agencies running Wax will be able to demonstrate to regulators, creditors, and consumers that their operational records are trustworthy and provably unaltered, in a way no proprietary closed-source platform can credibly claim.
 
 ## Per-Aggregate Hash Chaining
 
-core.event is a single shared table. Every event from every aggregate across the entire system is written into it: a payment posted on account A and an address changed on account B are both rows in the same table. The table carries a global sequence number, a monotonically increasing integer assigned by PostgreSQL's sequence generator, which establishes a total ordering of all events written to the store.
+core.event is a single shared table. Every event from every aggregate across the entire system is written into it: a payment posted on account A and an address changed on account B are both rows in the same table. The table carries a global sequence number, a monotonically increasing integer assigned by PostgreSQL's sequence generator, which establishes a total ordering of all events written to the store. The global sequence number is an ordering, not evidence. Readers follow the stream by it and checkpoints define their windows by it, as described below, but nothing in the integrity design depends on it being contiguous.
 
-Two columns in core.event support per-aggregate hash chaining: event_hash and prior_event_hash. Both are formally declared in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md). The event_hash column stores a SHA-256 cryptographic hash computed over the event's full payload, meaning every field of the standard event payload that Wax Design Decision 1 defines, including prior_event_hash and excluding only event_hash itself. The hash is defined over the full payload and not over a list of named fields, so a field that a later release adds to the standard event payload is covered automatically for every event written after it. A field that has no value is left out of the hashed content, so adding a field never changes the hash of an event already stored. The WSM reads the values that the store assigns, recorded_at and the two sequence numbers, before it computes the hash, in the same transaction as the write. The prior_event_hash column stores the event_hash of the immediately preceding event for the same aggregate, linking every event cryptographically to its predecessor within that aggregate's own history.
+Two columns in core.event support per-aggregate hash chaining: event_hash and prior_event_hash. Both are formally declared in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md). The event_hash column stores a SHA-256 cryptographic hash computed over the event's full payload, meaning every field of the standard event payload that Wax Design Decision 1 defines, including prior_event_hash and excluding only event_hash itself and global_sequence_number. The hash is defined over the full payload and not over a list of named fields, so a field that a later release adds to the standard event payload is covered automatically for every event written after it. A field that has no value is left out of the hashed content, so adding a field never changes the hash of an event already stored. The WSM reads the values that the store assigns and the hash covers, recorded_at and aggregate_sequence_number, before it computes the hash, in the same transaction as the write. The global sequence number is left out so that an event's hash depends only on its own aggregate's history and on nothing written elsewhere in the store. Its place in the global order is sealed by the checkpoint that covers it. The prior_event_hash column stores the event_hash of the immediately preceding event for the same aggregate, linking every event cryptographically to its predecessor within that aggregate's own history.
 
-Hash chaining is per-aggregate rather than global. A global chain would require every new event to know the hash of the single globally preceding event, serializing all writes system-wide and making concurrent writes to different aggregates impossible. Per-aggregate chains are independent sequences that live within the shared core.event table. Account A's chain and Account B's chain do not reference each other. Account A's prior_event_hash at sequence 1000 points to Account A's previous event at sequence 947, regardless of what was written at sequences 948 through 999 for other aggregates. Multiple aggregates can write concurrently without conflict because their chains never intersect.
+Hash chaining is per-aggregate rather than global. A global chain would require every new event to know the hash of the single globally preceding event, serializing all writes system-wide and making concurrent writes to different aggregates impossible. Per-aggregate chains are independent sequences that live within the shared core.event table. Account A's chain and Account B's chain do not reference each other. Account A's prior_event_hash at sequence 1000 points to Account A's previous event at sequence 947, regardless of what was written at sequences 948 through 999 for other aggregates. Multiple aggregates can write concurrently without conflict because their chains never intersect. The same independence lets a designated bulk operation write the events of many aggregates in one transaction, as [Wax Design Decision 24](WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md) describes, because no event's hash waits on another aggregate's.
 
 Same-aggregate write serialization is enforced by a SELECT FOR UPDATE row lock on the aggregate's authoritative state row, acquired before any hash computation or event write begins. If two command handlers attempt to write to the same aggregate simultaneously, the second blocks on the lock until the first transaction commits. This guarantees that each event for a given aggregate sees the correct prior event hash and that no two events claim the same predecessor. The lock is held only for the duration of the write transaction and released immediately on commit.
 
@@ -33,19 +35,19 @@ The hash is computed over the encrypted ciphertext of PII fields, not the plaint
 
 Each value enters the hash in the form in which it is stored in the payload. A monetary amount is hashed as the canonical string defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md), exactly as the framework's money type wrote it, and it is never derived again from a number at verification time. A civil date or an instant is hashed in the single ISO 8601 written form defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md). A later change to a currency's standard number of digits therefore cannot change the hash of an event already stored.
 
-## Three Complementary Integrity Tiers
+## Two Complementary Integrity Tiers
 
-Wax's tamper-evidence architecture operates across three independent and complementary tiers. Each tier catches different classes of tampering. No single tier is sufficient on its own, and each tier provides guarantees that the others cannot.
+Wax's tamper-evidence architecture operates across two independent and complementary tiers. Each tier catches tampering that the other cannot, and neither is sufficient on its own.
 
 > **WHAT EACH TIER CATCHES**
 >
-> **Per-aggregate hash chain**: catches modifications and deletions within a specific account's history. This is the finest-grained mechanism. If any event for account A is deleted or its content changed, account A'x27;s chain breaks at that point. The break is detectable by recomputing hashes and finding a mismatch with the stored prior_event_hash values. Does not detect tampering with other accounts' events.
+> **Per-aggregate hash chain**: catches modifications and deletions within one aggregate's history. This is the finest-grained mechanism. If any event for account A is deleted or its content changed, account A's chain breaks at that point. The break is detectable by recomputing hashes and finding a mismatch with the stored prior_event_hash values. Does not detect tampering with other aggregates' events, and does not detect the removal of an aggregate's most recent event, since no later event refers to it.
 >
-> **Global sequence numbers**: catch deletions anywhere in the event store, across all aggregates. The sequence is globally assigned and must be gapless. If any event is deleted, a gap appears in the sequence. A verifier scanning for gaps detects the deletion even if the per-aggregate chain for that aggregate has no other events that would reveal the break. Does not catch modifications to existing records, only deletions.
->
-> **Delta checkpoint hash**: catches both deletions and modifications within a checkpoint window, across all aggregates. The checkpoint hash is computed over all events in a sequence number window in order. If any event in the window is deleted or its content changed, the recomputed hash will not match the RFC 3161 anchored value. Provides the broadest global coverage but at checkpoint granularity rather than per-event granularity.
+> **Delta checkpoint hash**: catches deletions, insertions, and modifications within a checkpoint window, across all aggregates. The checkpoint hash is computed over all events in a sequence number window in order. If any event in the window is deleted, added, or changed, the recomputed hash will not match the RFC 3161 anchored value. Provides the broadest coverage, at checkpoint granularity rather than per-event granularity, and covers an event only once a checkpoint has been taken after it was written.
 
-Together, the three tiers provide defense in depth. The per-aggregate chain provides the strongest per-account guarantee. Global sequence gap detection provides a fast, cheap system-wide deletion check requiring no cryptographic tools. The delta checkpoint provides cryptographic proof of system-wide integrity at a point in time, externally anchored and independently verifiable by any third party.
+Together, the two tiers provide defense in depth. The per-aggregate chain provides the strongest guarantee for each aggregate and needs no outside party. The delta checkpoint provides cryptographic proof of system-wide integrity at a point in time, externally anchored and independently verifiable by any third party.
+
+A third tier, a scan of the global sequence for gaps, was considered and rejected. It works only if the sequence is gapless, and a PostgreSQL sequence is not: a transaction that draws a number and then rolls back leaves a gap that is never filled. Making the sequence gapless would force every write in the system to wait on a single counter, which is the serialization that aggregate-level chaining exists to avoid. With gaps expected, a gap proves nothing by itself, and the checkpoint would have to decide every case anyway.
 
 ## Delta-Based External Checkpoint Anchoring
 
@@ -53,11 +55,13 @@ The checkpoint module periodically computes a checkpoint hash covering only the 
 
 Delta-based checkpoints are essential for the break-glass mechanism to remain useful. A cumulative checkpoint, one that hashes the entire event history from the beginning, would be invalidated by any authorized break anywhere in history, rendering all subsequent checkpoints permanently suspect. A delta checkpoint covers only a defined window of sequence numbers. An authorized break within a window invalidates at most the checkpoint spanning that window. All prior checkpoints and all subsequent checkpoints covering events written after the break remain fully valid and independently verifiable.
 
+A checkpoint window ends at the high-water mark defined in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md), never simply at the highest sequence number drawn so far. A sequence number is drawn when an event is inserted, not when its transaction commits, so a transaction still open when the checkpoint is computed may hold a lower number than events already visible. If the window ended past it, that event would commit later inside a window already anchored without it, and the next verification would report a failure that no one caused. Every number at or below the high-water mark is settled, because the transaction that drew it has either committed or rolled back. Once a window ending there is anchored, any event that later appears inside it or disappears from it changes the recomputed hash.
+
 > **CHECKPOINT RECORD SCHEMA**
 >
 > **start_sequence_number**: the first event sequence number covered by this checkpoint.
 >
-> **end_sequence_number**: the last event sequence number covered by this checkpoint.
+> **end_sequence_number**: the last event sequence number covered by this checkpoint, which is the high-water mark at the time the checkpoint was computed.
 >
 > **checkpoint_hash**: SHA-256 hash computed over all events in the window in sequence number order.
 >
@@ -75,7 +79,7 @@ Checkpoint records are stored in a dedicated append-only table. For installation
 
 Verification walks the checkpoint sequence in order. For each checkpoint, the verifier recomputes the hash over the events in the declared sequence number window and compares it to the hash stored in the checkpoint record. The TSA token is independently verified using the TSA's public certificate, confirming the checkpoint existed at the recorded time. A checkpoint that passes both verifications is clean. A checkpoint that fails hash comparison triggers a break record lookup within that sequence window.
 
-The verifier runs a separate sequence number gap scan across core.event independently of the checkpoint walk. Every sequence number from the minimum to the maximum present in the table must exist. A missing sequence number is a signal to run checkpoint verification for the window containing the gap. The checkpoint hash is the authoritative determination of what happened: if the checkpoint for that window validates correctly against its RFC 3161 token, the gap was a legitimate rollback artifact from a transaction that acquired the sequence number and then rolled back before committing. If the checkpoint fails to validate, a record was deleted. The gap scan is a fast, cheap first pass that identifies windows requiring cryptographic investigation. The checkpoint is the oracle that resolves whether a gap is benign or evidence of tampering.
+Gaps in the global sequence are expected, and the verifier does not look for them. A transaction that draws a number and then rolls back leaves one, and so does a crash between drawing a number and committing. A missing event is found instead by the checkpoint whose window held it and, when its aggregate has later events, by that aggregate's chain.
 
 When a break is detected, the checkpoint history provides a precise time window for the event. The most recent checkpoint before the break that verifies cleanly establishes the last known-clean state. The failed checkpoint establishes the window during which the modification occurred. More frequent checkpointing narrows this window. Hourly checkpoints localize any tampering to within one hour. The agency configures the checkpoint interval based on risk tolerance.
 
@@ -183,7 +187,9 @@ The checkpoint module defines an anchor interface with two methods: submit_check
 
 The hash computation specification, including the full-payload rule, the serialization order, and the written form of each kind of value, which is the canonical string defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md) for a monetary amount and the ISO 8601 form defined in [Wax Design Decision 12](WAX-0012-date-time-timezone-and-freeform-note-language.md) for a civil date or an instant, must be formally specified and must never change after deployment. Any change breaks all existing chains.
 
-The Wax Security Module (WSM) computes event_hash and prior_event_hash within the same atomic transaction as the event write. Command handlers do not compute hash values directly. Invoking the WSM hash computation is a required step in the command handler write path; a write that bypasses it is a critical invariant violation. Hash values may not be computed after the fact.
+The Wax Security Module (WSM) computes event_hash and prior_event_hash within the same atomic transaction as the event write. Command handlers do not compute hash values directly. Invoking the WSM hash computation is a required step in every write path, including the bulk chunk path defined in [Wax Design Decision 24](WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md); a write that bypasses it is a critical invariant violation. Hash values may not be computed after the fact.
+
+The global sequence number is not part of the hashed content and carries no integrity meaning. No component may require it to be contiguous or treat a gap in it as evidence. A checkpoint window ends at the high-water mark and never past it.
 
 Every field in every event payload schema must carry an explicit PII classification. A payload schema with any unannotated field does not compile. This rule applies to Wax, to all module-contributed event types, and to all UDT-generated event types.
 
