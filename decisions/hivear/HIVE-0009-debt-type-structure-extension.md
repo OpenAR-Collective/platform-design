@@ -2,7 +2,7 @@
 id: HIVE-0009
 title: "Debt-Type Structure Extension"
 status: Accepted
-version: 2.0
+version: 3.0
 area: hivear
 date: 2026-10-10
 supersedes: none
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR will let a debt-type module attach the subject-matter structure of its debt to the core debt, while the core debt itself ships no subject-matter structure of its own. The core debt is the stable hub that carries who is involved, how much is owed and the itemization that supports it, and how debts are grouped, established in HiveAR Design Decisions 1, 5, and 4. What a debt is about, the service detail on its itemization lines, its collateral, its itemized fees, varies completely by type and lives entirely in the debt-type module, attached through the same table, view, and registry machinery the platform already uses. A debt-type module also declares a small set of standardized properties about its debt, drawn from a Foundation-governed vocabulary, which other modules, the locale region packs in particular, read to apply rules without knowing the module by name. Debt role types are an extensible registry, so a module contributes the roles its debt needs alongside its structure.
+HiveAR will let a debt-type module attach the subject-matter structure of its debt to the core debt, while the core debt itself ships no subject-matter structure of its own. The core debt is the stable hub that carries who is involved, how much is owed and the itemization that supports it, and how debts are grouped, established in HiveAR Design Decisions 1, 5, and 4. What a debt is about, the service detail on its itemization lines, its collateral, its itemized fees, varies completely by type and lives entirely in the debt-type module, attached through the same table, view, and registry machinery the platform already uses. A debt-type module also declares a small set of standardized properties about its debt, drawn from a Foundation-governed vocabulary, which other modules and the Compliance Packs read to apply rules without knowing the module by name. Debt role types are an extensible registry, so a module contributes the roles its debt needs alongside its structure.
 
 ## The Core Debt Is the Hub; Subject Matter Hangs Off It
 
@@ -31,11 +31,11 @@ A debt-type module attaches subject-matter structure to the debt in three forms:
 
 ## Standardized Debt-Type Properties
 
-Beyond structure, a debt-type module declares a small set of standardized properties describing the nature of its debt, drawn from a vocabulary the Foundation governs. The vocabulary covers properties such as regulatory nature, consumer versus commercial, secured versus unsecured, and interest-bearing or not. These properties are the cross-module read seam. Another module reads a debt's declared properties rather than testing for a specific module's identity, so a region pack decides whether consumer protections apply by reading the declared regulatory nature, never by hard-coding which debt-type module is the commercial one. Because the Foundation authors both the debt-type modules and the region packs, the property vocabulary stays coherent across them, and cross-module references resolve cleanly against a shared, governed set of terms rather than against guesses about another module's internals.
+Beyond structure, a debt-type module declares a small set of standardized properties describing the nature of its debt, drawn from a vocabulary the Foundation governs. The vocabulary covers properties such as regulatory nature, consumer versus commercial, secured versus unsecured, and interest-bearing or not. These properties are the cross-module read seam. Another module reads a debt's declared properties rather than testing for a specific module's identity, so a Compliance Pack decides whether consumer protections apply by reading the declared regulatory nature, never by hard-coding which debt-type module is the commercial one. Because the Foundation authors both the debt-type modules and the Compliance Packs, the property vocabulary stays coherent across them, and cross-module references resolve cleanly against a shared, governed set of terms rather than against guesses about another module's internals.
 
-## Compliance Lives in the Locale Layer
+## Compliance Lives in the Compliance Packs
 
-Compliance rules are not part of a debt-type module and are not part of this decision. They live in the locality modules and region packs, the locale layer that a working configuration already requires, which is what keeps the platform internationalization-friendly. A region pack's rules read the debt's debt type and the standardized properties declared above to apply the correct regime, so a United States region pack applies its consumer rules to consumer debt and withholds them from commercial debt by reading the declared regulatory nature. This decision defines the properties that compliance rules read; it does not define the rules. The actual regime, validation, and communication constraints belong to the region pack and to a separate compliance treatment.
+Compliance rules are not part of a debt-type module and are not part of this decision. They live in the Compliance Packs of [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md), one for each jurisdiction, which a working configuration already requires and which keep the platform internationalization-friendly. A Compliance Pack's rules read the debt's debt type and the standardized properties declared above to apply the correct regime, so the United States federal pack applies its consumer rules to consumer debt and withholds them from commercial debt by reading the declared regulatory nature. This decision defines the properties that compliance rules read; it does not define the rules. The actual regime, validation, and communication constraints belong to the Compliance Pack and to a separate compliance treatment.
 
 ## Debt Role Types Are an Extensible Registry
 
@@ -47,17 +47,17 @@ The framework reads most concretely against several debt types. A healthcare mod
 
 ## Scope and Boundaries
 
-This decision defines the extension mechanism, the standardized property vocabulary, and the extensibility of the debt role registry. It does not define any single module's structure in full; the worked examples illustrate the framework rather than specify those modules. Compliance rules live in the locale layer and only read this decision's properties. The chain of title, the original and prior creditors behind a purchased debt, is debt lineage's concern and not subject-matter structure. The healthcare service line fields remain their own item as the first concrete realization of this framework: this decision shows them as a worked example, and the full healthcare module specification, the complete field set and the service-line semantics, is its own later work. The core itemization that those fields extend is defined in [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md).
+This decision defines the extension mechanism, the standardized property vocabulary, and the extensibility of the debt role registry. It does not define any single module's structure in full; the worked examples illustrate the framework rather than specify those modules. Compliance rules live in the Compliance Packs and only read this decision's properties. The chain of title, the original and prior creditors behind a purchased debt, is debt lineage's concern and not subject-matter structure. The healthcare service line fields remain their own item as the first concrete realization of this framework: this decision shows them as a worked example, and the full healthcare module specification, the complete field set and the service-line semantics, is its own later work. The core itemization that those fields extend is defined in [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md).
 
 ## Implementation Phasing
 
 **HiveAR v1 (MVP):** The extension mechanism by which a debt-type module attaches subject-matter fields and sub-entities to the core debt, and fields to the lines of its itemization, through the existing table, view, and registry machinery, inheriting row-level security, encryption, internationalized labels, and reporting views. The standardized debt-type property vocabulary and the cross-module read seam. The debt role registry as extensible. At least one debt-type module is required for a working install, consistent with [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md).
 
-**HiveAR v2:** Expansion of the standardized property vocabulary as additional debt types and region packs reveal new cross-module needs. Richer module-provided structure as the debt-type module set grows.
+**HiveAR v2:** Expansion of the standardized property vocabulary as additional debt types and Compliance Packs reveal new cross-module needs. Richer module-provided structure as the debt-type module set grows.
 
 **HiveAR v3+:** Further extension points as new debt types require them, all additive, since the core hub does not change to accommodate a new debt type.
 
-**Breaking change risk: LOW. The mechanism reuses the platform's existing table, view, and registry machinery, and module structure is additive and isolated to the module. The element to get right at the foundation is the standardized property vocabulary, since region packs and other modules depend on its stability; it follows the same governed-registry discipline as buckets, reason codes, and role types, and the core debt hub does not change when a debt type is added.**
+**Breaking change risk: LOW. The mechanism reuses the platform's existing table, view, and registry machinery, and module structure is additive and isolated to the module. The element to get right at the foundation is the standardized property vocabulary, since Compliance Packs and other modules depend on its stability; it follows the same governed-registry discipline as buckets, reason codes, and role types, and the core debt hub does not change when a debt type is added.**
 
 ## Implications For Contributors
 
@@ -65,8 +65,8 @@ The core ships no subject-matter structure. No field or sub-entity describing wh
 
 Module structure rides the existing mechanisms. Subject-matter fields and sub-entities use the user-defined table and registry machinery, so they inherit row-level security, encryption, labels, and reporting views rather than re-implementing them.
 
-Read declared properties, not module identity. Cross-module logic, region packs especially, keys off a debt's standardized declared properties from the governed vocabulary, never off a test for a specific module.
+Read declared properties, not module identity. Cross-module logic, Compliance Packs especially, keys off a debt's standardized declared properties from the governed vocabulary, never off a test for a specific module.
 
-Compliance rules stay in the locale layer. A contributor must not place regulatory rules in a debt-type module or in the core; they belong to the region packs, which read this decision's properties.
+Compliance rules stay in the Compliance Packs. A contributor must not place regulatory rules in a debt-type module or in the core; they belong to the Compliance Pack of the jurisdiction whose law they are, which reads this decision's properties.
 
 Role types are registry entries. New entity-to-debt roles are added to the role registry, not hard-coded, the same discipline as buckets and reason codes.

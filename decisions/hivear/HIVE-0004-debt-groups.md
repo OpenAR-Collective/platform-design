@@ -47,7 +47,7 @@ A debt does not have to carry an account number. Debts and debt groups carry any
 >
 > **parent_debt_group_fk**: the group one level up. Null only for a group at the highest level of its scheme.
 >
-> **status_fk**: reference value pointing to an agency-defined status code. Status represents the operational collection posture of the group: payment_arrangement, dispute, holding, bankruptcy, legal, and others the agency defines. The standard seed pack delivers a starting set of status codes. Status is separate from and orthogonal to the is_active flag. Status is carried by working-level groups.
+> **status_fk**: reference value pointing to an agency-defined status code. Status represents the operational collection posture of the group: payment_arrangement, dispute, holding, bankruptcy, legal, and others the agency defines. The standard starter configuration delivers a starting set of status codes. Status is separate from and orthogonal to the is_active flag. Status is carried by working-level groups.
 >
 > **is_active**: boolean. True if one or more debts beneath the group are active. False if all of them are inactive. Maintained by the event-driven workflow path.
 >
@@ -145,6 +145,6 @@ A working-level debt group holds debts of one currency, and so does any group ab
 
 Wax-delivered workflows that maintain group aggregate fields are system infrastructure. Module authors must not create workflows that conflict with or duplicate these Wax workflows. The Wax workflow registry documents which events are handled by system workflows.
 
-The group status code reference type is agency-defined. The seed pack delivers standard starting codes. Module authors may add module-specific status codes through the Collective's contribution process but should not define status codes that duplicate or contradict the standard seed pack codes.
+The group status code reference type is agency-defined. The starter configuration delivers standard starting codes. Module authors may add module-specific status codes through the Collective's contribution process but should not define status codes that duplicate or contradict the standard starter codes.
 
 Schemes, levels, and identifier types seeded by a module are registry entries, not hard-coded structure, the same discipline as buckets, role types, and reason codes. A module that seeds a scheme declares which level is the working level.

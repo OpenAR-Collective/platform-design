@@ -107,7 +107,7 @@ An elegant outcome of contact outcome decay is natural contact method rotation. 
 
 Confidence decay is handled through two mechanisms working together. Event-triggered decay fires immediately when a contact outcome event is recorded. A returned mail event, a disconnected phone recording, or a failed text delivery fires through the event and workflow engine, which applies the appropriate decay function to the demographic value involved.
 
-Periodic decay for time-based degradation is handled through the configurable maintenance event system. The agency configures maintenance events with a name, a scope (a query defining which demographic records to target), and a frequency. The standard seed pack delivers pre-built maintenance event definitions and corresponding workflows: a nightly event firing on all active phone records, with a delivered workflow that catches the event and applies a small time-decay function to each phone's confidence score. Agencies may accept the seed pack defaults, modify the decay parameters, or define entirely custom maintenance schedules.
+Periodic decay for time-based degradation is handled through the configurable maintenance event system. The agency configures maintenance events with a name, a scope (a query defining which demographic records to target), and a frequency. The standard starter configuration delivers pre-built maintenance event definitions and corresponding workflows: a nightly event firing on all active phone records, with a delivered workflow that catches the event and applies a small time-decay function to each phone's confidence score. Agencies may accept the starter defaults, modify the decay parameters, or define entirely custom maintenance schedules.
 
 This architecture is intentional. Periodic decay is not a special subsystem. It is a specific application of the workflow engine's batch capability to demographic scoring. The same event and workflow infrastructure that drives all other system automation drives demographic score maintenance. Agencies understand how to configure it because it uses the same tools they use for everything else.
 
@@ -163,4 +163,4 @@ Contact outcome events that affect demographic scoring must fire through the nor
 
 The demographic history tables are append-only by convention and policy. No row in a demographic history table is ever deleted. Bad flagging is the mechanism for marking values as unusable.
 
-Source type weights are organization-scoped configuration. The standard seed pack delivers suggested weight defaults. Agencies may modify them without module changes.
+Source type weights are organization-scoped configuration. The standard starter configuration delivers suggested weight defaults. Agencies may modify them without module changes.

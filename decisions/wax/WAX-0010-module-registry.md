@@ -2,9 +2,9 @@
 id: WAX-0010
 title: "Module Registry"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-08
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -25,7 +25,7 @@ Modules are not second-class citizens identified by string constants. They are e
 | --- | --- | --- | --- |
 | core.module | module_pk | UUID | Surrogate primary key. |
 | core.module | module_version | VARCHAR | Semantic version string of the installed module. |
-| core.module | module_type | VARCHAR | Technical classifier: language_pack, region_pack, business_class, debt_type, treatment, vendor_integration, seed_package. Developer-facing only. |
+| core.module | module_type | VARCHAR | Technical classifier, one of the values listed under Module Type Classifier below. Developer-facing only. |
 | core.module | is_i18n_compliant | Boolean | True if the module has provided translations for all installed language packs. |
 | core.module | is_active | Boolean | False if the module has been deactivated but not fully uninstalled. |
 | core.module | is_removed | Boolean | True for a Region Pack that has been removed and whose registry record is kept because retained rows still depend on it. False for every other module. |
@@ -80,7 +80,7 @@ This is the one exception to the rule that a partial uninstall is not a valid sy
 
 ## Module Type Classifier
 
-The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are: language_pack, region_pack, business_class, debt_type, contract_type, treatment, vendor_integration, and seed_package. This list is fixed by the platform and may not be extended by module authors; contract_type was added per [Wax Design Decision 33](WAX-0033-module-composition-model.md) for the contract-type modules such as contingency, debt purchase, and servicing.
+The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are one for each construct that [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) defines: locale, business_class, debt_type, contract_type, treatment, and vendor_integration for Modules, and language_pack, region_pack, compliance_pack, vocabulary_pack, template_pack, and seed_package for Packs. This list is fixed by the platform and may not be extended by module authors. contract_type was added per [Wax Design Decision 33](WAX-0033-module-composition-model.md) for the contract-type modules such as contingency, debt purchase, and servicing, and locale, compliance_pack, vocabulary_pack, and template_pack were added so that every construct has a registration path.
 
 ## Implementation Phasing
 

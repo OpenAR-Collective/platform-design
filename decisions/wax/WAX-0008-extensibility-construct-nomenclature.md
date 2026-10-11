@@ -2,9 +2,9 @@
 id: WAX-0008
 title: "Extensibility Construct Nomenclature"
 status: Accepted
-version: 1.0
+version: 2.0
 area: wax
-date: 2026-08-30
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-Wax's extensibility system uses two top-level constructs distinguished by a single principle: Modules contain code; Packs contain data. A Module implements the module contract standard from [Wax Design Decision 9](WAX-0009-module-contract-standard.md). A Pack installs structured data through the seeding framework. A Bundle is a named, versioned grouping of one or more Modules and zero or more Packs that are designed to be installed together and collectively deliver a coherent capability. All extensibility constructs are either a Module, a Pack, or a Bundle.
+Wax's extensibility system uses two top-level constructs distinguished by a single principle: Modules contain code; Packs contain data. A Module implements the module contract standard from [Wax Design Decision 9](WAX-0009-module-contract-standard.md). A Pack installs structured data through the seeding framework. A Bundle is a named, versioned grouping of one or more Modules and zero or more Packs that are designed to be installed together and collectively deliver a coherent capability. All extensibility constructs are either a Module, a Pack, or a Bundle. Content that comes from a body of law ships only in a Compliance Pack for the jurisdiction whose law it is, and the Locale Module, Region Pack, and Language Pack that carry a country's structure, formats, and translations carry no law. A rule's mechanism is code in the core or in a Module, built once, and a Compliance Pack supplies only the rule's values for its jurisdiction. The Collective certifies Modules as software and publishes Packs as educational reference material, so an agency adopts a Compliance Pack as a starting point and remains responsible for its own compliance.
 
 ## The Fundamental Distinction
 
@@ -23,17 +23,33 @@ A Pack contributes data: reference values, translations, workflow definitions, l
 
 This distinction is intentional and must not be blurred. A construct that adds a new database table is a Module, because schema is code. A construct that populates an existing table with seed data is a Pack. If a capability requires both, it is a Bundle containing a Module and a Pack.
 
+## Where Content Belongs
+
+Three tests place any piece of content, and together they keep law out of the structural constructs and code out of the Packs.
+
+> **WHERE CONTENT BELONGS**
+>
+> **The law test**: content that would change when a law changes belongs to the Compliance Pack of the jurisdiction whose law it is. Content that would stay the same under a different body of collection law belongs elsewhere.
+>
+> **The code test**: content that needs code, a new table, or validation logic belongs to a Module. Values, templates, lists, and translations belong to a Pack.
+>
+> **The mechanism test**: a rule's mechanism, such as a contact counter or a calling window evaluated in the debtor's local time, is built once in the core or in a Module. A Compliance Pack supplies the rule's values for its jurisdiction, and the pack for a state or province supplies its own values on the same mechanism. A rule that seems to need code inside a Pack shows that a mechanism is missing.
+
+For the United States the tests produce three layers, installed together as the US Bundle described below. The US Locale Module carries the address structure with its state codes, the SSN and EIN formats and their validation, and the name components. The Region Pack region.us carries the currency and the date and number formats, and a Language Pack such as US English carries the translations. None of these carries law. The federal Compliance Pack, compliance.us, carries the federal rules, and a Compliance Pack for each state, such as compliance.us.tx, carries that state's additions. A state has no Locale Module or Region Pack of its own, because its differences are legal and not structural: a Louisiana parish is stored in the county field.
+
 ## Module Subtypes
 
 All Module subtypes implement the full module contract. The subtype classification determines what kind of capability the Module contributes and which required and optional contract declarations apply. The following subtypes are defined.
 
 > **MODULE SUBTYPES**
 >
-> **Locale Module**: contributes locale-specific schema extensions, field format validation, and locale-specific service integrations. Locale Modules add satellite tables for address structures, national identity number formats, and name component conventions that cannot be universalized in Core. A Locale Module also contributes locale-specific validation logic and may register action types for locale-specific external services such as address standardization APIs. Locale Modules are the mechanism through which Wax gains meaningful international support. The US Locale Module, for example, contributes the US address satellite table, the SSN and EIN identity satellite table, US postal code format validation, and the USPS CASS address standardization action type.
+> **Locale Module**: contributes locale-specific schema extensions, field format validation, and locale-specific service integrations. Locale Modules add satellite tables for address structures, national identity number formats, and name component conventions that cannot be universalized in Core. A Locale Module also contributes locale-specific validation logic and may register action types for locale-specific external services such as address standardization APIs. Locale Modules are the mechanism through which Wax gains meaningful international support. The US Locale Module, for example, contributes the US address satellite table, the SSN and EIN identity satellite table, US postal code format validation, and the USPS CASS address standardization action type. One Locale Module serves a whole country, and a subdivision whose difference is only a name, such as a parish where other states have a county, uses the country's structure. A Locale Module carries no law: the format of an identity number and its validation are structure, while a rule about when the number may be shown or used belongs to a Compliance Pack.
 >
 > **Business Class Module**: contributes the schema, workflow patterns, and operational configuration for a specific business vertical such as healthcare, auto lending, student loans, or utilities. Defines the debt types, required fields, and compliance posture relevant to that vertical.
 >
 > **Debt Type Module**: contributes a specific debt classification within a business class, with its associated field requirements, validation rules, and default workflow patterns.
+>
+> **Contract Type Module**: contributes the ownership and relationship model under which a debt is held and billed, such as servicing, third-party contingency, or purchase, as [Wax Design Decision 33](WAX-0033-module-composition-model.md) describes.
 >
 > **Treatment Module**: contributes a treatment strategy type, meaning a defined approach to debt handling such as payment arrangements, settlement workflows, or legal referral processes.
 >
@@ -47,11 +63,13 @@ All Pack subtypes install through the seeding framework. They contribute no comp
 >
 > **Language Pack**: contributes translations for the i18n schema. Covers UI chrome resource bundle files and translations for all reference value labels, reason code labels, and system-defined string resources. A Language Pack is identified by its IETF BCP 47 locale tag. Multiple Language Packs may be installed simultaneously to support multilingual deployments. A Language Pack that does not cover all required translation keys is flagged as i18n non-compliant in the module registry per [Wax Design Decision 10](WAX-0010-module-registry.md).
 >
-> **Region Pack**: contributes locale-specific reference data for a geographic region. Covers currency codes, date and number format preferences, locale configuration defaults, and translated versions of standard reference data labels for the region. A Region Pack contains no compliance content. It provides structural and formatting context, not regulatory guidance. It is identified by an ISO 3166-1 country code or ISO 3166-2 subdivision code.
+> **Region Pack**: contributes the reference data of a country. Covers currency codes with their minor-unit scales and rounding conventions, date and number format preferences, time zones, locale configuration defaults, and translated versions of standard reference data labels for the region. A Region Pack contains no compliance content. It provides structural and formatting context, not regulatory guidance. It is identified by an ISO 3166-1 country code, or by an ISO 3166-2 subdivision code only where a subdivision's formats differ from its country's, never because its law differs.
 >
-> **Compliance Pack**: contributes compliance reference configurations for a specific jurisdiction and regulatory context. Covers reference workflow definitions, reason code sets, required disclosure templates, and other regulatory starting-point configurations reflecting the Collective's understanding of applicable law at the time of publication. Compliance Packs are labeled prominently as educational reference material and do not constitute legal advice. They are identified by a structured locale identifier using ISO 3166 codes: compliance.us.tx for Texas, compliance.us.ca for California, compliance.ca.on for Ontario. Jurisdiction-level granularity is the standard. A single national Compliance Pack that flattens state or provincial variation is not appropriate given the material differences in collection law across jurisdictions.
+> **Compliance Pack**: contributes the compliance reference configuration for one jurisdiction: the values that its rules need, such as windows, counts, durations, and thresholds, together with required disclosure templates, reference workflow definitions, reason code sets, and other regulatory starting-point configurations reflecting the Collective's understanding of applicable law at the time of publication. A Compliance Pack configures mechanisms that the core and Modules provide and carries no mechanism of its own. Each value it contributes records its source, its legal force, its effective dates, and whether someone with compliance standing has verified it. Compliance Packs are labeled prominently as educational reference material and do not constitute legal advice. They are identified by a structured locale identifier using ISO 3166 codes: compliance.us for United States federal law, compliance.us.tx for Texas, compliance.us.ca for California, compliance.ca.on for Ontario. Jurisdiction-level granularity is the standard. The pack for a state or province layers on the pack for its country, and a single national Compliance Pack that flattens state or provincial variation is not appropriate given the material differences in collection law across jurisdictions.
 >
-> **Reference Pack**: contributes general-purpose reference data not specific to a compliance context. Covers standard reason code sets, common status code configurations, industry-standard action and result codes, and other shared vocabulary that agencies typically want pre-populated rather than building from scratch.
+> **Vocabulary Pack**: contributes shared industry vocabulary that is neither law nor locale. Covers standard reason code sets, common status code configurations, industry-standard action and result codes, and other shared vocabulary that agencies typically want pre-populated rather than building from scratch. A code whose meaning comes from a statute, such as a dispute type named for a law, belongs to the Compliance Pack of that jurisdiction instead.
+>
+> **Seed Package**: contributes the foundational shared primitives that debt-domain modules reference by key, such as bucket definitions, role types, declared properties, and waterfall templates, as [Wax Design Decision 33](WAX-0033-module-composition-model.md) describes.
 >
 > **Template Pack**: contributes starting-point user-configurable content. Covers workflow definitions, letter templates, report definitions, UDT definitions, and UDW layouts that agencies can adopt and customize. Template Pack contents are installed as agency-owned configuration items, meaning they appear identical to items the agency created themselves and are fully editable after installation.
 
@@ -61,7 +79,7 @@ A Bundle is a named, versioned grouping of one or more Modules and zero or more 
 
 A Bundle manifest declares its component Modules and Packs with their required versions. The installer resolves component compatibility before installation begins and surfaces any conflicts. Updating a Bundle updates all components to their declared versions unless individual components are pinned by the agency.
 
-The US Bundle is the natural starting configuration for a US-based agency: the US Locale Module, the appropriate Business Class Module for the agency's vertical, Compliance Packs for each state in which the agency is licensed to collect, the US Reference Pack, and optionally a starter Template Pack. Installing the US Bundle gives an agency a working configured Wax deployment with a single operation.
+The US Bundle is the natural starting configuration for a US-based agency: the US Locale Module, the Region Pack region.us, a US English Language Pack, the appropriate Business Class Module for the agency's vertical, the federal Compliance Pack compliance.us with a Compliance Pack for each state in which the agency is licensed to collect, the US Vocabulary Pack, and optionally a starter Template Pack. Installing the US Bundle gives an agency a working configured Wax deployment with a single operation.
 
 ## Locale Modules and the Principle of Core Schema Neutrality
 
@@ -75,23 +93,23 @@ Display_name in the core schema is intentionally freeform. Western first_name an
 
 ## Compliance Packs and the Auto-Close Mechanism
 
-Compliance Packs serve a secondary function beyond providing reference configurations: they define the jurisdictions in which an agency has configured the platform to operate. When Wax receives a debt with a debtor address in a jurisdiction for which no Compliance Pack is installed, it can be configured to automatically close that debt rather than allow collection activity to proceed without appropriate compliance configuration.
+Compliance Packs serve a secondary function beyond providing reference configurations: they define the jurisdictions in which an agency has configured the platform to operate. When Wax receives a debt with a debtor address in a jurisdiction for which no Compliance Pack is installed, it can be configured to automatically close that debt rather than allow collection activity to proceed without appropriate compliance configuration. A jurisdiction counts as configured only when a pack is installed for it at the most specific level at which its country's packs are published, so the federal pack compliance.us does not by itself configure any state.
 
-This auto-close mechanism makes the installed Compliance Pack set an implicit operational boundary. An agency licensed to collect in twelve states installs twelve state-level Compliance Packs and configures the auto-close policy. Debts from unlicensed or unconfigured states are automatically closed before any collector activity begins. The auto-close policy is configurable: agencies may choose to route such debts to a review queue rather than close them immediately, for example to manually assign them to a specialist or to flag them for compliance review before any action is taken.
+This auto-close mechanism makes the installed Compliance Pack set an implicit operational boundary. An agency licensed to collect in twelve states installs the federal pack and twelve state-level Compliance Packs and configures the auto-close policy. Debts from unlicensed or unconfigured states are automatically closed before any collector activity begins. The auto-close policy is configurable: agencies may choose to route such debts to a review queue rather than close them immediately, for example to manually assign them to a specialist or to flag them for compliance review before any action is taken.
 
 The auto-close mechanism is a Wax capability, not a Locale Module or Compliance Pack feature. The Compliance Pack's jurisdiction identifier is what the mechanism checks against. The policy behavior is configured by the agency through Wax's administration UI.
 
 ## Construct Identifier Conventions
 
-All extensibility constructs use a structured identifier following a consistent convention. Module identifiers use reverse domain notation: oar.core.us_locale, oar.core.business_class.healthcare, vendor.lexisnexis.address_verification. Pack identifiers use a structured dot-notation path: language.es_mx, region.us, compliance.us.tx, compliance.us.ca, reference.us.fdcpa, template.us.standard_workflows. Bundle identifiers follow the same reverse domain convention as Modules: bundle.us.standard for the standard US starting Bundle.
+All extensibility constructs use a structured identifier following a consistent convention. Module identifiers use reverse domain notation: oar.core.us_locale, oar.core.business_class.healthcare, vendor.lexisnexis.address_verification. Pack identifiers use a structured dot-notation path: language.es_mx, region.us, compliance.us, compliance.us.tx, compliance.us.ca, vocabulary.us.collection_codes, template.us.standard_workflows. Bundle identifiers follow the same reverse domain convention as Modules: bundle.us.standard for the standard US starting Bundle.
 
-Compliance Pack identifiers use ISO 3166-1 alpha-2 country codes and ISO 3166-2 subdivision codes to ensure unambiguous jurisdiction identification: compliance.us.tx, compliance.us.ca, compliance.ca.on, compliance.gb.eng. This structured identifier is machine-readable, sortable, and unambiguous regardless of the language of the installation.
+Compliance Pack identifiers use ISO 3166-1 alpha-2 country codes and ISO 3166-2 subdivision codes to ensure unambiguous jurisdiction identification: compliance.us for a country's national law, and compliance.us.tx, compliance.us.ca, compliance.ca.on, and compliance.gb.eng for subdivisions. This structured identifier is machine-readable, sortable, and unambiguous regardless of the language of the installation.
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Terminology established in all documentation and code comments. One Seed Pack shipped: a US Generic Third-Party Collections configuration applied during initial setup, not through a Pack installation pipeline. No Bundle concept (requires a module marketplace). No Compliance Pack auto-close mechanism; debts from unrecognized jurisdictions are handled manually.
+**Wax v1 (MVP):** Terminology established in all documentation and code comments. One starter configuration shipped: a US generic third-party collections configuration of Packs applied during initial setup, not through a Pack installation pipeline. No Bundle concept (requires a module marketplace). No Compliance Pack auto-close mechanism; debts from unrecognized jurisdictions are handled manually.
 
-**Wax v2:** Pack installation pipeline. Compliance Pack auto-close mechanism. Additional Seed Packs (healthcare, auto, first-party).
+**Wax v2:** Pack installation pipeline. Compliance Pack auto-close mechanism. Additional starter configurations (healthcare, auto, first-party).
 
 **Wax v3+:** Bundles. Community-contributed Packs.
 
@@ -100,6 +118,8 @@ Compliance Pack identifiers use ISO 3166-1 alpha-2 country codes and ISO 3166-2 
 ## Implications For Contributors
 
 A construct that adds a new database table or schema namespace is a Module. A construct that populates existing tables with data is a Pack. This distinction is not optional: the wrong classification will cause installation to use the wrong path and will fail validation.
+
+Content goes where the three tests put it. A Locale Module, a Region Pack, and a Language Pack carry no law. A Compliance Pack carries values and templates for mechanisms that exist and never carries code, and each value records its source, legal force, effective dates, and verification status. A subdivision gets a Compliance Pack for its law and no Locale Module or Region Pack unless its formats or structure differ from its country's.
 
 Locale Modules must not assume that any other Locale Module is installed. Two Locale Modules may coexist on the same installation without knowing about each other. Schema extensions must not cross-reference another Locale Module's satellite tables.
 

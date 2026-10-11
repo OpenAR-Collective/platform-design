@@ -51,7 +51,7 @@ An agency that wants to contribute a locally created code to the canonical regis
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Reason codes stored in the reference value system ([Wax Design Decision 11](WAX-0011-internationalization-architecture-and-reference-value-system.md)). Codes required on events, enforced by command handlers. A starter set ships with the Seed Pack. No namespace convention enforcement; all codes in a flat list.
+**Wax v1 (MVP):** Reason codes stored in the reference value system ([Wax Design Decision 11](WAX-0011-internationalization-architecture-and-reference-value-system.md)). Codes required on events, enforced by command handlers. A starter set ships with the v1 starter configuration. No namespace convention enforcement; all codes in a flat list.
 
 **Wax v2:** Three-tier source model (canonical, module, agency). Namespace convention enforcement. Reason code governance tooling.
 
