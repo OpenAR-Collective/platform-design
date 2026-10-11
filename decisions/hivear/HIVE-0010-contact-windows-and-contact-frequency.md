@@ -17,7 +17,7 @@ HiveAR will check every outbound contact against two mechanisms before it is mad
 
 ## A Mechanism, Not a Rule
 
-Contact timing is the clearest case of the mechanism test in [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md). Jurisdictions that limit contact tend to do it with a few common shapes, a window of permitted hours and a cap on contacts within a period, while the hours, the caps, the periods, and the exceptions differ from one jurisdiction to the next and change over time. HiveAR builds the shapes once, and a Compliance Pack supplies the values for its jurisdiction. The United States values will be stated in a decision of the United States layer. Nothing in the core names an hour, a count, or a number of days.
+Contact timing is the clearest case of the mechanism test in [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md). Jurisdictions that limit contact tend to do it with a few common shapes, a window of permitted hours and a cap on contacts within a period, while the hours, the caps, the periods, and the exceptions differ from one jurisdiction to the next and change over time. HiveAR builds the shapes once, and a Compliance Pack supplies the values for its jurisdiction. The United States federal values are stated in [United States Module Design Decision 3](../modules/united-states/MOD-US-0003-federal-contact-times-and-call-frequency.md). Nothing in the core names an hour, a count, or a number of days.
 
 ## The Contact Window
 
@@ -43,7 +43,7 @@ Contact timing is the clearest case of the mechanism test in [Wax Design Decisio
 
 ## Which Rules Apply
 
-The rules that apply to a contact are those of every Compliance Pack that governs the debt, such as the federal pack and the pack for the state in which the debtor lives, together with the agency's own rules. A contact is permitted only when all of them permit it, so the strictest window and the lowest limit govern, and no pack has to know about another. Which packs govern a debt, and how a federal pack and a state pack combine when they define the same thing differently, remain open questions, but windows and limits need no further choice under this rule.
+The rules that apply to a contact are those of every Compliance Pack that governs the debt, such as the federal pack and the pack for the state in which the debtor lives, together with the agency's own rules. A rule names the debts it governs by the standardized properties that the debt's type declares under [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md), such as a consumer or commercial regulatory nature, so a rule written for consumer debt never reaches a debt declared commercial. A contact is permitted only when all of them permit it, so the strictest window and the lowest limit govern, and no pack has to know about another. Which packs govern a debt, and how a federal pack and a state pack combine when they define the same thing differently, remain open questions, but windows and limits need no further choice under this rule.
 
 An agency can add its own rules in the same shapes, for a client's contract or for its own policy, and they can only narrow what is permitted. A Compliance Pack's values are the agency's to edit once installed, as Wax Design Decision 11 describes, so the platform will show wherever an agency's value is looser than the value its pack published, and every change to a value is versioned under [Wax Design Decision 21](../wax/WAX-0021-configuration-management-and-environment-lifecycle.md).
 
