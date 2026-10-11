@@ -33,13 +33,13 @@ For Wax's expected contributor profile, the single-language advantage of Blazor 
 
 ## Component Library: MudBlazor
 
-MudBlazor is a free, open-source Material Design component library for Blazor. It provides the UI primitives a collections workflow application requires: data grids capable of handling large account lists, form components, date and time pickers, navigation components, dialog and notification systems, and charting capabilities. It is actively maintained, well documented, and widely used in the Blazor community. Adopting MudBlazor as the reference implementation's component library reduces the amount of custom component development required in Year 1 and gives contributors a familiar starting point.
+MudBlazor is a free, open-source Material Design component library for Blazor. It provides the UI primitives a collections workflow application requires: data grids capable of handling large debt lists, form components, date and time pickers, navigation components, dialog and notification systems, and charting capabilities. It is actively maintained, well documented, and widely used in the Blazor community. Adopting MudBlazor as the reference implementation's component library reduces the amount of custom component development required in Year 1 and gives contributors a familiar starting point.
 
 MudBlazor is the default for the Collective's reference implementation. Module authors building their own UI components are not required to use MudBlazor, but components contributed to the core repository will follow MudBlazor conventions for consistency.
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Ship with Blazor WebAssembly and MudBlazor. Core screens: account list and search, account detail, entity detail, payment entry, basic reporting, admin configuration. No custom component development beyond MudBlazor out of the box. Note: Blazor WASM initial download size will be noticeable on slow connections; document it and consider lazy loading.
+**HiveAR v1 (MVP):** Ship with Blazor WebAssembly and MudBlazor. Core screens: debt list and search, debt detail, entity detail, payment entry, basic reporting, admin configuration. No custom component development beyond MudBlazor out of the box. Note: Blazor WASM initial download size will be noticeable on slow connections; document it and consider lazy loading.
 
 **HiveAR v2:** Richer UI components (workflow designer, entity merge UI, report builder). Performance optimization (lazy loading, caching).
 

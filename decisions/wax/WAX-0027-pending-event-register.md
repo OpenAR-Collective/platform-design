@@ -17,13 +17,13 @@ Wax will provide a Pending Event Register: an operational store of individual fu
 
 ## Not To Be Confused With the Job Scheduler
 
-The Pending Event Register is paired with the Job Scheduler in [Wax Design Decision 28](WAX-0028-job-scheduler.md), and the two are easily conflated. The Pending Event Register schedules individual future-dated domain events aimed at a single aggregate, at the granularity of one account needing one action. The Job Scheduler runs system-level jobs that operate over scoped sets of rows or perform maintenance routines. The two share a wall-clock polling mechanism but are distinct subsystems with separate stores and separate operational views.
+The Pending Event Register is paired with the Job Scheduler in [Wax Design Decision 28](WAX-0028-job-scheduler.md), and the two are easily conflated. The Pending Event Register schedules individual future-dated domain events aimed at a single aggregate, at the granularity of one debt needing one action. The Job Scheduler runs system-level jobs that operate over scoped sets of rows or perform maintenance routines. The two share a wall-clock polling mechanism but are distinct subsystems with separate stores and separate operational views.
 
 ## Events as Truth, the Register as Projection
 
 The decision to schedule a future event, and the decision to cancel one, are themselves events written to core.event and carried in the hash chain established in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). The Pending Event Register is the operational projection of those events: the due-work store that worker instances claim from. The events are the record of truth, and the Register is the working set derived from them.
 
-This split delivers a practical payoff beyond auditability. The history of what an account had scheduled, what fired, and what was cancelled and why becomes structured and queryable, in place of the free-text notes agencies rely on today to reconstruct that story. A query can then surface the gaps that notes never could: entries that were scheduled, never fired, and never cancelled, or cancellations with no preceding schedule.
+This split delivers a practical payoff beyond auditability. The history of what a debt had scheduled, what fired, and what was cancelled and why becomes structured and queryable, in place of the free-text notes agencies rely on today to reconstruct that story. A query can then surface the gaps that notes never could: entries that were scheduled, never fired, and never cancelled, or cancellations with no preceding schedule.
 
 ## Register Entries
 
@@ -41,7 +41,7 @@ Worker instances claim due entries, those whose due time has passed, using SKIP 
 
 ## Implicit No-Op
 
-A fired event whose workflows find that conditions no longer warrant action simply does nothing. There is no separate predicate to re-check on the entry, because re-evaluation is just the ordinary workflow evaluation of the freshly fired event loading current state through its key ring. A reminder scheduled for an account that has since paid fires, finds the account paid, and takes no action. The Register deliberately stores no condition layer of its own, since duplicating the workflow engine's evaluation on the entry would be redundant and would risk drift between the two.
+A fired event whose workflows find that conditions no longer warrant action simply does nothing. There is no separate predicate to re-check on the entry, because re-evaluation is just the ordinary workflow evaluation of the freshly fired event loading current state through its key ring. A reminder scheduled for a debt that has since paid fires, finds the debt paid, and takes no action. The Register deliberately stores no condition layer of its own, since duplicating the workflow engine's evaluation on the entry would be redundant and would risk drift between the two.
 
 ## Cancellation
 

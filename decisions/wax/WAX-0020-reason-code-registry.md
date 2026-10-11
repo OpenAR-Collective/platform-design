@@ -27,7 +27,7 @@ Every reason code row in core.reference_value carries an installed_by_module_fk 
 
 > **REASON CODE SOURCE TIERS**
 >
-> **Canonical core**: is_system_defined = true, installed_by_module_fk = null. Shipped by the Collective as part of the base platform. Covers universal state transitions meaningful in every deployment regardless of module combination: payment received, address corrected, name corrected, account assigned, account closed, dispute received, and similar. Added only through a reviewed pull request to the Collective repository. The bar for canonical status is whether the code represents a concept that is universal and unambiguous across all deployment configurations.
+> **Canonical core**: is_system_defined = true, installed_by_module_fk = null. Shipped by the Collective as part of the base platform. Covers universal state transitions meaningful in every deployment regardless of module combination: payment received, address corrected, name corrected, debt assigned, debt closed, dispute received, and similar. Added only through a reviewed pull request to the Collective repository. The bar for canonical status is whether the code represents a concept that is universal and unambiguous across all deployment configurations.
 >
 > **Module-contributed**: is_system_defined = true, installed_by_module_fk = [module reference]. Shipped by a module author as part of that module's seed data. Covers domain-specific events relevant to that module's scope. Follows the same reversibility rules as all module-contributed reference values: tagged to the module, removed with the module if uninstalled, checked for live references before deletion.
 >

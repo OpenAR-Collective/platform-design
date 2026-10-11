@@ -2,9 +2,9 @@
 id: HIVE-0008
 title: "Client Billing, Invoicing, and Statements"
 status: Accepted
-version: 1.1
+version: 2.0
 area: hivear
-date: 2026-10-08
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,11 +13,11 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR will treat the client as a posting-driven financial aggregate, symmetric with the debtor account, whose balances are the projection of immutable client transactions. The client balance has two structurally distinct sides because the accounting demands it: a payable side, what the agency owes the client through collections held in trust, and a receivable side, what the client owes the agency through client AR. Operators post client transactions much as they post debtor transactions, and the variation among them is carried by extensible client transaction types rather than a fixed set of balance buckets. This decision also sets the commission and fee rate structure that HiveAR Design Decisions 6 and 7 defer to, and it defines the statement run that periodically settles and bills each client.
+HiveAR will treat the client as a posting-driven financial aggregate, symmetric with the debt, whose balances are the projection of immutable client transactions. The client balance has two structurally distinct sides because the accounting demands it: a payable side, what the agency owes the client through collections held in trust, and a receivable side, what the client owes the agency through client AR. Operators post client transactions much as they post debtor transactions, and the variation among them is carried by extensible client transaction types rather than a fixed set of balance buckets. This decision also sets the commission and fee rate structure that HiveAR Design Decisions 6 and 7 defer to, and it defines the statement run that periodically settles and bills each client.
 
 ## The Client Is a Posting-Driven Aggregate
 
-Just as a debtor account's balances are the running projection of immutable postings, a client's balances are the projection of immutable client transactions, on the same event-sourced foundation and reusing the client-dimensioned funds-held-and-owed model from [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md). Posting a client transaction is the same act as posting a debtor transaction, against a different aggregate. The one difference is that the client balance is two-sided: a debtor only owes, while a client can be owed money by the agency through the remittance payable and can owe money to the agency through client AR, so the client's net position swings between the two. Those two sides are kept structurally distinct because the payable is a trust liability and the receivable is an operating asset, and collapsing them into one signed balance would lose the trust character that [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) and three-way reconciliation depend on. Everything else is carried by extensible transaction types, the way debtor variation is carried by module-supplied buckets, so an agency or a module can define custom client transaction types as needed.
+Just as a debt's balances are the running projection of immutable postings, a client's balances are the projection of immutable client transactions, on the same event-sourced foundation and reusing the client-dimensioned funds-held-and-owed model from [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md). Posting a client transaction is the same act as posting a debtor transaction, against a different aggregate. The one difference is that the client balance is two-sided: a debtor only owes, while a client can be owed money by the agency through the remittance payable and can owe money to the agency through client AR, so the client's net position swings between the two. Those two sides are kept structurally distinct because the payable is a trust liability and the receivable is an operating asset, and collapsing them into one signed balance would lose the trust character that [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md) and three-way reconciliation depend on. Everything else is carried by extensible transaction types, the way debtor variation is carried by module-supplied buckets, so an agency or a module can define custom client transaction types as needed.
 
 ## Client Transactions
 
@@ -27,7 +27,7 @@ Invoice payment and AR tracking are the agency's own receivables ledger turned o
 
 ## The Commission and Fee Rate Structure
 
-This decision sets the rates and the rules that select them, and the ledger and the waterfall consume the result. Version 1 is a flat per-contract contingency rate combined with per-bucket commissionability, which [HiveAR Design Decision 5](HIVE-0005-account-structure-and-balance-composition.md) already carries as the bucket treatment, so a rule such as commission on principal only with all of a given fee bucket remitted is expressed in the buckets and priced here. Tiered and graduated rate rules, by account age, balance, or cumulative recovery, are deferred to v2, where the bulk of rate-rule requests are expected to land. Contract type selects the model: contingency earns commission, purchase earns none because the agency owns the balance, and the servicing fee models, including per-account and per-seat billing, arrive with the servicing contract type in v2.
+This decision sets the rates and the rules that select them, and the ledger and the waterfall consume the result. Version 1 is a flat per-contract contingency rate combined with per-bucket commissionability, which [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) already carries as the bucket treatment, so a rule such as commission on principal only with all of a given fee bucket remitted is expressed in the buckets and priced here. Tiered and graduated rate rules, by debt age, balance, or cumulative recovery, are deferred to v2, where the bulk of rate-rule requests are expected to land. Contract type selects the model: contingency earns commission, purchase earns none because the agency owns the balance, and the servicing fee models, including per-debt and per-seat billing, arrive with the servicing contract type in v2.
 
 ## Net and Gross Remit
 
@@ -41,7 +41,7 @@ The through date is a civil date, as defined in [Wax Design Decision 12](../wax/
 
 What a run produces follows from each client's remit model. It computes what is owed through the date, generates the statement document, and posts the period's transactions: the remittance that discharges the payable, and, under gross remit, the fee invoices that create client AR with the run's due date. The remittance posting discharges the payable in HiveAR's books and tells the agency what to pay; the physical disbursement from the trust bank account is the agency's own step, consistent with HiveAR being the AR subsystem rather than the bank. Because a run is initiated on demand for a chosen selection and through date, off-cycle situations need no separate mechanism: closing out a departing client, an expedited payout, and a correcting make-whole are each a statement run with the selection and through date that fit the case.
 
-An invoice, a remittance, and a statement each state one currency. A client whose accounts are held in more than one currency receives a separate invoice, remittance, and statement for each, because Wax does not convert between currencies and no total mixes them, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) provides. A single-currency installation states its one currency without anyone choosing it.
+An invoice, a remittance, and a statement each state one currency. A client whose debts are held in more than one currency receives a separate invoice, remittance, and statement for each, because Wax does not convert between currencies and no total mixes them, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) provides. A single-currency installation states its one currency without anyone choosing it.
 
 ## Client Statements
 
@@ -55,7 +55,7 @@ This decision covers the client aggregate, the operator-posted and automatic cli
 
 **HiveAR v1 (MVP):** The client as a two-sided posting-driven aggregate reusing the funds-held-and-owed model. The four operator-posted client transaction types and the automatic debtor-driven postings, with extensible transaction types. Invoice payment and client AR tracking with aging. The flat per-contract contingency rate with per-bucket commissionability. Net and gross remit. The statement run with manual initiation, user-defined frequency-code selection, through date, the washed-reversal option, and the due date, with the through date and the due date as civil dates and one currency stated on each invoice, remittance, and statement. The canned statement that lists its transactions.
 
-**HiveAR v2:** Tiered and graduated rate rules by age, balance, or cumulative recovery. The servicing fee models, including per-account and per-seat billing, with the servicing contract type. Named-format accounting exports per [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md). A configurable statement designer.
+**HiveAR v2:** Tiered and graduated rate rules by age, balance, or cumulative recovery. The servicing fee models, including per-debt and per-seat billing, with the servicing contract type. Named-format accounting exports per [HiveAR Design Decision 6](HIVE-0006-gaap-journal-and-general-ledger.md). A configurable statement designer.
 
 **HiveAR v3+:** Further billing models and rate-rule sophistication as agencies request them, all additive to the structure defined here.
 

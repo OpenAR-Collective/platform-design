@@ -30,7 +30,7 @@ REQUIRED_KEYS = ["id", "title", "status", "area", "version", "date", "supersedes
 VERSION_RE = re.compile(r"^(\d+)\.(\d+)$")
 STATUS_VALUES = {"Proposed", "Accepted", "Superseded", "Rejected"}
 # Module abbreviations: add a new module here when its folder and README are created.
-MODULE_PREFIXES = ["PURCHASE", "UNSECURED"]
+MODULE_PREFIXES = ["PURCHASE", "UNSECURED", "US"]
 ID_RE = re.compile(r"^(SHARED|WAX|HIVE|MOD-(" + "|".join(MODULE_PREFIXES) + r"))-\d{4}$")
 
 BANNED_CHARS = {

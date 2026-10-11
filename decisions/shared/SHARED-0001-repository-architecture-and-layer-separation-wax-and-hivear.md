@@ -2,9 +2,9 @@
 id: SHARED-0001
 title: "Repository Architecture and Layer Separation (Wax and HiveAR)"
 status: Accepted
-version: 1.0
+version: 2.0
 area: shared
-date: 2026-08-30
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -19,7 +19,7 @@ The platform is developed as two distinct codebases housed in separate repositor
 >
 > **Wax** is the framework. It provides the event store, CQRS command/query pipeline, module system, workflow engine, internationalization infrastructure, security module, identity and access control, organizational model, configuration management, user-defined extensibility, and all other domain-agnostic infrastructure. Wax owns the core database schema and the i18n schema. A developer building a non-AR application on Wax would use these schemas and never touch HiveAR.
 >
-> **HiveAR** is the AR domain layer. It provides the entity data model (person, business, relationships), account lifecycle, account sets, demographic history, contact intelligence, entity matching, and the golden record. HiveAR owns the ar database schema. HiveAR is a privileged first-party consumer of Wax: it installs first, other AR modules declare dependencies on it, and it is treated as near-framework by the runtime even though it is not bundled with Wax.
+> **HiveAR** is the AR domain layer. It provides the entity data model (person, business, relationships), debt lifecycle, debt groups, demographic history, contact intelligence, entity matching, and the golden record. HiveAR owns the ar database schema. HiveAR is a privileged first-party consumer of Wax: it installs first, other AR modules declare dependencies on it, and it is treated as near-framework by the runtime even though it is not bundled with Wax.
 >
 > **Modules** extend HiveAR with interchangeable capabilities: Locale Modules provide region-specific schema and compliance structures, Business Class Modules provide industry-specific workflows, Treatment Modules add operational capabilities like legal collections. Modules own mod_* schemas.
 
@@ -29,10 +29,10 @@ The platform is developed as two distinct codebases housed in separate repositor
 | --- | --- | --- |
 | core | Wax | event, reference_type, reference_value, module_registry, workflow_definition, configuration, user, role, permission, organization |
 | i18n | Wax | reference_value_translation, module_translation, resource_bundle |
-| ar | HiveAR | account, entity, person, business, entity_relationship, entity_account_role, account_set, payment, payment_arrangement, dispute, communication, demographic history tables, entity_merge |
+| ar | HiveAR | debt, entity, person, business, entity_relationship, entity_debt_role, debt_group, payment, payment_arrangement, dispute, communication, demographic history tables, entity_merge |
 | mod_[name] | Modules | Module-specific tables: satellite extensions, read models, module-owned entities |
 
-The core schema name was chosen because it reads naturally and communicates that these are the foundational infrastructure tables. A developer querying core.event immediately understands they are looking at the platform's central event store. HiveAR's ar schema follows the same principle: ar.account, ar.entity, ar.payment read cleanly as domain objects. The abbreviated domain prefix is a recommended pattern for Wax implementations. A hypothetical healthcare platform built on Wax might create an hc schema.
+The core schema name was chosen because it reads naturally and communicates that these are the foundational infrastructure tables. A developer querying core.event immediately understands they are looking at the platform's central event store. HiveAR's ar schema follows the same principle: ar.debt, ar.entity, ar.payment read cleanly as domain objects. The abbreviated domain prefix is a recommended pattern for Wax implementations. A hypothetical healthcare platform built on Wax might create an hc schema.
 
 ## The Stability Gradient
 
@@ -54,7 +54,7 @@ The naming draws from the bee and hive brand language: Wax is the building mater
 
 - Every design decision in this document is tagged with a Repository indicator: Wax, HiveAR, or Both. Contributors should direct pull requests to the correct repository.
 
-Code that modifies Wax framework behavior (event store, module registry, workflow engine internals, security module, i18n infrastructure) goes to the Wax repository. Code that modifies AR domain behavior (entity model, account lifecycle, contact intelligence, matching algorithms) goes to the HiveAR repository.
+Code that modifies Wax framework behavior (event store, module registry, workflow engine internals, security module, i18n infrastructure) goes to the Wax repository. Code that modifies AR domain behavior (entity model, debt lifecycle, contact intelligence, matching algorithms) goes to the HiveAR repository.
 
 Module authors work exclusively in the HiveAR ecosystem. Modules depend on HiveAR, which depends on Wax. A module author should never need to modify Wax to accomplish their goals. If a module author finds themselves blocked by a Wax limitation, that is a signal that Wax's extension surface needs improvement, not that the module should work around it.
 

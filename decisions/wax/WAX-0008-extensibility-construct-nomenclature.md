@@ -35,7 +35,7 @@ All Module subtypes implement the full module contract. The subtype classificati
 >
 > **Debt Type Module**: contributes a specific debt classification within a business class, with its associated field requirements, validation rules, and default workflow patterns.
 >
-> **Treatment Module**: contributes a treatment strategy type, meaning a defined approach to account handling such as payment arrangements, settlement workflows, or legal referral processes.
+> **Treatment Module**: contributes a treatment strategy type, meaning a defined approach to debt handling such as payment arrangements, settlement workflows, or legal referral processes.
 >
 > **Vendor Integration Module**: contributes integration with an external platform or service provider. Registers the integration's API endpoints, authentication configuration, action types for the workflow engine, and response schema declarations for condition evaluation. Platform Integration certification from the Collective governs directory listing for Vendor Integration Modules.
 
@@ -75,9 +75,9 @@ Display_name in the core schema is intentionally freeform. Western first_name an
 
 ## Compliance Packs and the Auto-Close Mechanism
 
-Compliance Packs serve a secondary function beyond providing reference configurations: they define the jurisdictions in which an agency has configured the platform to operate. When Wax receives an account with a debtor address in a jurisdiction for which no Compliance Pack is installed, it can be configured to automatically close that account rather than allow collection activity to proceed without appropriate compliance configuration.
+Compliance Packs serve a secondary function beyond providing reference configurations: they define the jurisdictions in which an agency has configured the platform to operate. When Wax receives a debt with a debtor address in a jurisdiction for which no Compliance Pack is installed, it can be configured to automatically close that debt rather than allow collection activity to proceed without appropriate compliance configuration.
 
-This auto-close mechanism makes the installed Compliance Pack set an implicit operational boundary. An agency licensed to collect in twelve states installs twelve state-level Compliance Packs and configures the auto-close policy. Accounts from unlicensed or unconfigured states are automatically closed before any collector activity begins. The auto-close policy is configurable: agencies may choose to route such accounts to a review queue rather than close them immediately, for example to manually assign them to a specialist or to flag them for compliance review before any action is taken.
+This auto-close mechanism makes the installed Compliance Pack set an implicit operational boundary. An agency licensed to collect in twelve states installs twelve state-level Compliance Packs and configures the auto-close policy. Debts from unlicensed or unconfigured states are automatically closed before any collector activity begins. The auto-close policy is configurable: agencies may choose to route such debts to a review queue rather than close them immediately, for example to manually assign them to a specialist or to flag them for compliance review before any action is taken.
 
 The auto-close mechanism is a Wax capability, not a Locale Module or Compliance Pack feature. The Compliance Pack's jurisdiction identifier is what the mechanism checks against. The policy behavior is configured by the agency through Wax's administration UI.
 
@@ -89,7 +89,7 @@ Compliance Pack identifiers use ISO 3166-1 alpha-2 country codes and ISO 3166-2 
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Terminology established in all documentation and code comments. One Seed Pack shipped: a US Generic Third-Party Collections configuration applied during initial setup, not through a Pack installation pipeline. No Bundle concept (requires a module marketplace). No Compliance Pack auto-close mechanism; accounts from unrecognized jurisdictions are handled manually.
+**Wax v1 (MVP):** Terminology established in all documentation and code comments. One Seed Pack shipped: a US Generic Third-Party Collections configuration applied during initial setup, not through a Pack installation pipeline. No Bundle concept (requires a module marketplace). No Compliance Pack auto-close mechanism; debts from unrecognized jurisdictions are handled manually.
 
 **Wax v2:** Pack installation pipeline. Compliance Pack auto-close mechanism. Additional Seed Packs (healthcare, auto, first-party).
 

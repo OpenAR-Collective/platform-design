@@ -26,7 +26,7 @@ A complete deployable instance requires at least one selection from each require
 | Language Pack | Yes (1+) | English (US), English (UK), Spanish (US) | UI strings, date and number formats, locale defaults. No compliance content. |
 | Region Pack | Yes (1+) | United States | Address structure, currency reference data (the list of currencies, minor-unit scales, and rounding conventions), phone number format, timezone handling. When the installed Region Packs name exactly one currency, that currency is the installation's default, as defined in Wax Design Decision 34. Structural and technical only. No compliance content. |
 | Business Class Module | Yes (1+) | Healthcare, Auto, Bank Card, Student Loan | Workflow structure and data model differences by debt class. Operational, not prescriptive on compliance interpretation. |
-| Debt Type Module | Yes (1+) | First Party, Third Party, Debt Purchase, Servicing | Operational model and ownership structure. Affects how accounts are managed, not how statutes are interpreted. |
+| Debt Type Module | Yes (1+) | First Party, Third Party, Debt Purchase, Servicing | Operational model and ownership structure. Affects how debts are managed, not how statutes are interpreted. |
 | Treatment Module | No | Legal Collections, Outsourcing | Extends core workflow for specialized treatment paths. |
 | Vendor Integration Module | No | Credit Bureau, Payment Processor, Skip Tracing | Third-party system connectors. |
 

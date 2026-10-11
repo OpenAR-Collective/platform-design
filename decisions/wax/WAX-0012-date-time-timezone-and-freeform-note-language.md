@@ -19,7 +19,7 @@ All instants, meaning values that name a moment in time, will be stored in UTC, 
 
 Every timestamp in the system, in core.event, in authoritative state tables, in read models, and in module-owned tables, will be stored in UTC. No timezone-local values will be stored in the database. Timezone conversion is a display concern, not a storage concern.
 
-When a timestamp is displayed to a user, the application will convert it from UTC to the user's configured timezone at render time. A collector in Manila and a supervisor in Dallas looking at the same account record will each see timestamps in their local time. The database record is unambiguous regardless of where the reader is located.
+When a timestamp is displayed to a user, the application will convert it from UTC to the user's configured timezone at render time. A collector in Manila and a supervisor in Dallas looking at the same debt record will each see timestamps in their local time. The database record is unambiguous regardless of where the reader is located.
 
 This eliminates a category of operational error that affects multi-location agencies: ambiguous timestamps where it is unclear which timezone a value represents, incorrect ordering of events when records from different timezones are compared, and daylight saving time boundary errors when local times are stored directly.
 
@@ -49,11 +49,11 @@ Deadlines and waiting periods are counted, and rules count differently: in calen
 
 ## Freeform Note Language Indicators
 
-Account notes, contact notes, and other freeform text fields entered by users will carry a language code indicating the language in which the note was written. The language code is an IETF BCP 47 tag (e.g., en-US, es-MX, tl-PH) and is determined at the time of note creation based on the writing user's active locale.
+Debt notes, contact notes, and other freeform text fields entered by users will carry a language code indicating the language in which the note was written. The language code is an IETF BCP 47 tag (e.g., en-US, es-MX, tl-PH) and is determined at the time of note creation based on the writing user's active locale.
 
 The original text of a note is the authoritative record. A Spanish-speaking collector's note written in Spanish is stored in Spanish. It is not translated to English for storage, normalized to a common language, or altered in any way. The language code is metadata that enables downstream rendering and translation; it does not change what was written.
 
-A translation module may be developed as an optional Module that provides just-in-time rendering of notes in a reader's preferred language. When a supervisor who reads English opens an account with Spanish notes, the translation module can render an English version inline. The original Spanish record remains unchanged and is always accessible. The translated rendering is clearly marked as a translation and does not replace the source record.
+A translation module may be developed as an optional Module that provides just-in-time rendering of notes in a reader's preferred language. When a supervisor who reads English opens a debt with Spanish notes, the translation module can render an English version inline. The original Spanish record remains unchanged and is always accessible. The translated rendering is clearly marked as a translation and does not replace the source record.
 
 ## Why Not AI Translation as the Primary Strategy
 
