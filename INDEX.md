@@ -74,3 +74,4 @@ An AI assistant helping with this repository should read this index first, then 
 ## Module Decisions: United States
 
 - **[MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md)** Itemization Date and Validation Itemization. The United States layer will state the federal rules for the amounts that a validation notice discloses as Compliance Pack content for the jurisdiction identified as compliance.us, and the HiveAR core will not state them.
+- **[MOD-US-0002](decisions/modules/united-states/MOD-US-0002-country-layer.md)** Country Layer: Locale Module, Region Pack, and Language Packs. The United States layer will ship one country layer that carries the country's structure, formats, and translations and no compliance content: the US Locale Module, the Region Pack region.us, and the US Language Packs.
