@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 2.0
+version: 2.1
 area: wax
-date: 2026-10-10
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -236,7 +236,7 @@ The following illustrates how the layers of the architecture relate to each othe
 
 ## Compliance Rationale
 
-The FDCPA, FCRA, Regulation F, and state consumer protection statutes impose specific record-keeping obligations on collection agencies. The enriched event sourcing model satisfies these obligations structurally rather than procedurally. Compliance is not dependent on staff following a documented procedure; it is a property of the system itself. Every change to every debt is recorded automatically, immutably, and with full context.
+Where a jurisdiction's collection, credit reporting, or consumer protection law imposes record-keeping obligations on collectors, the enriched event sourcing model satisfies them structurally rather than procedurally, and the obligations themselves are stated in that jurisdiction's Compliance Pack under [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md). Compliance is not dependent on staff following a documented procedure; it is a property of the system itself. Every change to every debt is recorded automatically, immutably, and with full context.
 
 A regulator or auditor who questions whether a debt's current state is accurate can be shown the complete event history that produced it, event by event. The current state can be mathematically derived from that history on demand. There is no ambiguity and no trust-us involved. This architecture directly supports the Collective's compliance-first design principle. It is not an optional feature; it is the foundation the platform is built on.
 

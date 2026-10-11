@@ -24,7 +24,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Action and result codes
 
-**Technical:** Contact attempt logging vocabulary, FDCPA compliance implications, client reporting integration, and relationship to the reason code registry ([WAX-0020](decisions/wax/WAX-0020-reason-code-registry.md)).
+**Technical:** Contact attempt logging vocabulary, the compliance implications that each jurisdiction's Compliance Pack states, client reporting integration, and relationship to the reason code registry ([WAX-0020](decisions/wax/WAX-0020-reason-code-registry.md)).
 **From experience:** What action and result codes does your company actually use every day, which ones exist only because a client demands them, and where does your current system's vocabulary fail to describe what really happened on a call?
 **Target:** HiveAR v2. Issue: #3.
 
@@ -42,7 +42,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Compliance unit in a grouping hierarchy
 
-**Technical:** When each charge is a debt, which level of the grouping hierarchy a validation notice, a dispute, a cease-communication request, and a payment arrangement attach to, so that a charge-level debt does not multiply notices. The regional rules that bear on this need verification by someone with compliance standing. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md) and [HIVE-0005](decisions/hivear/HIVE-0005-debt-structure-and-balance-composition.md).
+**Technical:** When each charge is a debt, which level of the grouping hierarchy a notice that a jurisdiction requires, such as the United States validation notice, a dispute, a cease-communication request, and a payment arrangement attach to, so that a charge-level debt does not multiply notices. The regional rules that bear on this need verification by someone with compliance standing. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md) and [HIVE-0005](decisions/hivear/HIVE-0005-debt-structure-and-balance-composition.md).
 **From experience:** When a physician practice or a toll agency places individual charges with you, what do you send the consumer a validation notice for: each charge, each invoice, each visit, or the patient? What happens when the consumer disputes just one charge?
 **Target:** HiveAR v2.
 
@@ -96,7 +96,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Generative consumer-facing content
 
-**Technical:** AI-generated member-facing content across texts, emails, letters, chat, and voice, with the content, review, approval, and audit controls that FDCPA and related content rules require. The highest-compliance-exposure surface in the platform.
+**Technical:** AI-generated member-facing content across texts, emails, letters, chat, and voice, with the content, review, approval, and audit controls that a jurisdiction's content rules may require, which its Compliance Pack states and which need verification. The highest-compliance-exposure surface in the platform.
 **From experience:** If software drafted consumer messages for your agency, what would have to be true before your compliance officer would let one go out the door?
 **Target:** HiveAR v2. Issue: #9.
 

@@ -2,9 +2,9 @@
 id: WAX-0011
 title: "Internationalization Architecture and Reference Value System"
 status: Accepted
-version: 1.2
+version: 1.3
 area: wax
-date: 2026-10-10
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -146,7 +146,7 @@ A Pack contributes rows to reference_value and the i18n translation tables. It d
 
 **Dispute types**: identity theft claim, debt not mine, balance dispute, and other categories relevant to the dispute workflow. A dispute type named for a statute, such as an FDCPA or FCRA dispute in the United States, comes from that jurisdiction's Compliance Pack.
 
-**Closure reasons**: paid in full, settled, returned to creditor, sold, deceased, statute of limitations, and other standard closure categories.
+**Closure reasons**: paid in full, settled, returned to creditor, sold, deceased, limitation period expired, and other standard closure categories.
 
 **Communication channel types**: outbound call, inbound call, letter, email, text message, and other contact modalities.
 
@@ -164,15 +164,13 @@ The Collective will develop and maintain multiple Packs targeting different oper
 
 **First-Party Collections**: values oriented toward creditors and original creditors managing their own receivables, with different status and closure vocabularies.
 
-**Healthcare Collections**: extends the generic package with medical-specific debt statuses, insurance-related reason codes, HIPAA-relevant document types, and healthcare-specific dispute categories.
+**Healthcare Collections**: extends the generic package with medical-specific debt statuses, insurance-related reason codes, medical document types, and healthcare-specific dispute categories. A document type that a health privacy law prescribes comes from that jurisdiction's Compliance Pack.
 
 **Legal Collections**: extends the generic package with pre-legal and legal workflow statuses, court-related reason codes, judgment and garnishment document types, and attorney assignment codes.
 
 **Debt Purchase**: values oriented toward debt buyers, including purchased portfolio statuses, chain-of-title document types, and purchase price allocation codes.
 
-**United States Federal Compliance Pack**: compliance.us, a suggested set of workflow reference values, reason codes, and status definitions reflecting common industry interpretation of federal collection law requirements, including the FDCPA and Regulation F. Labeled explicitly as educational reference material. Not a compliance guarantee.
-
-**State Compliance Packs**: individual Compliance Packs for each US state, layered on the federal pack, providing suggested reference values reflecting common interpretations of state-specific collection statutes, licensing requirements, and consumer protection provisions. Each is separately installable, labeled as educational reference material, and reflects the Collective's understanding of current law at the time of publication. Agencies are responsible for independent legal review before relying on any state Compliance Pack for compliance purposes.
+**Compliance Packs**: one for each jurisdiction where agencies collect, such as a country and each of its states or provinces, with the pack for a state or province layered on the pack for its country, as [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) describes. Each provides suggested reference values reflecting common interpretations of that jurisdiction's collection law, licensing requirements, and consumer protection provisions. Each is separately installable, labeled explicitly as educational reference material and not a compliance guarantee, and reflects the Collective's understanding of current law at the time of publication. Agencies are responsible for independent legal review before relying on any Compliance Pack for compliance purposes. The first are the United States packs, compliance.us and a pack for each state, whose content the United States module decisions describe, beginning with [United States Module Design Decision 1](../modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md).
 
 ## Compliance Packs and the Liability Boundary
 

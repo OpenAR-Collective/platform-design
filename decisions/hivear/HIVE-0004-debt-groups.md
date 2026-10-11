@@ -2,9 +2,9 @@
 id: HIVE-0004
 title: "Debt Groups"
 status: Accepted
-version: 3.0
+version: 3.1
 area: hivear
-date: 2026-10-10
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -119,7 +119,7 @@ When debts are included in a legal case, the legal module sets is_locked to true
 
 **Debt lineage**: prior instances of a debt created by rollover or re-placement are a distinct concept from debt group membership. A prior instance relationship records that Debt B is a re-placement of Debt A. Prior instances are never simultaneously active. The display label for this relationship is Debt Lineage.
 
-**Compliance unit**: when each charge is a debt, which level of the hierarchy a validation notice, a dispute, a cease-communication request, and a payment arrangement attach to, so that a charge-level debt does not multiply notices. The regional rules that bear on this need verification by someone with compliance standing. This is recorded as an open question.
+**Compliance unit**: when each charge is a debt, which level of the hierarchy a notice that a jurisdiction requires, a dispute, a cease-communication request, and a payment arrangement attach to, so that a charge-level debt does not multiply notices. The regional rules that bear on this need verification by someone with compliance standing. This is recorded as an open question.
 
 **Group-level entity relationships**: in version 1 an entity is related to debts, as [HiveAR Design Decision 1](HIVE-0001-entity-data-model-person-business-and-entity-relationships.md) describes. Whether an entity can instead be related to a group and inherited by every debt beneath it, such as a guarantor for a patient, is recorded as an open question.
 

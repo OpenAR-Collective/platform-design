@@ -2,9 +2,9 @@
 id: HIVE-0003
 title: "Demographic History, Golden Record, and Contact Intelligence"
 status: Accepted
-version: 1.0
+version: 1.1
 area: hivear
-date: 2026-08-30
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -17,7 +17,7 @@ HiveAR maintains a complete history of every demographic value ever received for
 
 ## Design Philosophy: Collect Everything, Surface the Best
 
-Incumbent collection systems typically store one address, one phone, and one SSN per debtor. When new data arrives, the old value is overwritten. No history is retained. This means a skip trace result that turned out to be wrong cannot be recovered from. It means an agency receiving a demographics update cannot see whether the incoming data is better or worse than what they already have. It means a regulatory dispute about what address was on file at a given time cannot be resolved.
+Incumbent collection systems typically store one address, one phone, and one national identity number per debtor. When new data arrives, the old value is overwritten. No history is retained. This means a skip trace result that turned out to be wrong cannot be recovered from. It means an agency receiving a demographics update cannot see whether the incoming data is better or worse than what they already have. It means a regulatory dispute about what address was on file at a given time cannot be resolved.
 
 HiveAR takes the opposite approach. Every demographic value ever received is stored permanently with full provenance. Nothing is overwritten. The question of which value is the best current representation of ground truth is answered by the confidence scoring engine, not by the order in which data arrived. An older, highly corroborated address from a reliable source outranks a newer, unverified address from a low-trust source. The agent sees both, understands why one is ranked higher, and can act on that understanding.
 
@@ -71,7 +71,7 @@ The exception to the completeness gate is: it is better to have an incomplete go
 
 Tiering determines how demographic values are used for contact, display, and reporting. The semantics differ between attribute types that are inherently one-to-one with a person and those that are naturally many-to-one.
 
-For one-to-one attributes, meaning attributes where a person has only one authoritative value at a time: name, SSN, date of birth. Gold is the single best-scoring complete value. Silver values are credible alternatives that did not rank highest but remain plausible (a maiden name on record, an SSN variant suggesting a generational suffix). Void values are bad-flagged or fail completeness. Only one Gold value exists per attribute type per entity at any time.
+For one-to-one attributes, meaning attributes where a person has only one authoritative value at a time: name, national identity number, date of birth. Gold is the single best-scoring complete value. Silver values are credible alternatives that did not rank highest but remain plausible (a maiden name on record, an identity number variant suggesting a generational suffix). Void values are bad-flagged or fail completeness. Only one Gold value exists per attribute type per entity at any time.
 
 For many-to-one attributes, meaning attributes where a person legitimately has multiple valid values simultaneously: phones, addresses, emails, employers. Gold is the best-scoring complete value, the primary contact method for that attribute type. Silver values are additional valid values that warrant contact attempts. An entity may have one Gold phone, three Silver phones, and two Void phones. Contact campaigns attempt Gold first, then Silver in score order. Void values are not contacted. This distinction means there is no ambiguity: gold is the best, silver is valid and contactable, void is known bad or unusable.
 
@@ -127,7 +127,7 @@ Agents and automated processes can mark a specific demographic value as bad by s
 
 ## False Merge Detection and Auto-Accept Splits
 
-When new demographics are loaded for a previously merged entity, the scoring engine evaluates not only opportunities to merge additional records but also signals that the current merge may be a false positive. Conflicting SSN variants suggesting generational suffixes (John Smith Sr. vs John Smith Jr.), significantly different age signals from different sources, non-overlapping geographic histories that are physically implausible for one person, and different employer histories that do not coexist plausibly are all false merge signals.
+When new demographics are loaded for a previously merged entity, the scoring engine evaluates not only opportunities to merge additional records but also signals that the current merge may be a false positive. Conflicting identity number variants suggesting generational suffixes (John Smith Sr. vs John Smith Jr.), significantly different age signals from different sources, non-overlapping geographic histories that are physically implausible for one person, and different employer histories that do not coexist plausibly are all false merge signals.
 
 False merge signals surface as agent review items, not as automatic splits. The agent sees a finding: this entity may be two people based on conflicting demographic patterns. The agent reviews the finding and either dismisses it (confirming the merge is correct) or initiates a split. For high-volume agencies where manual review of every finding is operationally unrealistic, a configuration flag enables automatic acceptance of system split suggestions. When auto-accept is enabled, the system applies the suggested split, records the split event in core.event as system-initiated with the confidence score that drove the decision, and makes the result available for agent review and reversal after the fact.
 
