@@ -62,6 +62,7 @@ An AI assistant helping with this repository should read this index first, then 
 - **[HIVE-0007](decisions/hivear/HIVE-0007-payment-application-and-waterfall.md)** Payment Application and Waterfall. HiveAR will apply each incoming payment or credit to a debt's balance buckets through a configurable waterfall, an ordered priority that determines which buckets a payment pays down and in what order.
 - **[HIVE-0008](decisions/hivear/HIVE-0008-client-billing-invoicing-and-statements.md)** Client Billing, Invoicing, and Statements. HiveAR will treat the client as a posting-driven financial aggregate, symmetric with the debt, whose balances are the projection of immutable client transactions.
 - **[HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md)** Debt-Type Structure Extension. HiveAR will let a debt-type module attach the subject-matter structure of its debt to the core debt, while the core debt itself ships no subject-matter structure of its own.
+- **[HIVE-0010](decisions/hivear/HIVE-0010-contact-windows-and-contact-frequency.md)** Contact Windows and Contact Frequency. HiveAR will check every outbound contact against two mechanisms before it is made.
 
 ## Module Decisions: Debt-Purchase
 

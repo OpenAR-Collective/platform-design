@@ -82,6 +82,12 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** If you collect outside the United States, what date does the first notice to the consumer state the amount as of, and where does your system get it?
 **Target:** HiveAR v2.
 
+### Restrictions a party places on contact
+
+**Technical:** The mechanism by which a party, or someone acting for the party, limits contact: a request to stop, to use only certain channels, or not to be contacted at certain times or places, with its evidence, scope, duration, and release. It can only narrow what the contact window and frequency checks of [HIVE-0010](decisions/hivear/HIVE-0010-contact-windows-and-contact-frequency.md) permit, and the effect each jurisdiction gives such a request belongs to its Compliance Pack.
+**From experience:** When a consumer tells a collector not to call at work, or to send everything in writing, how does your system make sure every collector and every dialer honors it, and where does it fail?
+**Target:** HiveAR v2.
+
 ### Generative consumer-facing content
 
 **Technical:** AI-generated member-facing content across texts, emails, letters, chat, and voice, with the content, review, approval, and audit controls that FDCPA and related content rules require. The highest-compliance-exposure surface in the platform.
