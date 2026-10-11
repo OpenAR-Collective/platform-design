@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The unsecured consumer debt module is the platform's first debt-type module and its reference example, the canonical bundle of the common consumer-debt primitives. It is a manifest under the module composition model from Wax Design Decision 33: it references shared primitives by key, selects five balance buckets, declares two properties and three debt role types, ships with interest accrual off, and supplies a default payment waterfall. It adds no subject-matter structure, since unsecured consumer debt has nothing to itemize beyond its buckets, which makes it the cleanest exercise of the debt-type extension framework from [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md). Its module type is debt_type, and it is compatible with the contingency contract type in v1.
+The unsecured consumer debt module is the platform's first debt-type module and its reference example, the canonical bundle of the common consumer-debt primitives. It is a manifest under the module composition model from Wax Design Decision 33: it references shared primitives by key, selects five balance buckets, declares two properties and three debt role types, ships with interest accrual off, and supplies a default payment waterfall. It adds no subject-matter structure, since unsecured consumer debt has no subject matter beyond its buckets, which makes it the cleanest exercise of the debt-type extension framework from [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md). Its module type is debt_type, and it is compatible with the contingency contract type in v1.
 
 ## A Manifest Over Shared Primitives
 
@@ -37,13 +37,13 @@ The module ships a default application order of client fees, agency fees, client
 
 Confidence on this default order is Medium. It is the conventional fees-then-interest-then-principal sequence with client charges ahead of agency charges, and it is a defensible default, but a client-whole-first alternative, client fees, client interest, principal, then the agency's own add-ons, would pay the client's principal ahead of the agency's most legally exposed charges and is a live candidate for revision on fairness and exposure grounds. The order is an overridable default, so the choice is not load-bearing.
 
-## Itemization
+## Validation Itemization
 
-The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the itemization a validation notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md).
+The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the validation itemization a notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The validation itemization is not the same thing as a debt's itemization, the static line-item history that a client may send at placement, which that decision also defines and which is never read into the balances.
 
 ## No Subject-Matter Structure
 
-This module deliberately attaches no subject-matter fields or sub-entities. Unsecured consumer debt has no collateral, no service lines, and no itemized charge detail beyond its buckets, so there is nothing for the debt-type extension framework to attach. The module stands as proof that the framework imposes nothing: a debt type with no subject matter is fully served by the core debt, its buckets, its roles, and its properties.
+This module deliberately attaches no subject-matter fields or sub-entities. Unsecured consumer debt has no collateral, no service lines, and no other subject matter beyond its buckets, so there is nothing for the debt-type extension framework to attach. The module stands as proof that the framework imposes nothing: a debt type with no subject matter is fully served by the core debt, its buckets, its roles, and its properties.
 
 ## Scope
 
@@ -51,13 +51,13 @@ This module covers charged-off, contingency-placed consumer debt, a placed balan
 
 ## Implementation Phasing
 
-**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the Reg F itemization mapping. No subject-matter structure. Compatible with the contingency contract type.
+**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the Reg F validation itemization mapping. No subject-matter structure. Compatible with the contingency contract type.
 
 **Unsecured Consumer Debt Module v2+:** Interest accrual configuration where a region pack and the contract permit it. Compatibility with the debt-purchase contract type as that module matures. Any refinement the default waterfall warrants after review.
 
 **Breaking change risk: LOW. The module is a manifest selecting shared primitives and adds no structure, so it changes nothing in the core or the framework, and its elements are additive and overridable.**
 
-**Confidence: HIGH. Contingency-collected, charged-off unsecured consumer debt is well-trodden ground, and the buckets, properties, roles, and itemization are settled. The one element held at Medium is the default waterfall order, as noted in that section.**
+**Confidence: HIGH. Contingency-collected, charged-off unsecured consumer debt is well-trodden ground, and the buckets, properties, roles, and validation itemization are settled. The one element held at Medium is the default waterfall order, as noted in that section.**
 
 ## Implications For Contributors
 

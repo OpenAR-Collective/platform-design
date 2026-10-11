@@ -129,7 +129,7 @@ Aggregate fields are maintained by event-driven workflows, not computed at query
 
 **Debt lineage**: prior instances of a debt (rollover, re-placement) need a separate relationship mechanism distinct from entity-to-debt relationships. The label for this mechanism is Debt Lineage.
 
-**Charge detail and service lines**: whether a charge is itself a debt, or only supporting detail on one, depends on how the client tracks balances, as [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) describes. Supporting detail such as hospital service lines is a sub-entity attached to the debt. A charge that the client collects against is a debt, grouped with its siblings under [HiveAR Design Decision 4](HIVE-0004-debt-groups.md).
+**Itemization and service lines**: whether a charge is itself a debt, or only part of the itemization that supports one, depends on how the client tracks balances, as [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) describes. An itemization such as a hospital's service lines is a set of sub-entities attached to the debt. A charge that the client collects against is a debt, grouped with its siblings under [HiveAR Design Decision 4](HIVE-0004-debt-groups.md).
 
 ## Implementation Phasing
 
