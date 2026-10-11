@@ -17,7 +17,7 @@ HiveAR will check every outbound contact against two mechanisms before it is mad
 
 ## A Mechanism, Not a Rule
 
-Contact timing is the clearest case of the mechanism test in [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md). Jurisdictions that limit contact tend to do it with a few common shapes, a window of permitted hours and a cap on contacts within a period, while the hours, the caps, the periods, and the exceptions differ from one jurisdiction to the next and change over time. HiveAR builds the shapes once, and a Compliance Pack supplies the values for its jurisdiction. The United States values will be stated in a decision of the United States layer. Nothing in the core names an hour, a count, or a number of days.
+Contact timing is the clearest case of the mechanism test in [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md). Jurisdictions that limit contact tend to do it with a few common shapes, a window of permitted hours and a cap on contacts within a period, while the hours, the caps, the periods, and the exceptions differ from one jurisdiction to the next and change over time. HiveAR builds the shapes once, and a Compliance Pack supplies the values for its jurisdiction. The United States federal values are stated in [United States Module Design Decision 3](../modules/united-states/MOD-US-0003-federal-contact-times-and-call-frequency.md). Nothing in the core names an hour, a count, or a number of days.
 
 ## The Contact Window
 
