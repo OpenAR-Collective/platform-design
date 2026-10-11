@@ -13,11 +13,15 @@ license: CC-BY-4.0
 
 ## Decision
 
-The federal Compliance Pack, compliance.us, will supply the United States federal values for the contact window and the contact frequency counter of [HiveAR Design Decision 10](../../hivear/HIVE-0010-contact-windows-and-contact-frequency.md): the hours that are presumed convenient for communicating with a consumer, and the limits on telephone calls to a person about a debt. The values come from Regulation F, 12 CFR part 1006, sections 1006.6 and 1006.14, and their official interpretation. HiveAR will treat the call limits, which the rule states as presumptions, as limits that the check enforces, and an agency may set stricter values. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
+The federal Compliance Pack, compliance.us, will supply the United States federal values for the contact window and the contact frequency counter of [HiveAR Design Decision 10](../../hivear/HIVE-0010-contact-windows-and-contact-frequency.md): the hours that are presumed convenient for communicating with a consumer, and the limits on telephone calls to a person about a debt. The values come from Regulation F, 12 CFR part 1006, sections 1006.6 and 1006.14, and their official interpretation. HiveAR will treat the call limits, which the rule states as presumptions, as limits that the check enforces, and an agency may set stricter values. The values govern consumer debts only, meaning debts whose debt type declares the consumer regulatory nature under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md), and the rules for commercial debt need separate research and decisions of their own. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
 
 ## Where This Decision Sits
 
 HiveAR Design Decision 10 builds the contact window and the frequency counter and holds no values. This decision supplies the federal values as Compliance Pack content under [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), the same way [United States Module Design Decision 1](MOD-US-0001-itemization-date-and-validation-itemization.md) supplies the federal values for the validation notice. A state's Compliance Pack adds its own values on the same mechanisms, and under HiveAR Design Decision 10 a contact must satisfy both. The consumer's candidate zones come from the US Locale Module of [United States Module Design Decision 2](MOD-US-0002-country-layer.md).
+
+## Which Debts These Values Govern
+
+The Fair Debt Collection Practices Act and Regulation F govern the collection of consumer debts (needs verification). The pack therefore applies the window and the call limits only to a debt whose debt type declares the consumer regulatory nature, a standardized property under HiveAR Design Decision 9, as [Unsecured Consumer Debt Module Design Decision 1](../unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md) does for unsecured consumer debt. A debt whose type declares the commercial regulatory nature is outside these values. The rules that govern collecting commercial debt in the United States differ, need research of their own, which is recorded as an open question, and will be stated in their own decisions.
 
 ## Convenient Times
 
@@ -59,7 +63,7 @@ The federal rule sets no count for email or text messages, though conduct across
 >
 > **Verification status**: read from the Bureau's published text and official interpretation on 2026-10-11 by the drafter and not reviewed by counsel.
 >
-> **Coverage**: not assessed here. Which collectors and which debts the rule reaches needs verification.
+> **Coverage**: consumer debts, which the pack identifies by the regulatory nature that their debt type declares. Which collectors the rule reaches, such as whether a creditor collecting its own debts is covered, needs verification.
 
 ## Implementation Phasing
 
