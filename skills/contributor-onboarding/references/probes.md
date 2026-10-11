@@ -9,6 +9,7 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Walk me through the last placement file that arrived in bad shape. What was wrong with it, and what did it take to get those debts workable?
 - When a client places debts with you, what information do they routinely leave out that you need on day one?
 - Think of the last healthcare, toll, or card placement you loaded. What was the unit you collected against (the account, the claim, the visit, or a single charge), how did the client's file identify it, what itemization of charges or transactions came with it, and what did the levels above it let you do?
+- A client places a debt whose charges, payments, and adjustments do not add up to the balance they sent. What does your company do with it: load it, hold it, or send it back?
 - What happens at your company when the same debt shows up in two different placement files?
 - What does every collections system get wrong about loading new business?
 

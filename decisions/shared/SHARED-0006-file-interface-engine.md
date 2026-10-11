@@ -77,7 +77,7 @@ HiveAR defines four import categories organized in a class hierarchy. The base c
 
 Record Addition Import: a pure instance of the net-new base class. Covers any aggregate type that is neither debt nor payment, including users, clients, and legal cases. No balancing requirement.
 
-New Business Import: produces debt creation commands. Inherits net-new pipeline behavior. Adds the mandatory balancing gate as a pre-approval control. A debt creation command carries the identifiers that place the debt in its debt groups at every level of its grouping scheme, as [HiveAR Design Decision 4](../hivear/HIVE-0004-debt-groups.md) describes, and the import's layout maps file columns to those identifiers. The command also carries the lines of the debt's itemization when the client sends them, as [HiveAR Design Decision 5](../hivear/HIVE-0005-debt-structure-and-balance-composition.md) describes, and the layout maps the client's detail records to those lines.
+New Business Import: produces debt creation commands. Inherits net-new pipeline behavior. Adds the mandatory balancing gate as a pre-approval control. A debt creation command carries the identifiers that place the debt in its debt groups at every level of its grouping scheme, as [HiveAR Design Decision 4](../hivear/HIVE-0004-debt-groups.md) describes, and the import's layout maps file columns to those identifiers. The command also carries the lines of the debt's itemization when the client sends them, as [HiveAR Design Decision 5](../hivear/HIVE-0005-debt-structure-and-balance-composition.md) describes, and the layout maps the client's detail records to those lines. An agency that has turned on the itemization check described there has it run as each debt creation command is built, sees a failure flagged in staging review, and can have the debt rejected from the load. The check is separate from the balancing gate, which balances the file to its control totals.
 
 Payment Import: produces payment posting commands. Inherits net-new pipeline behavior. Adds the mandatory balancing gate. Control totals typically represent net payment amounts balanced to a bank deposit register or client remittance total.
 
@@ -111,7 +111,7 @@ HiveAR provides default post-record trigger registrations for new business and p
 
 **HiveAR v1 (MVP)**: Import category registrations (net-new base class and four subtypes). Mandatory balancing gate for New Business and Payment imports. Aggregate registrations for debts, entities, and payments.
 
-**HiveAR v2**: Layout designer UI. Mapping designer UI. Value translation table management UI. Inventory file reconciliation and exception reporting. AR-specific post-record trigger defaults.
+**HiveAR v2**: Layout designer UI. Mapping designer UI. Value translation table management UI. Inventory file reconciliation and exception reporting. AR-specific post-record trigger defaults. The optional itemization check at new business import.
 
 Breaking change risk: LOW. The pipeline architecture and import and export definition schema are stable. UI tooling additions in v2 do not require schema migration or interface changes in v1 code.
 
