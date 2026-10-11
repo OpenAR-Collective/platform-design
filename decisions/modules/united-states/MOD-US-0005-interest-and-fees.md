@@ -2,7 +2,7 @@
 id: MOD-US-0005
 title: "Interest and Fees"
 status: Proposed
-version: 0.1
+version: 0.2
 area: module:united-states
 date: 2026-10-11
 supersedes: none
@@ -17,7 +17,7 @@ The federal Compliance Pack, compliance.us, will state the United States federal
 
 ## Where This Decision Sits
 
-A debt's balance is composed of the buckets of [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md), and a debt-type module decides whether its debt can bear interest. The unsecured consumer debt module ships interest accrual off, the cautious default under the default test of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), and leaves whether interest accrues, and at what rate, to the contract and the Compliance Pack. This decision supplies the federal rule that the pack applies to that question. The starting values that the US Boilerplate Pack sets for interest, which are sound practice and not law, belong in this decision too and are added when the interest settings that they configure are decided.
+A debt's balance is composed of the buckets of [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md), and a debt-type module decides whether its debt can bear interest. The unsecured consumer debt module ships interest accrual off, the cautious default under the default test of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), and leaves whether interest accrues, and at what rate, to the contract and the Compliance Pack. This decision supplies the federal rule that the pack applies to that question. The starting values that the US Boilerplate Pack sets for interest, which are sound practice and not law, belong in this decision too and are stated in a section below.
 
 ## The Federal Rule
 
@@ -28,6 +28,14 @@ The premise that the unsecured consumer debt module stated, and that this decisi
 ## Which Debts This Rule Governs
 
 The Fair Debt Collection Practices Act and Regulation F govern the collection of consumer debts (needs verification). The pack therefore applies this rule only to a debt whose regulatory nature flag is consumer. Interest and fees on a debt flagged commercial follow the contract and state law, and the state rules that limit what a collector of commercial debt may add belong to that state's Compliance Pack.
+
+## The Starting Values the US Boilerplate Pack Sets
+
+The US Boilerplate Pack sets conservative starting values on the interest settings of [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md), under the default test of Wax Design Decision 8. They are sound practice and not law. An agency adopts the pack as starting content and may change each value, and the Collective publishes the pack as educational reference material.
+
+- The disputed counterpart of the principal bucket that [Unsecured Consumer Debt Module Design Decision 1](../unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md) selects bears no interest. While an amount of principal is in dispute it accrues none, whatever the interest setting of the bare principal bucket is. An agency that wants interest to continue on disputed principal changes this value for its own debts.
+
+The pack sets no other value for interest. Whether a bucket accrues interest at all, and at what rate, stays with the contract and the Compliance Pack, as the sections above describe.
 
 ## Status of the Content
 
@@ -41,9 +49,9 @@ The Fair Debt Collection Practices Act and Regulation F govern the collection of
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The federal rule as pack content, read when the pack decides whether a consumer debt may accrue interest or add a fee.
+**HiveAR v1 (MVP):** The federal rule as pack content, read when the pack decides whether a consumer debt may accrue interest or add a fee, and the US Boilerplate Pack's starting value for interest on disputed principal.
 
-**HiveAR v2:** The US Boilerplate Pack's starting values for interest, added with the interest settings that they configure.
+**HiveAR v2:** Further starting values for interest as the accrual process is specified.
 
 **HiveAR v3+:** State Compliance Pack values, such as the rates and caps that state law sets, on the same mechanisms.
 
@@ -56,3 +64,5 @@ The Fair Debt Collection Practices Act and Regulation F govern the collection of
 This rule lives only in compliance.us. The debt-type modules and the HiveAR core never name it.
 
 A change to a value records its source, its legal force, its effective date, and its verification status, as Wax Design Decision 8 requires of Compliance Pack values.
+
+The Boilerplate Pack's starting values are sound practice and never a statement of law, and an agency may change each of them.
