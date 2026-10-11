@@ -177,9 +177,9 @@ Custom action types installed locally are the installing agency's responsibility
 
 ## Workflow Provenance and System Workflow Visibility
 
-Workflows in Wax carry a source type: Wax-delivered, Seed Pack-delivered, or User-defined. Wax-delivered workflows are the nuts-and-bolts system operations: updating aggregate balance fields when a payment posts, updating is_active when a debt closes, detecting orphaned debt groups when a debt leaves. These workflows are hidden by default from the workflow designer UI. An administrator with an explicit RBAC privilege and a 'show system workflows' toggle can view them. They may be modified (it is OSS) but the UI makes clear that modification of system workflows affects platform integrity.
+Workflows in Wax carry a source type: Wax-delivered, Pack-delivered, or User-defined. Wax-delivered workflows are the nuts-and-bolts system operations: updating aggregate balance fields when a payment posts, updating is_active when a debt closes, detecting orphaned debt groups when a debt leaves. These workflows are hidden by default from the workflow designer UI. An administrator with an explicit RBAC privilege and a 'show system workflows' toggle can view them. They may be modified (it is OSS) but the UI makes clear that modification of system workflows affects platform integrity.
 
-The workflow definition record carries source_type (core, seed_pack, or user) and source_identifier (the contributing pack, for pack-delivered workflows). These fields establish the origin of a workflow definition. The full clone-and-override provenance model, including source_workflow_version_fk and the immutable clone entry in the version history table, is described in the Workflow Provenance and Version Tracking section below.
+The workflow definition record carries source_type (core, pack, or user) and source_identifier (the contributing pack, for pack-delivered workflows). These fields establish the origin of a workflow definition. The full clone-and-override provenance model, including source_workflow_version_fk and the immutable clone entry in the version history table, is described in the Workflow Provenance and Version Tracking section below.
 
 ## Terminology: Domain Events, Triggers, and Workflow Executions
 
@@ -246,7 +246,7 @@ Abort records carry a special requirement: they must be queryable by affected_ag
 
 ## Workflow Provenance and Version Tracking
 
-The existing provenance model (source_type: core, seed_pack, or user; source_identifier recording the contributing pack) is extended to support the full clone-and-override model. The workflow definition version history table is the authoritative provenance record.
+The existing provenance model (source_type: core, pack, or user; source_identifier recording the contributing pack) is extended to support the full clone-and-override model. The workflow definition version history table is the authoritative provenance record.
 
 **source_workflow_version_fk. **When a workflow definition is created by cloning an existing definition, this field on the new definition record points to the specific version history row of the source. A single FK to a version history row carries both the source definition identity and the version that was cloned, with no redundancy. Null for original definitions.
 

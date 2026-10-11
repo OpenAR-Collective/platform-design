@@ -2,7 +2,7 @@
 id: WAX-0004
 title: "Schema Architecture and Module Extension Pattern"
 status: Accepted
-version: 2.0
+version: 2.1
 area: wax
 date: 2026-10-10
 supersedes: none
@@ -28,7 +28,7 @@ Modules that require additional data fields extend Wax-owned entities through mo
 | healthcare | Healthcare Business Class module | debt_extension, claim_detail |
 | auto | Auto Business Class module | debt_extension, vehicle |
 | legal_collections | Legal Collections Treatment Module | debt_extension, matter |
-| us_region | United States Region Pack | state_configuration, address_validation |
+| us_locale | United States Locale Module | us_address, us_identity |
 | [module_name] | Any future module | Module-specific tables, owned entirely by that module |
 
 ## Why This Pattern

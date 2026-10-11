@@ -17,7 +17,7 @@ HiveAR will classify every debt on two independent axes and compose its balance 
 
 ## The Framework Is Inert Without Modules
 
-The platform rests on the founding tenet that the framework does nothing on its own. Wax does nothing without HiveAR, and HiveAR does nothing without a configuration: a locale for laws and address conventions, a language pack, and at least one debt-type module. An agency whose debt is too unusual for any module defines its own bucket definitions by hand. The balance bucket registry is therefore sourced entirely from the loaded debt-type modules and from agency-defined definitions, and the framework ships no bucket of its own and no default balance. A working configuration always has at least one bucket source, because a configuration without one is not a working configuration.
+The platform rests on the founding tenet that the framework does nothing on its own. Wax does nothing without HiveAR, and HiveAR does nothing without a configuration: a Locale Module and a Region Pack for the address conventions, currency, and formats, a Compliance Pack for the law of each jurisdiction in which the agency collects, a Language Pack, and at least one debt-type module. An agency whose debt is too unusual for any module defines its own bucket definitions by hand. The balance bucket registry is therefore sourced entirely from the loaded debt-type modules and from agency-defined definitions, and the framework ships no bucket of its own and no default balance. A working configuration always has at least one bucket source, because a configuration without one is not a working configuration.
 
 ## Two Classifiers: Debt Type and Contract Type
 

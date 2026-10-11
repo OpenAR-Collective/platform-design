@@ -2,9 +2,9 @@
 id: WAX-0011
 title: "Internationalization Architecture and Reference Value System"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-08
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -144,19 +144,19 @@ A Pack contributes rows to reference_value and the i18n translation tables. It d
 
 **Reason codes**: the full set of why-did-this-change codes used by the event store, covering balance adjustments, status transitions, contact updates, assignment changes, and regulatory events.
 
-**Dispute types**: FDCPA dispute, FCRA dispute, identity theft claim, debt not mine, balance dispute, and other categories relevant to the dispute workflow.
+**Dispute types**: identity theft claim, debt not mine, balance dispute, and other categories relevant to the dispute workflow. A dispute type named for a statute, such as an FDCPA or FCRA dispute in the United States, comes from that jurisdiction's Compliance Pack.
 
 **Closure reasons**: paid in full, settled, returned to creditor, sold, deceased, statute of limitations, and other standard closure categories.
 
 **Communication channel types**: outbound call, inbound call, letter, email, text message, and other contact modalities.
 
-**Document types**: validation notice, cease and desist confirmation, settlement agreement, payment receipt, and other document categories.
+**Document types**: cease and desist confirmation, settlement agreement, payment receipt, and other document categories. A document that a law prescribes, such as the United States validation notice, comes from that jurisdiction's Compliance Pack.
 
 Each contributed value includes translations for every Language Pack installed on the system. A system with only the English US Language Pack sees English labels throughout. A system with English and Spanish Language Packs sees both, and every Pack value is fully translated in both.
 
 ## Multiple Packs
 
-The Collective will develop and maintain multiple Packs targeting different operation types. These packages are independently installable and can be layered: an agency doing healthcare collections might install the generic third-party Pack as a foundation and then install the healthcare-specific Pack on top, which adds healthcare-specific values without duplicating the generic ones.
+The Collective will develop and maintain multiple Packs targeting different operation types. These packages are independently installable and can be layered: an agency doing healthcare collections might install the generic third-party Pack as a foundation and then install the healthcare-specific Pack on top, which adds healthcare-specific values without duplicating the generic ones. The packs for operation types below are Boilerplate Packs, and the packs for the compliance rules of jurisdictions are Compliance Packs, as [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) distinguishes them.
 
 ## Planned Packs include:
 
@@ -170,9 +170,9 @@ The Collective will develop and maintain multiple Packs targeting different oper
 
 **Debt Purchase**: values oriented toward debt buyers, including purchased portfolio statuses, chain-of-title document types, and purchase price allocation codes.
 
-**FDCPA and Regulation F Reference Configuration**: a suggested set of workflow reference values, reason codes, and status definitions reflecting common industry interpretation of federal collection law requirements. Labeled explicitly as educational reference material. Not a compliance guarantee.
+**United States Federal Compliance Pack**: compliance.us, a suggested set of workflow reference values, reason codes, and status definitions reflecting common industry interpretation of federal collection law requirements, including the FDCPA and Regulation F. Labeled explicitly as educational reference material. Not a compliance guarantee.
 
-**State Reference Configurations**: individual Compliance Packs for each US state, providing suggested reference values reflecting common interpretations of state-specific collection statutes, licensing requirements, and consumer protection provisions. Each is separately installable, labeled as educational reference material, and reflects the Collective's understanding of current law at the time of publication. Agencies are responsible for independent legal review before relying on any state reference configuration for compliance purposes.
+**State Compliance Packs**: individual Compliance Packs for each US state, layered on the federal pack, providing suggested reference values reflecting common interpretations of state-specific collection statutes, licensing requirements, and consumer protection provisions. Each is separately installable, labeled as educational reference material, and reflects the Collective's understanding of current law at the time of publication. Agencies are responsible for independent legal review before relying on any state Compliance Pack for compliance purposes.
 
 ## Compliance Packs and the Liability Boundary
 
