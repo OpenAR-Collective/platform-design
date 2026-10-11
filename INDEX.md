@@ -70,3 +70,7 @@ An AI assistant helping with this repository should read this index first, then 
 ## Module Decisions: Unsecured Consumer Debt
 
 - **[MOD-UNSECURED-0001](decisions/modules/unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md)** Definition and Buckets. The unsecured consumer debt module is the platform's first debt-type module and its reference example, the canonical bundle of the common consumer-debt primitives.
+
+## Module Decisions: United States
+
+- **[MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md)** Itemization Date and Validation Itemization. The United States layer will state the federal rules for the amounts that a validation notice discloses as Compliance Pack content for the jurisdiction identified as compliance.us, and the HiveAR core will not state them.

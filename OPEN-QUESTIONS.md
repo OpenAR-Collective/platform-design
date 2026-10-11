@@ -76,6 +76,12 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** For medical debt or any debt that comes with an itemization, which line-level details do collectors and consumers actually ask about, and which does your system fail to show you?
 **Target:** HiveAR v2. Issue: #8.
 
+### Reference dates beyond the United States set
+
+**Technical:** Whether the candidate reference dates that a client provides stay the five that [HIVE-0005](decisions/hivear/HIVE-0005-debt-structure-and-balance-composition.md) stores, or become a registry that Compliance Packs extend, so that the notice of another jurisdiction can name a date the five do not cover. Builds on [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md).
+**From experience:** If you collect outside the United States, what date does the first notice to the consumer state the amount as of, and where does your system get it?
+**Target:** HiveAR v2.
+
 ### Generative consumer-facing content
 
 **Technical:** AI-generated member-facing content across texts, emails, letters, chat, and voice, with the content, review, approval, and audit controls that FDCPA and related content rules require. The highest-compliance-exposure surface in the platform.
@@ -133,3 +139,9 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Technical:** Purpose-built interface for promoting configuration between instances with diff preview, mandatory comments, and full audit history. Extends [WAX-0021](decisions/wax/WAX-0021-configuration-management-and-environment-lifecycle.md).
 **Target:** Wax v3+. Issue: #15.
+
+### Combining Compliance Packs across jurisdiction layers
+
+**Technical:** How a federal Compliance Pack and a state pack combine when both speak to one subject, which one controls, and how a pack states that no rule was found or that a jurisdiction is not yet researched. Builds on [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md) and [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md).
+**From experience:** When a federal rule and a state rule differ on the same point, how does your company decide which one governs, and who signs off on that choice?
+**Target:** Wax v2.

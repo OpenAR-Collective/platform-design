@@ -21,7 +21,7 @@ Almost the whole of this module is a declarative selection from the shared seed 
 
 ## The Buckets
 
-The module selects five balance buckets: client fees, agency fees, client interest, agency interest, and principal. The split is by ownership as well as by kind, because it drives remittance and commission under HiveAR Design Decisions 6 and 8. The three client-side buckets, client fees, client interest, and principal, are commissionable and remitted to the client. The two agency-side buckets, agency fees and agency interest, are the agency's own revenue, the charges it adds where the agreement or law allows. The buckets map to the Reg F itemization categories, so the validation itemization falls out of the balances rather than being assembled separately.
+The module selects five balance buckets: client fees, agency fees, client interest, agency interest, and principal. The split is by ownership as well as by kind, because it drives remittance and commission under HiveAR Design Decisions 6 and 8. The three client-side buckets, client fees, client interest, and principal, are commissionable and remitted to the client. The two agency-side buckets, agency fees and agency interest, are the agency's own revenue, the charges it adds where the agreement or law allows. The buckets map to the categories of the United States validation itemization, so the validation itemization falls out of the balances rather than being assembled separately.
 
 ## Interest Off by Default
 
@@ -39,7 +39,7 @@ Confidence on this default order is Medium. It is the conventional fees-then-int
 
 ## Validation Itemization
 
-The buckets correspond to the Reg F validation itemization. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the validation itemization a notice must present is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The validation itemization is not the same thing as a debt's itemization, the static set of line items that a client may send at placement, although that decision describes how the lines dated after the itemization date help supply it. The itemization is never read into the balances.
+The buckets correspond to the categories of the United States validation itemization, which [United States Module Design Decision 1](../united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) describes. The itemization-date amount is the principal, the interest and fees buckets carry what accrued since, and payments and credits are the transactions that reduce them, so the validation itemization a notice presents is read from the balances rather than maintained as a separate artifact. The itemization date itself is the debt-level date established in [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md). The validation itemization is not the same thing as a debt's itemization, the static set of line items that a client may send at placement, although that decision describes how the lines dated after the itemization date help supply it. The itemization is never read into the balances. Which buckets carry interest and fees for this purpose is this module's statement, and what the notice must contain is not.
 
 ## No Subject-Matter Structure
 
@@ -51,7 +51,7 @@ This module covers charged-off, contingency-placed consumer debt, a placed balan
 
 ## Implementation Phasing
 
-**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the Reg F validation itemization mapping. No subject-matter structure. Compatible with the contingency contract type.
+**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the mapping of its buckets to the categories of the validation itemization. No subject-matter structure. Compatible with the contingency contract type.
 
 **Unsecured Consumer Debt Module v2+:** Interest accrual configuration where a region pack and the contract permit it. Compatibility with the debt-purchase contract type as that module matures. Any refinement the default waterfall warrants after review.
 
