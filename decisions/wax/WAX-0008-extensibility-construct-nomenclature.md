@@ -2,7 +2,7 @@
 id: WAX-0008
 title: "Extensibility Construct Nomenclature"
 status: Accepted
-version: 2.0
+version: 2.1
 area: wax
 date: 2026-10-11
 supersedes: none
@@ -95,7 +95,7 @@ Display_name in the core schema is intentionally freeform. Western first_name an
 
 Compliance Packs serve a secondary function beyond providing reference configurations: they define the jurisdictions in which an agency has configured the platform to operate. When Wax receives a debt with a debtor address in a jurisdiction for which no Compliance Pack is installed, it can be configured to automatically close that debt rather than allow collection activity to proceed without appropriate compliance configuration. A jurisdiction counts as configured only when a pack is installed for it at the most specific level at which its country's packs are published, so the federal pack compliance.us does not by itself configure any state.
 
-This auto-close mechanism makes the installed Compliance Pack set an implicit operational boundary. An agency licensed to collect in twelve states installs the federal pack and twelve state-level Compliance Packs and configures the auto-close policy. Debts from unlicensed or unconfigured states are automatically closed before any collector activity begins. The auto-close policy is configurable: agencies may choose to route such debts to a review queue rather than close them immediately, for example to manually assign them to a specialist or to flag them for compliance review before any action is taken.
+This auto-close mechanism makes the installed Compliance Pack set an implicit operational boundary. An agency that collects in twelve states installs the federal pack and twelve state-level Compliance Packs and configures the auto-close policy. Debts from unconfigured states are automatically closed before any collector activity begins. Whether the agency may collect a given debt in a configured state is a separate question, which [HiveAR Design Decision 11](../hivear/HIVE-0011-collector-licensing.md) answers from the agency's authorization records and the requirements that each state's pack declares. The auto-close policy is configurable: agencies may choose to route such debts to a review queue rather than close them immediately, for example to manually assign them to a specialist or to flag them for compliance review before any action is taken.
 
 The auto-close mechanism is a Wax capability, not a Locale Module or Compliance Pack feature. The Compliance Pack's jurisdiction identifier is what the mechanism checks against. The policy behavior is configured by the agency through Wax's administration UI.
 
