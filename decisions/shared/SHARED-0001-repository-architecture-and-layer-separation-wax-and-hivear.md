@@ -2,9 +2,9 @@
 id: SHARED-0001
 title: "Repository Architecture and Layer Separation (Wax and HiveAR)"
 status: Accepted
-version: 2.0
+version: 2.1
 area: shared
-date: 2026-10-10
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -29,7 +29,7 @@ The platform is developed as two distinct codebases housed in separate repositor
 | --- | --- | --- |
 | core | Wax | event, reference_type, reference_value, module_registry, workflow_definition, configuration, user, role, permission, organization |
 | i18n | Wax | reference_value_translation, module_translation, resource_bundle |
-| ar | HiveAR | debt, entity, person, business, entity_relationship, entity_debt_role, debt_group, payment, payment_arrangement, dispute, communication, demographic history tables, entity_merge |
+| ar | HiveAR | debt, entity, person, business, entity_relationship, entity_debt_role, debt_group, payment, payment_arrangement, credit_balance, dispute, communication, demographic history tables, entity_merge |
 | mod_[name] | Modules | Module-specific tables: satellite extensions, read models, module-owned entities |
 
 The core schema name was chosen because it reads naturally and communicates that these are the foundational infrastructure tables. A developer querying core.event immediately understands they are looking at the platform's central event store. HiveAR's ar schema follows the same principle: ar.debt, ar.entity, ar.payment read cleanly as domain objects. The abbreviated domain prefix is a recommended pattern for Wax implementations. A hypothetical healthcare platform built on Wax might create an hc schema.
