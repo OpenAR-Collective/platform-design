@@ -32,6 +32,7 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Tell me about the last dispute that was a pain to resolve, from the moment it arrived to the moment it closed. Who touched it, what got written down, and what stopped while it was open?
 - When a consumer disputes three debts in one phone call, how does your company record that?
 - What happens when the client never sends the validation documents?
+- When you put together a validation notice, where do the interest, fees, payments, and credits since the itemization date come from: the client's file, your own postings, or both?
 - What do the software vendors always get wrong about disputes?
 
 ## 5. Payments, plans, and arrangements
