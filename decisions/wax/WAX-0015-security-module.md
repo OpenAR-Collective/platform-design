@@ -2,9 +2,9 @@
 id: WAX-0015
 title: "Security Module"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -65,13 +65,13 @@ If an agency modifies application code in a way that attempts to write directly 
 
 ## Deployment and Distribution
 
-The WSM is distributed as a pre-compiled, code-signed binary for all supported platforms: Windows Server x64, Linux x64, and common cloud VM images. It is included in the standard HiveAR installer and is also available as a standalone download from the Collective's GitHub releases page and website. The WSM binary is versioned independently of the rest of the platform. When the Collective releases a new WSM version, it is distributed through the same channels and agencies update it independently of their application code deployments.
+The WSM is distributed as a pre-compiled, code-signed binary for all supported platforms: Windows Server x64, Linux x64, and common cloud VM images. It is included in every standard HiveAR release, in the container image and in the native installers, and is also available as a standalone download from the Collective's GitHub releases page and website. The WSM binary is versioned independently of the rest of the platform. When the Collective releases a new WSM version, it is distributed through the same channels and agencies update it independently of their application code deployments.
 
-Agencies running the standard HiveAR installer use the pre-compiled WSM binary directly. Agencies that have built custom versions of HiveAR's application code continue to use the Collective's pre-compiled WSM binary. The WSM is never expected to be recompiled by an agency. Its source is published for transparency and audit, and changes to it are accepted only through the Collective's contribution process. The code integrity architecture governing the WSM binary is documented in [Wax Design Decision 15](WAX-0015-security-module.md).
+Agencies running a standard HiveAR release use the pre-compiled WSM binary directly. Agencies that have built custom versions of HiveAR's application code continue to use the Collective's pre-compiled WSM binary. The WSM is never expected to be recompiled by an agency. Its source is published for transparency and audit, and changes to it are accepted only through the Collective's contribution process. The code integrity architecture governing the WSM binary is documented in [Wax Design Decision 15](WAX-0015-security-module.md).
 
-## Relationship to the Standard Installer and Custom Deployments
+## Relationship to the Standard Release and Custom Deployments
 
-The HiveAR will be distributed as a standard installer package containing all pre-compiled components including the WSM. This is the intended deployment path for the majority of agencies. The installer handles component version compatibility, initial configuration, and the WSM's key store initialization.
+HiveAR will be distributed as a standard release containing all pre-compiled components including the WSM: a container image from v1, and native installers from v2, as [Shared Design Decision 7](../shared/SHARED-0007-devops-and-contribution-lifecycle.md) sets out. This is the intended deployment path for the majority of agencies. The release tooling handles component version compatibility, initial configuration, and the WSM's key store initialization.
 
 Agencies that choose to take advantage of HiveAR's open-source nature, for example to build custom modules, modify UI components, or extend the platform's capabilities, deploy their custom application code alongside the Collective's pre-compiled WSM binary. The WSM and the custom application code are independently deployable and independently versioned. The agency's custom code calls the WSM through the published interface in the same way that all Collective-authored code does. There is no distinction from the WSM's perspective between Collective code and agency-authored code on the other side of the interface.
 
