@@ -140,6 +140,22 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Target:** HiveAR v2.
 
+### Interest calculation and posting points
+
+**Technical:** How interest is calculated, shown, and recorded. The leading direction is to calculate accrued interest at read time for display, without writing anything, and to record it as an event on the debt only at posting points, the first of which is applying a payment. A daily accrual event for every debt is not the design. Still open are which other events post accrued interest, such as statements, rate changes, balance adjustments, judgments, and closing a debt; how interest is calculated across a period in which the rate or the balance changed; and how the amount quoted to a consumer is kept consistent with the amount later posted. For unsecured consumer debt, interest stays off unless a region pack and the contract authorize it, per [MOD-UNSECURED-0001](decisions/modules/unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md). The disclosure and itemization rules that apply to interest need verification by someone with compliance standing. Builds on [HIVE-0005](decisions/hivear/HIVE-0005-debt-structure-and-balance-composition.md).
+
+**From experience:** When a consumer calls for a payoff amount, how does your system work out the interest owed as of today, and when does that interest actually land on the debt? Have you seen a quoted payoff and the posted amount disagree, and what did it cost you?
+
+**Target:** HiveAR v2.
+
+### Credit reporting history
+
+**Technical:** How the platform keeps the record of what it reported to the credit bureaus without bloating the event store. Reporting every active debt twice a month, with the full reported record stored each time, would add an event per debt per cycle, each one hashed and kept forever. A candidate design stores each generated file once in document storage ([WAX-0030](decisions/wax/WAX-0030-document-storage.md)) with its hash anchored, writes an event on a debt only when its reportable values change, and keeps a compact index that answers what was reported for a debt on a given date. Whether that record satisfies dispute investigation and record retention obligations needs verification by someone with compliance standing. How a correction to a past report is recorded is also open. Relates to the credit reporting item under Module roadmap: integrations and portals.
+
+**From experience:** When a consumer disputes what you reported, what do you need to pull up to answer it, and how far back do you go? How much of your current system's storage goes to credit reporting history, and what in it have you never once looked at?
+
+**Target:** HiveAR v2.
+
 ## Wax (framework)
 
 ### Custom action type sandboxing
@@ -151,6 +167,11 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 **Technical:** Purpose-built interface for promoting configuration between instances with diff preview, mandatory comments, and full audit history. Extends [WAX-0021](decisions/wax/WAX-0021-configuration-management-and-environment-lifecycle.md).
 **Target:** Wax v3+. Issue: #15.
+
+### Running bulk writes during live hours
+
+**Technical:** How bulk chunk writes coexist with live users, workflow rules, and readers while the system is in use. A chunk locks the state row of every aggregate in it until its transaction commits, so a user's write to one of those aggregates waits for the chunk, and a burst of bulk writes loads the database and the read models that follow it. Ideas to settle for the live system: throttling by working hours, with fewer workers and smaller chunks while people are working and full speed in the batch window; a lock-wait policy, such as skipping aggregates that are already locked and retrying them later, or a lock timeout with a retry; limits on chunk size and on concurrent chunks; how bulk workers and live commands that lock several aggregates avoid deadlocking one another; and whether a chunk could read and decide without holding locks, then lock, verify each aggregate's version, and write briefly, which would shorten lock time but loosens the rule that locks come before any read. Extends [WAX-0024](decisions/wax/WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md) and builds on [WAX-0013](decisions/wax/WAX-0013-event-chain-integrity-and-tamper-evidence.md).
+**Target:** Wax v2, with the bulk framework.
 
 ### Combining Compliance Packs across jurisdiction layers
 
