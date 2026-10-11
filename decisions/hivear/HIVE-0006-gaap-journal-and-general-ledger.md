@@ -2,9 +2,9 @@
 id: HIVE-0006
 title: "GAAP Journal and General Ledger"
 status: Accepted
-version: 1.1
+version: 1.2
 area: hivear
-date: 2026-10-08
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -21,7 +21,7 @@ Agencies treat the AR system as a subsystem that tracks the general ledger, not 
 
 ## The Ledger Moves When Money Moves
 
-The governing rule is that the ledger moves when money moves, not when a balance changes. Loading a debt, a debit or credit balance adjustment, an agency-assessed fee, and agency-accrued interest all change what the consumer owes in the bucket sub-ledger from [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md), and they post nothing to the general ledger. The reason is that in contingency and servicing the agency does not own the debt, so the consumer's balance is the client's receivable rather than an asset of the agency, and on purchased debt the cost basis is deferred to the debt-purchase module. Revenue is recognized when money is collected, not when a charge or fee is assessed, which is correct for a collector and keeps the ledger clean. A consumer payment, a reversal, the collection of an agency fee or accrued interest, and a remittance are the events that move the ledger.
+The governing rule is that the ledger moves when money moves, not when a balance changes. Loading a debt, a debit or credit balance adjustment, an agency-assessed fee, and agency-accrued interest all change what the consumer owes in the bucket sub-ledger from [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md), and they post nothing to the general ledger. The reason is that in contingency and servicing the agency does not own the debt, so the consumer's balance is the client's receivable rather than an asset of the agency, and on purchased debt the cost basis is deferred to the debt-purchase module. Revenue is recognized when money is collected, not when a charge or fee is assessed, which is correct for a collector and keeps the ledger clean. A transfer between buckets of one debt, such as the move of an amount into a disputed counterpart, changes only where the balance sits and posts nothing either. A consumer payment, a reversal, the collection of an agency fee or accrued interest, and a remittance are the events that move the ledger.
 
 This is the same financial event stream that [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) projects into bucket balances, now projected a second way into double-entry. One payment event reduces a bucket in the sub-ledger and posts a journal entry in the general ledger, so the two reconcile because they share an origin. For agency-assessed fees and agency-accrued interest, the bucket's origin and treatment attributes determine the posting when the money is collected: agency revenue if the agency keeps it, a split if it is remittable.
 
@@ -45,9 +45,13 @@ Commission is recognized when money pays down real debt, not when a payment is r
 
 ## Overpayments and Credit Balances
 
-Overpayments cannot wait, so v1 tracks credit balances as a first-class consumer credit liability. When a consumer pays more than is owed, the portion that pays real debt is commissionable and posts the normal split, and the excess posts to a consumer credit liability and is not commissionable, because it did not satisfy debt. A credit balance can be left in place, refunded to the consumer, or applied to another of the same debtor's debts.
+Credit balances cannot wait, so v1 tracks them as a first-class consumer credit liability. A consumer credit balance is money the agency holds for a consumer that no debt of the consumer takes. It arises when a payment, or part of one, cannot be applied: the consumer pays more than a debt owes, the consumer directs more to a debt than it owes, an undirected payment finds no amount to apply to because the consumer's only debt is in dispute, or the consumer pays when no debt is open. [HiveAR Design Decision 7](HIVE-0007-payment-application-and-waterfall.md) decides which part of a payment is left over. The portion of a payment that pays real debt is commissionable and posts the normal split. The remainder posts to the consumer credit liability and is not commissionable, because it did not satisfy debt.
+
+A credit balance belongs to the consumer and to no debt. It is its own record, the credit_balance aggregate of [Wax Design Decision 1](../wax/WAX-0001-enriched-event-sourcing.md), one for each consumer and currency, and it is the sub-ledger of the consumer credit liability in the way that a debt's buckets are the sub-ledger of the receivable. Each credit that arises is an entry on it that records the payment it came from, its amount, and the civil date on which it arose, so that an agency can age its credits. A credit stays open until someone acts on it, with no deadline in the core or in any pack, and the platform never refunds, applies, or disposes of a credit on its own. The agency decides whether to leave a credit in place, refund it, issue a check, or deal with it under the unclaimed property rules that apply to it, and the core states none of those rules. A refund is money moving out, so it posts to the ledger: it debits the consumer credit liability and credits the cash account it is paid from. A credit can also be applied to any of the consumer's debts in the credit's currency, through the same waterfall as a payment.
 
 Because commission follows debt paydown, the difficult case resolves itself. When a held credit is later applied to debt, whether because the client sends a balance-increasing adjustment or because the credit is moved to another debt, that application is a debt-paydown event, so it recognizes commission on exactly the amount that now pays real debt and lands the balance correctly in the same posting. No pair of offsetting correction transactions is needed, and none is introduced. Applying a credit to another debt recognizes commission under that debt's client terms even when it belongs to a different client, and the event model handles the cross-client move within one posting.
+
+The credit side of the entry for a credit is the consumer credit liability. The cash side is the account that the payment's cash went to. When the debts a payment pays select one cash account through their contract type, as the section on contract type describes, the credit debits that account. When a payment pays no debt, or pays debts whose contract types select different cash accounts, no contract type selects the account, and which account the credit debits is not decided here. The answer depends on trust accounting practice and needs verification by someone with standing in trust accounting, and it is an open question in [OPEN-QUESTIONS.md](../../OPEN-QUESTIONS.md).
 
 ## The Chart of Accounts and Export
 
@@ -67,7 +71,7 @@ This decision establishes the ledger and the money model and leaves the rest to 
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The internal AR chart of accounts and self-balancing double-entry ledger, posting from the [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) financial event stream. Typed monetary amounts and a civil accounting date on every posting. The money-moves rule, with debt load, balance adjustments, fee assessment, and interest accrual as sub-ledger events. Contract-type posting for third-party contingency and purchase. The client-dimensioned trust liability and trust cash balance for two-leg reconciliation support, with post-on-receipt, remit-as-posted, and reversals that reduce the next remittance. Net and gross remit with client AR and cost advances on the shared funds-held model. Commission recognized on debt paydown. Credit balances and overpayment handling with refund and cross-debt application. The configurable external account mapping and the generic flat tab-delimited export.
+**HiveAR v1 (MVP):** The internal AR chart of accounts and self-balancing double-entry ledger, posting from the [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) financial event stream. Typed monetary amounts and a civil accounting date on every posting. The money-moves rule, with debt load, balance adjustments, fee assessment, and interest accrual as sub-ledger events. Contract-type posting for third-party contingency and purchase. The client-dimensioned trust liability and trust cash balance for two-leg reconciliation support, with post-on-receipt, remit-as-posted, and reversals that reduce the next remittance. Net and gross remit with client AR and cost advances on the shared funds-held model. Commission recognized on debt paydown. The consumer credit balance as its own record with the date each credit arose, held until the agency acts on it, with refund and cross-debt application. The configurable external account mapping and the generic flat tab-delimited export.
 
 **HiveAR v2:** The servicing contract type and its posting rule. Named-format exports for QuickBooks and a modern mid-market system. An optional hold-for-clearing for agencies that want one.
 
@@ -77,11 +81,13 @@ This decision establishes the ledger and the money model and leaves the rest to 
 
 ## Implications For Contributors
 
-The ledger moves only on money movement. Debt load, balance adjustments, fee assessment, and interest accrual are sub-ledger events and post nothing to the general ledger. No code path may post a consumer balance change to the ledger.
+The ledger moves only on money movement. Debt load, balance adjustments, fee assessment, interest accrual, and transfers between buckets are sub-ledger events and post nothing to the general ledger. No code path may post a consumer balance change to the ledger.
 
 The consumer balance is not a general ledger asset. On contingency and servicing the agency does not own the debt, so its balance never appears as an agency receivable. Purchased-debt cost basis is the debt-purchase module's concern, not the core ledger's.
 
-Commission is recognized on debt paydown, never on payment receipt. The overpaid portion of a payment is non-commissionable until it later pays real debt, and no code may take commission on a credit balance.
+Commission is recognized on debt paydown, never on payment receipt. The part of a payment that no debt takes is non-commissionable until it later pays real debt, and no code may take commission on a credit balance.
+
+A consumer credit balance belongs to the consumer and to no debt. It stays open until the agency acts on it, the core and the packs set no deadline for holding one, and the platform never refunds, applies, or disposes of a credit on its own. Each credit records the date it arose.
 
 Client balances are one model. Remittance payable, cost advances, and client AR all use the client-dimensioned funds-held-and-owed structure. Contributors must not create a parallel client-money mechanism.
 
