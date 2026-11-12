@@ -36,7 +36,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Debt Group system actions
 
-**Technical:** Automatic lifecycle actions on debt groups at every level of a grouping scheme: orphan detection, aggregate field maintenance workflows, status propagation, and lock and unlock event handling. Specification of Core-delivered workflow definitions for debt group maintenance. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
+**Technical:** Automatic lifecycle actions on debt groups at every level of a grouping scheme: status propagation and lock and unlock event handling. A group's totals, counts, and active and orphaned flags are calculated when they are read and need no maintenance. Specification of Core-delivered workflow definitions for these actions. Builds on [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md).
 **From experience:** When you group debts, for a lawsuit, a payment plan, or a family of debts, what should happen automatically when one debt in the group changes status, gets paid, or gets recalled?
 **Target:** HiveAR v2. Issue: #5.
 
@@ -58,10 +58,10 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** When a client changes how it sends you data, for example from account-level to charge-level placements, what do you do with the debts you already hold?
 **Target:** HiveAR v3.
 
-### Materialized totals
+### Materialized calculations
 
-**Technical:** Whether some totals of debt groups, which [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md) calculates when they are read, should also be kept as materialized views for speed, and how such a view would stay consistent with the buckets of the debts beneath it. A balance is stored only in a debt's buckets, so a materialized total would be a derived copy and never a second source of truth.
-**From experience:** Which totals do your collectors and reports need instantly, such as a patient's balance across visits, across how many debts, and how fresh must they be?
+**Technical:** Whether a field that the platform calculates when it is read should also be kept as a materialized calculation for speed, such as the totals, counts, and active and orphaned flags of debt groups under [HIVE-0004](decisions/hivear/HIVE-0004-debt-groups.md), the aggregate fields of entities under [HIVE-0001](decisions/hivear/HIVE-0001-entity-data-model-person-business-and-entity-relationships.md), and any other calculated field, and how a materialized value would stay consistent with what it is calculated from. The criterion is that a materialized calculation is preferable for performance unless writes outnumber reads. A balance is stored only in a debt's buckets, so a materialized value would be a derived copy and never a second source of truth.
+**From experience:** Which totals and counts do your collectors and reports need instantly, such as a patient's balance across visits or a person's balance across clients, across how many debts, and how fresh must they be?
 **Target:** HiveAR v2.
 
 ### Client hierarchies
