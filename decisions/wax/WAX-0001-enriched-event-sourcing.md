@@ -4,7 +4,7 @@ title: "Enriched Event Sourcing"
 status: Accepted
 version: 2.1
 area: wax
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -216,7 +216,7 @@ The following illustrates how the layers of the architecture relate to each othe
 >
 > **debt:** A placed debt. Owns balance, status, dispute lifecycle, assignment history, and payment split application records. The debt knows which entities are associated with it and in what capacity (primary debtor, co-signer, guarantor, and similar roles).
 >
-> **debt_group:** A named grouping of debts. Owns membership rules, lock state during legal proceedings, and aggregate lifecycle flags derived from member composition.
+> **debt_group:** A named grouping of debts. Owns membership rules and lock state during legal proceedings. Its lifecycle flags and counts derive from its members and are calculated when read, never stored.
 >
 > **payment:** A payment received from an entity. Owns the full payment lifecycle: receipt, split calculation by the configured methodology, application of splits to target debts, and reversal. A split payment is not owned by any single debt. It is its own aggregate, and each target debt receives a corresponding fan-out event recording the split applied to it.
 >

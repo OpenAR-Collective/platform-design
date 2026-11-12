@@ -4,7 +4,7 @@ title: "Debt Groups"
 status: Accepted
 version: 3.1
 area: hivear
-date: 2026-10-31
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -19,7 +19,7 @@ Every debt in HiveAR belongs to exactly one debt group at all times, and debt gr
 
 The forced-single-group model is the correct design because it eliminates conditional logic throughout the system. Letter templates, reporting queries, workflow conditions, and agent UI panels never need to branch on whether a debt is grouped or on how deep the grouping goes. Every debt always has a group at every level of its scheme. A debt in a single-level scheme produces the same data structure as a debt in a five-level scheme, and a group with one debt produces the same structure as a group with a thousand. The totals of a one-debt group simply reflect that one debt's values.
 
-When a debt is created, its group at each level of its scheme is found or created. A placement that carries an identifier for a level, such as a patient number or an invoice number, finds the group that already holds that identifier for that client, or creates it. A level for which the placement carries no identifier gets a new single-member group, exactly as a debt in an agency that never groups gets a single-member group at its scheme's one level. If the debt is subsequently grouped with other debts, the grouping operation moves the debt into an existing group. The original single-member group is then orphaned and administratively closed. This means debt groups are a background infrastructure concern: agencies that never explicitly group debts still benefit from the uniform data model because their debts are always single-member groups.
+When a debt is created, its group at each level of its scheme is found or created. A placement that carries an identifier for a level, such as a patient number or an invoice number, finds the group that already holds that identifier for that client, or creates it. A level for which the placement carries no identifier gets a new single-member group, exactly as a debt in an agency that never groups gets a single-member group at its scheme's one level. If the debt is subsequently grouped with other debts, the grouping operation moves the debt into an existing group. The original single-member group is then left empty and reads as orphaned, and its record is kept. This means debt groups are a background infrastructure concern: agencies that never explicitly group debts still benefit from the uniform data model because their debts are always single-member groups.
 
 ## Grouping Schemes and Levels
 
@@ -49,15 +49,15 @@ A debt does not have to carry an account number. Debts and debt groups carry any
 >
 > **status_fk**: reference value pointing to an agency-defined status code. Status represents the operational collection posture of the group: payment_arrangement, dispute, holding, bankruptcy, legal, and others the agency defines. The standard Boilerplate Pack delivers a starting set of status codes. Status is separate from and orthogonal to the is_active flag. A group at any level can carry a status, which describes that group, and a workflow condition or a letter that reads the status of a debt's group names the level it means.
 >
-> **is_active**: boolean. True if one or more debts beneath the group are active. False if all of them are inactive. Maintained by the event-driven workflow path.
+> **is_active**: boolean, calculated when read. True if one or more debts beneath the group are active. False if all of them are inactive.
 >
 > **is_locked**: boolean. True when a lock is in effect, typically from a legal hold. Prevents debts from being added to or removed from the group, or from any group beneath it, while locked.
 >
-> **is_orphaned**: boolean. True when no debts remain beneath this group. Set by the orphan detection workflow when the last debt leaves.
+> **is_orphaned**: boolean, calculated when read. True when no debts remain beneath this group.
 >
-> **active_debt_count**: integer. Count of active debts beneath the group at any depth. Maintained by event-driven workflows.
+> **active_debt_count**: integer, calculated when read. Count of active debts beneath the group at any depth.
 >
-> **inactive_debt_count**: integer. Count of inactive debts beneath the group at any depth.
+> **inactive_debt_count**: integer, calculated when read. Count of inactive debts beneath the group at any depth.
 >
 > **client_scope_fk**: the client this group belongs to. Default is the client of the founding debt. Cross-client groups are reserved for future client hierarchy work.
 >
@@ -81,21 +81,21 @@ A debt does not have to carry an account number. Debts and debt groups carry any
 
 These totals are not stored. Each is calculated when it is read, from the buckets of the debts beneath the group, and a group at any level can show them. Every debt beneath a group is denominated in the group's currency, so each total is a sum of monetary values in that one currency, carrying the group's currency_code as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) provides for amounts that share one currency. No total adds amounts of different currencies. The count fields are not amounts and are unaffected.
 
-A balance is stored in one place only, the buckets of each debt, so a payment posting updates the buckets of the debts it pays and nothing above them. Whether some totals should also be kept as materialized views for speed is a later decision, recorded as an open question.
+A balance is stored in one place only, the buckets of each debt, so a payment posting updates the buckets of the debts it pays and nothing above them.
 
-The counts and the is_active flag are maintained by event-driven workflows through the command handler path: a debt closing fires a workflow that decrements the active count and recalculates is_active in each group above the debt. No workflow maintains a balance on a group.
+The counts and the is_active and is_orphaned flags are calculated the same way, from the debts beneath the group whenever they are read, so a debt closing or moving changes no stored field on any group. A group stores only what is not derived from its debts: its identity, its level and parent, its client, its currency, its status, and its lock. Whether any calculated field should also be materialized for speed is a later decision, recorded as the open question on materialized calculations.
 
 ## Group Lifecycle and State Flags
 
-is_active and is_locked are independent boolean flags. is_active reflects the composition of the debts beneath the group. is_locked reflects an external hold condition. A group can be any combination: active and unlocked (normal working group), active and locked (legal hold on a group with open debts), inactive and unlocked (all debts closed, no hold), inactive and locked (all debts closed but legal proceedings still open pending court closure).
+is_active and is_locked are independent boolean flags. is_active reflects the composition of the debts beneath the group and is calculated. is_locked reflects an external hold condition and is stored. A group can be any combination: active and unlocked (normal working group), active and locked (legal hold on a group with open debts), inactive and unlocked (all debts closed, no hold), inactive and locked (all debts closed but legal proceedings still open pending court closure).
 
 The status code is the third independent dimension. It represents the operational approach to the collection effort on the group that carries it, not the composition of the group or the presence of a lock. A group can be in payment_arrangement status while is_locked is false and is_active is true. A group can be in dispute status while all its debts have individually resolved. The status is the agency's declared posture; the flags are the system's derived state.
 
-is_orphaned is set by the orphan detection workflow when the count of debts beneath a group reaches zero. An orphan occurs when all debts have been moved to other groups. The orphaned group is administratively closed but its record is preserved for audit purposes, at every level. Its history, with the events of the debts that left it, remains the record of what the group contained before it was emptied.
+is_orphaned is true when no debts remain beneath a group, which happens when all of its debts have been moved to other groups, and like is_active it is calculated, so no workflow detects orphans. An orphaned group's record is preserved for audit purposes, at every level. Its history, with the events of the debts that left it, remains the record of what the group contained before it was emptied.
 
 ## Debt Movement: The Single Code Path
 
-Moving a debt from one debt group to another is the single operation for all group membership changes. There is no separate merge operation, no separate split operation, and no separate dissolve operation. All of these are achieved by moving debts one by one between groups. When all debts from Group A have been moved to Group B, Group A becomes orphaned and is automatically closed. When some debts from Group A are moved to a new Group C while others remain in Group A, Group A is effectively split. A debt moves from its group at the lowest level to another group at that level of the same scheme, and its membership at every level above changes with it.
+Moving a debt from one debt group to another is the single operation for all group membership changes. There is no separate merge operation, no separate split operation, and no separate dissolve operation. All of these are achieved by moving debts one by one between groups. When all debts from Group A have been moved to Group B, Group A becomes orphaned. When some debts from Group A are moved to a new Group C while others remain in Group A, Group A is effectively split. A debt moves from its group at the lowest level to another group at that level of the same scheme, and its membership at every level above changes with it.
 
 The move operation checks whether any group on the source path or the target path is locked before executing. A locked group does not permit a debt to move into or out of it, or out of any group beneath it. The lock must be released through the appropriate event (legal case closure, hold release) before debts can move.
 
@@ -105,9 +105,9 @@ The move operation also checks currency. A debt moves only into a group chain th
 
 When debts are moved from an existing group to a newly created group, the new group inherits the status_fk of the group at the same level that the debts came from, as an initial value. Status inheritance is pragmatic: if an agency splits a group in dispute status, it is likely that both resulting groups are also in dispute until further action resolves one. Status is not permanently bound by inheritance; either group's status can be changed independently after the split. The new group takes the currency of the debts moved into it, which all share one.
 
-is_active on the new group is computed fresh from the debts beneath it at creation time. If a closed debt is moved from an active group into a new group, the new group starts as inactive because its only debt is inactive. is_locked is not inherited: the lock condition applies to the original group and is not automatically propagated to a new group created by moving debts out. Debts that are locked cannot be moved in the first place, so debts arriving in a new group are by definition unlocked.
+is_active on the new group follows from the debts beneath it, because it is calculated when read. If a closed debt is moved from an active group into a new group, the new group reads as inactive because its only debt is inactive. is_locked is not inherited: the lock condition applies to the original group and is not automatically propagated to a new group created by moving debts out. Debts that are locked cannot be moved in the first place, so debts arriving in a new group are by definition unlocked.
 
-The totals of both groups follow from the debts beneath them whenever they are read, and the move updates the counts of each.
+The totals, counts, and flags of both groups follow from the debts beneath them whenever they are read.
 
 ## Legal Module and Group Locking
 
@@ -125,9 +125,9 @@ When debts are included in a legal case, the legal module sets is_locked to true
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Full implementation, simplified. ar.debt_group with the full schema, including grouping_level_fk and parent_debt_group_fk. The grouping scheme and level registry with the built-in single-level scheme, and scheme assignment at the agency, debt type, and client scopes. The typed identifier registry and identifiers on debts and groups. Find-or-create of groups at every level when a debt is placed. Forced single-group membership at every level. Group totals calculated when read, at every level, and each level's distribution rule. is_active, is_locked, and is_orphaned as independent boolean flags. The single code path for debt moves. Basic group lifecycle. No legal module group locking in v1: the is_locked flag exists but nothing sets it automatically. No automated split detection.
+**HiveAR v1 (MVP):** Full implementation, simplified. ar.debt_group with the full schema, including grouping_level_fk and parent_debt_group_fk. The grouping scheme and level registry with the built-in single-level scheme, and scheme assignment at the agency, debt type, and client scopes. The typed identifier registry and identifiers on debts and groups. Find-or-create of groups at every level when a debt is placed. Forced single-group membership at every level. Group totals calculated when read, at every level, and each level's distribution rule. is_locked as a stored flag, and is_active, is_orphaned, and the counts calculated when read. The single code path for debt moves. Basic group lifecycle. No legal module group locking in v1: the is_locked flag exists but nothing sets it automatically. No automated split detection.
 
-**HiveAR v2:** Moving a whole group, with everything beneath it, to another parent. Legal module integration (automatic group locking on legal placement). Automated orphaned group detection at every level.
+**HiveAR v2:** Moving a whole group, with everything beneath it, to another parent. Legal module integration (automatic group locking on legal placement). Materialized calculated fields, if the open question on materialized calculations decides for them.
 
 **HiveAR v3+:** Changing a debt's scheme after placement. Complex group splitting rules. Group-level workflow triggers.
 
@@ -139,11 +139,11 @@ The debt_group_fk on the debt table is non-nullable. Any command handler that cr
 
 Never assume a level by name. Code reads the level order, the labels, and each level's distribution rule from the debt's scheme, and does not assume levels called account, set, patient, or anything else. The core ships one level, and everything else is configuration.
 
-No module stores a balance on a debt group. A group's totals are calculated from the buckets of the debts beneath it when they are read, and the counts and flags that a group stores change only through the event-driven workflow path.
+No module stores a balance, a count, or a derived flag on a debt group. A group's totals, counts, is_active, and is_orphaned are calculated from the debts beneath it when they are read, and the status and the lock, which a group does store, change only through commands.
 
 Every debt group, at every level, holds debts of one currency. Any command handler that creates a debt or moves one between groups keeps that true, and a move that would mix currencies is refused.
 
-Wax-delivered workflows that maintain group counts and flags are system infrastructure. Module authors must not create workflows that conflict with or duplicate these Wax workflows. The Wax workflow registry documents which events are handled by system workflows.
+No workflow maintains a group's counts or flags, because they are calculated when read, and module authors must not create workflows that store them.
 
 The group status code reference type is agency-defined. The Boilerplate Pack delivers standard starting codes. Module authors may add module-specific status codes through the Collective's contribution process but should not define status codes that duplicate or contradict the standard Boilerplate Pack codes.
 
