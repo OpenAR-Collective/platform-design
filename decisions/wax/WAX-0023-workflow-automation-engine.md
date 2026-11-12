@@ -2,9 +2,9 @@
 id: WAX-0023
 title: "Workflow Automation Engine"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-05
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -177,7 +177,7 @@ Custom action types installed locally are the installing agency's responsibility
 
 ## Workflow Provenance and System Workflow Visibility
 
-Workflows in Wax carry a source type: Wax-delivered, Seed Pack-delivered, or User-defined. Wax-delivered workflows are the nuts-and-bolts system operations: updating aggregate balance fields when a payment posts, updating is_active when a debt closes, detecting orphaned debt groups when a debt leaves. These workflows are hidden by default from the workflow designer UI. An administrator with an explicit RBAC privilege and a 'show system workflows' toggle can view them. They may be modified (it is OSS) but the UI makes clear that modification of system workflows affects platform integrity.
+Workflows in Wax carry a source type: Wax-delivered, Seed Pack-delivered, or User-defined. Wax-delivered workflows are the nuts-and-bolts system operations, such as nightly user inactivity checks and key retention scheduling. These workflows are hidden by default from the workflow designer UI. An administrator with an explicit RBAC privilege and a 'show system workflows' toggle can view them. They may be modified (it is OSS) but the UI makes clear that modification of system workflows affects platform integrity.
 
 The workflow definition record carries source_type (core, seed_pack, or user) and source_identifier (the contributing pack, for pack-delivered workflows). These fields establish the origin of a workflow definition. The full clone-and-override provenance model, including source_workflow_version_fk and the immutable clone entry in the version history table, is described in the Workflow Provenance and Version Tracking section below.
 
@@ -193,7 +193,7 @@ Three distinct concepts share the word "event" in workflow engine literature. Wa
 
 ## Wax-Delivered Workflows and the Clone-and-Override Model
 
-Wax ships a set of structural workflows that implement the platform's own operational logic: nightly user inactivity checks, orphan detection on debt groups, key retention scheduling, aggregate balance maintenance, and similar. These are real workflow definitions that run through the same engine as agency-defined workflows. They are not hardcoded logic paths. An administrator with the appropriate RBAC privilege can enable a "show system workflows" view in the designer and inspect exactly what Wax does and why.
+Wax ships a set of structural workflows that implement the platform's own operational logic: nightly user inactivity checks, key retention scheduling, and similar. These are real workflow definitions that run through the same engine as agency-defined workflows. They are not hardcoded logic paths. An administrator with the appropriate RBAC privilege can enable a "show system workflows" view in the designer and inspect exactly what Wax does and why.
 
 Wax-delivered workflows are read-only in their delivered form. The agency cannot edit the Wax section of the catalog directly. To customize the behavior of a Wax-delivered workflow, the agency clones it. The clone lives in the Custom section of the catalog. The agency attaches the clone and detaches the Wax original. The Wax original remains present, visible, and reactivatable at any time. The override relationship is visible in both directions: the Wax entry shows which Custom workflow overrides it, and the Custom entry shows which Wax workflow it was cloned from.
 
