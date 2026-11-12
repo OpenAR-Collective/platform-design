@@ -4,7 +4,7 @@ title: "Entity Data Model, Person, Business, and Entity Relationships"
 status: Accepted
 version: 2.0
 area: hivear
-date: 2026-10-10
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR models people and businesses as Entity records. Entity is the universal parent type. Person and Business are subtypes that inherit from Entity and extend it through Locale Module satellite tables. Wax owns no locale-specific schema: address fields, national identity number fields, and name component fields are entirely contributed by Locale Modules as satellite tables. Two bridge tables govern relationships between entities and between entities and debts. Entity aggregate balance fields are maintained by event-driven workflows and cover only responsible-party associations.
+HiveAR models people and businesses as Entity records. Entity is the universal parent type. Person and Business are subtypes that inherit from Entity and extend it through Locale Module satellite tables. Wax owns no locale-specific schema: address fields, national identity number fields, and name component fields are entirely contributed by Locale Modules as satellite tables. Two bridge tables govern relationships between entities and between entities and debts. Entity aggregate fields are calculated when they are read and cover only responsible-party associations.
 
 ## Entity as the Universal Parent
 
@@ -37,7 +37,7 @@ Wax defines the entity scaffold with genuinely universal attributes only. Locale
 >
 > **created_by_user_fk and updated_by_user_fk**: actor references.
 >
-> **is_active**: boolean, derived from debt group associations. True if the entity has at least one active debt.
+> **is_active**: boolean, calculated when read from the entity's debt associations. True if the entity has at least one active debt.
 
 ## Person and Business Subtypes
 
@@ -99,7 +99,7 @@ When an agent works a person, they see all debts where that person has any entit
 
 ## Entity Aggregate Fields
 
-The entity record carries cached aggregate balance fields spanning all debts where the entity is a responsible party. These fields mirror the debt group aggregate structure but are scoped to one entity's responsible-party associations across all debt groups.
+The entity record shows aggregate fields spanning all debts where the entity is a responsible party. Like the totals of a debt group, they are calculated when they are read and are never stored, and they are scoped to one entity's responsible-party associations across all debt groups.
 
 > **ENTITY AGGREGATE BALANCE FIELDS**
 >
@@ -121,9 +121,9 @@ The entity record carries cached aggregate balance fields spanning all debts whe
 >
 > **inactive_debt_count**: count of closed responsible-party debts.
 
-Every amount field above is a sum of typed monetary values and is kept per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. A debt group holds debts of one currency ([HiveAR Design Decision 4](HIVE-0004-debt-groups.md)), so an entity whose responsible-party debts are in more than one currency has a debt group for each currency and stays associated with all of those debts. Such an entity has one value of each amount field for each currency, and no field adds amounts of different currencies. An entity whose responsible-party debts all share one currency, which is every entity in a single-currency installation, has one value of each amount field. The count fields are not amounts and are unaffected.
+Every amount field above is a sum of typed monetary values and is calculated per currency, as [Wax Design Decision 34](../wax/WAX-0034-monetary-values-and-currency.md) requires of any sum. A debt group holds debts of one currency ([HiveAR Design Decision 4](HIVE-0004-debt-groups.md)), so an entity whose responsible-party debts are in more than one currency has a debt group for each currency and stays associated with all of those debts. Such an entity has one value of each amount field for each currency, and no field adds amounts of different currencies. An entity whose responsible-party debts all share one currency, which is every entity in a single-currency installation, has one value of each amount field. The count fields are not amounts and are unaffected.
 
-Aggregate fields are maintained by event-driven workflows, not computed at query time. When a payment posts to Debt A and John is a responsible party on Debt A, a workflow event fires and updates John's entity aggregate fields through the command handler path. Read model queries against the entity record read the cached values. This keeps the entity record query fast regardless of how many debts the entity is associated with.
+Aggregate fields are calculated when they are read, not maintained by workflows. When a payment posts to Debt A and John is a responsible party on Debt A, the payment changes the buckets of Debt A and nothing else, and John's fields reflect it the next time they are read. Whether any calculated field should also be materialized for speed is a later decision, recorded as the open question on materialized calculations.
 
 ## Side Notes Captured For Future Discussion
 
@@ -133,9 +133,9 @@ Aggregate fields are maintained by event-driven workflows, not computed at query
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Core implementation. ar.entity as the universal parent table. Person and Business subtypes with basic fields. Entity-to-debt relationships with role types (debtor, co-signer, guarantor, authorized contact). is_responsible_party flag on relationships. Entity aggregate fields (total balance, debt count) updated via command handlers. Entity-to-entity relationship table exists in the schema but can remain empty until v2 surfaces it in the UI.
+**HiveAR v1 (MVP):** Core implementation. ar.entity as the universal parent table. Person and Business subtypes with basic fields. Entity-to-debt relationships with role types (debtor, co-signer, guarantor, authorized contact). is_responsible_party flag on relationships. Entity aggregate fields (total balance, debt count) calculated when read. Entity-to-entity relationship table exists in the schema but can remain empty until v2 surfaces it in the UI.
 
-**HiveAR v2:** Entity-to-entity relationships with UI. Business entity hierarchy support. Entity search and filtering.
+**HiveAR v2:** Entity-to-entity relationships with UI. Business entity hierarchy support. Entity search and filtering. Materialized aggregate fields, if the open question on materialized calculations decides for them.
 
 **HiveAR v3+:** Complex organizational structures. Entity timeline visualization.
 
@@ -147,6 +147,6 @@ Wax defines the entity scaffold only. Locale Module authors contribute name, add
 
 The is_responsible_party flag on entity-to-debt relationships is the single source of truth for whether a relationship feeds entity aggregate balance calculations. Module authors who contribute new role types must declare whether the role is a responsible-party role in the role type registry.
 
-Entity aggregate amount fields are kept per currency. A workflow that maintains them never adds amounts of different currencies.
+Entity aggregate amount fields are calculated per currency, and no calculation adds amounts of different currencies.
 
-Entity aggregate field updates must flow through command handlers and the event-driven workflow path. No module may directly write to entity aggregate fields.
+Entity aggregate fields are calculated when they are read and are never stored, so no workflow maintains them and no module writes to them.
