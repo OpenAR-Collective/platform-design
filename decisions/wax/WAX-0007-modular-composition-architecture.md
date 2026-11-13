@@ -2,9 +2,9 @@
 id: WAX-0007
 title: "Modular Composition Architecture"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-05
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -23,10 +23,14 @@ A complete deployable instance requires at least one selection from each require
 
 | **Tier** | **Required** | **Examples** | **Notes** |
 | --- | --- | --- | --- |
-| Language Pack | Yes (1+) | English (US), English (UK), Spanish (US) | UI strings, date and number formats, locale defaults. No compliance content. |
-| Region Pack | Yes (1+) | United States | Address structure, currency reference data (the list of currencies, minor-unit scales, and rounding conventions), phone number format, timezone handling. When the installed Region Packs name exactly one currency, that currency is the installation's default, as defined in Wax Design Decision 34. Structural and technical only. No compliance content. |
+| Language Pack | Yes (1+) | English (US), English (UK), Spanish (US) | UI strings and translated labels. No compliance content. |
+| Region Pack | Yes (1+) | United States | Currency reference data (the list of currencies, minor-unit scales, and rounding conventions), date and number formats, time zones, and locale defaults. When the installed Region Packs name exactly one currency, that currency is the installation's default, as defined in Wax Design Decision 34. No compliance content. |
+| Locale Module | Yes (1+) | United States | Address structure, national identity numbers and their validation, name components, and phone number format, as defined in Wax Design Decision 8. Structural and technical only. No compliance content. |
+| Compliance Pack | Yes, one for each jurisdiction where the agency collects | United States federal, Texas, Ontario | Educational reference configuration for the compliance rules of one jurisdiction, as the boundary below describes. Values and templates only, never code. |
+| Boilerplate Pack | No | US collections basics, legal case flow for Texas | Starting content that is not compliance: statuses, roles, departments, rules, workflows, letters, reports, screens, and the procedure a module follows in a jurisdiction, such as a state's court case flow. Values and templates only, never code. |
 | Business Class Module | Yes (1+) | Healthcare, Auto, Bank Card, Student Loan | Workflow structure and data model differences by debt class. Operational, not prescriptive on compliance interpretation. |
-| Debt Type Module | Yes (1+) | First Party, Third Party, Debt Purchase, Servicing | Operational model and ownership structure. Affects how debts are managed, not how statutes are interpreted. |
+| Debt Type Module | Yes (1+) | Unsecured Consumer, Medical, Auto Deficiency | A debt classification within a business class: its buckets, roles, declared properties, and subject-matter structure. Affects what a debt carries, not how statutes are interpreted. |
+| Contract Type Module | Yes (1+) | Third-Party Contingency, Debt Purchase, Servicing | The ownership and relationship model under which a debt is held and billed, as defined in Wax Design Decision 33. Affects how debts are managed, not how statutes are interpreted. |
 | Treatment Module | No | Legal Collections, Outsourcing | Extends core workflow for specialized treatment paths. |
 | Vendor Integration Module | No | Credit Bureau, Payment Processor, Skip Tracing | Third-party system connectors. |
 

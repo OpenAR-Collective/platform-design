@@ -102,7 +102,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Reporting and BI content
 
-**Technical:** AR-specific reporting content: the set of native operational dashboards HiveAR ships, the prefab AR report pack with its anchored business intelligence tool selected under the license-discipline principle, and any read model projections delivered as seed packs for users to query. Builds on [WAX-0032](decisions/wax/WAX-0032-reporting-and-business-intelligence.md).
+**Technical:** AR-specific reporting content: the set of native operational dashboards HiveAR ships, the prefab AR report pack with its anchored business intelligence tool selected under the license-discipline principle, and any read model projections that a Module delivers for users to query. Builds on [WAX-0032](decisions/wax/WAX-0032-reporting-and-business-intelligence.md).
 **From experience:** Which five reports actually run your company, and which numbers do you still compute in a spreadsheet because no system gets them right?
 **Target:** HiveAR v2. Issue: #11.
 
@@ -169,6 +169,18 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Combining Compliance Packs across jurisdiction layers
 
-**Technical:** How a federal Compliance Pack and a state pack combine when both speak to one subject, which one controls, and how a pack states that no rule was found or that a jurisdiction is not yet researched. Builds on [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md) and [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md).
+**Technical:** How a federal Compliance Pack and a state pack combine when both speak to one subject, and which one controls. How a pack says that a child jurisdiction adds nothing or has not been researched is answered by the child marks of [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md), and how a pack says that it found no rule on one subject within a jurisdiction it has researched remains open. Builds on [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md) and [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md).
 **From experience:** When a federal rule and a state rule differ on the same point, how does your company decide which one governs, and who signs off on that choice?
+**Target:** Wax v2.
+
+### Pack updates and merges
+
+**Technical:** The format of a pack update, the sequence of rule changes by which a publisher delivers a new version of a pack, each naming the stable identifier of the rule it adds, changes, or retires, and the merge tool that brings an update into an agency's instance under [WAX-0011](decisions/wax/WAX-0011-internationalization-architecture-and-reference-value-system.md): how it shows each change against the base version and the instance, how a conflict is resolved rule by rule, how it previews the effect on live records, and how it fetches a deleted base version from its publisher. A pack update is not a database schema migration.
+**From experience:** When a vendor ships a new version of the codes, letters, or rules you have customized, how do you find out what changed, and how do you keep your own changes?
+**Target:** Wax v2.
+
+### Jurisdictions below the subdivision level
+
+**Technical:** How a pack for a jurisdiction below a country's states or provinces, such as a city or a county with rules of its own, is identified, since the ISO 3166 codes that the pack identifiers of [WAX-0008](decisions/wax/WAX-0008-extensibility-construct-nomenclature.md) use stop at subdivisions, while the jurisdiction tree already gives such a jurisdiction a place as a child of its state or province. Which local rules exist needs verification.
+**From experience:** Do you follow a city or county rule for collection, and how do you track it today?
 **Target:** Wax v2.

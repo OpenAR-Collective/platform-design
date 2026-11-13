@@ -2,9 +2,9 @@
 id: HIVE-0005
 title: "Debt Structure and Balance Composition"
 status: Accepted
-version: 2.0
+version: 2.1
 area: hivear
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -17,11 +17,13 @@ HiveAR will classify every debt on two independent axes and compose its balance 
 
 ## The Framework Is Inert Without Modules
 
-The platform rests on the founding tenet that the framework does nothing on its own. Wax does nothing without HiveAR, and HiveAR does nothing without a configuration: a locale for laws and address conventions, a language pack, and at least one debt-type module. An agency whose debt is too unusual for any module defines its own bucket definitions by hand. The balance bucket registry is therefore sourced entirely from the loaded debt-type modules and from agency-defined definitions, and the framework ships no bucket of its own and no default balance. A working configuration always has at least one bucket source, because a configuration without one is not a working configuration.
+The platform rests on the founding tenet that the framework does nothing on its own. Wax does nothing without HiveAR, and HiveAR does nothing without a configuration: a Locale Module and a Region Pack for the address conventions, currency, and formats, a Compliance Pack for the law of each jurisdiction in which the agency collects, a Language Pack, and at least one debt-type module. An agency whose debt is too unusual for any module defines its own bucket definitions by hand. The balance bucket registry is therefore sourced entirely from the loaded debt-type modules and from agency-defined definitions, and the framework ships no bucket of its own and no default balance. A working configuration always has at least one bucket source, because a configuration without one is not a working configuration.
 
 ## Two Classifiers: Debt Type and Contract Type
 
 Debt type is the category of the obligation: healthcare, auto deficiency, personal loan, commercial, rental, credit card, utility, and so on. Debt type selects the debt-type module, and the module supplies the buckets that category thinks in. A healthcare module brings a patient balance bucket and an insurance balance bucket, while a lending module brings principal, interest, and fee buckets. The framework privileges none of these, because interest is meaningless on most healthcare debt and a patient balance is meaningless on a credit card.
+
+A debt also carries a regulatory nature flag, consumer or commercial, whose default its debt type declares and which the client can set for each debt at placement, as [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md) describes. The flag is not a third classifier: it is a property of the debt, and the rules scoped by regulatory nature read it.
 
 Contract type is the basis on which the agency holds the debt: servicing, third-party contingency, or purchase. It is delineated at the contract, which is the client or creditor relationship, so a debt inherits its contract type from the client it belongs to, and an agency keeps the same creditor's first-party and third-party work under separate client identities. Contract type drives lifecycle, ownership, the existence of a purchase price, and whether a current-due amount is a subset of the balance or the whole balance is due. Purchase makes the agency the current creditor, with the seller as the prior creditor and possibly a different original creditor behind that. The two classifiers are independent: a healthcare debt may be third-party today and purchased tomorrow.
 

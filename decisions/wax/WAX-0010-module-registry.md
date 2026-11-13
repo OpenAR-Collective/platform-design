@@ -2,9 +2,9 @@
 id: WAX-0010
 title: "Module Registry"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-08
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -24,14 +24,23 @@ Modules are not second-class citizens identified by string constants. They are e
 | **Table** | **Column** | **Type** | **Notes** |
 | --- | --- | --- | --- |
 | core.module | module_pk | UUID | Surrogate primary key. |
-| core.module | module_version | VARCHAR | Semantic version string of the installed module. |
-| core.module | module_type | VARCHAR | Technical classifier: language_pack, region_pack, business_class, debt_type, treatment, vendor_integration, seed_package. Developer-facing only. |
+| core.module | module_version | VARCHAR | Semantic version string of the installed module. For a Pack instance, the instance version of [Wax Design Decision 11](WAX-0011-internationalization-architecture-and-reference-value-system.md), such as 2.4+a8. |
+| core.module | module_type | VARCHAR | Technical classifier, one of the values listed under Module Type Classifier below. Developer-facing only. |
 | core.module | is_i18n_compliant | Boolean | True if the module has provided translations for all installed language packs. |
 | core.module | is_active | Boolean | False if the module has been deactivated but not fully uninstalled. |
 | core.module | is_removed | Boolean | True for a Region Pack that has been removed and whose registry record is kept because retained rows still depend on it. False for every other module. |
+| core.module | origin | VARCHAR | Where the Module or Pack came from: collective, agency, or third_party. Developer-facing only. |
+| core.module | base_identifier | VARCHAR | For a Pack instance, the identifier of the delivered Pack it is based on, such as compliance.us.tx. Null for a Module. |
+| core.module | base_version | VARCHAR | For a Pack instance, the delivered version it is based on, which a merge advances. Null for a Module. |
+| core.module | instance_revision | Integer | For a Pack instance, the agency's revision, which every saved change and every merge raises by one and which never resets. Null for a Module. |
+| core.module | designated_jurisdiction | VARCHAR | The jurisdiction for which the agency designated this Module or Pack under [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md), as a node of the jurisdiction tree. Null when it is designated for none. |
 | core.module | installed_at | Timestamp | When the module was installed. |
 | core.module | installed_by_user_fk | UUID | References core.user. Who performed the installation. |
 | core.module | updated_at | Timestamp | Last modification to the registry record. |
+
+## Where Each Installed Piece Came From
+
+The registry records where every installed Module and Pack came from, so that an administrator, an auditor, or a certification reviewer can see the source of every rule in force. A Pack instance records the delivered Pack and version it came from and its agency revision, which together give the instance version, such as 2.4+a8. A Module or Pack that the agency wrote and designated for a jurisdiction records that jurisdiction, so that the coverage check of [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) accepts it there. Every merge of a pack update into an instance is kept in the registry record's history with the versions before and after, the conflicts and how they were resolved, who merged, and when.
 
 ## i18n Schema: Module Translations
 
@@ -80,19 +89,21 @@ This is the one exception to the rule that a partial uninstall is not a valid sy
 
 ## Module Type Classifier
 
-The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are: language_pack, region_pack, business_class, debt_type, contract_type, treatment, vendor_integration, and seed_package. This list is fixed by the platform and may not be extended by module authors; contract_type was added per [Wax Design Decision 33](WAX-0033-module-composition-model.md) for the contract-type modules such as contingency, debt purchase, and servicing.
+The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are one for each construct that [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) defines: locale, business_class, debt_type, contract_type, treatment, and vendor_integration for Modules, and language_pack, region_pack, compliance_pack, boilerplate_pack, and seed_package for Packs. This list is fixed by the platform and may not be extended by module authors. contract_type was added per [Wax Design Decision 33](WAX-0033-module-composition-model.md) for the contract-type modules such as contingency, debt purchase, and servicing, and locale, compliance_pack, and boilerplate_pack were added so that every construct has a registration path.
 
 ## Implementation Phasing
 
 **Wax v1 (MVP):** Not implemented at runtime. Installed modules are known at compile time.
 
-**Wax v2:** Full implementation. core.module_registry table, i18n module translations, module install and uninstall lifecycle, including the deactivation and removal of Region Packs.
+**Wax v2:** Full implementation. core.module_registry table, i18n module translations, module install and uninstall lifecycle, including the deactivation and removal of Region Packs. The origin of every Module and Pack, instance versions, designations, and the merge history of Pack instances.
 
 **Breaking change risk: NONE.** The registry is additive infrastructure.
 
 ## Implications For Contributors
 
 Every module must register itself in core.module during its installation migration. A module that does not register itself is not a valid Wax module.
+
+A Pack instance records the delivered Pack and version it came from and its agency revision, and a Module or Pack that the agency designated for a jurisdiction records that jurisdiction.
 
 Every module must provide translation records in i18n.module_translation for all installed language packs at installation time. Modules that do not will be flagged non-compliant immediately upon installation.
 
