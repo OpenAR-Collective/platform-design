@@ -1,0 +1,82 @@
+# Keeps the index of open design questions current, and labels a question
+# has-answer when an answer block is posted on it.
+#
+# The index is three generated files, QUESTIONS.md, questions/<area>.md, and
+# questions.json, kept on the orphan branch questions-index so that the
+# bot's commits stay off main. START-HERE.md links the raw files there. The
+# branch gets a commit only when the files change.
+#
+# Comment text is read only by scripts/build_questions_index.py, from the
+# event file; no step passes it to a shell.
+name: Questions index
+on:
+  issues:
+    types: [opened, edited, deleted, transferred, closed, reopened, labeled, unlabeled]
+  issue_comment:
+    types: [created, edited, deleted]
+  schedule:
+    - cron: "17 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  mark-answer:
+    if: github.event_name == 'issue_comment' && github.event.action == 'created' && !github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Label the question has-answer if the new comment holds an answer block
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/build_questions_index.py mark-answer
+
+  build:
+    # Rebuild nightly, on demand, and whenever a design question or its
+    # comments change. One build runs at a time, and a newer pending build
+    # replaces an older one, since every build reads all the issues afresh.
+    if: >
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.issue.labels.*.name, 'open-question') ||
+      github.event.label.name == 'open-question'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: questions-index
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build the index
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/build_questions_index.py build --out "$RUNNER_TEMP/questions-index-out"
+
+      - name: Commit the index to the questions-index branch if it changed
+        run: |
+          set -euo pipefail
+          out="$RUNNER_TEMP/questions-index-out"
+          tree="$RUNNER_TEMP/questions-index-tree"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin questions-index > /dev/null; then
+            git fetch --depth=1 origin questions-index
+            git worktree add --detach "$tree" FETCH_HEAD
+          else
+            git worktree add --detach "$tree" HEAD
+            git -C "$tree" checkout --orphan questions-index
+            git -C "$tree" rm -rfq .
+          fi
+          git -C "$tree" rm -rfq --ignore-unmatch QUESTIONS.md questions.json questions
+          cp -R "$out"/. "$tree"/
+          git -C "$tree" add -A
+          if git -C "$tree" diff --cached --quiet; then
+            echo "The index is unchanged."
+            exit 0
+          fi
+          git -C "$tree" commit -q -m "Rebuild the design question index"
+          git -C "$tree" push origin HEAD:refs/heads/questions-index
