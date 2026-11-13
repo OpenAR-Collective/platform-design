@@ -1,6 +1,6 @@
 ---
 id: MOD-US-0003
-title: "Federal Contact Times and Call Frequency"
+title: "Federal Contact Times, Call Frequency, and Permission"
 status: Proposed
 version: 0.1
 area: module:united-states
@@ -9,7 +9,7 @@ supersedes: none
 license: CC-BY-4.0
 ---
 
-# United States Module Design Decision 3: Federal Contact Times and Call Frequency
+# United States Module Design Decision 3: Federal Contact Times, Call Frequency, and Permission
 
 ## Decision
 
