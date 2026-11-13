@@ -4,7 +4,7 @@ title: "Internationalization Architecture and Reference Value System"
 status: Accepted
 version: 1.2
 area: wax
-date: 2026-10-10
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -182,13 +182,23 @@ Packs are explicitly educational reference material. They represent the Collecti
 
 Every Compliance Pack will carry a prominent disclaimer, both in the installation interface and in the Pack documentation, stating that the configuration reflects the Collective's educational interpretation of applicable law at the time of publication, that law changes and interpretations vary, and that agencies are solely responsible for ensuring their own compliance with all applicable federal and state requirements. This disclaimer is not a legal footnote. It is a structural feature of how compliance configuration is delivered.
 
-## Pack Records Are Agency Property
+## Delivered Packs and Agency Instances
 
-Once a Pack is installed, its contributed records behave like any other agency-defined record from the system's operational perspective. Agencies may modify the translations, adjust sort orders, deactivate values they do not use, and add their own values alongside the Pack values. The Pack is a starting point, not a locked configuration.
+A delivered Pack, the version that the Collective or another publisher releases, is stored read-only. It serves as a template and is never used directly. Installing it creates an instance, recorded with the delivered version it came from, and the instance is what the platform reads. Every Pack works this way, whether a Compliance, Boilerplate, Region, or Language Pack, as [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) provides, while Modules, which are code, upgrade the ordinary way.
 
-The installed_by_module_fk on Pack rows serves only the reversibility function. It identifies which rows the Pack contributed so they can be managed cleanly at uninstall time. It does not restrict the agency from modifying those rows in any way.
+Once installed, an instance's records behave like any other agency-defined record from the system's operational perspective. Agencies may modify the translations, adjust sort orders, deactivate values they do not use, and add their own values alongside the delivered ones, and they are encouraged to customize the instance to their own operation. The instance is a starting point, not a locked configuration. The delivered version stays unchanged beside it, so that a later merge can tell the agency's changes from the publisher's.
+
+The installed_by_module_fk on instance rows serves only the reversibility function. It identifies which rows the Pack contributed so they can be managed cleanly at uninstall time. It does not restrict the agency from modifying those rows in any way.
 
 Agencies that outgrow a Pack configuration entirely may uninstall it and replace its values with their own. The uninstall sequence described in the Reversibility section applies: if Pack values are in use on live records, soft deletion is the appropriate path. Over time, as the agency defines their own replacement codes, they can migrate records off the Pack values and eventually remove the soft-deleted values when no live references remain. A Region Pack follows its own rule for deactivation and removal, which [Wax Design Decision 10](WAX-0010-module-registry.md) defines.
+
+## Updates and Merges
+
+Downloading an update stores the new delivered version alongside the earlier ones and leaves the instance untouched. The agency then merges: the merge compares the agency's current instance with the new delivered version, using the delivered version that the instance was based on as their common ancestor, and brings each change across. Version control is the model, adapted to pack data. Each rule or value merges by the stable identifier that [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) gives it, never by lines of text, so a rule that only the publisher changed is taken, a rule that only the agency changed is kept, and a rule that both changed is a conflict that the agency resolves. An agency is encouraged to keep every delivered version since its installation and is not required to. The merge needs only the instance's base version, and when that version has been deleted, the merge fetches it again from its publisher, which keeps every version it has delivered.
+
+A pack update is a publisher's change from one delivered version to the next. It is made of rule changes, such as adding a rule, retiring one, or changing a value or the dates on which it is effective, and each change names the stable identifier of its rule. A pack update is not a database schema migration, which changes the platform's tables.
+
+An instance's version shows both its delivered base and the agency's own revision, written as the base version, a plus sign, and the letter a followed by the revision number. Installing delivered version 2.4 gives 2.4+a0. Every change that the agency saves to the instance raises the revision by one, so 2.4+a8 is an instance based on 2.4 that has changed eight times. A merge is also a change: merging delivered version 2.5 into 2.4+a8 gives 2.5+a9. The revision never resets, so the number always shows both what the instance was built from and how far the agency has taken it.
 
 ## Packs and the Evaluation Experience
 
@@ -218,9 +228,9 @@ A Region Pack is the exception to blocking and to the rule that a partial uninst
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Schema ships complete, English only. This is the canonical example of the "schema now, features later" principle. Ship: core.reference_type and core.reference_value tables with UUID surrogate keys; i18n.reference_value_translation table populated with en-US rows only; the three-tier locale resolution chain in code (system default, type override, value override) even though only one locale exists; all status codes, reason codes, debt types, and domain lookups stored as UUID references with translations, never as hardcoded strings. No locale resolution UI. No Language Pack installation pipeline. No RTL support.
+**Wax v1 (MVP):** Schema ships complete, English only. This is the canonical example of the "schema now, features later" principle. Ship: core.reference_type and core.reference_value tables with UUID surrogate keys; i18n.reference_value_translation table populated with en-US rows only; the three-tier locale resolution chain in code (system default, type override, value override) even though only one locale exists; all status codes, reason codes, debt types, and domain lookups stored as UUID references with translations, never as hardcoded strings. No locale resolution UI. No Language Pack installation pipeline. No RTL support. The one Boilerplate Pack applied at setup is installed as an instance, with the delivered version it came from recorded.
 
-**Wax v2:** User locale preference setting. Language Pack installation pipeline. Spanish Language Pack as first additional language. RTL CSS logical properties (structural only).
+**Wax v2:** User locale preference setting. Language Pack installation pipeline. Read-only delivered versions, instances with their base version and agency revision, and the merge of pack updates. Spanish Language Pack as first additional language. RTL CSS logical properties (structural only).
 
 **Wax v3+:** Full RTL Language Packs (Arabic, Hebrew). CJK font fallback system. Locale-aware entity matching field registries for non-US Locale Modules.
 
@@ -237,3 +247,7 @@ Modules that fail to provide complete translations for all installed locales wil
 All foreign key references to reference values in module-owned tables must reference reference_value_pk. Short codes and labels are never stored as foreign keys or repeated in module tables.
 
 Code that reads a value contributed by a Region Pack must not assume that the pack is active, because a Region Pack can be deactivated or removed while its rows remain in use.
+
+Code reads a Pack's instance, never its delivered version, and nothing writes to a delivered version.
+
+A pack update names every change by the stable identifier of the rule it adds, changes, or retires.
