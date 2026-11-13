@@ -2,9 +2,9 @@
 id: WAX-0004
 title: "Schema Architecture and Module Extension Pattern"
 status: Accepted
-version: 2.1
+version: 2.2
 area: wax
-date: 2026-10-10
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -24,7 +24,7 @@ Modules that require additional data fields extend Wax-owned entities through mo
 | **Schema** | **Owner** | **Examples** |
 | --- | --- | --- |
 | core | Wax | event, reference_type, reference_value, module_registry, workflow_definition, user, role, permission, organization |
-| ar | HiveAR | debt, entity, payment, payment_arrangement, debt_group, dispute, communication, demographic history tables, entity_merge |
+| ar | HiveAR | debt, entity, payment, payment_arrangement, credit_balance, debt_group, dispute, communication, demographic history tables, entity_merge |
 | healthcare | Healthcare Business Class module | debt_extension, claim_detail |
 | auto | Auto Business Class module | debt_extension, vehicle |
 | legal_collections | Legal Collections Treatment Module | debt_extension, matter |

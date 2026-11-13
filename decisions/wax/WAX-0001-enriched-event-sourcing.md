@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 2.1
+version: 2.2
 area: wax
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -194,6 +194,7 @@ The following illustrates how the layers of the architecture relate to each othe
 | core | ar.debt | Authoritative current state for debts |
 | core | ar.entity | Authoritative current state for entities (persons and businesses) |
 | core | ar.payment | Authoritative current state for payments |
+| core | ar.credit_balance | Authoritative current state for credit balances |
 | workflow | workflow.collector_queue_read_model | Read model for collector queue view, owned by workflow module |
 | reporting | reporting.aging_read_model | Read model for aging reports, owned by reporting module |
 | healthcare | healthcare.debt_extension | Satellite table extending ar.debt for healthcare module |
@@ -218,7 +219,9 @@ The following illustrates how the layers of the architecture relate to each othe
 >
 > **debt_group:** A named grouping of debts. Owns membership rules and lock state during legal proceedings. Its lifecycle flags and counts derive from its members and are calculated when read, never stored.
 >
-> **payment:** A payment received from an entity. Owns the full payment lifecycle: receipt, split calculation by the configured methodology, application of splits to target debts, and reversal. A split payment is not owned by any single debt. It is its own aggregate, and each target debt receives a corresponding fan-out event recording the split applied to it.
+> **payment:** A payment received from an entity. Owns the full payment lifecycle: receipt, split calculation by the configured methodology, application of splits to target debts, and reversal. A split payment is not owned by any single debt. It is its own aggregate, and each target debt receives a corresponding fan-out event recording the split applied to it. Every payment records its payer as an entity, and the payer's credit balance receives one for the part of the payment that no debt takes.
+>
+> **credit_balance:** The money the agency holds for one payer, an entity, in one currency that no debt takes. Owns the credit lifecycle: recording each credit with the payment it came from and the date it arose, applying credit to the debts its payment could reach or that the payer directs, refunding it to the payer, and backing it out when its payment is returned. The payer may be a person or a business, a credit balance belongs to no debt, and the amount it holds is calculated from its entries when it is read and is never stored. It passes the boundary test: its rule, that the amount applied or refunded never exceeds the amount held, spans all of the payer's credits and no single payment or debt, and a refund changes it without loading or locking any other aggregate. Its lifecycle spans payments and debts throughout, because a credit arises from one payment and may be applied to debts of different clients over time. A payment gives it a fan-out event for the part that no debt takes, and applying credit to a debt gives that debt a fan-out event. There is exactly one credit balance for each payer and currency. ar.credit_balance carries a unique constraint on that pair, and a command that finds no balance creates it in the same transaction as its first event and retries against the existing balance if the constraint shows that another command created it first. A command that touches a credit balance and several debts locks several aggregates, and the order in which it takes those locks belongs to the open question on running bulk writes during live hours in [OPEN-QUESTIONS.md](../../OPEN-QUESTIONS.md). An entity merge or unmerge must combine or split credit balances, which OPEN-QUESTIONS.md records as an open question.
 >
 > **payment_arrangement:** A payment arrangement made by an entity covering one or more payer-designated debts. Owns the full arrangement lifecycle: proposal, acceptance, modification, fulfillment, and breach. The payer's designation of which debts are covered is a core term of the arrangement, not a workflow detail, and the arrangement governs all covered debts throughout its lifecycle. Each covered debt and the arranging entity receive corresponding fan-out events.
 >
@@ -232,7 +235,7 @@ The following illustrates how the layers of the architecture relate to each othe
 >
 > **user:** A staff member or system actor. Owns credential and role assignment history.
 >
-> **Member objects are not aggregate roots.** Disputes, assignments, address history records, and phone history records are members of their parent aggregate. They do not have their own aggregate roots. Events that describe changes to these objects are attributed to the parent aggregate root, with the member object's identity carried in the event payload. A dispute.opened event has aggregate_type = 'debt' and aggregate_pk_ref pointing to the debt. The fact that a person may initiate disputes against multiple debts simultaneously does not make dispute its own aggregate: each dispute follows a fully independent lifecycle from initiation onward and is governed entirely by its own debt. The dispute is not a separate aggregate.
+> **Member objects are not aggregate roots.** Disputes, assignments, address history records, phone history records, and credit balance entries are members of their parent aggregate. They do not have their own aggregate roots. Events that describe changes to these objects are attributed to the parent aggregate root, with the member object's identity carried in the event payload. A dispute.opened event has aggregate_type = 'debt' and aggregate_pk_ref pointing to the debt. The fact that a person may initiate disputes against multiple debts simultaneously does not make dispute its own aggregate: each dispute follows a fully independent lifecycle from initiation onward and is governed entirely by its own debt. The dispute is not a separate aggregate.
 
 ## Compliance Rationale
 

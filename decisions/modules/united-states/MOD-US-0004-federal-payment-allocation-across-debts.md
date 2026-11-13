@@ -2,9 +2,9 @@
 id: MOD-US-0004
 title: "Federal Payment Allocation Across Debts"
 status: Proposed
-version: 0.1
+version: 0.2
 area: module:united-states
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -41,10 +41,11 @@ The pack sets the following values on the mechanisms of HiveAR Design Decision 7
 
 - A dispute counts whatever its form, so a dispute that an agent records from a call excludes the disputed amount from money the consumer did not direct, as it would if the consumer wrote. This is the cautious reading of the oral-disputes premise (needs verification).
 - The federal text speaks of a "debt which is disputed", and HiveAR's core rule speaks of amounts in dispute. Whether a debt of which the consumer disputes only part is a disputed debt under the text, so that the whole debt is excluded, is not settled by the text (needs verification). Until it is settled, the pack's value matches the core default of HiveAR Design Decision 7, under which a consumer debt with any disputed part receives no money that the consumer did not direct. An agency can turn on posting to the undisputed part, and the platform then shows the agency's value as looser than the pack's.
-- The federal text speaks of a consumer who owes multiple debts. HiveAR's core rule also covers a single debt, so a payment that a consumer does not direct to a wholly disputed debt becomes the consumer credit balance. Whether federal law requires that for a single debt needs verification, and the pack keeps the core rule as the cautious reading.
-- Apart from the reading for partial disputes above, the pack adds nothing to the core's handling of money the consumer did not direct: within the scope of the distribution rule that spreads it, it goes to debts with no disputed part, and to the undisputed part of a partly disputed debt only where the agency's setting allows, and what cannot be applied becomes the consumer credit balance of [HiveAR Design Decision 6](../../hivear/HIVE-0006-gaap-journal-and-general-ledger.md) (needs verification).
-- Money that a consumer directs to a debt beyond what the debt owes is not spread to the consumer's other debts as undirected money under this pack, so the core's treatment of such an excess stands. Whether federal law would allow spreading it needs verification, and a pack may allow it only once that is confirmed.
-- The pack sets no deadline for holding a consumer credit balance. What the agency does with a balance it holds, such as a refund, is the agency's decision. Whether a state's unclaimed property law reaches a credit balance held for a consumer needs research of its own (needs verification).
+- The federal text speaks of a consumer who owes multiple debts. HiveAR's core rule also covers a single debt, so a payment that is not directed to a wholly disputed debt becomes the payer's credit balance. Whether federal law requires that for a single debt needs verification, and the pack keeps the core rule as the cautious reading.
+- Apart from the reading for partial disputes above, the pack adds nothing to the core's handling of money that is not directed: within the scope of the distribution rule that spreads it, and only to debts that the payer is responsible for, it goes to debts with no disputed part, and to the undisputed part of a partly disputed debt only where the agency's setting allows, and what cannot be applied becomes the payer's credit balance of [HiveAR Design Decision 6](../../hivear/HIVE-0006-gaap-journal-and-general-ledger.md) (needs verification).
+- Money directed to a debt beyond what the debt can take under HiveAR Design Decision 7, which excludes every amount in dispute, becomes the payer's credit and is not spread to other debts as undirected money: the pack's value for the agency setting of HiveAR Design Decision 7 that would spread it is off, matching the core default. Whether federal law would allow spreading it needs verification, and an agency that turns the setting on is shown as looser than the pack's value.
+- The federal text speaks of the consumer's directions, and HiveAR's core rule honors the payer's directions, which are the consumer's whenever the consumer pays. Where someone else pays, whether the consumer's directions or the payer's govern under the text needs verification, and the pack follows the core rule, under which money that the payer does not direct reaches only debts that the payer is responsible for.
+- The pack sets no deadline for holding a credit balance. What the agency does with a balance it holds, such as a refund, is the agency's decision. Whether a state's unclaimed property law reaches a credit balance held for a payer needs research of its own (needs verification).
 
 ## Which Debts These Values Govern
 

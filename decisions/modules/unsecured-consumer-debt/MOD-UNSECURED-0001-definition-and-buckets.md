@@ -2,9 +2,9 @@
 id: MOD-UNSECURED-0001
 title: "Definition and Buckets"
 status: Accepted
-version: 2.1
+version: 2.2
 area: module:unsecured-consumer-debt
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -21,11 +21,11 @@ Almost the whole of this module is a declarative selection from the shared seed 
 
 ## The Buckets
 
-The module selects five balance buckets: client fees, agency fees, client interest, agency interest, and principal. The split is by ownership as well as by kind, because it drives remittance and commission under HiveAR Design Decisions 6 and 8. The three client-side buckets, client fees, client interest, and principal, are commissionable and remitted to the client. The two agency-side buckets, agency fees and agency interest, are the agency's own revenue, the charges it adds where the agreement or law allows. The buckets map to the categories of a notice itemization, so the notice itemization falls out of the balances rather than being assembled separately.
+The module selects five balance buckets: client fees, agency fees, client interest, agency interest, and principal. The split is by ownership as well as by kind, because it drives remittance and commission under HiveAR Design Decisions 6 and 8. The three client-side buckets, client fees, client interest, and principal, are commissionable and remitted to the client. The two agency-side buckets, agency fees and agency interest, are the agency's own revenue, the charges it adds where the agreement or law allows. The buckets map to the categories of a notice itemization, so the notice itemization falls out of the balances rather than being assembled separately. Each of the five buckets has a disputed counterpart that [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md) derives from it, so the module declares none.
 
 ## Interest Off by Default
 
-The module declares the debt interest-bearing-capable but ships interest accrual off, the cautious default. Whether interest accrues, and at what rate, is the contract and the Compliance Pack speaking, not the module asserting, and [United States Module Design Decision 5](../united-states/MOD-US-0005-interest-and-fees.md) states the United States federal rule on interest and fees that the federal pack applies. The client-interest bucket holds interest that arrived in the placed balance, which is remitted; the agency-interest bucket holds interest the agency adds where it is permitted, which is its own revenue. With accrual off, both simply carry whatever interest was placed and nothing more.
+The module declares the debt interest-bearing-capable but ships the interest setting of every bucket it selects off, the cautious default, so interest accrual is off. Whether a bucket's setting is turned on, and at what rate, is the contract and the Compliance Pack speaking through the bucket's interest setting and rate definition under HiveAR Design Decision 5, not the module asserting, and [United States Module Design Decision 5](../united-states/MOD-US-0005-interest-and-fees.md) states the United States federal rule on interest and fees that the federal pack applies. The client-interest bucket holds interest that arrived in the placed balance, which is remitted; the agency-interest bucket holds interest the agency adds where it is permitted, which is its own revenue. With the setting off, both simply carry whatever interest was placed and nothing more.
 
 ## Properties and Roles
 
@@ -51,7 +51,7 @@ This module covers charged-off, contingency-placed consumer debt, a placed balan
 
 ## Implementation Phasing
 
-**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, interest accrual off by default, the default waterfall above, and the mapping of its buckets to the categories of the notice itemization. No subject-matter structure. Compatible with the contingency contract type.
+**Unsecured Consumer Debt Module v1:** The five buckets with their client-and-agency split and commissionability, the consumer and unsecured properties, the debtor, co-signer, and authorized-contact roles, the interest setting off on every bucket by default, the default waterfall above, and the mapping of its buckets to the categories of the notice itemization. No subject-matter structure. Compatible with the contingency contract type.
 
 **Unsecured Consumer Debt Module v2+:** Interest accrual configuration where a Compliance Pack and the contract permit it. Compatibility with the debt-purchase contract type as that module matures. Any refinement the default waterfall warrants after review.
 
@@ -65,6 +65,6 @@ This module is a manifest, not a schema. It references shared primitives by key 
 
 The bucket split is by ownership and kind. Client-side buckets are commissionable and remitted; agency-side buckets are agency revenue, and the distinction drives remittance and commission, so it must not be collapsed.
 
-Interest is off until compliance turns it on. No code may accrue interest on these debts unless a Compliance Pack and the contract authorize it.
+Interest is off until compliance turns it on: the interest setting of every bucket ships off. No code may accrue interest on these debts unless a Compliance Pack and the contract authorize it.
 
 The waterfall is a default, not a rule. The shipped order is overridable by contract, Compliance Pack, and per-payment direction, and it is held at Medium confidence pending review.
