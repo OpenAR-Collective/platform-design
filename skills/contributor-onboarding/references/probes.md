@@ -1,6 +1,6 @@
 # Interview Probes by Territory
 
-> **DRAFT.** These seed probes were drafted for founder review and have not yet been tuned against real conversations. Improve them as booth and Discord conversations reveal which questions open people up. The patterns to preserve: walk-me-throughs anchored to a specific recent instance, edge cases ("what makes this go sideways"), forgotten exceptions, and the vendor complaint ("what does every system get wrong about this"). Pricing, rates, and fee structures are never probed; see the antitrust guardrail in START-HERE.md.
+> **DRAFT.** These seed probes were drafted for founder review and have not yet been tuned against real conversations. Improve them as interviews reveal which questions open people up. The patterns to preserve: walk-me-throughs anchored to a specific recent instance, edge cases ("what makes this go sideways"), forgotten exceptions, and the vendor complaint ("what does every system get wrong about this"). Pricing, rates, and fee structures are never probed; see the antitrust guardrail in START-HERE.md.
 
 Use three to five probes per conversation, adapted to what the person says. These are seeds, not a script. The decisions in this repository say debt where many systems and many people say account, so accept whichever word the person uses and ask which record in their system carries the balance that gets collected, because that is the unit the decisions care about.
 

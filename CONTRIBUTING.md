@@ -8,8 +8,8 @@ Domain knowledge. The decisions in this repository describe how collections work
 
 ## Four ways to contribute, easiest first
 
-1. **Discord, for members.** Post an observation or answer in the #platform-design channel, and a maintainer converts it into an issue or a decision update. No GitHub account required. Discord access comes with free [Collective membership](https://join.openarcollective.org); invites are member-specific because onboarding sets real-name server nicknames and member permissions, so no public invite link exists. Members not yet on Discord can request a fresh invite by emailing membership@openarcollective.org.
-2. **Issues.** Open a GitHub issue with one of the structured templates. "How we actually handle this" is the one for domain input; the others cover gaps, questions about a specific decision, and formal proposals. This requires a free GitHub account and nothing else.
+1. **Email, for anyone who would rather not use GitHub.** Send an observation, or your answer to an open design question, to contribute@openarcollective.org. A steward posts it on GitHub for you, beginning "Posted for a contributor who answered by email" and copying your credit line exactly as you gave it, and never posts your email address. You do not need a GitHub account.
+2. **Issues.** Open a GitHub issue with one of the structured templates. "How we actually handle this" is the one for domain input; the others cover gaps, questions about a specific decision, design questions, and formal proposals. The open design questions are issues labeled `open-question`, and you answer one by commenting on it; [START-HERE.md](START-HERE.md) explains how an AI assistant can help. This requires a free GitHub account and nothing else.
 3. **The web editor.** Click the pencil icon on any file in the GitHub interface, make your edit, and click "Propose changes." GitHub creates the fork, the branch, and the pull request for you. No terminal, no Git commands.
 4. **Full pull request.** Clone, branch, edit, sign off, and open a PR. For contributors who work this way already.
 

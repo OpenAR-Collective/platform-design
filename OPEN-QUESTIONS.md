@@ -4,7 +4,7 @@ These are the architectural areas where the Foundation has not yet committed to 
 
 Each item carries two framings. The technical framing describes the design work. The experience framing is a question anyone who works in collections can answer from their own floor, with no technical background required. Answering the experience framing **is** contributing to the design.
 
-How to answer one: open a GitHub issue using the "How we actually handle this" template, post in the #platform-design channel if you are on the Collective's Discord, or ask your AI assistant to read [START-HERE.md](START-HERE.md) and interview you. Each item below will link to a tracking issue as issues are filed.
+How to answer one: open a GitHub issue using the "How we actually handle this" template, email your answer to contribute@openarcollective.org and a steward posts it on GitHub for you, or ask your AI assistant to read [START-HERE.md](START-HERE.md) and interview you. Each item below will link to a tracking issue as issues are filed. Smaller design questions, each one decision that a person who does the work can answer in a sitting, are GitHub issues labeled `open-question`, and the [design question index](https://github.com/OpenAR-Collective/platform-design/blob/questions-index/QUESTIONS.md) lists them one line each.
 
 Version targets indicate when the item is expected to ship, not when the decision will be made. Targets are reassessed as each decision is approached; an item tagged v2 can move to v1 when the work shows it belongs there.
 
