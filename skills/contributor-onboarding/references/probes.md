@@ -111,3 +111,31 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Walk me through a user leaving your company. What has to be shut off, in what order, and what should the system have handled on its own?
 - What does your current system rely on policy or training to prevent that software should make impossible by design?
 - The last time you restored from a backup, what did the system lose that you did not expect: in-flight payments, the audit trail, attachments?
+
+## 16. Client management
+
+- Walk me through the last new client your company brought on. What had to be set up before their first placement could load, and what turned out to be missing afterward?
+- Think of a client whose rules differ from everyone else's. What is different, where is it recorded, and how does a collector learn it before working one of their debts?
+- Tell me about the last time a client changed a rule partway through a contract, such as when to call, which letters to send, or how to remit. How did the change reach everyone who needed it, and how could you show later when it took effect?
+- What did a client last ask to see in an audit or a performance review, and which part took longest to produce?
+
+## 17. Collector operations and performance
+
+- Walk me through a collector's first hour yesterday. What told them which debt to work first, and what did they do when that was wrong?
+- Tell me about the last payment that two collectors both claimed. Who got credit for it at your company, and who decided?
+- Think of the last time a supervisor had to step in on a call or a debt. How did they find out, and what got recorded?
+- What does a collector keep on paper or in a spreadsheet because the system does not keep it for them?
+
+## 18. Skip tracing and demographics
+
+- Walk me through the last debtor you had to locate. Where did you look first, and how did you decide which new address or phone number to trust?
+- When a new address arrives that conflicts with one a collector confirmed last month, what happens at your company, and who decides which one wins?
+- Tell me about a time a phone number or address you found turned out to belong to someone else. How was it caught, and what had to be undone?
+- When a debtor dies, moves abroad, or changes their name, how does the change reach every debt they owe?
+
+## 19. Debt buying and portfolios
+
+- Walk me through the last portfolio your company bought or sold. What arrived with the debts, what was missing, and how long was it before they could be worked?
+- Tell me about a purchased debt that turned out to be paid, disputed, or in bankruptcy. What happened to it, and how was it returned to the seller or written off?
+- When purchased debts are placed with an agency or a law firm, what does the owner need to track about each debt while someone else works it?
+- What history about a purchased debt do you need from the seller and from the owners before them, and what do you do when it is not there?

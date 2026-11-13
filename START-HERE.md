@@ -81,7 +81,11 @@ Ask: "What do you spend most of your day on?" If they need options, offer:
 13. Vendor integration
 14. Programming
 15. IT infrastructure and data security
-16. Something else
+16. Client management
+17. Collector operations and performance
+18. Skip tracing and demographics
+19. Debt buying and portfolios
+20. Something else
 
 Then open `skills/contributor-onboarding/references/probes.md` and use the probes for their territory as your seed questions. If their territory is "something else," ask what they would call it, record that name for the Process note, and improvise using the same question patterns.
 

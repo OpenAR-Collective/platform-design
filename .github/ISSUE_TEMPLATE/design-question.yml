@@ -1,0 +1,120 @@
+name: Design question
+description: One decision the design still needs, phrased so that a person who does the work can answer it. Maintainers open these, and anyone may propose one.
+title: "[Design question] "
+labels: ["open-question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A design question asks for one decision that one person with the right background can answer in a sitting. To answer an existing question, comment on it instead, or paste this line into your AI assistant, which will interview you and format your answer:
+
+        `Read https://github.com/OpenAR-Collective/platform-design/blob/main/START-HERE.md and help me answer an open design question on GitHub.`
+  - type: textarea
+    id: decision
+    attributes:
+      label: The decision
+      description: The question, in one sentence a practitioner would understand.
+      placeholder: "When an automatic payment fails, how often should it be retried, and what happens when the retries run out?"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+      description: What goes wrong in practice if the software gets this wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What the design says today
+      description: The decisions that come closest, by ID and full name, and what they say or leave open. Write "none found" only after checking INDEX.md.
+    validations:
+      required: true
+  - type: textarea
+    id: experience
+    attributes:
+      label: From experience
+      description: Two to four questions anyone who does this work can answer, each grounded in a specific recent instance ("Walk us through the last time...").
+    validations:
+      required: true
+  - type: textarea
+    id: technical
+    attributes:
+      label: Technical framing
+      description: The open design choices, for anyone who designs or builds software. Optional.
+    validations:
+      required: false
+  - type: textarea
+    id: idea
+    attributes:
+      label: A starting idea
+      description: A proposed answer for people to push against. Optional.
+    validations:
+      required: false
+  - type: textarea
+    id: settle
+    attributes:
+      label: What would settle it
+      description: What a maintainer needs before writing the decision, such as answers from several practitioners or a pull request.
+    validations:
+      required: true
+  - type: textarea
+    id: verify
+    attributes:
+      label: Needs verification
+      description: Any legal or regulatory premise, stated as a possibility and marked "(needs verification)". Never assert what a law requires.
+    validations:
+      required: false
+  - type: textarea
+    id: related
+    attributes:
+      label: Related questions
+      description: Other open questions that an answer to this one is likely to touch, as issue numbers with a few words each, so an assistant can follow the thread.
+      placeholder: "#124, what the client is told about a rejected record"
+    validations:
+      required: false
+  - type: dropdown
+    id: territory
+    attributes:
+      label: Territory
+      options:
+        - New business intake and placements
+        - Work queues and debt treatment strategy
+        - Consumer contact and communications
+        - Disputes and validation
+        - Payments, plans, and arrangements
+        - Trust accounting, remittance, and client billing
+        - Compliance and complaints
+        - Legal collections and judgments
+        - Recalls, closures, and returns
+        - Credit reporting
+        - File imports and exports
+        - Reporting and data visualization
+        - Vendor integration
+        - Programming
+        - IT infrastructure and data security
+        - Client management
+        - Collector operations and performance
+        - Skip tracing and demographics
+        - Debt buying and portfolios
+        - Something else
+    validations:
+      required: true
+  - type: checkboxes
+    id: answerable
+    attributes:
+      label: Who can answer it
+      options:
+        - label: Anyone who does this work, from experience
+        - label: Someone who designs or builds software
+        - label: Someone with compliance standing, for a legal premise
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Ground rules
+      options:
+        - label: This contains no pricing or rate information, no market or customer allocation, and no consumer or client-confidential data.
+          required: true
+        - label: I license this contribution under CC BY 4.0.
+          required: true
