@@ -17,15 +17,15 @@ Wax ships with a complete, non-bypassable role-based access control model. Roles
 
 ## Role-Based Access Control
 
-Permissions are defined at the resource and operation level within a specific organization scope. Roles are defined per organization and are user-configurable items subject to the version control model from [Wax Design Decision 21](WAX-0021-configuration-management-and-environment-lifecycle.md). A collector role might grant the ability to post payments and log contact attempts on assigned accounts. An administrator role grants configuration access. Role definitions are configuration, not code.
+Permissions are defined at the resource and operation level within a specific organization scope. Roles are defined per organization and are user-configurable items subject to the version control model from [Wax Design Decision 21](WAX-0021-configuration-management-and-environment-lifecycle.md). A collector role might grant the ability to post payments and log contact attempts on assigned debts. An administrator role grants configuration access. Role definitions are configuration, not code.
 
 ## API Service Account Scoping
 
-Service accounts are principals in the RBAC model and hold roles like any other principal. Each service account may additionally be scoped to a specific subset of API endpoints from the published API catalog. A payment processor integration cannot close accounts or modify reference values, even if its assigned role would otherwise permit those operations, if those endpoints are excluded from its endpoint scope. Agency administrators create and manage service accounts through a dedicated administration dashboard. Authentication method is configurable per service account, with supported methods including shared secret and OAuth 2.0 client credentials.
+Service accounts are principals in the RBAC model and hold roles like any other principal. Each service account may additionally be scoped to a specific subset of API endpoints from the published API catalog. A payment processor integration cannot close debts or modify reference values, even if its assigned role would otherwise permit those operations, if those endpoints are excluded from its endpoint scope. Agency administrators create and manage service accounts through a dedicated administration dashboard. Authentication method is configurable per service account, with supported methods including shared secret and OAuth 2.0 client credentials.
 
 ## Row-Level Security
 
-PostgreSQL row-level security is implemented at the database layer for all tables containing account data, contact data, event records, and other sensitive content. Application-layer authorization checks are a second line of defense. RLS is a design-time architectural decision because it affects how every query in the platform is written and how every module author must structure data access.
+PostgreSQL row-level security is implemented at the database layer for all tables containing debt data, contact data, event records, and other sensitive content. Application-layer authorization checks are a second line of defense. RLS is a design-time architectural decision because it affects how every query in the platform is written and how every module author must structure data access.
 
 ## Implementation Phasing
 

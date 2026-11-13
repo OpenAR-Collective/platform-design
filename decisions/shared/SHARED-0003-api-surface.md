@@ -29,12 +29,12 @@ REST endpoints are organized around commands and use-case-specific queries rathe
 
 | **Type** | **Endpoint** | **Backed By** |
 | --- | --- | --- |
-| Command | POST /account/{id}/post-payment | PostPaymentCommandHandler |
-| Command | POST /account/{id}/update-address | UpdateAddressCommandHandler |
-| Command | POST /account/{id}/close | CloseAccountCommandHandler |
-| Query | GET /account/{id}/collector-view | workflow.collector_queue_read_model |
-| Query | GET /account/{id}/audit-history | core.event (compliance use case) |
-| Query | GET /account/{id}/supervisor-summary | workflow.supervisor_read_model |
+| Command | POST /debt/{id}/post-payment | PostPaymentCommandHandler |
+| Command | POST /debt/{id}/update-address | UpdateAddressCommandHandler |
+| Command | POST /debt/{id}/close | CloseDebtCommandHandler |
+| Query | GET /debt/{id}/collector-view | workflow.collector_queue_read_model |
+| Query | GET /debt/{id}/audit-history | core.event (compliance use case) |
+| Query | GET /debt/{id}/supervisor-summary | workflow.supervisor_read_model |
 | Query | GET /collector/{id}/queue | workflow.collector_queue_read_model |
 | Query | GET /reporting/aging | reporting.aging_read_model |
 
@@ -42,7 +42,7 @@ Commands never return data beyond a success or failure acknowledgment. Queries n
 
 ## Versioning
 
-The API version is included in the URL path: /api/v1/account/{id}/collector-view. When a breaking change is required, a new version path is introduced. The prior version remains available for a documented deprecation period. Non-breaking additions (new optional fields in responses, new optional query parameters) do not require a version increment.
+The API version is included in the URL path: /api/v1/debt/{id}/collector-view. When a breaking change is required, a new version path is introduced. The prior version remains available for a documented deprecation period. Non-breaking additions (new optional fields in responses, new optional query parameters) do not require a version increment.
 
 ## Openapi Documentation
 
@@ -50,7 +50,7 @@ All endpoints will be documented using OpenAPI 3.x. The OpenAPI specification fi
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Core endpoints only: account CRUD, entity and contact CRUD, payment posting, account search and filtering, assignment operations, event and audit history queries, authentication endpoints. API endpoints can be more CRUD-like in v1; use-case-oriented endpoint optimization is a v2 refinement.
+**HiveAR v1 (MVP):** Core endpoints only: debt CRUD, entity and contact CRUD, payment posting, debt search and filtering, assignment operations, event and audit history queries, authentication endpoints. API endpoints can be more CRUD-like in v1; use-case-oriented endpoint optimization is a v2 refinement.
 
 **HiveAR v2:** Use-case-oriented endpoints based on real usage data. OpenAPI 3.x documentation published with the repository. Module-contributed endpoints through the module contract.
 

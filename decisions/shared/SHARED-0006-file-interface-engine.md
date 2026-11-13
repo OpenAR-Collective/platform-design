@@ -2,9 +2,9 @@
 id: SHARED-0006
 title: "File Interface Engine"
 status: Accepted
-version: 1.1
+version: 2.0
 area: shared
-date: 2026-10-08
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-Wax will include a file interface engine that supports bidirectional data exchange between the platform and external systems. The engine defines a layout definition model for file grammar, a two-phase import pipeline with staging review and approval, an exceptions queue for change import conflicts, an export engine driven by the event store and read models, and a mapping and conditional logic layer shared with the workflow engine. The engine targets any registered aggregate root; it is not restricted to account records. HiveAR registers AR-specific aggregate types, import category rules, and a mandatory balancing gate as domain contributions to this engine.
+Wax will include a file interface engine that supports bidirectional data exchange between the platform and external systems. The engine defines a layout definition model for file grammar, a two-phase import pipeline with staging review and approval, an exceptions queue for change import conflicts, an export engine driven by the event store and read models, and a mapping and conditional logic layer shared with the workflow engine. The engine targets any registered aggregate root; it is not restricted to debt records. HiveAR registers AR-specific aggregate types, import category rules, and a mandatory balancing gate as domain contributions to this engine.
 
 ## Wax Layer: File Interface Infrastructure
 
@@ -63,7 +63,7 @@ An auto-approve flag is configurable per import definition. When set, the import
 
 Aggregate Scope
 
-The file interface engine is not restricted to accounts. Any aggregate root registered with the module registry is a valid import and export target. Module authors register their aggregate types to make them available for file interface operations.
+The file interface engine is not restricted to debts. Any aggregate root registered with the module registry is a valid import and export target. Module authors register their aggregate types to make them available for file interface operations.
 
 Pipeline mechanics including chunked processing, parallel workers, fault isolation, and retry are provided by the Wax batch execution engine.
 
@@ -75,17 +75,17 @@ Import Categories and Class Hierarchy
 
 HiveAR defines four import categories organized in a class hierarchy. The base class is the net-new import, which produces creation commands for records that do not yet exist. Net-new imports carry no precondition checking and no balancing requirement. Three types extend or derive from the base:
 
-Record Addition Import: a pure instance of the net-new base class. Covers any aggregate type that is neither account nor payment, including users, clients, and legal cases. No balancing requirement.
+Record Addition Import: a pure instance of the net-new base class. Covers any aggregate type that is neither debt nor payment, including users, clients, and legal cases. No balancing requirement.
 
-New Business Import: produces account creation commands. Inherits net-new pipeline behavior. Adds the mandatory balancing gate as a pre-approval control.
+New Business Import: produces debt creation commands. Inherits net-new pipeline behavior. Adds the mandatory balancing gate as a pre-approval control. A debt creation command carries the identifiers that place the debt in its debt groups at every level of its grouping scheme, as [HiveAR Design Decision 4](../hivear/HIVE-0004-debt-groups.md) describes, and the import's layout maps file columns to those identifiers. The command also carries the lines of the debt's itemization when the client sends them, as [HiveAR Design Decision 5](../hivear/HIVE-0005-debt-structure-and-balance-composition.md) describes, and the layout maps the client's detail records to those lines. An agency that has turned on the itemization check described there has it run as each debt creation command is built, sees a failure flagged in staging review, and can have the debt rejected from the load. The check is separate from the balancing gate, which balances the file to its control totals.
 
 Payment Import: produces payment posting commands. Inherits net-new pipeline behavior. Adds the mandatory balancing gate. Control totals typically represent net payment amounts balanced to a bank deposit register or client remittance total.
 
-Change Import is a distinct class, not a subclass of net-new. It produces field mutation and domain action commands against existing records of any aggregate type. Precondition checking applies to all commands. Staging review presents the full pending command set as a diff before approval. The exceptions queue and three-option resolution are specific to this class. Domain operations such as removing an account from a set or marking a user inactive are expressed as pending commands alongside field mutations, not as a separate mechanism.
+Change Import is a distinct class, not a subclass of net-new. It produces field mutation and domain action commands against existing records of any aggregate type. Precondition checking applies to all commands. Staging review presents the full pending command set as a diff before approval. The exceptions queue and three-option resolution are specific to this class. Domain operations such as removing a debt from a debt group or marking a user inactive are expressed as pending commands alongside field mutations, not as a separate mechanism.
 
 Mandatory Balancing Gate
 
-The mandatory balancing gate on New Business and Payment imports is implemented as a Wax pre-approval gate hook with HiveAR-provided balancing logic. The gate calculates the actual record count and the net amount total, per currency, from the loaded records and compares them to declared control totals, and each declared amount total states its currency. In a single-currency installation a declared total states none, and the default currency applies. Totals in different currencies are never added together, so a file that holds more than one currency balances in each. The control total source is declared on the import definition with three options: a trailer record in the file, a manually entered value at review time, or a companion control file delivered alongside the import file. The approve action is unavailable until the calculated totals match the declared totals. A supervisor with appropriate RBAC privilege may override the gate with a mandatory comment.
+The mandatory balancing gate on New Business and Payment imports is implemented as a Wax pre-approval gate hook with HiveAR-provided balancing logic. The gate calculates the actual record count and the net amount total, per currency, from the loaded records and compares them to declared control totals, and each declared amount total states its currency. In a single-currency installation a declared total states none, and the default currency applies. Totals in different currencies are never added together, so a file that holds more than one currency balances in each. The lines of a debt's itemization are informational, so the gate neither counts nor sums them. The control total source is declared on the import definition with three options: a trailer record in the file, a manually entered value at review time, or a companion control file delivered alongside the import file. The approve action is unavailable until the calculated totals match the declared totals. A supervisor with appropriate RBAC privilege may override the gate with a mandatory comment.
 
 This design reflects the industry convention that collection agencies balance new business and payment batches to client-provided control totals. The balancing gate enforces this as a structural control rather than a manual checklist item.
 
@@ -95,11 +95,11 @@ Demographic field conflicts on change imports are resolved by the golden record 
 
 Aggregate Registrations
 
-HiveAR registers accounts, entities, and payments as import and export targets with the file interface engine's aggregate registry. Additional aggregate types introduced by HiveAR modules are registered by those modules.
+HiveAR registers debts, entities, and payments as import and export targets with the file interface engine's aggregate registry. Additional aggregate types introduced by HiveAR modules are registered by those modules.
 
 Value Translation Content
 
-HiveAR contributes industry-specific value translation table content for the mapping engine, including standard mappings for debt type codes, account status transitions, and common client-reported disposition values. Agencies extend these defaults with their own client-specific mappings using the same mapping designer tool.
+HiveAR contributes industry-specific value translation table content for the mapping engine, including standard mappings for debt type codes, debt status transitions, and common client-reported disposition values. Agencies extend these defaults with their own client-specific mappings using the same mapping designer tool.
 
 AR-Specific Workflow Triggers
 
@@ -109,9 +109,9 @@ HiveAR provides default post-record trigger registrations for new business and p
 
 **Wax v1 (MVP)**: Layout engine and native C# parser. Two-phase import pipeline with staging area, exceptions queue, and three-option resolution. Export engine (delta and inventory). Mapping and conditional logic layer. Post-record trigger interface. Pre-approval gate hook interface. Auto-approve configuration. Custom parser registration interface. Schema for import and export definitions. Not included in v1: layout designer UI, mapping designer UI, value translation table management UI.
 
-**HiveAR v1 (MVP)**: Import category registrations (net-new base class and four subtypes). Mandatory balancing gate for New Business and Payment imports. Aggregate registrations for accounts, entities, and payments.
+**HiveAR v1 (MVP)**: Import category registrations (net-new base class and four subtypes). Mandatory balancing gate for New Business and Payment imports. Aggregate registrations for debts, entities, and payments.
 
-**HiveAR v2**: Layout designer UI. Mapping designer UI. Value translation table management UI. Inventory file reconciliation and exception reporting. AR-specific post-record trigger defaults.
+**HiveAR v2**: Layout designer UI. Mapping designer UI. Value translation table management UI. Inventory file reconciliation and exception reporting. AR-specific post-record trigger defaults. The optional itemization check at new business import.
 
 Breaking change risk: LOW. The pipeline architecture and import and export definition schema are stable. UI tooling additions in v2 do not require schema migration or interface changes in v1 code.
 

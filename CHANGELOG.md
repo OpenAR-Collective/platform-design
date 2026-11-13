@@ -7,6 +7,10 @@ This file and the Git tags version the repository as a container: the front matt
 
 To cite a decision, use its ID and version, for example "WAX-0006 v1.0". To pin the whole record at a moment, use a commit permalink or a dated snapshot tag. A consolidated single-document rendering can be generated from any commit; the repository, not the rendering, is authoritative.
 
+## v0.2.0 (unreleased)
+
+- New decision family MOD-US for the United States layer, the content of HiveAR that depends on United States law or conventions, carried by the Compliance Pack, Locale Module, and Reference Pack constructs of WAX-0008. The validator accepts the MOD-US prefix. The first decision is MOD-US-0001 Itemization Date and Validation Itemization.
+
 ## v0.1.0 (2026-08-30)
 
 - Initial public release: 52 decisions, each in its own file with front matter, a stable ID (SHARED, WAX, HIVE, MOD-PURCHASE, MOD-UNSECURED), and its own version.

@@ -2,9 +2,9 @@
 id: WAX-0002
 title: "CQRS Model"
 status: Accepted
-version: 1.1
+version: 2.0
 area: wax
-date: 2026-10-09
+date: 2026-10-10
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -17,7 +17,7 @@ The Wax will implement simple CQRS: a strict separation of the command path (wri
 
 > **WHAT CQRS MEANS**
 >
-> *Command Query Responsibility Segregation* (CQRS) is a pattern that divides the operations an application performs into two distinct categories: commands and queries. A command changes state. A query reads state. The two are never mixed: a command returns no data, and a query changes nothing. In Wax, every write enters the system as a named command (e.g., PostPayment, OpenDispute, CorrectPhone) handled by a dedicated command handler. The handler validates the command, applies business rules, writes an event to core.event, and updates the authoritative state table, all in a single atomic transaction. It returns only success or failure. Every read is served by a purpose-built read model. Read models are pre-aggregated tables optimized for specific query patterns: the collector queue view, the aging report, the account history display. They are never queried through the command path. They are updated asynchronously as domain events flow through the event stream. The two paths use separate code, separate data shapes, and separate handlers. Neither side knows about the other's implementation details. This separation keeps the write side focused on correctness and the read side focused on performance, without the operational overhead of physically separate databases or distributed event synchronization.
+> *Command Query Responsibility Segregation* (CQRS) is a pattern that divides the operations an application performs into two distinct categories: commands and queries. A command changes state. A query reads state. The two are never mixed: a command returns no data, and a query changes nothing. In Wax, every write enters the system as a named command (e.g., PostPayment, OpenDispute, CorrectPhone) handled by a dedicated command handler. The handler validates the command, applies business rules, writes an event to core.event, and updates the authoritative state table, all in a single atomic transaction. It returns only success or failure. Every read is served by a purpose-built read model. Read models are pre-aggregated tables optimized for specific query patterns: the collector queue view, the aging report, the debt history display. They are never queried through the command path. They are updated asynchronously as domain events flow through the event stream. The two paths use separate code, separate data shapes, and separate handlers. Neither side knows about the other's implementation details. This separation keeps the write side focused on correctness and the read side focused on performance, without the operational overhead of physically separate databases or distributed event synchronization.
 
 ## Rationale
 
@@ -33,7 +33,7 @@ A batch job type designated as a bulk operation in [Wax Design Decision 24](WAX-
 
 > **WRITE SIDE FLOW**
 >
-> Client submits command via REST API. API layer validates inputs and authenticates the request. Command handler loads current state from ar.account (or relevant authoritative table). Business rules are applied. If invalid, the command is rejected with an error. One or more events are produced and written to core.event. The authoritative state table is updated in the same transaction. Read model projections receive the event asynchronously and update.
+> Client submits command via REST API. API layer validates inputs and authenticates the request. Command handler loads current state from ar.debt (or relevant authoritative table). Business rules are applied. If invalid, the command is rejected with an error. One or more events are produced and written to core.event. The authoritative state table is updated in the same transaction. Read model projections receive the event asynchronously and update.
 
 ## The Read Side: Queries
 

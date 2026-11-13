@@ -14,7 +14,7 @@ This repository is prose, not code: the architecture design decisions for the Wa
 - `decisions/shared/` SHARED: decisions spanning Wax and HiveAR
 - `decisions/wax/` WAX: the domain-agnostic framework
 - `decisions/hivear/` HIVE: the AR domain layer, the active frontier
-- `decisions/modules/<module>/` per-module decisions (MOD-PURCHASE, MOD-UNSECURED, and future MOD-NAME prefixes)
+- `decisions/modules/<module>/` per-module decisions (MOD-PURCHASE, MOD-UNSECURED, MOD-US for the United States layer, and future MOD-NAME prefixes)
 - `INDEX.md` one line per decision; read it first
 - `OPEN-QUESTIONS.md` undecided areas, each with a plain-language framing
 - `PRINCIPLES.md` the principles every decision answers to

@@ -61,7 +61,7 @@ A UDW is a designed view artifact separate from any UDT. The agency builds a UDW
 
 **Wax v1 (MVP):** Not implemented. Reserve the udt_ table prefix in naming conventions. The event store schema must not assume a fixed set of aggregate types: aggregate_type is a string, not an enum, allowing UDT-originated events in v2 without schema changes.
 
-**Wax v2:** Basic UDT: define custom tables with typed fields, link to accounts and entities. UDT events flow through the event store. Simple generated forms.
+**Wax v2:** Basic UDT: define custom tables with typed fields, link to debts and entities. UDT events flow through the event store. Simple generated forms.
 
 **Wax v3+:** Full UDT: calculation fields, complex relationships, schema builder UI. User-Defined Windows. UDT workflow integration.
 

@@ -21,7 +21,7 @@ Even short codes that feel universally understood within the industry, such as A
 
 ## Core Schema: Reference Types and Values
 
-Reference types define categories of lookup values (such as account status, reason code category, or debt type). Reference values are the individual entries within each type. Neither table stores any language-specific text.
+Reference types define categories of lookup values (such as debt status, reason code category, or debt type). Reference values are the individual entries within each type. Neither table stores any language-specific text.
 
 | **Table** | **Column** | **Type** | **Notes** |
 | --- | --- | --- | --- |
@@ -79,12 +79,12 @@ A single-language deployment never requires session variables to be set. The sys
 
 All user-facing queries retrieve translated values through views rather than querying the translation tables directly. Views are defined once and resolve locale dynamically through the session variable and system configuration fallback chain described above. The same view serves all locales: the resolved locale determines which translation rows are returned.
 
-## An illustrative view definition for account status:
+## An illustrative view definition for debt status:
 
-> **vw_account_status -- resolves locale dynamically**
+> **vw_debt_status -- resolves locale dynamically**
 >
 > ```sql
-> CREATE VIEW vw_account_status AS
+> CREATE VIEW vw_debt_status AS
 > SELECT
 > rv.reference_value_pk,
 > rv.sort_order,
@@ -109,7 +109,7 @@ All user-facing queries retrieve translated values through views rather than que
 > (SELECT configuration_value FROM core.system_configuration
 > WHERE configuration_key = 'default_locale'),
 > 'en_US')
-> WHERE -- filter to account_status reference type
+> WHERE -- filter to debt_status reference type
 > ```
 
 ## User-Defined Code Creation
@@ -130,7 +130,7 @@ Saving is atomic: the reference_value row and all required translation rows are 
 
 Wax delivers no default reference values. A freshly installed system has an empty code table. Every agency defines the values appropriate to their own operations. This is intentional: it avoids encoding assumptions about how agencies work into the platform and keeps Wax free of English-language defaults.
 
-The practical consequence, however, is that a practitioner evaluating HiveAR who opens a blank system for the first time has no reference point. There are no account statuses to select, no reason codes to apply, no debt types to choose. The system is structurally correct but operationally empty. For a practitioner who does not yet know what they want, seeing an example of a well-designed configuration is the most effective way to learn what is possible.
+The practical consequence, however, is that a practitioner evaluating HiveAR who opens a blank system for the first time has no reference point. There are no debt statuses to select, no reason codes to apply, no debt types to choose. The system is structurally correct but operationally empty. For a practitioner who does not yet know what they want, seeing an example of a well-designed configuration is the most effective way to learn what is possible.
 
 Packs address this directly. A Pack is an optional, separately installable collection of well-designed reference values and their translations representing a thoughtful starting point for a specific type of collections operation. Installing a Pack transforms an empty system into a fully configured, immediately navigable environment that an agency can evaluate, adapt, and build on.
 
@@ -138,13 +138,13 @@ Packs address this directly. A Pack is an optional, separately installable colle
 
 A Pack contributes rows to reference_value and the i18n translation tables. It does not add schemas, tables, views, or application logic. It is pure data. A generic third-party collections Pack might contribute values across all of the following reference type categories:
 
-**Account statuses**: active, closed, disputed, pending validation, ceased and desisted, deceased, legal hold, and others representing the full lifecycle of a collection account.
+**Debt statuses**: active, closed, disputed, pending validation, ceased and desisted, deceased, legal hold, and others representing the full lifecycle of a collection debt.
 
 **Contact result codes**: answered, no answer, left message, wrong number, number disconnected, refused to pay, promise to pay, call back requested, and similar outcome codes used to log every contact attempt.
 
 **Reason codes**: the full set of why-did-this-change codes used by the event store, covering balance adjustments, status transitions, contact updates, assignment changes, and regulatory events.
 
-**Dispute types**: FDCPA dispute, FCRA dispute, identity theft claim, account not mine, balance dispute, and other categories relevant to the dispute workflow.
+**Dispute types**: FDCPA dispute, FCRA dispute, identity theft claim, debt not mine, balance dispute, and other categories relevant to the dispute workflow.
 
 **Closure reasons**: paid in full, settled, returned to creditor, sold, deceased, statute of limitations, and other standard closure categories.
 
@@ -164,7 +164,7 @@ The Collective will develop and maintain multiple Packs targeting different oper
 
 **First-Party Collections**: values oriented toward creditors and original creditors managing their own receivables, with different status and closure vocabularies.
 
-**Healthcare Collections**: extends the generic package with medical-specific account statuses, insurance-related reason codes, HIPAA-relevant document types, and healthcare-specific dispute categories.
+**Healthcare Collections**: extends the generic package with medical-specific debt statuses, insurance-related reason codes, HIPAA-relevant document types, and healthcare-specific dispute categories.
 
 **Legal Collections**: extends the generic package with pre-legal and legal workflow statuses, court-related reason codes, judgment and garnishment document types, and attorney assignment codes.
 
