@@ -63,6 +63,7 @@ An AI assistant helping with this repository should read this index first, then 
 - **[HIVE-0008](decisions/hivear/HIVE-0008-client-billing-invoicing-and-statements.md)** Client Billing, Invoicing, and Statements. HiveAR will treat the client as a posting-driven financial aggregate, symmetric with the debt, whose balances are the projection of immutable client transactions.
 - **[HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md)** Debt-Type Structure Extension. HiveAR will let a debt-type module attach the subject-matter structure of its debt to the core debt, while the core debt itself ships no subject-matter structure of its own.
 - **[HIVE-0010](decisions/hivear/HIVE-0010-contact-windows-and-contact-frequency.md)** Contact Windows and Contact Frequency. HiveAR will check every outbound contact against two mechanisms before it is made.
+- **[HIVE-0013](decisions/hivear/HIVE-0013-compliance-coverage-for-collections.md)** Compliance Coverage for Collections. HiveAR will hold a debt from collection unless every jurisdiction in which its debtor may be located is covered by the installed packs under the coverage check of Wax Design Decision 8.
 
 ## Module Decisions: Debt-Purchase
 
