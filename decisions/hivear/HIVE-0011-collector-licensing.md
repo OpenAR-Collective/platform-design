@@ -4,7 +4,7 @@ title: "Collector Licensing"
 status: Proposed
 version: 0.1
 area: hivear
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -19,7 +19,7 @@ HiveAR will check that an organization holds every authorization to collect that
 
 Where a jurisdiction licenses, registers, or bonds collectors, its requirement has a few common parts, while the values differ from one jurisdiction to the next and change over time: the debts and activities it reaches, the facts that bring a collector within it, the exemptions it allows, and the consequence of collecting without it. This is the mechanism test of [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md): HiveAR builds the parts once, and a Compliance Pack supplies its jurisdiction's values. The United States values are stated in [United States Module Design Decision 6](../modules/united-states/MOD-US-0006-state-collection-licensing.md). Nothing in the core names a jurisdiction, a kind of license, or a bond amount.
 
-Licensing is separate from the auto-close mechanism of Wax Design Decision 8. Installing a jurisdiction's Compliance Pack configures that jurisdiction, so that the platform knows its rules. An authorization record says whether this organization may collect a given debt there. A configured jurisdiction can still hold debts that its requirement reaches and that the organization is not authorized for, and an organization needs no authorization where no requirement reaches its debts.
+Licensing is separate from compliance coverage, which Wax Design Decision 8 computes and [HiveAR Design Decision 13](HIVE-0013-compliance-coverage-for-collections.md) applies to debts. A covered jurisdiction is one whose rules the installed packs supply, so that the platform knows them. An authorization record says whether this organization may collect a given debt there. A covered jurisdiction can still hold debts that its requirement reaches and that the organization is not authorized for, and an organization needs no authorization where no requirement reaches its debts.
 
 ## Authorization Records
 
