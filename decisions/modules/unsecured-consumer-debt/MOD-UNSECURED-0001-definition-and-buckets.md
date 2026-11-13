@@ -29,7 +29,7 @@ The module declares the debt interest-bearing-capable but ships interest accrual
 
 ## Properties and Roles
 
-The module declares two standardized properties from the Foundation-governed vocabulary, consumer regulatory nature and unsecured, which Compliance Packs read to apply the right regime. Its debt role types are the primary debtor, a co-borrower or co-signer, and an authorized contact, the realistic set for generic consumer debt. Both the properties and the roles are shared primitives referenced by key, not defined in this module.
+The module declares two standardized properties from the Foundation-governed vocabulary: consumer regulatory nature, the default of the regulatory nature flag that each of its debts carries under HiveAR Design Decision 9, and unsecured. Compliance Packs read the flag and the property to apply the right regime. Its debt role types are the primary debtor, a co-borrower or co-signer, and an authorized contact, the realistic set for generic consumer debt. Both the properties and the roles are shared primitives referenced by key, not defined in this module.
 
 ## The Default Waterfall
 
