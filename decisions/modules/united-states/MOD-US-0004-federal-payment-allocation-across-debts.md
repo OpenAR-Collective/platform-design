@@ -17,7 +17,7 @@ The federal Compliance Pack, compliance.us, will supply the United States federa
 
 ## Where This Decision Sits
 
-HiveAR Design Decision 7 builds the two rules as core mechanisms and names no statute, under the default test of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md). This decision supplies the federal values as Compliance Pack content, the same way [United States Module Design Decision 1](MOD-US-0001-itemization-date-and-validation-itemization.md) supplies the values for the validation notice and [United States Module Design Decision 3](MOD-US-0003-federal-contact-times-and-call-frequency.md) supplies the values for contact times and call frequency. A state's Compliance Pack adds its own values on the same mechanisms.
+HiveAR Design Decision 7 builds the two rules as core mechanisms and names no statute, under the default test of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md). This decision supplies the federal values as Compliance Pack content, the same way [United States Module Design Decision 1](MOD-US-0001-itemization-date-and-validation-itemization.md) supplies the values for the validation notice and [United States Module Design Decision 3](MOD-US-0003-federal-contact-times-call-frequency-and-permission.md) supplies the values for contact times and call frequency. A state's Compliance Pack adds its own values on the same mechanisms.
 
 ## The Federal Rule
 
