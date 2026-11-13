@@ -4,7 +4,7 @@ title: "Repository Architecture and Layer Separation (Wax and HiveAR)"
 status: Accepted
 version: 2.1
 area: shared
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---

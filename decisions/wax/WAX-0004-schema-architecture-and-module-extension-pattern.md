@@ -4,7 +4,7 @@ title: "Schema Architecture and Module Extension Pattern"
 status: Accepted
 version: 2.2
 area: wax
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
