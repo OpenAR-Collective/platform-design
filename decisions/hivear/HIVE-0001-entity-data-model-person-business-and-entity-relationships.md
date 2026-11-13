@@ -2,9 +2,9 @@
 id: HIVE-0001
 title: "Entity Data Model, Person, Business, and Entity Relationships"
 status: Accepted
-version: 2.0
+version: 2.1
 area: hivear
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -38,6 +38,8 @@ Wax defines the entity scaffold with genuinely universal attributes only. Locale
 > **created_by_user_fk and updated_by_user_fk**: actor references.
 >
 > **is_active**: boolean, calculated when read from the entity's debt associations. True if the entity has at least one active debt.
+
+A payer is an entity too. Every payment records its payer as an entity under [HiveAR Design Decision 7](HIVE-0007-payment-application-and-waterfall.md), and a payer who is not on file, such as a relative or an insurer who pays toward a debt that someone else owes, is added from the payment with the minimum that a refund needs: a name and a way to return the money, such as the payment it came from or a mailing address. Paying gives the payer no role on a debt and no authority over it. Whether a person may discuss a debt is a matter of representation and authorization, which this decision does not settle.
 
 ## Person and Business Subtypes
 
