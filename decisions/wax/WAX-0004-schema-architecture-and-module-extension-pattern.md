@@ -28,7 +28,7 @@ Modules that require additional data fields extend Wax-owned entities through mo
 | healthcare | Healthcare Business Class module | debt_extension, claim_detail |
 | auto | Auto Business Class module | debt_extension, vehicle |
 | legal_collections | Legal Collections Treatment Module | debt_extension, matter |
-| us_locale | United States Locale Module | us_address, us_identity |
+| us_locale | United States Locale Module | us_name_components, us_identity, us_address |
 | [module_name] | Any future module | Module-specific tables, owned entirely by that module |
 
 ## Why This Pattern
