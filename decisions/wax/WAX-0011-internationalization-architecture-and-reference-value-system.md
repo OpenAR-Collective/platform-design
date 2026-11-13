@@ -202,7 +202,7 @@ An instance's version shows both its delivered base and the agency's own revisio
 
 The Pack concept is also the Collective's primary tool for making HiveAR evaluable without requiring significant upfront configuration work. An agency evaluating the platform can install Wax and HiveAR, select their module combination, install a Pack that matches their operation type, and immediately have a navigable, realistic system to explore. Collector queue views have statuses. Reason code dropdowns have values. Reports have categories to group by. The platform feels operational from the first session.
 
-This matters for adoption. A platform that requires weeks of configuration before it can be evaluated is a platform that most agencies will not evaluate. Packs compress that timeline to hours, creating a realistic first impression that a blank system cannot provide.
+This matters for adoption. Weeks of configuration before a first evaluation would stand in its way. Packs compress that timeline to hours, creating a realistic first impression that a blank system cannot provide.
 
 ## Reversibility
 

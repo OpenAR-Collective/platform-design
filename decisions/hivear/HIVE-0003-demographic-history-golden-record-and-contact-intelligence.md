@@ -17,7 +17,7 @@ HiveAR maintains a complete history of every demographic value ever received for
 
 ## Design Philosophy: Collect Everything, Surface the Best
 
-Incumbent collection systems typically store one address, one phone, and one national identity number per debtor. When new data arrives, the old value is overwritten. No history is retained. This means a skip trace result that turned out to be wrong cannot be recovered from. It means an agency receiving a demographics update cannot see whether the incoming data is better or worse than what they already have. It means a regulatory dispute about what address was on file at a given time cannot be resolved.
+A design that stores one address, one phone, and one national identity number per debtor overwrites the old value whenever new data arrives, and retains no history. In such a design, a skip trace result that turned out to be wrong cannot be recovered from. An agency receiving a demographics update cannot see whether the incoming data is better or worse than what it already has. A regulatory dispute about what address was on file at a given time cannot be resolved.
 
 HiveAR takes the opposite approach. Every demographic value ever received is stored permanently with full provenance. Nothing is overwritten. The question of which value is the best current representation of ground truth is answered by the confidence scoring engine, not by the order in which data arrived. An older, highly corroborated address from a reliable source outranks a newer, unverified address from a low-trust source. The agent sees both, understands why one is ranked higher, and can act on that understanding.
 
@@ -143,7 +143,7 @@ Agencies printing in-house receive returned mail physically. A collector retriev
 
 ## Side Notes Captured For Future Discussion
 
-**Dialer vendor module specification**: OSS dialer module plus vendor-specific modules (TCN and others) that expose contact pool query interfaces. The module interface for dialer integration is a HiveAR v2 module roadmap item.
+**Dialer module specification**: OSS dialer module plus modules for specific commercial dialers that expose contact pool query interfaces. The module interface for dialer integration is a HiveAR v2 module roadmap item.
 
 **Nightly and periodic maintenance task system**: fully addressed by the configurable maintenance event architecture described in this decision. No separate maintenance subsystem is required.
 

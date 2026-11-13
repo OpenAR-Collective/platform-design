@@ -23,7 +23,7 @@ The Pending Event Register is paired with the Job Scheduler in [Wax Design Decis
 
 The decision to schedule a future event, and the decision to cancel one, are themselves events written to core.event and carried in the hash chain established in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). The Pending Event Register is the operational projection of those events: the due-work store that worker instances claim from. The events are the record of truth, and the Register is the working set derived from them.
 
-This split delivers a practical payoff beyond auditability. The history of what a debt had scheduled, what fired, and what was cancelled and why becomes structured and queryable, in place of the free-text notes agencies rely on today to reconstruct that story. A query can then surface the gaps that notes never could: entries that were scheduled, never fired, and never cancelled, or cancellations with no preceding schedule.
+This split delivers a practical payoff beyond auditability. The history of what a debt had scheduled, what fired, and what was canceled and why becomes structured and queryable, so that no one has to reconstruct that story from free-text notes. A query can then surface the gaps that notes never could: entries that were scheduled, never fired, and never canceled, or cancellations with no preceding schedule.
 
 ## Register Entries
 

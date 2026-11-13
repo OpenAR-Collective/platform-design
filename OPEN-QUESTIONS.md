@@ -121,7 +121,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 ### Reporting and BI content
 
 **Technical:** AR-specific reporting content: the set of native operational dashboards HiveAR ships, the prefab AR report pack with its anchored business intelligence tool selected under the license-discipline principle, and any read model projections that a Module delivers for users to query. Builds on [WAX-0032](decisions/wax/WAX-0032-reporting-and-business-intelligence.md).
-**From experience:** Which five reports actually run your company, and which numbers do you still compute in a spreadsheet because no system gets them right?
+**From experience:** Which five reports actually run your company, and which numbers do you still compute in a spreadsheet, and why?
 **Target:** HiveAR v2. Issue: #11.
 
 ### Module roadmap: communications
@@ -132,7 +132,7 @@ Version targets indicate when the item is expected to ship, not when the decisio
 
 ### Module roadmap: integrations and portals
 
-**Technical:** Metro2 credit reporting, credit report pulling (Equifax, Experian, TransUnion, Innovis), consumer portal, client portal, and data analytics module.
+**Technical:** Metro2 credit reporting, credit report pulling from the nationwide consumer reporting agencies, consumer portal, client portal, and data analytics module.
 **From experience:** What do consumers and clients most often call about that a portal should have answered, and what has stopped your company from giving them one?
 **Target:** HiveAR v2. Issue: #13.
 

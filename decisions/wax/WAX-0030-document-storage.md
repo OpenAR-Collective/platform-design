@@ -45,7 +45,7 @@ Because a document may be referenced by many aggregates, its destruction eligibi
 
 ## Optional Encryption and the Intake Pipeline
 
-Document encryption is optional, not mandatory, because many agencies prefer their documents remain readable on disk for direct browsing or for their own external tooling. When encryption is enabled, HiveAR holds the keys, and intake becomes an asynchronous step: a document arrives, is queued, is encrypted into the store, and has its metadata updated, so encrypting a large recording never blocks an upload. That intake queue is the first instance of a document processing pipeline running on the platform's standard SKIP LOCKED claim model; later processing steps such as optical character recognition, transcription, and virus scanning extend the same rail. The MVP has no pipeline because it performs no processing; it points at readable documents and does nothing to the bytes.
+Document encryption is optional, not mandatory, because an agency may want its documents readable on disk for direct browsing or for its own external tooling. When encryption is enabled, HiveAR holds the keys, and intake becomes an asynchronous step: a document arrives, is queued, is encrypted into the store, and has its metadata updated, so encrypting a large recording never blocks an upload. That intake queue is the first instance of a document processing pipeline running on the platform's standard SKIP LOCKED claim model; later processing steps such as optical character recognition, transcription, and virus scanning extend the same rail. The MVP has no pipeline because it performs no processing; it points at readable documents and does nothing to the bytes.
 
 ## Access Control Is the Application's, Disk Security Is the Agency's
 

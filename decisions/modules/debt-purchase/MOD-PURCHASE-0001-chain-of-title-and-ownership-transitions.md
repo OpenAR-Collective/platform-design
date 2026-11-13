@@ -43,7 +43,7 @@ The chain of title is distinct from the concerns it sits near. It is not the Hiv
 
 **Breaking change risk: LOW. The chain is additive structure on purchased debts and changes nothing in the HiveAR core, and the money side is deliberately deferred so this decision commits only to recording history.**
 
-**Confidence: LOW. The author's direct purchasing experience is buying from original creditors without resale, so the multi-hop chain, its storage, and the surrounding workflow rest on research rather than practice. This decision is explicitly flagged for community scrutiny on what buyers and courts expect for chain-of-title capture and on the workflow around acquiring, validating, and disposing of purchased portfolios.**
+**Confidence: LOW. The author's direct purchasing experience is buying from original creditors without resale, so the multi-hop chain, its storage, and the surrounding workflow have not yet been tested in practice. This decision is explicitly flagged for community scrutiny on what buyers and courts expect for chain-of-title capture and on the workflow around acquiring, validating, and disposing of purchased portfolios.**
 
 ## Implications For Contributors
 

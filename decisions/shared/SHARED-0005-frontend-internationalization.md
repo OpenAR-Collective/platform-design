@@ -49,7 +49,7 @@ CJK font fallbacks: the frontend font stack must include system CJK font fallbac
 
 Number, date, and currency formatting: the frontend will never format these values directly. Formatted values will be received pre-rendered from the API, or the browser Intl API will be used with the active locale. Custom formatting logic in frontend code is prohibited.
 
-Vertical text: traditional vertical text rendering used in some East Asian typographic contexts is not a consideration for HiveAR. Modern business software in Japanese, Chinese, and Korean markets uses horizontal LTR layout as the standard. Vertical text layout support is out of scope.
+Vertical text: traditional vertical text rendering used in some East Asian typographic contexts is not a consideration for HiveAR. Japanese, Chinese, and Korean business text is laid out horizontally, left to right. Vertical text layout support is out of scope.
 
 ## Implementation Phasing
 
