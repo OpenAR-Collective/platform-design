@@ -17,7 +17,7 @@ The state Compliance Packs will declare, as the requirement values of [HiveAR De
 
 ## Where This Decision Sits
 
-HiveAR Design Decision 11 builds the authorization records, the requirement shape, and the check, and holds no values. This decision supplies the United States values as Compliance Pack content, each state's values belonging to that state's pack, such as compliance.us.wa for Washington, the same way [United States Module Design Decision 3](MOD-US-0003-federal-contact-times-and-call-frequency.md) supplies the federal contact values.
+HiveAR Design Decision 11 builds the authorization records, the requirement shape, and the check, and holds no values. This decision supplies the United States values as Compliance Pack content, each state's values belonging to that state's pack, such as compliance.us.wa for Washington, the same way [United States Module Design Decision 3](MOD-US-0003-federal-contact-times-call-frequency-and-permission.md) supplies the federal contact values.
 
 ## What the Requirements Look Like
 
