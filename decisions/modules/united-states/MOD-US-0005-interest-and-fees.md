@@ -4,7 +4,7 @@ title: "Interest and Fees"
 status: Proposed
 version: 0.2
 area: module:united-states
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
