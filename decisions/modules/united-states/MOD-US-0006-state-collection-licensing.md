@@ -4,7 +4,7 @@ title: "State Collection Licensing"
 status: Proposed
 version: 0.1
 area: module:united-states
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The state Compliance Packs will declare, as the requirement values of [HiveAR Design Decision 11](../../hivear/HIVE-0011-collector-licensing.md), whether each state and the District of Columbia licenses, registers, or bonds collectors, which debts each requirement reaches, what brings a collector within it, and whether a collector without it may sue. The federal pack, compliance.us, declares no requirement, because federal law sets no general license for debt collectors (needs verification). This decision records the values that research found on 2026-10-11 by reading each jurisdiction's statutes and its regulator's pages. The requirements split by the regulatory nature that a debt type declares under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md): some reach consumer debts only, many reach commercial debts as well, and Florida registers commercial collection agencies under a statute written for commercial claims. Every value in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
+The state Compliance Packs will declare, as the requirement values of [HiveAR Design Decision 11](../../hivear/HIVE-0011-collector-licensing.md), whether each state and the District of Columbia licenses, registers, or bonds collectors, which debts each requirement reaches, what brings a collector within it, and whether a collector without it may sue. The federal pack, compliance.us, declares no requirement, because federal law sets no general license for debt collectors (needs verification). This decision records the values that research found on 2026-10-11 by reading each jurisdiction's statutes and its regulator's pages. The requirements split by the regulatory nature that a debt type declares under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md): some reach consumer debts only, many reach commercial debts as well, and Florida registers commercial collection agencies under a statute written for commercial claims. The five inhabited territories were not researched, so under HiveAR Design Decision 11 their requirements are not yet researched, and a debt tied to one of them is held until the agency clears the territory. Every value in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
 
 ## Where This Decision Sits
 
@@ -87,10 +87,11 @@ Each row below is one state or the District of Columbia, as read on 2026-10-11 f
 | Wisconsin | License, Wis. Stat. 218.04 | Consumer and commercial | Operating in Wisconsin; a nonresident collecting solely by interstate mail or telecommunications is exempt | Not stated | High |
 | Wyoming | License, W.S. 33-11 | Consumer only; a collector solely of business debts is excluded | Collecting debts incurred in Wyoming from Wyoming debtors, including by interstate communications, or for Wyoming creditors | Not stated | High |
 
-Four rows say unclear: Alabama, Louisiana, Massachusetts, and New Mexico. Under HiveAR Design Decision 11 the check treats an unclear requirement as reaching the debt, so until someone with compliance standing settles those rows, a commercial debt in one of those states is held unless the organization records an authorization or an exemption there.
+Four rows say unclear: Alabama, Louisiana, Massachusetts, and New Mexico. Under HiveAR Design Decision 11 the check treats an unclear requirement as reaching the debt, so until someone with compliance standing settles those rows, a commercial debt in one of those states is held until the agency clears the state by recording an authorization, an exemption, or its own determination, with its basis, that the requirement does not reach its commercial debts. The rows stay flagged for verification.
 
 ## What These Values Do Not Cover
 
+- The license and bond requirements of the five inhabited territories, Puerto Rico, Guam, the United States Virgin Islands, American Samoa, and the Northern Mariana Islands, which were not researched. Under HiveAR Design Decision 11 a debt tied to one of them is held until the agency clears the territory.
 - The conditions of each authorization, such as bond amounts, trust accounts, and remittance deadlines, which an authorization record holds as information and whose enforcement is an open question.
 - Licenses for offices and individual collectors, which some states require, for the later versions of HiveAR Design Decision 11.
 - Licenses of a city, such as New York City's, which sit below the state level that pack identifiers reach. How a pack for a city is identified is an open question.
@@ -111,7 +112,7 @@ Four rows say unclear: Alabama, Louisiana, Massachusetts, and New Mexico. Under 
 
 **HiveAR v1 (MVP):** The organization-level requirement for each state, with the debts it reaches, its triggers, its exemptions for out-of-state collectors, and its consequence for suits.
 
-**HiveAR v2:** Office and individual requirements and reciprocal exemptions, as HiveAR Design Decision 11 phases them.
+**HiveAR v2:** Office and individual requirements and reciprocal exemptions, as HiveAR Design Decision 11 phases them. The research of the five territories' license and bond requirements, and the verification of every row by someone with compliance standing, beginning with the four unclear rows, each finding flagged until verified.
 
 **HiveAR v3+:** The conditions that the authorizations carry, once their open question resolves, and revisions as statutes change, each recorded with its effective date.
 
@@ -125,4 +126,4 @@ These values live only in the state Compliance Packs. HiveAR Design Decision 11 
 
 A change to a value records its source, its legal force, its effective date, and its verification status, as [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md) requires of Compliance Pack values.
 
-A row marked unclear ships flagged with low confidence, and the check treats it as reaching the debt until it is settled.
+A row marked unclear ships flagged with low confidence, and the check treats it as reaching the debt until it is settled or the agency clears the state. A jurisdiction this decision does not cover holds the debts tied to it until the agency clears it.
