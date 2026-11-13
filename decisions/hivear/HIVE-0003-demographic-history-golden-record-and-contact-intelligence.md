@@ -125,7 +125,7 @@ For any demographic value currently in Gold status, an agent can see its full pr
 
 Agents and automated processes can mark a specific demographic value as bad by setting its bad_flag. A bad flag records the flagging actor, the timestamp, and an optional reason. Bad-flagged values receive a severe score demotion that moves them to void tier. They are never deleted. They remain in history with the bad flag visible. If a bad flag was applied in error, it can be reversed by an authorized agent, which removes the demotion and allows the scoring engine to re-evaluate the value's tier.
 
-A party can also confirm an address as where the party is. The confirmation is recorded on the address row with who recorded it (verified_by_actor_fk), when (verified_at), and how (verification_method), such as on a recorded call or in writing, and it makes the address verified. An address on file that is neither verified nor bad-flagged is a safe assumption of where the party may be, and a location drawn from anything else, such as a phone's area code or a previous address, is a presumption. [HiveAR Design Decision 13](HIVE-0013-compliance-coverage-for-collections.md) reads these levels to decide which jurisdictions govern a debt, and it says when a confirmation ends.
+A party can also confirm an address as where the party is. The confirmation is recorded on the address row with who recorded it (verified_by_actor_fk), when (verified_at), and how (verification_method), such as on a recorded call or in writing, and it is the strongest positive signal that an address can receive in its composite score. The address is verified only while its confidence stays above a threshold that the agency sets. Contradicting evidence, such as returned mail or a placement, a skip trace, or a change-of-address notice that gives a different address, and time without contact with the party lower that confidence through the decay described above, and below the threshold the address falls back to a safe assumption. Until confidence decay exists, a verification ends at the first contradiction: the address flagged as bad, the party reporting a move, or a different address arriving from a placement, a skip trace, or a change-of-address notice, and a new confirmation restores it. An address on file that is neither verified nor bad-flagged is a safe assumption of where the party may be, and a location drawn from anything else, such as a phone's area code or a previous address, is a presumption. [HiveAR Design Decision 13](HIVE-0013-compliance-coverage-for-collections.md) reads these levels to decide which jurisdictions govern a debt.
 
 ## False Merge Detection and Auto-Accept Splits
 
@@ -153,7 +153,7 @@ Why the history tables matter in v1: if v1 stores only the current phone number 
 
 **HiveAR v2:** Gold, Silver, and Void tiering based on simple rules. Contact outcome scoring (RPC results influence tier). Basic confidence scoring (source + recency, no decay).
 
-**HiveAR v3+:** Full four-dimension scoring with configurable weights. Confidence decay functions. Maintenance event architecture. Natural phone rotation. NCOA integration. False merge detection.
+**HiveAR v3+:** Full four-dimension scoring with configurable weights. Confidence decay functions, and with them verification held by a confidence threshold that the agency sets. Maintenance event architecture. Natural phone rotation. NCOA integration. False merge detection.
 
 **Breaking change risk: HIGH if history tables are omitted.** You cannot reconstruct history from a single-value field.
 
