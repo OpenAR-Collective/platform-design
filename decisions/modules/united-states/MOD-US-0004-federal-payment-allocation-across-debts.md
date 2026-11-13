@@ -4,7 +4,7 @@ title: "Federal Payment Allocation Across Debts"
 status: Proposed
 version: 0.1
 area: module:united-states
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -40,9 +40,9 @@ HiveAR Design Decision 7 stated four premises before this decision moved them he
 The pack sets the following values on the mechanisms of HiveAR Design Decision 7. Each is flagged, and each takes the cautious reading where the federal text is silent.
 
 - A dispute counts whatever its form, so a dispute that an agent records from a call excludes the disputed amount from money the consumer did not direct, as it would if the consumer wrote. This is the cautious reading of the oral-disputes premise (needs verification).
-- The federal text speaks of a "debt which is disputed", and HiveAR's core rule speaks of amounts in dispute. Whether a debt of which the consumer disputes only part is a disputed debt under the text, so that the whole debt is excluded, is not settled by the text (needs verification). Until it is settled, the pack treats a consumer debt with any disputed part as disputed in whole for money the consumer did not direct, a setting that the core's disputed-amount rule must offer.
+- The federal text speaks of a "debt which is disputed", and HiveAR's core rule speaks of amounts in dispute. Whether a debt of which the consumer disputes only part is a disputed debt under the text, so that the whole debt is excluded, is not settled by the text (needs verification). Until it is settled, the pack's value matches the core default of HiveAR Design Decision 7, under which a consumer debt with any disputed part receives no money that the consumer did not direct. An agency can turn on posting to the undisputed part, and the platform then shows the agency's value as looser than the pack's.
 - The federal text speaks of a consumer who owes multiple debts. HiveAR's core rule also covers a single debt, so a payment that a consumer does not direct to a wholly disputed debt becomes the consumer credit balance. Whether federal law requires that for a single debt needs verification, and the pack keeps the core rule as the cautious reading.
-- Apart from the reading for partial disputes above, the pack adds nothing to the core's handling of money the consumer did not direct: it goes to the amounts not in dispute within the scope of the distribution rule that spreads it, and what cannot be applied becomes the consumer credit balance of [HiveAR Design Decision 6](../../hivear/HIVE-0006-gaap-journal-and-general-ledger.md) (needs verification).
+- Apart from the reading for partial disputes above, the pack adds nothing to the core's handling of money the consumer did not direct: within the scope of the distribution rule that spreads it, it goes to debts with no disputed part, and to the undisputed part of a partly disputed debt only where the agency's setting allows, and what cannot be applied becomes the consumer credit balance of [HiveAR Design Decision 6](../../hivear/HIVE-0006-gaap-journal-and-general-ledger.md) (needs verification).
 - Money that a consumer directs to a debt beyond what the debt owes is not spread to the consumer's other debts as undirected money under this pack, so the core's treatment of such an excess stands. Whether federal law would allow spreading it needs verification, and a pack may allow it only once that is confirmed.
 - The pack sets no deadline for holding a consumer credit balance. What the agency does with a balance it holds, such as a refund, is the agency's decision. Whether a state's unclaimed property law reaches a credit balance held for a consumer needs research of its own (needs verification).
 
@@ -78,4 +78,4 @@ These values live only in compliance.us. HiveAR Design Decision 7 names no statu
 
 A change to a value records its source, its legal force, its effective date, and its verification status, as Wax Design Decision 8 requires of Compliance Pack values.
 
-The core's disputed-amount rule must let a pack treat a debt with any disputed part as disputed in whole, because this pack does so until the question is settled.
+The core's default already gives a debt with any disputed part no money that the consumer did not direct, which matches this pack's value until the question is settled, and an agency that turns on posting to the undisputed part is shown as looser than the pack.
