@@ -2,9 +2,9 @@
 id: WAX-0003
 title: "Database Platform"
 status: Accepted
-version: 1.1
+version: 1.2
 area: wax
-date: 2026-10-11
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -33,13 +33,13 @@ The accounts receivable domain has a well-understood data model, and in the juri
 
 **Row-level security and SECURITY DEFINER functions**: PostgreSQL's native row-level security (RLS) policies enforce data access boundaries at the database layer rather than relying solely on application code. Combined with SECURITY DEFINER view and function definitions, this allows Wax to present decrypted PII to authorized roles transparently, enforce multi-tenant data isolation, and expose a safe read surface to BI tools and direct SQL users, all without bespoke application middleware. [Wax Design Decision 16](WAX-0016-data-access-architecture-read-layer-and-direct-query-interface.md) describes the read layer architecture built on these capabilities.
 
-**Marten as the event store abstraction implementation**: Marten is a .NET library that implements a document store and event store directly on PostgreSQL. HiveAR's event store abstraction interface ([Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md)) uses Marten as its backing implementation. Marten handles stream management, optimistic concurrency via expectedVersion, and projection registration against the PostgreSQL event table. Using Marten means Wax inherits a well-maintained, production-proven event sourcing implementation rather than building one from scratch, while the abstraction layer ensures the platform is not permanently coupled to any single library.
+**An event store with no library between it and PostgreSQL**: Wax implements the event store abstraction interface of [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md) itself, on the core.event table, with plain SQL through Npgsql, the PostgreSQL driver for .NET. PostgreSQL supplies everything that implementation needs: row locks that serialize the writes to one aggregate, a sequence and an insert trigger that number and time each event, transaction identifiers from which a reader finds its high-water mark, and SKIP LOCKED for readers that share the work. Round 1 of the Foundation's engine bake-off measured this implementation against the same workloads run through the Marten event store library. Marten's append function took 3.2 to 4.8 times as long as a plain insert into the same table in every measured pair of runs, and the implementation without Marten used less database CPU per command than the Marten side in nine of ten comparisons, as the [round 1 report](https://github.com/OpenAR-Collective/spikes/blob/main/engine-bakeoff/REPORT-ROUND-1.md) describes. Wax owns the code and its correctness in exchange, and the abstraction interface still lets the implementation change without changing the code that calls it.
 
 **Enterprise operational maturity**: PostgreSQL carries decades of production deployment history across industries with data integrity requirements at least as demanding as debt collection. Logical replication, streaming replication, point-in-time recovery, tablespace management, connection pooling via pgBouncer, and automatic failover via Patroni are all well-understood, well-documented capabilities with large operational communities. The high availability and disaster recovery architecture for Wax deployments is built directly on these capabilities and is described in [Wax Design Decision 24](WAX-0024-high-availability-disaster-recovery-and-distributed-workloads.md).
 
 ## Why Not Mongodb
 
-Several newer entrants to the AR software market have selected MongoDB, typically citing schema flexibility as the primary advantage. That argument does not hold for HiveAR. The flexibility MongoDB offers is most valuable when the data model is unpredictable or rapidly changing. The debt collection domain is neither. The compliance obligations that define the data model have been stable for decades. Schema flexibility is not a feature HiveAR needs, and the tradeoffs it introduces (application-layer integrity enforcement, weaker transactional guarantees, more complex aggregate queries) are not tradeoffs HiveAR should accept.
+A document database such as MongoDB is often chosen for schema flexibility. That argument does not hold for HiveAR. The flexibility MongoDB offers is most valuable when the data model is unpredictable or rapidly changing. The debt collection domain is neither. The compliance obligations that define the data model have been stable for decades. Schema flexibility is not a feature HiveAR needs, and the tradeoffs it introduces (application-layer integrity enforcement, weaker transactional guarantees, more complex aggregate queries) are not tradeoffs HiveAR should accept.
 
 ## Application Data Access Pattern
 
@@ -47,7 +47,7 @@ Application code accesses PostgreSQL through Entity Framework Core (EF Core), or
 
 This discipline serves three independent purposes. It keeps PostgreSQL-specific syntax and feature use confined to a single layer rather than scattered across the codebase. It allows database access to be mocked or stubbed cleanly for unit testing. It establishes a clean seam at which a third party could substitute a different EF Core provider if they were willing to undertake that work, without requiring the Foundation to design around portability as a goal.
 
-EF Core supplies the change tracking, migration generation, query translation, and connection management that this layer would otherwise need to build. The Foundation does not maintain a custom data access framework above EF Core. Marten supplies the equivalent layer for the event store interface as established in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md). Repository and query-object code outside the event store path uses EF Core directly.
+EF Core supplies the change tracking, migration generation, query translation, and connection management that this layer would otherwise need to build. The Foundation does not maintain a custom data access framework above EF Core. For the event store interface established in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md), the equivalent layer is Wax's own implementation, written directly on PostgreSQL. Repository and query-object code outside the event store path uses EF Core directly.
 
 ## PostgreSQL-Specific Features Are Embraced
 
