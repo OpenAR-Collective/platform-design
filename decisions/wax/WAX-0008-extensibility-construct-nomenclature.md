@@ -2,9 +2,9 @@
 id: WAX-0008
 title: "Extensibility Construct Nomenclature"
 status: Accepted
-version: 2.0
+version: 2.1
 area: wax
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -47,15 +47,9 @@ All Module subtypes implement the full module contract. The subtype classificati
 >
 > **Locale Module**: contributes locale-specific schema extensions, field format validation, and locale-specific service integrations. Locale Modules add satellite tables for address structures, national identity number formats, and name component conventions that cannot be universalized in Core. A Locale Module also contributes locale-specific validation logic and may register action types for locale-specific external services such as address standardization APIs. Locale Modules are the mechanism through which Wax gains meaningful international support. The US Locale Module, for example, contributes the US address satellite table, the SSN and EIN identity satellite table, US postal code format validation, and the USPS CASS address standardization action type. One Locale Module serves a whole country, and a subdivision whose difference is only a name, such as a parish where other states have a county, uses the country's structure. A Locale Module carries no compliance content: the format of an identity number and its validation are structure, while a rule about when the number may be shown or used belongs to a Compliance Pack.
 >
-> **Business Class Module**: contributes the schema, workflow patterns, and operational configuration for a specific business vertical such as healthcare, auto lending, student loans, or utilities. Defines the debt types, required fields, and compliance posture relevant to that vertical.
->
-> **Debt Type Module**: contributes a specific debt classification within a business class, with its associated field requirements, validation rules, and default workflow patterns.
->
-> **Contract Type Module**: contributes the ownership and relationship model under which a debt is held and billed, such as servicing, third-party contingency, or purchase, as [Wax Design Decision 33](WAX-0033-module-composition-model.md) describes.
->
-> **Treatment Module**: contributes a treatment strategy type, meaning a defined approach to debt handling such as payment arrangements, settlement workflows, or legal referral processes.
->
 > **Vendor Integration Module**: contributes integration with an external platform or service provider. Registers the integration's API endpoints, authentication configuration, action types for the workflow engine, and response schema declarations for condition evaluation. Platform Integration certification from the Collective governs directory listing for Vendor Integration Modules.
+>
+> **Domain module types**: a domain layer built on Wax defines module types for its own subject matter. Each implements the full module contract and registers under its own value in the module type classifier of [Wax Design Decision 10](WAX-0010-module-registry.md). HiveAR's collections module types, the business class, debt-type, contract-type, and treatment modules, are defined in [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md).
 
 ## Pack Subtypes
 
@@ -71,7 +65,7 @@ All Pack subtypes install through the seeding framework, and each is delivered r
 >
 > **Boilerplate Pack**: contributes the starting content that is not compliance, so that an organization does not begin with an empty system and have to think of everything itself: statuses, default roles, departments, and rules, workflow definitions, letter templates, report definitions, UDT definitions and UDW layouts, standard reason code sets, action and result codes, and other content that a typical organization wants. A Boilerplate Pack can also set the starting value of a setting that a core or Module mechanism exposes, where a conservative practice that the organization may change is wanted, as the default test above describes. A Boilerplate Pack also carries the procedure that a module follows in one jurisdiction, from the format of a filing to the time that must pass before the next step. That procedure is the bureaucracy of a court or another body and not compliance, because it governs how that body runs its process and not how the organization must treat another party. A rule that does govern how the organization must treat another party belongs to the Compliance Pack of that jurisdiction instead. [HiveAR Design Decision 13](../hivear/HIVE-0013-compliance-coverage-for-collections.md) describes the collections content of the Boilerplate Pack. A Boilerplate Pack is identified like other Packs, with a jurisdiction segment where its content is specific to one: boilerplate.us.collections, boilerplate.us.tx.legal_case_flow.
 >
-> **Seed Package**: contributes the foundational shared primitives that debt-domain modules reference by key, such as bucket definitions, role types, declared properties, and waterfall templates, as [Wax Design Decision 33](WAX-0033-module-composition-model.md) describes.
+> **Seed Package**: contributes the foundational shared primitives that a domain layer's modules reference by key, each defined once, as [Wax Design Decision 33](WAX-0033-module-composition-model.md) describes. The domain layer decides what the primitives are: HiveAR's seed package, with its bucket definitions, role types, declared properties, and waterfall templates, is defined in [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md).
 
 ## Bundles
 

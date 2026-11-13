@@ -17,7 +17,7 @@ The unsecured consumer debt module is the platform's first debt-type module and 
 
 ## A Manifest Over Shared Primitives
 
-Almost the whole of this module is a declarative selection from the shared seed package. Its buckets, its role types, and its declared properties are common primitives that other consumer-debt modules will also use, referenced here by key rather than defined here, per [Wax Design Decision 33](../../wax/WAX-0033-module-composition-model.md). The module contributes no satellite tables of its own, because there is no subject matter to record beyond the balance composition the buckets already carry. What remains module-specific is its particular selection and its configured default waterfall. A reader who wants to know what unsecured consumer debt is in HiveAR is therefore reading a short manifest, not a new schema.
+Almost the whole of this module is a declarative selection from the shared seed package of [HiveAR Design Decision 14](../../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md). Its buckets, its role types, and its declared properties are common primitives that other consumer-debt modules will also use, referenced here by key rather than defined here, per [Wax Design Decision 33](../../wax/WAX-0033-module-composition-model.md). The module contributes no satellite tables of its own, because there is no subject matter to record beyond the balance composition the buckets already carry. What remains module-specific is its particular selection and its configured default waterfall. A reader who wants to know what unsecured consumer debt is in HiveAR is therefore reading a short manifest, not a new schema.
 
 ## The Buckets
 
