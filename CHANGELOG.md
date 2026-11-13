@@ -10,6 +10,9 @@ To cite a decision, use its ID and version, for example "WAX-0006 v1.0". To pin 
 ## v0.2.0 (unreleased)
 
 - New decision family MOD-US for the United States layer, the content of HiveAR that depends on United States law or conventions, carried by the Locale Module, Region Pack, Language Pack, Compliance Pack, and Boilerplate Pack constructs of WAX-0008. The validator accepts the MOD-US prefix. The first decision is MOD-US-0001 Itemization Date and Validation Itemization.
+- A new Design question issue form asks for one decision that a person who does the work can answer in a sitting, and `.github/labels.yml` holds every label the repository uses, including one area label per territory and labels for line of business, who can answer, effort, topic, and progress. Four territories join the onboarding list: Client management; Collector operations and performance; Skip tracing and demographics; and Debt buying and portfolios. The validator checks the territory list in six places, including the new form and the area labels, and checks the shape of the label file.
+- START-HERE.md gains a path for answering open design questions with an AI assistant, and email to contribute@openarcollective.org replaces Discord as the route for anyone who would rather not use GitHub.
+- The Questions index workflow keeps a one-line-per-question index of the open design questions on the `questions-index` branch and labels a question `has-answer` when an answer block is posted. `scripts/seed_design_questions.py` opens design questions from Markdown drafts.
 
 ## v0.1.0 (2026-08-30)
 
