@@ -36,6 +36,8 @@ The module is identified as oar.core.us_locale, has the module type locale, and 
 > **Matching fields**: the entity matching field registry that HiveAR Design Decision 2 asks of each Locale Module, which offers the taxpayer numbers, the name components, and the address, alongside core fields such as the date of birth, with starting weights that the agency tunes.
 >
 > **Time zone resolution**: given a US address or a US phone number, the module returns the IANA zone or zones it can lie in. It resolves an address by its state, and by its ZIP Code where the state spans more than one zone or keeps different rules within it, as in Arizona, where most of the state keeps standard time all year. It resolves a phone number by its area code, and an area code that covers more than one zone returns each of them. This is how a rule finds the debtor's zone, which [Wax Design Decision 12](../../wax/WAX-0012-date-time-timezone-and-freeform-note-language.md) says governs permitted contact times. Which candidate a rule must honor, when the address and the phone point to different zones, is compliance and belongs to compliance.us.
+>
+> **Jurisdiction from a phone number**: the module also returns the state or territory to which a geographic area code is assigned, for the presumed jurisdiction that [HiveAR Design Decision 13](../../hivear/HIVE-0013-compliance-coverage-for-collections.md) lets an agency allow, and it returns none for a code that is not geographic, such as a toll-free code, or for a code assigned outside the United States.
 
 ## The Region Pack region.us
 
@@ -59,7 +61,7 @@ US English, language.en_us, is the Language Pack that a US installation starts w
 
 ## The Jurisdictions of the United States
 
-Under the jurisdiction tree of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), the United States packs list as their children the fifty states, the District of Columbia, and the five inhabited territories: Puerto Rico, Guam, the United States Virgin Islands, American Samoa, and the Northern Mariana Islands. Each child is identified by its ISO 3166-2 code, as compliance.us.tx and compliance.us.pr name the Compliance Packs for Texas and Puerto Rico. The armed forces post offices, AA, AE, and AP, are address codes and not jurisdictions, so they appear in no tree, and under [HiveAR Design Decision 13](../../hivear/HIVE-0013-compliance-coverage-for-collections.md) a debt whose debtor has a current address at one of them goes to review.
+Under the jurisdiction tree of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), the United States packs list as their children the fifty states, the District of Columbia, and the five inhabited territories: Puerto Rico, Guam, the United States Virgin Islands, American Samoa, and the Northern Mariana Islands. Each child is identified by its ISO 3166-2 code, as compliance.us.tx and compliance.us.pr name the Compliance Packs for Texas and Puerto Rico. The armed forces post offices, AA, AE, and AP, are address codes and not jurisdictions, so they appear in no tree, and under [HiveAR Design Decision 13](../../hivear/HIVE-0013-compliance-coverage-for-collections.md) a debt whose debtor has a current address at one of them goes to review, unless the agency allows a presumed jurisdiction. Which law reaches a debtor at such an address needs verification.
 
 The federal Compliance Pack, compliance.us, marks every one of these children as not yet researched, because no state or territory pack has been published, which is the cautious default. A debt whose debtor may be in any of them is therefore held under HiveAR Design Decision 13 until the agency installs that jurisdiction's pack, designates a pack of its own, or records an override. As the Collective publishes a jurisdiction's pack, a delivered update to compliance.us marks it as having its own pack, with the pack's identifier and version, or as checked with nothing to add.
 
@@ -71,7 +73,7 @@ The country layer stops where compliance and procedure begin. A rule about when 
 
 **HiveAR v1 (MVP):** The Locale Module's name, identity number, and address tables with their validation and completeness rules, US phone validation and display, the matching field registry, and time zone resolution. The Region Pack with the dollar, the display formats, the zones, and the federal holiday calendar. US English.
 
-**HiveAR v2:** The USPS CASS address standardization action type and US Spanish.
+**HiveAR v2:** The USPS CASS address standardization action type, the state of an area code for a presumed jurisdiction, and US Spanish.
 
 **HiveAR v3+:** Further identity number types or address forms if practice shows a need for them.
 
