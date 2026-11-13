@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The federal Compliance Pack, compliance.us, will supply the United States federal values for the two rules of [HiveAR Design Decision 7](../../hivear/HIVE-0007-payment-application-and-waterfall.md) that govern a payment toward a consumer's debts: the consumer's allocation directions are honored, and money the consumer did not direct never applies to an amount in dispute. The values come from section 810 of the Fair Debt Collection Practices Act, 15 U.S.C. 1692h, and they carry the premises that HiveAR Design Decision 7 stated as federal law until this decision moved them out of the core. Where the federal text leaves a question open, the pack takes the cautious reading and flags it. The values govern consumer debts only, meaning debts whose debt type declares the consumer regulatory nature under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md), and the core rules hold for every debt whatever this pack says. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
+The federal Compliance Pack, compliance.us, will supply the United States federal values for the two rules of [HiveAR Design Decision 7](../../hivear/HIVE-0007-payment-application-and-waterfall.md) that govern a payment toward a consumer's debts: the consumer's allocation directions are honored, and money the consumer did not direct never applies to an amount in dispute. The values come from section 810 of the Fair Debt Collection Practices Act, 15 U.S.C. 1692h, and they carry the premises that HiveAR Design Decision 7 stated as federal law until this decision moved them out of the core. Where the federal text leaves a question open, the pack takes the cautious reading and flags it. The values govern consumer debts only, meaning debts whose regulatory nature flag under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md) is consumer, and the core rules hold for every debt whatever this pack says. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
 
 ## Where This Decision Sits
 
@@ -48,7 +48,7 @@ The pack sets the following values on the mechanisms of HiveAR Design Decision 7
 
 ## Which Debts These Values Govern
 
-The Fair Debt Collection Practices Act governs the collection of consumer debts (needs verification). The pack therefore applies these values only to a debt whose debt type declares the consumer regulatory nature, a standardized property under HiveAR Design Decision 9. A debt whose type declares the commercial regulatory nature is outside these values, and the core rules of HiveAR Design Decision 7 still apply to it, because they are core mechanisms that no pack is needed to turn on. A state's rules for commercial debt belong to that state's Compliance Pack.
+The Fair Debt Collection Practices Act governs the collection of consumer debts (needs verification). The pack therefore applies these values only to a debt whose regulatory nature flag is consumer, a property of each debt under HiveAR Design Decision 9. A debt flagged commercial is outside these values, and the core rules of HiveAR Design Decision 7 still apply to it, because they are core mechanisms that no pack is needed to turn on. A state's rules for commercial debt belong to that state's Compliance Pack.
 
 ## Status of the Content
 
@@ -58,7 +58,7 @@ The Fair Debt Collection Practices Act governs the collection of consumer debts 
 >
 > **Verification status**: the statute text was read on 2026-10-11 by the drafter and not reviewed by counsel. No source was found for the oral-disputes premise.
 >
-> **Coverage**: consumer debts, which the pack identifies by the regulatory nature that their debt type declares.
+> **Coverage**: consumer debts, which the pack identifies by each debt's regulatory nature flag.
 
 ## Implementation Phasing
 

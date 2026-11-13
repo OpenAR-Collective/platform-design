@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The federal Compliance Pack, compliance.us, will state the United States federal rule on amounts added to a consumer debt: a debt collector may collect an amount, including interest, a fee, a charge, or an expense incidental to the principal obligation, only when the agreement creating the debt expressly authorizes it or the law permits it. The rule comes from the Fair Debt Collection Practices Act and Regulation F, and it carries the premise that [Unsecured Consumer Debt Module Design Decision 1](../unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md) stated until this decision moved it out of the module. The pack reads the rule when it decides whether a debt may accrue interest or add a fee, and the rates and caps that state law sets are values of the state Compliance Packs, not statements in any decision. The rule governs consumer debts only, meaning debts whose debt type declares the consumer regulatory nature under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md). Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
+The federal Compliance Pack, compliance.us, will state the United States federal rule on amounts added to a consumer debt: a debt collector may collect an amount, including interest, a fee, a charge, or an expense incidental to the principal obligation, only when the agreement creating the debt expressly authorizes it or the law permits it. The rule comes from the Fair Debt Collection Practices Act and Regulation F, and it carries the premise that [Unsecured Consumer Debt Module Design Decision 1](../unsecured-consumer-debt/MOD-UNSECURED-0001-definition-and-buckets.md) stated until this decision moved it out of the module. The pack reads the rule when it decides whether a debt may accrue interest or add a fee, and the rates and caps that state law sets are values of the state Compliance Packs, not statements in any decision. The rule governs consumer debts only, meaning debts whose regulatory nature flag under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md) is consumer. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
 
 ## Where This Decision Sits
 
@@ -27,7 +27,7 @@ The premise that the unsecured consumer debt module stated, and that this decisi
 
 ## Which Debts This Rule Governs
 
-The Fair Debt Collection Practices Act and Regulation F govern the collection of consumer debts (needs verification). The pack therefore applies this rule only to a debt whose debt type declares the consumer regulatory nature. Interest and fees on a debt declared commercial follow the contract and state law, and the state rules that limit what a collector of commercial debt may add belong to that state's Compliance Pack.
+The Fair Debt Collection Practices Act and Regulation F govern the collection of consumer debts (needs verification). The pack therefore applies this rule only to a debt whose regulatory nature flag is consumer. Interest and fees on a debt flagged commercial follow the contract and state law, and the state rules that limit what a collector of commercial debt may add belong to that state's Compliance Pack.
 
 ## Status of the Content
 
@@ -37,7 +37,7 @@ The Fair Debt Collection Practices Act and Regulation F govern the collection of
 >
 > **Verification status**: read from the statute and the Bureau's published regulation on 2026-10-11 by the drafter and not reviewed by counsel.
 >
-> **Coverage**: consumer debts, which the pack identifies by the regulatory nature that their debt type declares.
+> **Coverage**: consumer debts, which the pack identifies by each debt's regulatory nature flag.
 
 ## Implementation Phasing
 
