@@ -110,7 +110,7 @@ Four rows say unclear: Alabama, Louisiana, Massachusetts, and New Mexico. Under 
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The organization-level requirement for each state, with the debts it reaches, its triggers, its exemptions for out-of-state collectors, and its consequence for suits. These values are applied at setup, flagged until verified, the way compliance.us and the US Boilerplate Pack are, each as an instance that the agency owns with the delivered version it came from recorded, because the pack installation pipeline arrives in v2. An agency then clears by hand only the five territories and the four unclear rows.
+**HiveAR v1 (MVP):** The organization-level requirement for each state, with the debts it reaches, its triggers, its exemptions for out-of-state collectors, and its consequence for suits. These values are applied at setup, flagged until verified, the way compliance.us and the US Boilerplate Pack are, each as an instance that the agency owns with the delivered version it came from recorded, because the pack installation pipeline arrives in v2. Each such state pack declares itself partial, because it carries only licensing values, so it covers nothing in the coverage check of HiveAR Design Decision 13. An agency then clears by hand only the five territories and the four unclear rows.
 
 **HiveAR v2:** Office and individual requirements and reciprocal exemptions, as HiveAR Design Decision 11 phases them. The research of the five territories' license and bond requirements, and the verification of every row by someone with compliance standing, beginning with the four unclear rows, each finding flagged until verified.
 
