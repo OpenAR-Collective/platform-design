@@ -30,8 +30,8 @@ Modules are not second-class citizens identified by string constants. They are e
 | core.module | is_active | Boolean | False if the module has been deactivated but not fully uninstalled. |
 | core.module | is_removed | Boolean | True for a Region Pack that has been removed and whose registry record is kept because retained rows still depend on it. False for every other module. |
 | core.module | origin | VARCHAR | Where the Module or Pack came from: collective, agency, or third_party. Developer-facing only. |
-| core.module | template_identifier | VARCHAR | For a Pack instance, the identifier of the delivered Pack it came from, such as compliance.us.tx. Null for a Module. |
-| core.module | template_version | VARCHAR | For a Pack instance, the delivered version it is based on, which a merge advances. Null for a Module. |
+| core.module | base_identifier | VARCHAR | For a Pack instance, the identifier of the delivered Pack it is based on, such as compliance.us.tx. Null for a Module. |
+| core.module | base_version | VARCHAR | For a Pack instance, the delivered version it is based on, which a merge advances. Null for a Module. |
 | core.module | instance_revision | Integer | For a Pack instance, the agency's revision, which every saved change and every merge raises by one and which never resets. Null for a Module. |
 | core.module | designated_jurisdiction | VARCHAR | The jurisdiction for which the agency designated this Module or Pack under [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md), as a node of the jurisdiction tree. Null when it is designated for none. |
 | core.module | installed_at | Timestamp | When the module was installed. |
