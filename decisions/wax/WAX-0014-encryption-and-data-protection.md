@@ -2,9 +2,9 @@
 id: WAX-0014
 title: "Encryption and Data Protection"
 status: Accepted
-version: 1.0
+version: 1.1
 area: wax
-date: 2026-08-30
+date: 2026-10-11
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -21,7 +21,7 @@ TLS is required for all connections to the HiveAR application in every environme
 
 ## Column-Level PII Encryption
 
-Defined PII fields in the data model will be encrypted at the column level using PostgreSQL's pgcrypto extension. Fields subject to column-level encryption will include social security number, date of birth, financial account numbers, and other fields designated as high-sensitivity PII in the Wax v2 security specification. The encryption key is never stored alongside the encrypted data. Key management is the deploying agency's responsibility. Because Wax runs under agency-controlled deployment by design, encryption keys never pass through Collective infrastructure.
+Defined PII fields in the data model will be encrypted at the column level using PostgreSQL's pgcrypto extension. Fields subject to column-level encryption will include national identity numbers, dates of birth, financial account numbers, and other fields designated as high-sensitivity PII in the Wax v2 security specification. The encryption key is never stored alongside the encrypted data. Key management is the deploying agency's responsibility. Because Wax runs under agency-controlled deployment by design, encryption keys never pass through Collective infrastructure.
 
 ## Infrastructure Encryption
 
