@@ -17,7 +17,7 @@ HiveAR will hold a debt from collection unless every jurisdiction in which its d
 
 ## Where This Decision Sits
 
-Wax Design Decision 8 defines the constructs, the content tests, the jurisdiction tree with its three marks for each child jurisdiction, the coverage check, overrides, and the packs that an organization writes and designates, all for any domain. This decision says what they mean for debts and collectors. Licensing, which decides whether the agency may collect a debt in a jurisdiction that is covered, is a separate question.
+Wax Design Decision 8 defines the constructs, the content tests, the jurisdiction tree with its three marks for each child jurisdiction, the coverage check, overrides, and the packs that an organization writes and designates, all for any domain. This decision says what they mean for debts and collectors. Licensing, which decides whether the agency may collect a debt in a jurisdiction that is covered, is a separate question, which [HiveAR Design Decision 11](HIVE-0011-collector-licensing.md) answers from the agency's authorization records with the same default as coverage: a jurisdiction whose requirements no one has researched holds the debts it could reach until the agency clears it.
 
 ## The Content Tests for Collections
 
