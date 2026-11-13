@@ -57,7 +57,7 @@ Nothing in this sequence overwrites anything. The Dayton address, the bare-initi
 
 ## Automatic Debt Closure for Unrecognized Jurisdictions
 
-The entity matching engine intersects with the coverage check for debts described in [HiveAR Design Decision 13](HIVE-0013-compliance-coverage-for-collections.md). When a new debt arrives with a debtor address whose jurisdiction is not covered, and the agency's policy closes such debts rather than sending them to review, the debt is closed as unsupported before any collector activity begins. The closure fires at debt creation time, before entity matching runs. If the debt is later reopened once its jurisdictions are covered, entity matching runs at that point and any existing canonical person record is identified or created.
+The entity matching engine intersects with the coverage check for debts described in [HiveAR Design Decision 13](HIVE-0013-compliance-coverage-for-collections.md). When a new debt arrives with a debtor whose scope under that decision includes a jurisdiction that is not covered, and the agency's policy closes such debts rather than sending them to review, the debt is closed as unsupported before any collector activity begins. The closure fires at debt creation time, before entity matching runs. If the debt is later reopened once its jurisdictions are covered, entity matching runs at that point and any existing canonical person record is identified or created.
 
 ## What This Decision Does Not Specify
 
