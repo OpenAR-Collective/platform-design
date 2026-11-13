@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 2.1
+version: 2.2
 area: wax
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -53,13 +53,15 @@ Because read models are updated asynchronously, there is a brief window after a 
 
 The rest of the application never communicates directly with PostgreSQL for event store operations. All event store interactions pass through a defined C# interface. PostgreSQL is one implementation of that interface. This abstraction means the underlying event store technology can be changed in the future without modifying any application code outside the implementation layer.
 
+Wax implements the interface itself, directly on PostgreSQL, and adopts no event sourcing library. The implementation appends to core.event with plain SQL through Npgsql, the PostgreSQL driver for .NET, in the transaction of the command that produced the events, and a projection reader follows the stream to keep read models current. The reader's design, including the high-water mark described under Sequence Numbers, is derived from the HiveAR prototype that Andy Troiano published under the Apache License 2.0 ([atroiano/platform-design](https://github.com/atroiano/platform-design/tree/361b6aa/prototype)). Round 1 of the Foundation's engine bake-off built this implementation in C#. It passed every correctness gate in all 22 of its runs, and its event store, reader, and rule runner came to about 1,200 lines of C# and a 190-line SQL schema, as the [round 1 report](https://github.com/OpenAR-Collective/spikes/blob/main/engine-bakeoff/REPORT-ROUND-1.md) describes. Wax therefore builds and maintains what a library would have supplied, such as the upcasting of [Wax Design Decision 26](WAX-0026-event-schema-versioning.md) and the projection rebuild tooling of [Wax Design Decision 2](WAX-0002-cqrs-model.md).
+
 ## The interface defines a focused set of operations:
 
 append(streamId, expectedVersion, events): writes one or more events to a stream. The expectedVersion parameter enforces optimistic concurrency: if another process has already written to this stream since the caller last read it, the append is rejected and the command is retried. This prevents conflicting concurrent writes.
 
 loadStream(streamId, fromVersion): returns events for a given aggregate from a specified version onward. Command handlers use this after loading the authoritative state table to pick up any events written since the state was last persisted.
 
-subscribe(streamId, fromVersion, handler): registers a projection or read model to receive events as they are written. This is the mechanism that keeps read models current without polling.
+subscribe(fromPosition, handler): registers a projection or read model to receive the events of the whole stream in global_sequence_number order, starting after the position its checkpoint records. The reader polls core.event for new events and delivers them only up to the high-water mark described under Sequence Numbers, so a read model never moves past an event whose transaction might still commit. Read models therefore trail the stream by the polling interval and by any transaction that holds the mark back. A projection that meets an event type it neither handles nor explicitly ignores stops at that event and records why, rather than skipping it, so a read model never silently passes over an event it does not understand.
 
 ## JSON Payload Model
 
@@ -93,7 +95,7 @@ Two distinct sequence numbers are stored in every core.event row. They serve dif
 
 **global_sequence_number **is assigned by a single PostgreSQL SEQUENCE object (core.event_global_sequence_seq) and is monotonically increasing across the entire table, regardless of aggregate. It establishes a total ordering of all writes to the event store: projections and other readers follow the stream by it, and it serves as the window anchor for delta checkpoint hashing in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). It is an ordering and has no integrity role. It is not part of an event's hashed content, and it is gap-tolerant by design: a transaction that acquires a sequence value and then rolls back leaves a gap, and nothing in the platform assumes a contiguous range. The UUID event_pk remains the surrogate primary key and deduplication mechanism. The two sequence numbers provide the per-aggregate and global orderings that a UUID cannot.
 
-A sequence value is drawn when a row is inserted, not when its transaction commits, so an event with a lower global_sequence_number can become visible after an event with a higher one. A reader that follows the whole stream therefore reads only up to the high-water mark: the highest number at or below which every transaction that drew a value has either committed or rolled back. A reader that moved past an event still in flight would never see it. The same mark ends each checkpoint window in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). A long-running write transaction holds the mark back for every reader until it finishes, which is one reason write transactions are kept short.
+A sequence value is drawn when a row is inserted, not when its transaction commits, so an event with a lower global_sequence_number can become visible after an event with a higher one. A reader that follows the whole stream therefore reads only up to the high-water mark: the highest number at or below which every transaction that drew a value has either committed or rolled back. A reader that moved past an event still in flight would never see it. The same mark ends each checkpoint window in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). A long-running transaction that has written anything or locked a row, in any database on the same PostgreSQL server, holds the mark back for every reader until it finishes, while a read-only transaction does not. That is one reason write transactions are kept short.
 
 ## Hash Fields
 
@@ -242,7 +244,7 @@ A regulator or auditor who questions whether a debt's current state is accurate 
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Full implementation. The event store is foundational and non-negotiable. Ship the complete enriched event sourcing architecture: single core.event table, full standard payload schema, prior and new values on all state-change events (keyed JSON objects), atomic event + authoritative state table writes, event store abstraction layer (Marten), aggregate_sequence_number for optimistic concurrency, global_sequence_number for stream ordering, correlation_pk_ref for linking related events. Hash chain columns (event_hash, prior_event_hash) are present in the schema but may be populated with placeholder values; chain computation activates in v2. PII encryption envelopes are deferred; PII is stored as plaintext JSON in v1. This is acceptable for early adopters on their own infrastructure but must be documented as a known limitation.
+**Wax v1 (MVP):** Full implementation. The event store is foundational and non-negotiable. Ship the complete enriched event sourcing architecture: single core.event table, full standard payload schema, prior and new values on all state-change events (keyed JSON objects), atomic event + authoritative state table writes, the event store abstraction layer implemented by Wax directly on PostgreSQL, aggregate_sequence_number for optimistic concurrency, global_sequence_number for stream ordering, correlation_pk_ref for linking related events. Hash chain columns (event_hash, prior_event_hash) are present in the schema but may be populated with placeholder values; chain computation activates in v2. PII encryption envelopes are deferred; PII is stored as plaintext JSON in v1. This is acceptable for early adopters on their own infrastructure but must be documented as a known limitation.
 
 **Wax v2:** Hash chain computation activated with backfill utility for v1 data. PII encryption envelope and Wax Security Module (WSM) integration. Event store partitioning strategy (by time range) for large installations.
 
