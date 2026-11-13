@@ -88,12 +88,6 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** If you collect outside the United States, what date does the first notice to the consumer state the amount as of, and where does your system get it?
 **Target:** HiveAR v2.
 
-### Restrictions a party places on contact
-
-**Technical:** The mechanism by which a party, or someone acting for the party, limits contact: a request to stop, to use only certain channels, or not to be contacted at certain times or places, with its evidence, scope, duration, and release. It can only narrow what the contact window and frequency checks of [HIVE-0010](decisions/hivear/HIVE-0010-contact-windows-and-contact-frequency.md) permit, and the effect each jurisdiction gives such a request belongs to its Compliance Pack.
-**From experience:** When a consumer tells a collector not to call at work, or to send everything in writing, how does your system make sure every collector and every dialer honors it, and where does it fail?
-**Target:** HiveAR v2.
-
 ### Commercial collection rules in the United States
 
 **Technical:** The federal and state rules that govern collecting commercial debt in the United States, such as licensing, bonding, conduct, and contact rules for collectors of business debts, researched separately from the consumer rules of [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) and [MOD-US-0003](decisions/modules/united-states/MOD-US-0003-federal-contact-times-and-call-frequency.md) and supplied as Compliance Pack content for debts whose debt type declares the commercial regulatory nature under [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md). Which consumer protections do not reach commercial debt, and which apply anyway, needs verification by someone with compliance standing.
