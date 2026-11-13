@@ -141,11 +141,11 @@ Each open design question is a GitHub issue labeled `open-question` that asks fo
 
 ### 1. Background
 
-Ask these one at a time:
+Ask three questions, one at a time:
 
-- What they do, for how long, and in what kind of organization. If they need options, offer the territory list in Step 3.
-- How comfortable they are with technical material: not at all, somewhat, or they write software.
-- How much time they have: about fifteen minutes, or an hour or more.
+- Ask what they do, for how long, and in what kind of organization. If they need options, offer the territory list in Step 3.
+- Ask how comfortable they are with technical material: not at all, somewhat, or enough to write software.
+- Ask how much time they have: about fifteen minutes, or an hour or more.
 
 The answers decide which questions you offer and how they submit their answers.
 
