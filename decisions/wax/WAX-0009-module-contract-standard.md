@@ -4,7 +4,7 @@ title: "Module Contract Standard"
 status: Accepted
 version: 1.2
 area: wax
-date: 2026-10-10
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -38,6 +38,8 @@ The manifest is the right place for information that must be readable outside th
 > **Supported regions**: the Region Packs the module is built for. A module that names a currency in code declares the Region Pack that supplies it, as defined in [Wax Design Decision 34](WAX-0034-monetary-values-and-currency.md). A module with no regional dependence declares no supported regions.
 >
 > **Capability flags**: a structured declaration of the commands, events, and query endpoints this module contributes, at a summary level suitable for tooling and certification review.
+>
+> **Rule records**: the stable identifier and rule record of every rule the module provides, such as a format check or a validation, as [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) describes: a label, a plain-language description, and a justification that cites the rule's source.
 >
 > **Legal info:** License and attribution information.
 
@@ -94,6 +96,8 @@ No module will be accepted into the Collective's repository until the full modul
 The manifest and the C# interface are both required. A module that implements one without the other does not meet the contract standard.
 
 The manifest must be kept current with the implementation. A manifest that declares capabilities the module does not implement, or omits capabilities it does implement, is a contract violation.
+
+The manifest declares a rule record for every rule the module provides, and a rule without one is a contract violation.
 
 A module declares the Region Packs it supports in its manifest, as it declares the locales it provides translations for. A module that names a currency in code and does not declare the Region Pack that supplies it is a contract violation.
 
