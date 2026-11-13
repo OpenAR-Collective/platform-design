@@ -2,9 +2,9 @@
 id: WAX-0010
 title: "Module Registry"
 status: Accepted
-version: 1.2
+version: 2.0
 area: wax
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The Wax will maintain a module registry in the core schema. Every installed module, including Language Packs, Region Packs, Business Class modules, Treatment Module, Vendor Integrations, and Packs, is recorded in the registry as a first-class entity with a UUID surrogate key. Module names, labels, and descriptions follow the same i18n pattern as all other reference data: no English text is stored in the registry table itself. All human-readable module information lives in the i18n schema.
+The Wax will maintain a module registry in the core schema. Every installed module and pack, including Locale Modules, Vendor Integration Modules, the module types that a domain layer defines, Language Packs, Region Packs, and every other Pack, is recorded in the registry as a first-class entity with a UUID surrogate key. Module names, labels, and descriptions follow the same i18n pattern as all other reference data: no English text is stored in the registry table itself. All human-readable module information lives in the i18n schema.
 
 ## Design Principle
 
@@ -89,7 +89,7 @@ This is the one exception to the rule that a partial uninstall is not a valid sy
 
 ## Module Type Classifier
 
-The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are one for each construct that [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) defines: locale, business_class, debt_type, contract_type, treatment, and vendor_integration for Modules, and language_pack, region_pack, compliance_pack, boilerplate_pack, and seed_package for Packs. This list is fixed by the platform and may not be extended by module authors. contract_type was added per [Wax Design Decision 33](WAX-0033-module-composition-model.md) for the contract-type modules such as contingency, debt purchase, and servicing, and locale, compliance_pack, and boilerplate_pack were added so that every construct has a registration path.
+The module_type column on core.module is a technical classifier used by the platform runtime to determine how a module participates in the composition system. It is a developer-facing field and English values are acceptable because they are never surfaced in the user interface. The approved values are one for each construct that [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md) defines, locale and vendor_integration for Modules and language_pack, region_pack, compliance_pack, boilerplate_pack, and seed_package for Packs, together with one for each module type that a domain layer built on Wax defines. HiveAR's are business_class, debt_type, contract_type, and treatment, as [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md) defines them. The list is fixed by Wax and the domain layer together and may not be extended by module authors. locale, compliance_pack, and boilerplate_pack were added so that every construct has a registration path.
 
 ## Implementation Phasing
 

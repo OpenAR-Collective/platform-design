@@ -66,6 +66,7 @@ An AI assistant helping with this repository should read this index first, then 
 - **[HIVE-0011](decisions/hivear/HIVE-0011-collector-licensing.md)** Collector Licensing. HiveAR will check that an organization holds every authorization to collect that an applicable jurisdiction requires for a debt before the organization works the debt, contacts anyone about it, or sues on it.
 - **[HIVE-0012](decisions/hivear/HIVE-0012-disputes.md)** Disputes. HiveAR will record a dispute as a member object of the debt it concerns.
 - **[HIVE-0013](decisions/hivear/HIVE-0013-compliance-coverage-for-collections.md)** Compliance Coverage for Collections. HiveAR will hold a debt from collection unless every jurisdiction in which its debtor may be located is covered by the installed packs under the coverage check of Wax Design Decision 8.
+- **[HIVE-0014](decisions/hivear/HIVE-0014-collections-module-types-and-the-seed-package.md)** Collections Module Types and the Seed Package. HiveAR will define the module types that belong to collections and the content of the seed package that holds the shared collections primitives, which Wax Design Decision 8 and Wax Design Decision 33 defined until this decision moved them out of the framework.
 
 ## Module Decisions: Debt-Purchase
 

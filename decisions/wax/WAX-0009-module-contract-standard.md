@@ -2,9 +2,9 @@
 id: WAX-0009
 title: "Module Contract Standard"
 status: Accepted
-version: 1.2
+version: 1.3
 area: wax
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -25,7 +25,7 @@ The manifest is the right place for information that must be readable outside th
 >
 > **Module identity**: name (as a reference to i18n translations), version, author, Collective certification status.
 >
-> **Module type**: the tier in the module taxonomy, one of the values that [Wax Design Decision 10](WAX-0010-module-registry.md) fixes: locale, business_class, debt_type, contract_type, treatment, and vendor_integration for Modules, and language_pack, region_pack, compliance_pack, boilerplate_pack, and seed_package for Packs.
+> **Module type**: the tier in the module taxonomy, one of the values that [Wax Design Decision 10](WAX-0010-module-registry.md) fixes: locale and vendor_integration for Modules, language_pack, region_pack, compliance_pack, boilerplate_pack, and seed_package for Packs, and the module types that a domain layer defines, which for HiveAR are business_class, debt_type, contract_type, and treatment under [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md).
 >
 > **Schema namespace**: the PostgreSQL schema the module owns.
 >
