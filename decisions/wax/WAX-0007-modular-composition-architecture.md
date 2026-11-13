@@ -28,7 +28,7 @@ A complete deployable instance requires at least one selection from each require
 | Locale Module | Yes (1+) | United States | Address structure, national identity numbers and their validation, name components, and phone number format, as defined in Wax Design Decision 8. Structural and technical only. No compliance content. |
 | Compliance Pack | Yes, one for each jurisdiction where the agency collects | United States federal, Texas, Ontario | Educational reference configuration for the compliance rules of one jurisdiction, as the boundary below describes. Values and templates only, never code. |
 | Boilerplate Pack | No | US collections basics, legal case flow for Texas | Starting content that is not compliance: statuses, roles, departments, rules, workflows, letters, reports, screens, and the procedure a module follows in a jurisdiction, such as a state's court case flow. Values and templates only, never code. |
-| Domain module types | As the domain layer requires | HiveAR's business class, debt-type, contract-type, and treatment modules | Module types that a domain layer built on Wax defines for its own subject matter. HiveAR's are defined in HiveAR Design Decision 14, which says which of them a working configuration requires. |
+| Domain module types | As the domain layer requires | HiveAR's debt-type, contract-type, and treatment modules | Module types that a domain layer built on Wax defines for its own subject matter. HiveAR's are defined in HiveAR Design Decision 14, which says which of them a working configuration requires. |
 | Vendor Integration Module | No | Credit Bureau, Payment Processor, Skip Tracing | Third-party system connectors. |
 
 ## The Compliance Configuration Boundary

@@ -49,7 +49,7 @@ All Module subtypes implement the full module contract. The subtype classificati
 >
 > **Vendor Integration Module**: contributes integration with an external platform or service provider. Registers the integration's API endpoints, authentication configuration, action types for the workflow engine, and response schema declarations for condition evaluation. Platform Integration certification from the Collective governs directory listing for Vendor Integration Modules.
 >
-> **Domain module types**: a domain layer built on Wax defines module types for its own subject matter. Each implements the full module contract and registers under its own value in the module type classifier of [Wax Design Decision 10](WAX-0010-module-registry.md). HiveAR's collections module types, the business class, debt-type, contract-type, and treatment modules, are defined in [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md).
+> **Domain module types**: a domain layer built on Wax defines module types for its own subject matter. Each implements the full module contract and registers under its own value in the module type classifier of [Wax Design Decision 10](WAX-0010-module-registry.md). HiveAR's collections module types, the debt-type, contract-type, and treatment modules, are defined in [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md).
 
 ## Pack Subtypes
 
@@ -133,7 +133,7 @@ The record is not only for compliance. A Locale Module's format check for a nati
 
 ## Construct Identifier Conventions
 
-All extensibility constructs use a structured identifier following a consistent convention. Module identifiers use reverse domain notation: oar.core.us_locale, oar.core.business_class.healthcare, vendor.lexisnexis.address_verification. Pack identifiers use a structured dot-notation path: language.es_mx, region.us, compliance.us, compliance.us.tx, compliance.us.ca, boilerplate.us.collections, boilerplate.us.tx.legal_case_flow. Bundle identifiers follow the same reverse domain convention as Modules: bundle.us.standard for the standard US starting Bundle.
+All extensibility constructs use a structured identifier following a consistent convention. Module identifiers use reverse domain notation: oar.core.us_locale, oar.core.debt_type.healthcare, vendor.lexisnexis.address_verification. Pack identifiers use a structured dot-notation path: language.es_mx, region.us, compliance.us, compliance.us.tx, compliance.us.ca, boilerplate.us.collections, boilerplate.us.tx.legal_case_flow. Bundle identifiers follow the same reverse domain convention as Modules: bundle.us.standard for the standard US starting Bundle.
 
 Compliance Pack identifiers use ISO 3166-1 alpha-2 country codes and ISO 3166-2 subdivision codes to ensure unambiguous jurisdiction identification: compliance.us for a country's national law, and compliance.us.tx, compliance.us.ca, compliance.ca.on, and compliance.gb.eng for subdivisions. This structured identifier is machine-readable, sortable, and unambiguous regardless of the language of the installation. A child below the subdivision level, such as a city or a county with rules of its own, has its place in its parent's tree, and how a pack for it is identified, since ISO 3166 codes stop at subdivisions, is recorded as an open question.
 

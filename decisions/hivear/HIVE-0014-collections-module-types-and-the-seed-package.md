@@ -13,11 +13,11 @@ license: CC-BY-4.0
 
 ## Decision
 
-HiveAR will define the module types that belong to collections and the content of the seed package that holds the shared collections primitives, which [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md) and [Wax Design Decision 33](../wax/WAX-0033-module-composition-model.md) defined until this decision moved them out of the framework. The collections module types are the business class module, the debt-type module, the contract-type module, and the treatment module. Each implements the full module contract of [Wax Design Decision 9](../wax/WAX-0009-module-contract-standard.md), registers under its own value in the module type classifier of [Wax Design Decision 10](../wax/WAX-0010-module-registry.md), and composes from shared primitives by key under the module composition model of Wax Design Decision 33. HiveAR's seed package contributes the shared bucket definitions, role types, declared properties, and waterfall templates that collections modules reference by key, each defined once. Wax keeps the generic mechanics: the Module, Pack, and Bundle constructs; the Locale Module and the Vendor Integration Module; the Pack types, including the seed package that a domain layer fills; and the rule that a domain layer built on Wax defines the module types of its own domain.
+HiveAR will define the module types that belong to collections and the content of the seed package that holds the shared collections primitives, which [Wax Design Decision 8](../wax/WAX-0008-extensibility-construct-nomenclature.md) and [Wax Design Decision 33](../wax/WAX-0033-module-composition-model.md) defined until this decision moved them out of the framework. The collections module types are the debt-type module, the contract-type module, and the treatment module. A debt-type module covers a kind of debt, such as healthcare, credit card, or telecommunications debt, and HiveAR has no separate business class level above it. Each implements the full module contract of [Wax Design Decision 9](../wax/WAX-0009-module-contract-standard.md), registers under its own value in the module type classifier of [Wax Design Decision 10](../wax/WAX-0010-module-registry.md), and composes from shared primitives by key under the module composition model of Wax Design Decision 33. HiveAR's seed package contributes the shared bucket definitions, role types, declared properties, and waterfall templates that collections modules reference by key, each defined once. Wax keeps the generic mechanics: the Module, Pack, and Bundle constructs; the Locale Module and the Vendor Integration Module; the Pack types, including the seed package that a domain layer fills; and the rule that a domain layer built on Wax defines the module types of its own domain.
 
 ## Why These Belong to HiveAR
 
-Wax is the domain-agnostic framework, and HiveAR is the collections domain built on it, as [Shared Design Decision 1](../shared/SHARED-0001-repository-architecture-and-layer-separation-wax-and-hivear.md) provides. A business class, a debt type, a contract type, a treatment, a balance bucket, a debt role, and a waterfall are collections concepts, so a Wax decision that defines them puts collections vocabulary in the framework, and another domain built on Wax would inherit types it has no use for. This decision moves the definitions to HiveAR and does not change what they mean. A Wax decision may still use a collections example where an example helps, because an example defines nothing.
+Wax is the domain-agnostic framework, and HiveAR is the collections domain built on it, as [Shared Design Decision 1](../shared/SHARED-0001-repository-architecture-and-layer-separation-wax-and-hivear.md) provides. A debt type, a contract type, a treatment, a balance bucket, a debt role, and a waterfall are collections concepts, so a Wax decision that defines them puts collections vocabulary in the framework, and another domain built on Wax would inherit types it has no use for. This decision moves the definitions to HiveAR. It changes their meaning in one place: the business class module that the framework defined for a business vertical, above the debt-type module, is folded into the debt-type module, so that a vertical such as healthcare is one debt type, as [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md) and [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md) already treat it. A Wax decision may still use a collections example where an example helps, because an example defines nothing.
 
 ## The Module Types
 
@@ -25,19 +25,17 @@ Each collections module type implements the full module contract. The type deter
 
 > **COLLECTIONS MODULE TYPES**
 >
-> **Business class module**: contributes the schema, workflow patterns, and operational configuration for a business vertical such as healthcare, auto lending, student loans, or utilities, and defines the debt types and required fields relevant to that vertical. It is operational and carries no compliance content, which belongs to the Compliance Packs of Wax Design Decision 8.
->
-> **Debt-type module**: contributes a specific debt classification within a business class, with its buckets, role types, declared properties, and subject-matter structure, as [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md) describes, together with its field requirements, validation rules, and default workflow patterns. It affects what a debt carries, not how a statute is interpreted.
+> **Debt-type module**: contributes the structure of a kind of debt, such as healthcare, credit card, telecommunications, auto lending, student loan, or utility debt, with its buckets, role types, declared properties, and subject-matter structure, as HiveAR Design Decision 9 describes, together with its field requirements, validation rules, default workflow patterns, and operational configuration. It affects what a debt carries and how it is worked, not how a statute is interpreted, and it carries no compliance content, which belongs to the Compliance Packs of Wax Design Decision 8.
 >
 > **Contract-type module**: contributes the ownership and relationship model under which a debt is held and billed, such as servicing, third-party contingency, or purchase, the contract types of [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md). It affects how debts are managed, not how a statute is interpreted.
 >
 > **Treatment module**: contributes a treatment strategy type, meaning a defined approach to working a debt such as payment arrangements, settlement workflows, or legal referral, and extends the core workflow for that path.
 
-A working HiveAR configuration needs at least one business class module, at least one debt-type module, and at least one contract-type module, while a treatment module is optional, as the module taxonomy of [Wax Design Decision 7](../wax/WAX-0007-modular-composition-architecture.md) required before this decision. Contract type is distinct from debt type, which classifies what a debt is, and from treatment, which is a way of working a debt.
+A working HiveAR configuration needs at least one debt-type module and at least one contract-type module, while a treatment module is optional. The module taxonomy of [Wax Design Decision 7](../wax/WAX-0007-modular-composition-architecture.md) also required a business class module before this decision, and the debt-type module now covers what that level did. Contract type is distinct from debt type, which classifies what a debt is, and from treatment, which is a way of working a debt.
 
 ## Registering the Types
 
-The module type classifier of Wax Design Decision 10 carries a value for each collections module type: business_class, debt_type, contract_type, and treatment. HiveAR fixes these values as the domain layer, and module authors may not extend them, as Wax Design Decision 10 provides for the classifier as a whole. contract_type entered the classifier through Wax Design Decision 33 for the contract-type modules, such as contingency, debt purchase, and servicing, and this decision is now where it is defined. A contract-type module registers under contract_type, never under debt_type or treatment.
+The module type classifier of Wax Design Decision 10 carries a value for each collections module type: debt_type, contract_type, and treatment. The business_class value, which the classifier carried for the business class module, is removed with that module. HiveAR fixes these values as the domain layer, and module authors may not extend them, as Wax Design Decision 10 provides for the classifier as a whole. contract_type entered the classifier through Wax Design Decision 33 for the contract-type modules, such as contingency, debt purchase, and servicing, and this decision is now where it is defined. A contract-type module registers under contract_type, never under debt_type or treatment.
 
 ## The Seed Package
 
@@ -45,7 +43,7 @@ The seed package is the Pack type of Wax Design Decision 8 through which a domai
 
 ## Compatibility
 
-Under Wax Design Decision 33 a module declares what it is built for, and an eligibility check confirms a configuration before it deploys. A collections module also declares the contract types it supports, so the check can refuse a debt-type module on a contract type it was not built for. A business class module may declare that it requires specific events from a debt-type module, or that it cannot run beside a particular treatment module, and the Wax runtime validates those declarations at deployment as Wax Design Decision 7 provides for every module.
+Under Wax Design Decision 33 a module declares what it is built for, and an eligibility check confirms a configuration before it deploys. A collections module also declares the contract types it supports, so the check can refuse a debt-type module on a contract type it was not built for. A debt-type module may declare that it requires specific events from another module, or that it cannot run beside a particular treatment module, and the Wax runtime validates those declarations at deployment as Wax Design Decision 7 provides for every module.
 
 ## Scope and Boundaries
 
@@ -53,17 +51,17 @@ This decision defines the collections module types and the content of HiveAR's s
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The four collections module types recognized and the code organized along their boundaries, with a basic third-party collections business class and a generic debt-type configuration built into the v1 codebase, as Wax Design Decision 7 provides for v1. The seed package and its primitives ship in code, because dynamic module installation is a v2 capability, as Wax Design Decision 33 provides.
+**HiveAR v1 (MVP):** The three collections module types recognized and the code organized along their boundaries, with a generic debt-type configuration and a third-party contingency contract type built into the v1 codebase, as Wax Design Decision 7 provides for v1. The seed package and its primitives ship in code, because dynamic module installation is a v2 capability, as Wax Design Decision 33 provides.
 
 **HiveAR v2:** The seed package installed through the Pack installation pipeline of Wax Design Decision 8, and the contract types that a module declares checked by the eligibility check of Wax Design Decision 33.
 
 **HiveAR v3+:** Richer compatibility declarations as the module ecosystem grows.
 
-**Breaking change risk: LOW.** The move changes where the definitions are recorded and not what they mean, and the classifier values stay the same.
+**Breaking change risk: LOW.** The move changes where the definitions are recorded. The one change of meaning, folding the business class into the debt-type module, removes a classifier value before any code uses it.
 
 ## Implications For Contributors
 
-A collections module registers under business_class, debt_type, contract_type, or treatment, and a contract-type module never registers under debt_type or treatment.
+A collections module registers under debt_type, contract_type, or treatment, and a contract-type module never registers under debt_type or treatment. A vertical, such as healthcare, is a debt-type module, never a business class of its own.
 
 Reference shared collections primitives from the seed package by key. Never copy one into a module.
 

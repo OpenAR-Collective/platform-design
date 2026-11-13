@@ -2,9 +2,9 @@
 id: SHARED-0001
 title: "Repository Architecture and Layer Separation (Wax and HiveAR)"
 status: Accepted
-version: 2.0
+version: 3.0
 area: shared
-date: 2026-10-10
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The platform is developed as two distinct codebases housed in separate repositories, each with independent version cadences. Wax is a domain-agnostic application framework. HiveAR is an accounts receivable platform built on top of Wax. Modules extend HiveAR with locale, business class, debt type, treatment, and integration capabilities. The OpenAR Collective Foundation owns and publishes both repositories. The platform product names Wax and HiveAR are distinct from the Foundation's organizational identity.
+The platform is developed as two distinct codebases housed in separate repositories, each with independent version cadences. Wax is a domain-agnostic application framework. HiveAR is an accounts receivable platform built on top of Wax. Modules extend HiveAR with locale, debt type, contract type, treatment, and integration capabilities. The OpenAR Collective Foundation owns and publishes both repositories. The platform product names Wax and HiveAR are distinct from the Foundation's organizational identity.
 
 > **THE THREE-LAYER MODEL**
 >
@@ -21,7 +21,7 @@ The platform is developed as two distinct codebases housed in separate repositor
 >
 > **HiveAR** is the AR domain layer. It provides the entity data model (person, business, relationships), debt lifecycle, debt groups, demographic history, contact intelligence, entity matching, and the golden record. HiveAR owns the ar database schema. HiveAR is a privileged first-party consumer of Wax: it installs first, other AR modules declare dependencies on it, and it is treated as near-framework by the runtime even though it is not bundled with Wax.
 >
-> **Modules** extend HiveAR with interchangeable capabilities: Locale Modules provide region-specific schema and compliance structures, Business Class Modules provide industry-specific workflows, Treatment Modules add operational capabilities like legal collections. Modules own mod_* schemas.
+> **Modules** extend HiveAR with interchangeable capabilities: Locale Modules provide region-specific schema, formats, and validation, Debt-Type Modules provide the structure and workflows of a kind of debt, such as healthcare, credit card, or telecommunications debt, Contract-Type Modules provide the ownership and billing model under which a debt is held, and Treatment Modules add operational capabilities like legal collections. Compliance rules ship in Compliance Packs, never in modules. Modules own mod_* schemas.
 
 ## Schema Ownership
 

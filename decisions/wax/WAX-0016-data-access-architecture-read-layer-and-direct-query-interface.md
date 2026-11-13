@@ -49,7 +49,7 @@ A database shows a stored amount at the scale of its column, which is not necess
 
 SECURITY DEFINER functions handle the column-level concern: decrypting a field value for an authorized caller. Row-level security handles the row-level concern: determining which records a given principal is permitted to see at all. The two mechanisms are complementary and independent.
 
-RLS policies on the underlying tables and views enforce that a principal only sees rows within their authorized scope: their organization, their assigned debts, their permitted business classes. The WSM's SECURITY DEFINER functions fire only for rows that RLS has already permitted. A principal cannot retrieve the decrypted national identity number for a record they are not authorized to see, because RLS prevents the record from appearing in their result set before the decryption function is ever called.
+RLS policies on the underlying tables and views enforce that a principal only sees rows within their authorized scope: their organization, their assigned debts, their permitted debt types. The WSM's SECURITY DEFINER functions fire only for rows that RLS has already permitted. A principal cannot retrieve the decrypted national identity number for a record they are not authorized to see, because RLS prevents the record from appearing in their result set before the decryption function is ever called.
 
 This provides defense in depth. A bug in the application layer that incorrectly grants a user access to a record they should not see would still need to pass through RLS before that record appears in any query result. RLS is enforced by the database, not by the application, and cannot be bypassed by any query the principal submits directly to the database.
 
