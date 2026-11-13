@@ -4,7 +4,7 @@ title: "Country Layer: Locale Module, Region Pack, and Language Packs"
 status: Proposed
 version: 0.1
 area: module:united-states
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -56,6 +56,12 @@ The pack is identified as region.us and is data only.
 ## The Language Packs
 
 US English, language.en_us, is the Language Pack that a US installation starts with. US Spanish, language.es_us, is the first additional Language Pack that [Wax Design Decision 11](../../wax/WAX-0011-internationalization-architecture-and-reference-value-system.md) plans. Both translate labels only and carry no compliance content.
+
+## The Jurisdictions of the United States
+
+Under the jurisdiction tree of [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), the United States packs list as their children the fifty states, the District of Columbia, and the five inhabited territories: Puerto Rico, Guam, the United States Virgin Islands, American Samoa, and the Northern Mariana Islands. Each child is identified by its ISO 3166-2 code, as compliance.us.tx and compliance.us.pr name the Compliance Packs for Texas and Puerto Rico. The armed forces post offices, AA, AE, and AP, are address codes and not jurisdictions, so they appear in no tree, and under [HiveAR Design Decision 13](../../hivear/HIVE-0013-compliance-coverage-for-collections.md) a debt whose debtor has no address in a jurisdiction goes to review.
+
+The federal Compliance Pack, compliance.us, marks every one of these children as not yet researched, because no state or territory pack has been published, which is the cautious default. A debt whose debtor may be in any of them is therefore held under HiveAR Design Decision 13 until the agency installs that jurisdiction's pack, designates a pack of its own, or records an override. As the Collective publishes a jurisdiction's pack, a delivered update to compliance.us marks it as having its own pack, with the pack's identifier and version, or as checked with nothing to add.
 
 ## What the Country Layer Leaves to Other Packs
 
