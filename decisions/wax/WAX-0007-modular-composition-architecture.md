@@ -2,9 +2,9 @@
 id: WAX-0007
 title: "Modular Composition Architecture"
 status: Accepted
-version: 1.2
+version: 1.3
 area: wax
-date: 2026-10-10
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -28,10 +28,7 @@ A complete deployable instance requires at least one selection from each require
 | Locale Module | Yes (1+) | United States | Address structure, national identity numbers and their validation, name components, and phone number format, as defined in Wax Design Decision 8. Structural and technical only. No compliance content. |
 | Compliance Pack | Yes, one for each jurisdiction where the agency collects | United States federal, Texas, Ontario | Educational reference configuration for the compliance rules of one jurisdiction, as the boundary below describes. Values and templates only, never code. |
 | Boilerplate Pack | No | US collections basics, legal case flow for Texas | Starting content that is not compliance: statuses, roles, departments, rules, workflows, letters, reports, screens, and the procedure a module follows in a jurisdiction, such as a state's court case flow. Values and templates only, never code. |
-| Business Class Module | Yes (1+) | Healthcare, Auto, Bank Card, Student Loan | Workflow structure and data model differences by debt class. Operational, not prescriptive on compliance interpretation. |
-| Debt Type Module | Yes (1+) | Unsecured Consumer, Medical, Auto Deficiency | A debt classification within a business class: its buckets, roles, declared properties, and subject-matter structure. Affects what a debt carries, not how statutes are interpreted. |
-| Contract Type Module | Yes (1+) | Third-Party Contingency, Debt Purchase, Servicing | The ownership and relationship model under which a debt is held and billed, as defined in Wax Design Decision 33. Affects how debts are managed, not how statutes are interpreted. |
-| Treatment Module | No | Legal Collections, Outsourcing | Extends core workflow for specialized treatment paths. |
+| Domain module types | As the domain layer requires | HiveAR's debt-type, contract-type, and treatment modules | Module types that a domain layer built on Wax defines for its own subject matter. HiveAR's are defined in HiveAR Design Decision 14, which says which of them a working configuration requires. |
 | Vendor Integration Module | No | Credit Bureau, Payment Processor, Skip Tracing | Third-party system connectors. |
 
 ## The Compliance Configuration Boundary
@@ -62,11 +59,11 @@ The Module Contract Standard will be ratified by the technical steering committe
 
 ## Cross-Module Compatibility
 
-Modules within a tier may declare compatibility constraints. A Business Class module may declare that it requires specific events from a Debt Type module, or that it is incompatible with a specific Treatment Module. The Wax runtime will validate module compatibility at deployment time and surface conflicts before they reach production.
+Modules within a tier may declare compatibility constraints. A module may declare that it requires specific events from another module, or that it is incompatible with a specific module, as HiveAR's collections modules do under [HiveAR Design Decision 14](../hivear/HIVE-0014-collections-module-types-and-the-seed-package.md). The Wax runtime will validate module compatibility at deployment time and surface conflicts before they reach production.
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Hardcoded composition. The platform ships as a single deployable application, not as Wax + pluggable modules. The US Locale Module, a basic third-party collections Business Class, and a generic debt-type configuration are baked into the v1 codebase. Code is organized along module boundaries internally (separate projects and namespaces for what will become modules), but there is no runtime module discovery, installation, or swapping. The critical discipline: v1 code must not cross module boundaries in ways the module contract would prohibit.
+**Wax v1 (MVP):** Hardcoded composition. The platform ships as a single deployable application, not as Wax + pluggable modules. The US Locale Module and the starting collections modules of HiveAR Design Decision 14 are baked into the v1 codebase. Code is organized along module boundaries internally (separate projects and namespaces for what will become modules), but there is no runtime module discovery, installation, or swapping. The critical discipline: v1 code must not cross module boundaries in ways the module contract would prohibit.
 
 **Wax v2:** Module contract standard fully implemented. Module registry and installation pipeline. At least two to three alternative modules available.
 
