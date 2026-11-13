@@ -2,9 +2,9 @@
 id: HIVE-0009
 title: "Debt-Type Structure Extension"
 status: Accepted
-version: 3.0
+version: 3.1
 area: hivear
-date: 2026-10-10
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -53,7 +53,7 @@ The framework reads most concretely against several debt types. A healthcare mod
 
 ## Scope and Boundaries
 
-This decision defines the extension mechanism, the standardized property vocabulary, and the extensibility of the debt role registry. It does not define any single module's structure in full; the worked examples illustrate the framework rather than specify those modules. Compliance rules live in the Compliance Packs and only read this decision's properties. The chain of title, the original and prior creditors behind a purchased debt, is debt lineage's concern and not subject-matter structure. The healthcare service line fields remain their own item as the first concrete realization of this framework: this decision shows them as a worked example, and the full healthcare module specification, the complete field set and the service-line semantics, is its own later work. The core itemization that those fields extend is defined in [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md).
+This decision defines the extension mechanism, the standardized property vocabulary, and the extensibility of the debt role registry. It does not define any single module's structure in full; the worked examples illustrate the framework rather than specify those modules. Compliance rules live in the Compliance Packs and only read this decision's properties. The chain of title, the owners behind a purchased debt from the original creditor to the current owner, belongs to the debt-purchase module under [Debt-Purchase Module Design Decision 1](../modules/debt-purchase/MOD-PURCHASE-0001-chain-of-title-and-ownership-transitions.md) and is not subject-matter structure. The healthcare service line fields remain their own item as the first concrete realization of this framework: this decision shows them as a worked example, and the full healthcare module specification, the complete field set and the service-line semantics, is its own later work. The core itemization that those fields extend is defined in [HiveAR Design Decision 5](HIVE-0005-debt-structure-and-balance-composition.md).
 
 ## Implementation Phasing
 

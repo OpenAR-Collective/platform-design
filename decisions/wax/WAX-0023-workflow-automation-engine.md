@@ -2,9 +2,9 @@
 id: WAX-0023
 title: "Workflow Automation Engine"
 status: Accepted
-version: 1.2
+version: 1.3
 area: wax
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -151,13 +151,13 @@ Batch workflows support the same three state toggles as event-triggered workflow
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Linear rule engine only. This is the single biggest scope reduction in the roadmap. Ship post-event rules only (when X happens, do Y). Linear execution: one trigger, one condition, one action. No pre-event interception, no provisional state, no rejection propagation, no DAG. Fixed action types: change status, send notification, assign to queue, update field, create task. No batch workflows. No workflow designer UI; rules configured through a simple admin form. System workflows (balance recalculation on payment, etc.) implemented as event handlers in code, not configurable workflows.
+**Wax v1 (MVP):** Linear rule engine only. This is the single biggest scope reduction in the roadmap. Ship post-event rules only (when X happens, do Y). Linear execution: one trigger, one condition, one action. No pre-event interception, no provisional state, no rejection propagation, no DAG. Fixed action types: change status, send notification, assign to queue, update field. No batch workflows. No workflow designer UI; rules configured through a simple admin form. System workflows (balance recalculation on payment, etc.) implemented as event handlers in code, not configurable workflows.
 
 Critical v1 requirements: the event type registry must exist (every event type declares its scope); workflow execution must produce events through normal command handlers (no shortcuts bypassing the event pipeline); the workflow definition schema should be forward-compatible (store v1 rules in core.workflow_definition with a nullable graph_json column for v2 DAG data).
 
-**Wax v2:** DAG execution within single workflow definitions. Pre-event and post-event support. Pluggable action type interface (C# interface). Two-keyring condition resolution. Rejection propagation. Workflow designer UI (visual graph builder). Batch workflows. Workflow state toggles.
+**Wax v2:** DAG execution within single workflow definitions. Pre-event and post-event support. Pluggable action type interface (C# interface). Two-keyring condition resolution. Rejection propagation. Workflow designer UI (visual graph builder). Batch workflows. Workflow state toggles. The schedule future event and cancel actions that write to the Pending Event Register ([Wax Design Decision 27](WAX-0027-pending-event-register.md)), and the create task action of the Tasking subsystem ([Wax Design Decision 29](WAX-0029-tasking.md)).
 
-**Wax v3+:** Cross-workflow chain detection and cycle prevention. Downstream workflow suppression. Execution chain context and provenance. Scheduled future events with re-evaluation. Workflow provenance and version tracking (clone-and-override model).
+**Wax v3+:** Cross-workflow chain detection and cycle prevention. Downstream workflow suppression. Execution chain context and provenance. Workflow provenance and version tracking (clone-and-override model).
 
 **Breaking change risk: MEDIUM.** The critical investments are the event type registry and the discipline of routing all workflow-initiated changes through command handlers. If v1 takes shortcuts (direct SQL updates from rules), the v2 engine cannot trust the event history.
 

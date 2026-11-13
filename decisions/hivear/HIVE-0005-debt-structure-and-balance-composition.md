@@ -2,9 +2,9 @@
 id: HIVE-0005
 title: "Debt Structure and Balance Composition"
 status: Accepted
-version: 2.2
+version: 2.3
 area: hivear
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -81,7 +81,7 @@ The amount currently due is derived, not stored, and its derivation depends on c
 
 ## Scope and What Branches Off
 
-This decision establishes the composition framework and deliberately stops there. It does not specify payment application and waterfall sequencing, which is its own decision consuming bucket attributes; the GAAP journal and general ledger, the v1 partner decision that posts from the same events; client commission, fee retention, and remittance, including gross-versus-net remit and per-debt or per-seat billing; interest accrual, which is a process that writes to interest buckets; or the buy, sell, and buyback portfolio transactions, which straddle debt lineage and the ledger. It defines the core itemization and leaves to the debt-type modules the fields they add to its lines, such as hospital service line detail and procedure codes, under [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md) and in their own pending module specifications. Where the client collects against individual charges, each charge is a debt and not part of an itemization, as the section on what a debt is describes. The debt-type modules supply their own buckets and domain detail, and the legal module stays a module so that an agency that does not litigate carries none of its buckets; this decision's only obligation to those modules is to prove the bucket model can absorb their buckets, which it does.
+This decision establishes the composition framework and deliberately stops there. It does not specify payment application and waterfall sequencing, which is its own decision consuming bucket attributes; the GAAP journal and general ledger, the v1 partner decision that posts from the same events; client commission, fee retention, and remittance, including gross-versus-net remit and per-debt or per-seat billing; interest accrual, which is a process that writes to interest buckets; or the purchase, sale, and buyback of debts, which the debt-purchase module records under [Debt-Purchase Module Design Decision 1](../modules/debt-purchase/MOD-PURCHASE-0001-chain-of-title-and-ownership-transitions.md) and whose ledger treatment is that module's advanced accounting. It defines the core itemization and leaves to the debt-type modules the fields they add to its lines, such as hospital service line detail and procedure codes, under [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md) and in their own pending module specifications. Where the client collects against individual charges, each charge is a debt and not part of an itemization, as the section on what a debt is describes. The debt-type modules supply their own buckets and domain detail, and the legal module stays a module so that an agency that does not litigate carries none of its buckets; this decision's only obligation to those modules is to prove the bucket model can absorb their buckets, which it does.
 
 ## Implementation Phasing
 
