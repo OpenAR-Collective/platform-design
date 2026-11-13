@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The state Compliance Packs will declare, as the requirement values of [HiveAR Design Decision 11](../../hivear/HIVE-0011-collector-licensing.md), whether each state and the District of Columbia licenses, registers, or bonds collectors, which debts each requirement reaches, what brings a collector within it, and whether a collector without it may sue. The federal pack, compliance.us, declares no requirement, because federal law sets no general license for debt collectors (needs verification). This decision records the values that research found on 2026-10-11 by reading each jurisdiction's statutes and its regulator's pages. The requirements split by the regulatory nature that a debt type declares under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md): some reach consumer debts only, many reach commercial debts as well, and Florida registers commercial collection agencies under a statute written for commercial claims. The five inhabited territories were not researched, so under HiveAR Design Decision 11 their requirements are not yet researched, and a debt tied to one of them is held until the agency clears the territory. Every value in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
+The state Compliance Packs will declare, as the requirement values of [HiveAR Design Decision 11](../../hivear/HIVE-0011-collector-licensing.md), whether each state and the District of Columbia licenses, registers, or bonds collectors, which debts each requirement reaches, what brings a collector within it, and whether a collector without it may sue. The federal pack, compliance.us, declares no requirement, because federal law sets no general license for debt collectors (needs verification). This decision records the values that research found on 2026-10-11 by reading each jurisdiction's statutes and its regulator's pages. The requirements split by the regulatory nature flag that each debt carries under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md): some reach consumer debts only, many reach commercial debts as well, and Florida registers commercial collection agencies under a statute written for commercial claims. The five inhabited territories were not researched, so under HiveAR Design Decision 11 their requirements are not yet researched, and a debt tied to one of them is held until the agency clears the territory. Every value in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
 
 ## Where This Decision Sits
 
@@ -31,7 +31,7 @@ The jurisdictions differ on five points, each a part of the requirement shape of
 
 ## The Values by State
 
-Each row below is one state or the District of Columbia, as read on 2026-10-11 from the statute named in its row. Every cell needs verification. "Consumer" and "commercial" in the third column are the regulatory natures that a debt type declares, and the last column rates the sources read, not the legal conclusion.
+Each row below is one state or the District of Columbia, as read on 2026-10-11 from the statute named in its row. Every cell needs verification. "Consumer" and "commercial" in the third column are the values of each debt's regulatory nature flag, and the last column rates the sources read, not the legal conclusion.
 
 | Jurisdiction | Requirement | Debts it reaches | What brings a collector within it | Suing without it | Confidence |
 | --- | --- | --- | --- | --- | --- |
@@ -106,7 +106,7 @@ Four rows say unclear: Alabama, Louisiana, Massachusetts, and New Mexico. Under 
 >
 > **Verification status**: read from statute text, regulator pages, and in places mirrors of statute text on 2026-10-11, and not reviewed by counsel. A row marked medium or low rests partly on regulator lists, code indexes, or secondary sources.
 >
-> **Coverage**: consumer and commercial debts, as each row says, by the regulatory nature that the debt type declares.
+> **Coverage**: consumer and commercial debts, as each row says, by each debt's regulatory nature flag.
 
 ## Implementation Phasing
 

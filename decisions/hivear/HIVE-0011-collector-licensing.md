@@ -47,7 +47,7 @@ A Compliance Pack states each requirement of its jurisdiction in the same parts.
 >
 > **Kind and level**: the authorization that the jurisdiction requires, such as a license, a registration, or a bond filing, and whether it attaches to the organization, an office, or an individual.
 >
-> **Debts and activities**: which debts the requirement reaches, by the standardized properties that the debt's type declares under [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md), such as a consumer or commercial regulatory nature, and which activities, such as collecting for a client under a contingency or servicing contract, buying debt that is in default, or collecting under a name other than the creditor's.
+> **Debts and activities**: which debts the requirement reaches, by their standardized properties under [HiveAR Design Decision 9](HIVE-0009-debt-type-structure-extension.md), such as the regulatory nature flag that each debt carries, consumer or commercial, and which activities, such as collecting for a client under a contingency or servicing contract, buying debt that is in default, or collecting under a name other than the creditor's.
 >
 > **Triggers**: the facts that bring a collector within the requirement, alone or in combination: the debtor located in the jurisdiction, the client or creditor located there, the organization's office there, or business conducted there.
 >
@@ -91,7 +91,7 @@ This decision defines the records, the requirement shape, and the check, and sta
 
 Every path that works a debt, contacts anyone about it, or sues on it runs the check first. A Vendor Integration Module that collects calls the check and keeps no list of licenses.
 
-The core never names a jurisdiction or a kind of license. A requirement selects the debts it reaches by the properties that their types declare, never by a module's identity.
+The core never names a jurisdiction or a kind of license. A requirement selects the debts it reaches by their properties, such as the regulatory nature flag of each debt, never by a module's identity.
 
 An authorization record is evidence. It changes by events, it keeps its history, and its documents are stored with it.
 
