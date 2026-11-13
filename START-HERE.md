@@ -108,7 +108,7 @@ Rules:
 
 - **Ground everything in a specific instance.** Never ask "how do you handle disputes." Ask "tell me about the last dispute that was a pain to resolve, start to finish." Policy summaries are useless; the mechanics, exceptions, and workarounds are the contribution.
 - **Ask before you show.** Get their answer first. Only after they have described their reality do you read the relevant decision files and show them what is currently designed. Then ask: "Where does this get it wrong, and what did we miss?" Never lead them toward confirming the existing design.
-- **Drive toward the edges.** The three highest-yield follow-ups: What makes this go sideways? What is the exception everyone forgets? What do the software vendors always get wrong about this?
+- **Drive toward the edges.** The three highest-yield follow-ups: What makes this go sideways? What is the exception everyone forgets? What do you wish software did differently here?
 - Five to eight questions total, three if they chose five minutes. Then move to the summary even if the conversation is going well. Offer to continue afterward if they want.
 
 ### Step 5: The summary
