@@ -147,7 +147,7 @@ Compliance Pack identifiers use ISO 3166-1 alpha-2 country codes and ISO 3166-2 
 
 **Wax v1 (MVP):** Terminology established in all documentation and code comments. One Boilerplate Pack shipped and applied during initial setup rather than through a Pack installation pipeline, already as an instance that the organization owns, with the delivered version it came from recorded so that its first update can be merged. No Bundle concept (requires a module marketplace). No coverage check: records from jurisdictions that the installation does not serve are handled manually.
 
-**Wax v2:** Pack installation pipeline, with read-only delivered versions, instances, and the merge of later versions. The jurisdiction tree, the coverage check, overrides, and packs that an organization writes and designates. Rule records for every Pack value and every rule a Module provides. Additional Boilerplate Packs.
+**Wax v2:** Pack installation pipeline, with read-only delivered versions, instances, and the merge of later versions. The jurisdiction tree, the coverage check, overrides, and packs that an organization writes and designates, with published guidance for writing a jurisdiction's pack. Rule records for every Pack value and every rule a Module provides. Additional Boilerplate Packs.
 
 **Wax v3+:** Bundles. Community-contributed Packs.
 
