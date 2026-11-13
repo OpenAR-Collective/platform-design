@@ -2,7 +2,7 @@
 id: WAX-0003
 title: "Database Platform"
 status: Accepted
-version: 1.2
+version: 2.0
 area: wax
 date: 2026-11-13
 supersedes: none
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-The Wax will use PostgreSQL as its primary relational database. This decision applies to the Wax event store, all entity tables, and all module-owned schema extensions.
+The Wax will use PostgreSQL as its primary relational database. This decision applies to the Wax event store, all entity tables, and all module-owned schema extensions. Application code reaches PostgreSQL with plain SQL through Npgsql, the PostgreSQL driver for .NET, inside a repository and query-object layer, and uses no object-relational mapper. The schema changes only through hand-written SQL migrations, applied in order.
 
 ## Rationale
 
@@ -43,11 +43,15 @@ A document database such as MongoDB is often chosen for schema flexibility. That
 
 ## Application Data Access Pattern
 
-Application code accesses PostgreSQL through Entity Framework Core (EF Core), organized using a repository and query-object discipline. Business logic, command handlers, projection workers, and query handlers receive typed objects from repositories and query objects rather than executing SQL themselves. Raw SQL is permitted only inside the data access layer and only where a justified PostgreSQL-specific feature is in use.
+Application code accesses PostgreSQL with plain SQL through Npgsql, organized using a repository and query-object discipline, on every path: commands, the event store, projections, and queries. Business logic, command handlers, projection workers, and query handlers receive typed objects from repositories and query objects rather than executing SQL themselves, and SQL is written only inside the data access layer.
 
-This discipline serves three independent purposes. It keeps PostgreSQL-specific syntax and feature use confined to a single layer rather than scattered across the codebase. It allows database access to be mocked or stubbed cleanly for unit testing. It establishes a clean seam at which a third party could substitute a different EF Core provider if they were willing to undertake that work, without requiring the Foundation to design around portability as a goal.
+This discipline serves two purposes. It keeps SQL, and the PostgreSQL-specific syntax and features it uses, confined to a single layer rather than scattered across the codebase. It allows database access to be mocked or stubbed cleanly for unit testing.
 
-EF Core supplies the change tracking, migration generation, query translation, and connection management that this layer would otherwise need to build. The Foundation does not maintain a custom data access framework above EF Core. For the event store interface established in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md), the equivalent layer is Wax's own implementation, written directly on PostgreSQL. Repository and query-object code outside the event store path uses EF Core directly.
+Wax uses no object-relational mapper. The command path locks the aggregate, checks its version, appends its events, and writes its state rows in one transaction and in as few round trips as possible, and an ORM's change tracking and generated statements add round trips and database work to that path. The Foundation tested this in October 2026 on the same C# command handlers, in the [EF Core mini-pass of the engine bake-off](https://github.com/OpenAR-Collective/spikes/blob/round-2/engine-bakeoff/README.md#the-ef-core-mini-pass). With EF Core, tuned with context pooling, compiled queries, a compiled model, and no change tracking where nothing was written, the handlers used 17 to 27 percent more database CPU and 97 to 128 percent more application CPU per command, and handled 17 to 23 percent fewer commands per second than with plain SQL, in each of the four configurations judged: the payment file, real time, and interest accrual at 8 workers, and the payment file with the engine paused. A single pair of runs on placing new debts, too few for a verdict, appeared to go the other way, because the engine under EF Core fell behind and left about a fifth of that run's work outside the measured window. For the event store interface established in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md), the data access layer is Wax's own implementation, written directly on PostgreSQL. An ORM may return for read-side queries only if a measured test shows that it earns its place. No read-side query has been measured, and the question is open in [OPEN-QUESTIONS.md](../../OPEN-QUESTIONS.md).
+
+## Schema Migrations
+
+The schema changes only through hand-written SQL migrations: ordered SQL files, each applied once and in order by a small runner that records which files have run. Every object the schema needs is written as SQL that a reviewer reads in the pull request, including the event store's triggers and sequence, the grants of the runtime role, and the names that [Wax Design Decision 5](WAX-0005-naming-conventions.md) requires. An ORM's generated migrations cannot express the triggers, functions, grants, roles, and views among those objects, so a schema they owned would still need raw SQL for everything that enforces the event store's invariants. Each component owns its own migration files, as [Wax Design Decision 4](WAX-0004-schema-architecture-and-module-extension-pattern.md) provides for modules.
 
 ## PostgreSQL-Specific Features Are Embraced
 
@@ -59,12 +63,20 @@ A design that preserved portability would require the Foundation to forgo these 
 
 ## Third-Party Database Provider Forks
 
-Because EF Core supports multiple providers natively, the data access seam in the Foundation's codebase does not prevent a third party from forking the platform and implementing a SQL Server, MySQL, Oracle, or other provider. Such a fork would need to replace or substitute every PostgreSQL-specific feature use in the codebase, write a parallel set of migrations, supply equivalents for the read layer features that depend on PostgreSQL semantics, and maintain its fork against ongoing upstream changes. The Foundation neither commits to facilitating this work nor designs around it.
+A third party could fork the platform to run on SQL Server, MySQL, Oracle, or another engine. Such a fork would rewrite the data access layer, because its SQL is written for PostgreSQL. It would also need to replace or substitute every PostgreSQL-specific feature the platform uses, write a parallel set of migrations, supply equivalents for the read layer features that depend on PostgreSQL semantics, and maintain the fork against ongoing upstream changes. The Foundation neither commits to facilitating this work nor designs around it.
 
-The articulation matters for a specific question that mid-market AR agencies running SQL Server-only infrastructure are likely to ask: can HiveAR run on SQL Server? The accurate answer is that the architecture does not forbid it, that EF Core's provider model makes it technically feasible, and that the Foundation does not support, document, or design for that path. An organization with the engineering capacity and motivation to maintain such a fork could do so. The Foundation's mainline distribution targets PostgreSQL exclusively.
+The articulation matters for a specific question that mid-market AR agencies running SQL Server-only infrastructure are likely to ask: can HiveAR run on SQL Server? The accurate answer is that the architecture does not forbid it but makes it a substantial project, because the event store, the read layer, and the data access layer all depend on PostgreSQL, and that the Foundation does not support, document, or design for that path. An object-relational mapper's provider model would not have made it much easier, since the platform depends on PostgreSQL-specific features that no provider translates. An organization with the engineering capacity and motivation to maintain such a fork could do so. The Foundation's mainline distribution targets PostgreSQL exclusively.
 
 ## Implementation Phasing
 
-**Wax v1 (MVP):** Full implementation. PostgreSQL is the database. No simplification needed.
+**Wax v1 (MVP):** Full implementation. PostgreSQL is the database, reached with plain SQL through a repository and query-object layer and changed by hand-written SQL migrations. No simplification needed.
+
+**Wax v2:** An object-relational mapper for read-side queries, if the open question on it decides for one after a measured test.
 
 Breaking change risk: NONE.
+
+## Implications For Contributors
+
+No code uses an object-relational mapper. Data access is plain SQL through Npgsql, written only inside repositories and query objects, and business logic never executes SQL itself.
+
+Every schema change is a hand-written SQL migration file, reviewed as SQL. No migration is generated from code.
