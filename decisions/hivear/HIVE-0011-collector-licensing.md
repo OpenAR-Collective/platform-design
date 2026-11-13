@@ -59,7 +59,7 @@ Every value records its source, its legal force, its effective dates, and its ve
 
 ## Which Requirements Apply
 
-The requirements that apply to a debt are those of every installed Compliance Pack whose triggers the debt's facts meet: the debtor's locations from the Locale Module, the client's location, the organization's offices, and the jurisdiction from which the organization acts. When the debtor's addresses point to more than one jurisdiction, each one counts, as the candidate time zones do in [HiveAR Design Decision 10](HIVE-0010-contact-windows-frequency-and-permission.md), so that collecting from a debtor who may be in a jurisdiction is treated as collecting there. The debt is authorized only when every applicable requirement is met by an active authorization record whose scope covers the debt, or by an exemption on record.
+The requirements that apply to a debt are those of every installed Compliance Pack whose triggers the debt's facts meet: the debtor's locations from the Locale Module, including a jurisdiction that the agency presumes for the debtor under HiveAR Design Decision 13, the client's location, the organization's offices, and the jurisdiction from which the organization acts. When the debtor's addresses point to more than one jurisdiction, each one counts, as the candidate time zones do in [HiveAR Design Decision 10](HIVE-0010-contact-windows-frequency-and-permission.md), so that collecting from a debtor who may be in a jurisdiction is treated as collecting there. The debt is authorized only when every applicable requirement is met by an active authorization record whose scope covers the debt, or by an exemption on record.
 
 ## The Answer and Its Evidence
 
