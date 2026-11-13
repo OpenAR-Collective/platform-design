@@ -2,9 +2,9 @@
 id: HIVE-0003
 title: "Demographic History, Golden Record, and Contact Intelligence"
 status: Accepted
-version: 1.1
+version: 1.2
 area: hivear
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -29,11 +29,11 @@ Demographic history is organized in separate tables per attribute type rather th
 >
 > **entity_name_history**: name component values by locale. Each row represents one name instance as received from one source. Fields vary by Locale Module (given_name, family_name, etc. for US; primary_name for single-name cultures; and so on). The table carries the locale identifier to distinguish US name records from Philippines name records for the same entity.
 >
-> **entity_address_history**: address values. Fields vary by Locale Module satellite schema. A US address row carries addr1, addr2, city, state_code, postal_code, county. A Philippines address row carries street, barangay, municipality_city, province, region, postal_code. Both coexist in the same table under different locale identifiers.
+> **entity_address_history**: address values. Fields vary by Locale Module satellite schema. A US address row carries addr1, addr2, city, state_code, postal_code, county. A Philippines address row carries street, barangay, municipality_city, province, region, postal_code. Both coexist in the same table under different locale identifiers. Every address row also carries a location_type (home, work, other, unknown).
 >
-> **entity_phone_history**: phone numbers. Fields: e164_formatted_number (canonical format), display_number, phone_type (mobile, landline, voip, unknown), locale identifier.
+> **entity_phone_history**: phone numbers. Fields: e164_formatted_number (canonical format), display_number, phone_type (mobile, landline, voip, unknown), location_type (home, work, other, unknown), locale identifier.
 >
-> **entity_email_history**: email addresses. Fields: email_address, is_valid_format.
+> **entity_email_history**: email addresses. Fields: email_address, is_valid_format, location_type (personal, work, other, unknown).
 >
 > **entity_tax_id_history**: national identity and tax identification numbers. Fields: id_type (ssn, ein, itin, tin, umid, and others declared by Locale Modules), id_value (PII-encrypted), locale identifier.
 >
@@ -42,6 +42,8 @@ Demographic history is organized in separate tables per attribute type rather th
 > **entity_employer_history**: employment records. Fields: employer_entity_fk (if the employer is also an entity in the system), employer_name_freeform, job_title, employment_status.
 
 Every row in every attribute history table carries: entity_fk, source_type_fk (client, skip_trace_vendor, credit_bureau, agency_verified, consumer_provided, court_record, and others), source_identifier (which specific client or vendor), recency_date (from the source file or defaulted to load date), load_batch_fk (which import batch introduced this record), debt_fk (which debt it arrived with, if applicable), current_composite_score, tier (gold, silver, or void), bad_flag, bad_flag_actor_fk, bad_flagged_at, and standard created_at, updated_at audit fields.
+
+The location_type of an address, a phone, or an email says where it reaches the party, as the source reported it or as the party or a collector recorded it, and it is unknown when no one has said. It lets a contact permission under [HiveAR Design Decision 10](HIVE-0010-contact-windows-frequency-and-permission.md) reach every contact point of a kind, such as a request not to be called at work, while the phone_type tells a cell phone from a landline.
 
 ## Four Scoring Dimensions
 
@@ -145,7 +147,7 @@ Agencies printing in-house receive returned mail physically. A collector retriev
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Simple contact storage with history table schema in place. Separate demographic history tables per attribute type ship in v1 (phone_history, address_history, email_history). Each row records the value, source, received date, and a simple is_current flag. No scoring engine, no Gold/Silver/Void tiering, no confidence decay. The best contact is the most recent non-voided value. Users can manually mark a contact as bad.
+**HiveAR v1 (MVP):** Simple contact storage with history table schema in place. Separate demographic history tables per attribute type ship in v1 (phone_history, address_history, email_history). Each row records the value, source, received date, location type where it applies, and a simple is_current flag. No scoring engine, no Gold/Silver/Void tiering, no confidence decay. The best contact is the most recent non-voided value. Users can manually mark a contact as bad.
 
 Why the history tables matter in v1: if v1 stores only the current phone number and overwrites it when a new one arrives, the historical data needed for scoring in v2 is lost. The history tables are cheap storage. The scoring engine is expensive logic.
 

@@ -4,7 +4,7 @@ title: "Federal Contact Times and Call Frequency"
 status: Proposed
 version: 0.1
 area: module:united-states
-date: 2026-10-11
+date: 2026-11-12
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,11 +13,11 @@ license: CC-BY-4.0
 
 ## Decision
 
-The federal Compliance Pack, compliance.us, will supply the United States federal values for the contact window and the contact frequency counter of [HiveAR Design Decision 10](../../hivear/HIVE-0010-contact-windows-and-contact-frequency.md): the hours that are presumed convenient for communicating with a consumer, and the limits on telephone calls to a person about a debt. The values come from Regulation F, 12 CFR part 1006, sections 1006.6 and 1006.14, and their official interpretation. HiveAR will treat the call limits, which the rule states as presumptions, as limits that the check enforces, and an agency may set stricter values. The values govern consumer debts only, meaning debts whose debt type declares the consumer regulatory nature under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md), and the rules for commercial debt need separate research and decisions of their own. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
+The federal Compliance Pack, compliance.us, will supply the United States federal values for the contact window and the contact frequency counter of [HiveAR Design Decision 10](../../hivear/HIVE-0010-contact-windows-frequency-and-permission.md): the hours that are presumed convenient for communicating with a consumer, and the limits on telephone calls to a person about a debt. The federal values for the contact permission of that decision are research to come. The values here come from Regulation F, 12 CFR part 1006, sections 1006.6 and 1006.14, and their official interpretation. HiveAR will treat the call limits, which the rule states as presumptions, as limits that the check enforces, and an agency may set stricter values. The values govern consumer debts only, meaning debts whose debt type declares the consumer regulatory nature under [HiveAR Design Decision 9](../../hivear/HIVE-0009-debt-type-structure-extension.md), and the rules for commercial debt need separate research and decisions of their own. Every statement of law in this decision is a research finding that needs verification by someone with compliance standing, is educational reference material, and is not legal advice.
 
 ## Where This Decision Sits
 
-HiveAR Design Decision 10 builds the contact window and the frequency counter and holds no values. This decision supplies the federal values as Compliance Pack content under [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), the same way [United States Module Design Decision 1](MOD-US-0001-itemization-date-and-validation-itemization.md) supplies the federal values for the validation notice. A state's Compliance Pack adds its own values on the same mechanisms, and under HiveAR Design Decision 10 a contact must satisfy both. The consumer's candidate zones come from the US Locale Module of [United States Module Design Decision 2](MOD-US-0002-country-layer.md).
+HiveAR Design Decision 10 builds the contact window, the frequency counter, and the contact permission and holds no values. This decision supplies the federal values as Compliance Pack content under [Wax Design Decision 8](../../wax/WAX-0008-extensibility-construct-nomenclature.md), the same way [United States Module Design Decision 1](MOD-US-0001-itemization-date-and-validation-itemization.md) supplies the federal values for the validation notice. A state's Compliance Pack adds its own values on the same mechanisms, and under HiveAR Design Decision 10 a contact must satisfy both. The consumer's candidate zones come from the US Locale Module of [United States Module Design Decision 2](MOD-US-0002-country-layer.md).
 
 ## Which Debts These Values Govern
 
@@ -29,9 +29,9 @@ Absent knowledge of circumstances to the contrary, a time before 8:00 a.m. or af
 
 - An electronic communication, such as an email or a text message, occurs when the debt collector sends it, not when the consumer receives or reads it, so the check runs at the moment of sending (needs verification). The source is comment 6(b)(1)(i)-1.
 - When the collector's information about the consumer's location conflicts or is ambiguous, such as a phone number whose area code is in one zone and an address in another, the collector communicates at a time that is convenient in all of the locations where the consumer might be (needs verification). The source is comment 6(b)(1)(i)-2. The pack therefore requires the moment to fall inside the window in every candidate zone that the Locale Module returns.
-- The prior consent of the consumer, given directly to the debt collector, permits communication outside the window, and consent given to the creditor or to a previous debt collector does not (needs verification). The sources are section 1006.6(b)(4)(i) and its comments. The pack declares this as the window's exception, which the check honors only when the consent is on record.
+- The prior consent of the consumer, given directly to the debt collector, permits communication outside the window, and consent given to the creditor or to a previous debt collector does not (needs verification). The sources are section 1006.6(b)(4)(i) and its comments. The pack declares this as the window's exception, which the check honors only when the consent is on record as a grant under HiveAR Design Decision 10.
 
-A time that the collector knows is inconvenient for a particular consumer, such as hours the consumer has said are inconvenient, narrows the window further. That knowledge is a restriction the consumer places on contact, which belongs to the separate mechanism recorded as an open question, together with how the collector may respond when the consumer initiates contact at such a time.
+A time that the collector knows is inconvenient for a particular consumer, such as hours the consumer has said are inconvenient, narrows the window further. Under HiveAR Design Decision 10 that knowledge is recorded as a refusal with a window of its own, and how the collector may respond when the consumer starts contact at such a time is part of the federal permission research below.
 
 ## Call Frequency
 
@@ -55,6 +55,12 @@ The check of HiveAR Design Decision 10 applies these values as follows. Each cal
 
 The federal rule sets no count for email or text messages, though conduct across channels can still be harassment when taken together (needs verification). The source is comment 14(a)-2. An agency that wants a limit on messages sets it in its own rules. Communications with third parties to learn a consumer's location are governed by section 1006.10, and a state's rules, such as its own limits on calls, belong to that state's Compliance Pack. Both are for later decisions.
 
+## Contact Permission: Research to Come
+
+HiveAR Design Decision 10 also checks permission to use a channel, and it expects the federal pack to state, for every outbound channel, whether federal law requires a consumer's permission before the channel is used and how that permission is obtained, revoked, tracked, and inherited. Those values have not been researched, so this decision states none of them. The research will read at least the provisions of Regulation F on inconvenient times and places, on communication media that a person asks a collector not to use, and on electronic communications, and the Telephone Consumer Protection Act with the Federal Communications Commission's rules on consent to calls and text messages, and every finding will be flagged for verification (needs verification that these are the governing sources). It must also establish which of these rules reach debts beyond the consumer debts that this decision governs, since some of them may turn on the phone called rather than on the debt (needs verification).
+
+Until the research is done, compliance.us states no permission setting, so HiveAR Design Decision 10 treats every channel as needing permission and shows the pack as incomplete. The research is therefore needed before the permission check ships.
+
 ## Status of the Content
 
 > **Legal force**: Regulation F, 12 CFR part 1006, is a regulation of the Consumer Financial Protection Bureau that implements the Fair Debt Collection Practices Act, and sections 1006.6 and 1006.14 have an official interpretation. The call limits are presumptions that can be rebutted, not bright-line rules. All of this needs verification.
@@ -67,7 +73,7 @@ The federal rule sets no count for email or text messages, though conduct across
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** The window of 8:00 a.m. through 9:00 p.m. at the consumer's location in every candidate zone, the call limit and the quiet period with their exclusions, and the counting of calls by debt, including student loans serviced under one account number.
+**HiveAR v1 (MVP):** The window of 8:00 a.m. through 9:00 p.m. at the consumer's location in every candidate zone, the call limit and the quiet period with their exclusions, and the counting of calls by debt, including student loans serviced under one account number. The federal permission settings for calls, text messages, and email, once the research above is done, because without them the permission check requires permission for every channel.
 
 **HiveAR v2:** The prior-consent exception for the window and for call counts, which needs consent recorded as evidence, as HiveAR Design Decision 10 phases exceptions.
 
