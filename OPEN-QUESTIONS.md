@@ -88,6 +88,12 @@ Version targets indicate when the item is expected to ship, not when the decisio
 **From experience:** If you collect outside the United States, what date does the first notice to the consumer state the amount as of, and where does your system get it?
 **Target:** HiveAR v2.
 
+### Commercial collection rules in the United States
+
+**Technical:** The federal and state rules that govern collecting commercial debt in the United States, such as licensing, bonding, conduct, and contact rules for collectors of business debts, researched separately from the consumer rules of [MOD-US-0001](decisions/modules/united-states/MOD-US-0001-itemization-date-and-validation-itemization.md) and [MOD-US-0003](decisions/modules/united-states/MOD-US-0003-federal-contact-times-call-frequency-and-permission.md) and supplied as Compliance Pack content for debts whose regulatory nature flag under [HIVE-0009](decisions/hivear/HIVE-0009-debt-type-structure-extension.md) is commercial. Which consumer protections do not reach commercial debt, and which apply anyway, needs verification by someone with compliance standing. It also covers whether any law protects a person who guarantees a commercial debt, such as a person entity that is a guarantor under a personal guarantee while a business entity is the primary debtor, although the debt's flag is commercial, which needs verification.
+**From experience:** If you collect business debts, which rules do you follow that differ from consumer collection: licensing, bonding, when and how you may call, or something else?
+**Target:** HiveAR v2.
+
 ### Generative consumer-facing content
 
 **Technical:** AI-generated member-facing content across texts, emails, letters, chat, and voice, with the content, review, approval, and audit controls that FDCPA and related content rules require. The highest-compliance-exposure surface in the platform.
