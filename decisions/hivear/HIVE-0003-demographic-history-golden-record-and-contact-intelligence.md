@@ -2,7 +2,7 @@
 id: HIVE-0003
 title: "Demographic History, Golden Record, and Contact Intelligence"
 status: Accepted
-version: 1.2
+version: 1.3
 area: hivear
 date: 2026-11-12
 supersedes: none
@@ -127,6 +127,8 @@ For any demographic value currently in Gold status, an agent can see its full pr
 
 Agents and automated processes can mark a specific demographic value as bad by setting its bad_flag. A bad flag records the flagging actor, the timestamp, and an optional reason. Bad-flagged values receive a severe score demotion that moves them to void tier. They are never deleted. They remain in history with the bad flag visible. If a bad flag was applied in error, it can be reversed by an authorized agent, which removes the demotion and allows the scoring engine to re-evaluate the value's tier.
 
+A party can also confirm an address as where the party is. The confirmation is recorded on the address row with who recorded it (verified_by_actor_fk), when (verified_at), and how (verification_method), such as on a recorded call or in writing, and it makes the address verified. An address on file that is neither verified nor bad-flagged is a safe assumption of where the party may be, and a location drawn from anything else, such as a phone's area code or a previous address, is a presumption. [HiveAR Design Decision 13](HIVE-0013-compliance-coverage-for-collections.md) reads these levels to decide which jurisdictions govern a debt, and it says when a confirmation ends.
+
 ## False Merge Detection and Auto-Accept Splits
 
 When new demographics are loaded for a previously merged entity, the scoring engine evaluates not only opportunities to merge additional records but also signals that the current merge may be a false positive. Conflicting identity number variants suggesting generational suffixes (John Smith Sr. vs John Smith Jr.), significantly different age signals from different sources, non-overlapping geographic histories that are physically implausible for one person, and different employer histories that do not coexist plausibly are all false merge signals.
@@ -147,7 +149,7 @@ Agencies printing in-house receive returned mail physically. A collector retriev
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Simple contact storage with history table schema in place. Separate demographic history tables per attribute type ship in v1 (phone_history, address_history, email_history). Each row records the value, source, received date, location type where it applies, and a simple is_current flag. No scoring engine, no Gold/Silver/Void tiering, no confidence decay. The best contact is the most recent non-voided value. Users can manually mark a contact as bad.
+**HiveAR v1 (MVP):** Simple contact storage with history table schema in place. Separate demographic history tables per attribute type ship in v1 (phone_history, address_history, email_history). Each row records the value, source, received date, location type where it applies, and a simple is_current flag. No scoring engine, no Gold/Silver/Void tiering, no confidence decay. The best contact is the most recent non-voided value. Users can manually mark a contact as bad and record a party's confirmation of an address.
 
 Why the history tables matter in v1: if v1 stores only the current phone number and overwrites it when a new one arrives, the historical data needed for scoring in v2 is lost. The history tables are cheap storage. The scoring engine is expensive logic.
 
