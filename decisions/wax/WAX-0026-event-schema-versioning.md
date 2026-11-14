@@ -2,9 +2,9 @@
 id: WAX-0026
 title: "Event Schema Versioning"
 status: Accepted
-version: 1.0
+version: 2.0
 area: wax
-date: 2026-08-30
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 ## Decision
 
-Wax will evolve event payload schemas through read-time upcasting, never through in-place migration of stored events. A stored event is byte-immutable for its entire lifetime. Each event type carries an explicit schema_version on its core.event row, scoped to that event type, and that version is included in the [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md) hash input. Only breaking changes increment the version; additive changes do not. Marten provides the upcasting implementation. The pair of event_type and schema_version fully determines how a stored payload is interpreted.
+Wax will evolve event payload schemas through read-time upcasting, never through in-place migration of stored events. A stored event is byte-immutable for its entire lifetime. Each event type carries an explicit schema_version on its core.event row, scoped to that event type, and that version is included in the [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md) hash input. Only breaking changes increment the version; additive changes do not. The event store that Wax implements under [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md) provides the upcasting implementation. The pair of event_type and schema_version fully determines how a stored payload is interpreted.
 
 ## Why This Matters
 
@@ -39,7 +39,7 @@ Upcasters are structural transformations only and never touch the contents of an
 
 ## Projections, Replay, and the Upcaster Registry
 
-The upcaster registry is the single place in the platform where historical schema knowledge lives. Projection code, read model builders, and command handlers are written against the current shape of each event type only. When the event store is replayed to rebuild an authoritative state table or a read model, every historical event passes through the registry and arrives at the consumer in its current shape. This keeps the rest of the codebase free of accumulated backward-compatibility branches: the knowledge of how a v1 payload differs from a v3 payload exists in exactly one upcaster chain and nowhere else.
+The upcaster registry is the single place in the platform where historical schema knowledge lives. Projection code, read model builders, and command handlers are written against the current shape of each event type only. When the event store is replayed to rebuild an authoritative state table or a read model, every historical event passes through the registry and arrives at the consumer in its current shape. This keeps the rest of the codebase free of accumulated backward-compatibility branches: the knowledge of how a v1 payload differs from a v3 payload exists in exactly one upcaster chain and nowhere else. The registry belongs to Wax's event store implementation, which applies it when it loads a stream for a command handler and when its projection reader delivers events to a read model, so no consumer receives a payload that has not passed through it.
 
 ## Schema Changelog
 
@@ -49,7 +49,7 @@ Each event type's schema history is recorded in a schema changelog held as proje
 
 **Wax v1 (MVP):** The schema_version column is present on core.event and is included in the documented hash input specification, even though hash computation itself is deferred to v2. All events are written at version 1. The upcasting mechanism is not yet active because no event type has evolved. This tier exists to lock the schema_version marker into the hash input before the specification freezes.
 
-**Wax v2:** Upcasting activates alongside hash computation. Marten upcaster registration is wired into the event store abstraction layer, the schema changelog discipline begins, and the first breaking change to any event type is handled by a registered upcaster and a version increment. A backfill is unnecessary, since stored v1 events are read through the upcaster rather than rewritten.
+**Wax v2:** Upcasting activates alongside hash computation. The upcaster registry is built into Wax's own event store implementation, the schema changelog discipline begins, and the first breaking change to any event type is handled by a registered upcaster and a version increment. A backfill is unnecessary, since stored v1 events are read through the upcaster rather than rewritten.
 
 **Wax v3+:** Optional tooling: a schema-version audit report that surfaces the distribution of versions across the event store, and validation utilities that confirm every non-current version has a registered upcaster chain reaching the current shape.
 
