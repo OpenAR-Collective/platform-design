@@ -2,4 +2,9 @@
 
 The open issues labeled open-question and area:skip-tracing, one line each, rebuilt automatically from the issues. Each line reads: number | territory | who can answer | effort | topic | answers so far | related questions | title. The issue for number N is https://github.com/OpenAR-Collective/platform-design/issues/N, and QUESTIONS.md on this branch lists every territory.
 
-No open design question carries this label right now.
+- #162 | Skip tracing and demographics | experience, technical | quick | topic:consent-and-contact | 0 answers | related #20, #43, #55, #84, #160, #161, #163 | When one phone number, address, or email belongs to more than one person, how should the system tell them apart?
+- #167 | Skip tracing and demographics | compliance, experience, technical | quick | topic:holds-and-restrictions | 0 answers | related #51, #150, #158, #169, #173 | What should stop, and what should start, when a letter comes back or an email or text cannot be delivered?
+- #168 | Skip tracing and demographics | experience, technical | quick | topic:consent-and-contact | 0 answers | related #20, #155, #166, #167, #169 | When a file brings a new address or phone, should the system use it right away or hold it until someone confirms it?
+- #169 | Skip tracing and demographics | experience, technical | deep | topic:holds-and-restrictions | 0 answers | related #13, #131, #167, #168, #170, #190, #191 | How should a request to an outside data provider be tracked from the moment it is sent until its results are applied?
+- #170 | Skip tracing and demographics | compliance, experience, technical | quick | topic:holds-and-restrictions | 0 answers | related #20, #162, #163, #169, #191, #240 | What should the system keep about relatives, neighbors, and references found while locating a debtor, and who may use it?
+- #171 | Skip tracing and demographics | experience, technical | quick | topic:holds-and-restrictions | 0 answers | related #7, #168, #169, #202 | How should the system record where a debtor works and what they own, and keep employer details the same across debts?

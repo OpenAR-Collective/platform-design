@@ -2,4 +2,13 @@
 
 The open issues labeled open-question and area:debt-buying, one line each, rebuilt automatically from the issues. Each line reads: number | territory | who can answer | effort | topic | answers so far | related questions | title. The issue for number N is https://github.com/OpenAR-Collective/platform-design/issues/N, and QUESTIONS.md on this branch lists every territory.
 
-No open design question carries this label right now.
+- #60 | Debt buying and portfolios | experience, technical | deep | topic:portfolios | 0 answers | related #44, #54, #61, #62, #65, #214 | How should a purchased portfolio be recorded, from the bill of sale to the last forward flow delivery?
+- #61 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #11, #60, #62, #214 | How should a buyer record what it expected a portfolio to collect, so that results can be compared with it?
+- #62 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #20, #60, #61, #172, #240 | How should a buyer review a seller's offering file without creating debts or touching live work?
+- #63 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #65, #69, #271 | How should a buyer find, file, and track claims to return debts to the seller within the agreement's window?
+- #64 | Debt buying and portfolios | experience, technical | deep | topic:portfolios | 0 answers | related #50, #67, #68, #197, #229, #271 | How should a debt record who owns it, who services it, who collects it, and whom the debtor may pay?
+- #65 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #50, #63, #66, #177, #203, #271 | Which debts must be kept out of a sale, transfer, or placement, and how should the check be enforced?
+- #66 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #50, #64, #65, #177, #271 | How should a group of debts be taken to sale, from selection to closing?
+- #67 | Debt buying and portfolios | experience, technical | deep | topic:portfolios | 0 answers | related #4, #7, #64, #68, #133, #213, #240 | What must travel with a debt when it is bought or sold, and how should the receiver load it?
+- #68 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #7, #64, #67, #69, #204 | How should the platform produce proof of ownership for one debt when a court, a debtor, or an auditor asks?
+- #69 | Debt buying and portfolios | experience, technical | quick | topic:portfolios | 0 answers | related #56, #63, #68, #152 | How should a buyer know which documents it holds for each purchased debt, get the missing ones, and hold work until they arrive?

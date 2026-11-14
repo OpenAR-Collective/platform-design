@@ -2,4 +2,16 @@
 
 The open issues labeled open-question and area:reporting, one line each, rebuilt automatically from the issues. Each line reads: number | territory | who can answer | effort | topic | answers so far | related questions | title. The issue for number N is https://github.com/OpenAR-Collective/platform-design/issues/N, and QUESTIONS.md on this branch lists every territory.
 
-No open design question carries this label right now.
+- #11 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related none | Reporting and BI content
+- #86 | Reporting and data visualization | experience, technical | quick | topic:balances-and-interest | 0 answers | related #11, #85, #91, #256 | Which date should a debt's age be counted from, and who chooses it?
+- #214 | Reporting and data visualization | experience, technical | deep | topic:reporting-and-analytics | 0 answers | related #4, #60, #61, #133, #218, #220 | How should recovery be measured for each month's placements or each purchase?
+- #215 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #11, #20, #24, #52, #217, #235, #236 | What should a reporting login be allowed to see?
+- #216 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #3, #12, #48, #138, #218, #221 | How should a payment be credited to the letter, text, or call that led to it?
+- #217 | Reporting and data visualization | experience, technical | deep | topic:reporting-and-analytics | 0 answers | related #13, #24, #52, #215, #227, #240 | How should an agency keep its own data warehouse in step with the platform?
+- #218 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #11, #134, #214, #216, #231 | How should the cost of each letter, call, and lookup be recorded?
+- #219 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #15, #20, #127, #221, #251 | Should a selection of debts be defined once and shared by reports, exports, and bulk work?
+- #220 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #11, #132, #172, #189, #191, #214, #221 | Should the platform keep daily and month-end snapshots of the inventory?
+- #221 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #11, #47, #132, #189, #191, #219, #220 | Should every number on a supervisor's dashboard open the debts behind it?
+- #222 | Reporting and data visualization | compliance, experience, technical | deep | topic:reporting-and-analytics | 0 answers | related #11, #56, #120, #187, #220 | How should collections be tagged when they post so that reports for regulators can be produced?
+- #223 | Reporting and data visualization | experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #6, #11, #48, #74, #214 | How should clients be classified and linked to salespeople for analysis?
+- #275 | Reporting and data visualization | compliance, experience, technical | quick | topic:reporting-and-analytics | 0 answers | related #2, #122, #276 | Should the system prepare year-end tax information returns for forgiven balances, or hand the data to whoever files them?

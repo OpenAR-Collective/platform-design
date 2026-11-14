@@ -2,4 +2,16 @@
 
 The open issues labeled open-question and area:intake, one line each, rebuilt automatically from the issues. Each line reads: number | territory | who can answer | effort | topic | answers so far | related questions | title. The issue for number N is https://github.com/OpenAR-Collective/platform-design/issues/N, and QUESTIONS.md on this branch lists every territory.
 
-No open design question carries this label right now.
+- #4 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related none | Debt lineage
+- #8 | New business intake and placements | experience, technical | deep | topic:balances-and-interest | 0 answers | related none | Itemization and service lines
+- #43 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #4, #44, #50 | How should a new business load catch a debt that was already placed?
+- #53 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #44, #54, #57, #59, #225 | How should a placement file be tracked from the moment it arrives until its debts go live?
+- #54 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #44, #53, #56, #60 | Beyond the record count and the net total, what should a placement balance to before it is approved?
+- #55 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #20, #43, #59, #162 | When a new placement names someone you may already hold, should the load link them, and who decides?
+- #56 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #44, #54, #57, #85, #88, #172, #261 | When a record in a placement fails a check, what should happen to it, and which facts must every new debt carry?
+- #57 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #13, #43, #53, #56 | Should a debt that arrives through the API or is keyed by staff pass the same checks as a placement file?
+- #58 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #12, #51, #56, #57, #126, #127, #128 | How should every new debt get its first status, queue, and first work date, whichever way it arrived?
+- #59 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #4, #43, #50, #53, #55, #251 | How should an agency undo a placement after its debts have gone live?
+- #85 | New business intake and placements | experience, technical | quick | topic:balances-and-interest | 0 answers | related #4, #51, #56, #86, #172, #197 | Which dates should every debt carry, and how should they be protected from being overwritten?
+- #88 | New business intake and placements | experience, technical | quick | topic:placement | 0 answers | related #11, #20, #44, #56, #75, #225 | Where should client-specific placement data go, and what rules should a field the agency defines carry?
+- #257 | New business intake and placements | compliance, experience, technical | quick | topic:placement | 0 answers | related #8, #43, #84, #90, #258, #260 | When the patient and the person who owes a medical bill are different people, who should the system contact, sue, and report?

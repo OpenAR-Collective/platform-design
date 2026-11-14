@@ -6,372 +6,10153 @@
    "label": "area:intake",
    "territory": "New business intake and placements",
    "file": "questions/intake.md",
-   "open": 0
+   "open": 13
   },
   {
    "label": "area:work-queues",
    "territory": "Work queues and debt treatment strategy",
    "file": "questions/work-queues.md",
-   "open": 0
+   "open": 19
   },
   {
    "label": "area:contact",
    "territory": "Consumer contact and communications",
    "file": "questions/contact.md",
-   "open": 0
+   "open": 27
   },
   {
    "label": "area:disputes",
    "territory": "Disputes and validation",
    "file": "questions/disputes.md",
-   "open": 0
+   "open": 5
   },
   {
    "label": "area:payments",
    "territory": "Payments, plans, and arrangements",
    "file": "questions/payments.md",
-   "open": 0
+   "open": 35
   },
   {
    "label": "area:trust",
    "territory": "Trust accounting, remittance, and client billing",
    "file": "questions/trust.md",
-   "open": 0
+   "open": 11
   },
   {
    "label": "area:compliance",
    "territory": "Compliance and complaints",
    "file": "questions/compliance.md",
-   "open": 0
+   "open": 23
   },
   {
    "label": "area:legal",
    "territory": "Legal collections and judgments",
    "file": "questions/legal.md",
-   "open": 0
+   "open": 13
   },
   {
    "label": "area:recalls",
    "territory": "Recalls, closures, and returns",
    "file": "questions/recalls.md",
-   "open": 0
+   "open": 9
   },
   {
    "label": "area:credit-reporting",
    "territory": "Credit reporting",
    "file": "questions/credit-reporting.md",
-   "open": 0
+   "open": 5
   },
   {
    "label": "area:files",
    "territory": "File imports and exports",
    "file": "questions/files.md",
-   "open": 0
+   "open": 5
   },
   {
    "label": "area:reporting",
    "territory": "Reporting and data visualization",
    "file": "questions/reporting.md",
-   "open": 0
+   "open": 13
   },
   {
    "label": "area:integrations",
    "territory": "Vendor integration",
    "file": "questions/integrations.md",
-   "open": 0
+   "open": 6
   },
   {
    "label": "area:programming",
    "territory": "Programming",
    "file": "questions/programming.md",
-   "open": 0
+   "open": 10
   },
   {
    "label": "area:security",
    "territory": "IT infrastructure and data security",
    "file": "questions/security.md",
-   "open": 0
+   "open": 21
   },
   {
    "label": "area:clients",
    "territory": "Client management",
    "file": "questions/clients.md",
-   "open": 0
+   "open": 14
   },
   {
    "label": "area:collectors",
    "territory": "Collector operations and performance",
    "file": "questions/collectors.md",
-   "open": 0
+   "open": 12
   },
   {
    "label": "area:skip-tracing",
    "territory": "Skip tracing and demographics",
    "file": "questions/skip-tracing.md",
-   "open": 0
+   "open": 6
   },
   {
    "label": "area:debt-buying",
    "territory": "Debt buying and portfolios",
    "file": "questions/debt-buying.md",
-   "open": 0
+   "open": 10
   }
  ],
  "questions": [
   {
    "number": 1,
    "title": "Payment arrangements",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
    ]
   },
   {
    "number": 2,
    "title": "Settlement rules",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
    ]
   },
   {
    "number": 3,
    "title": "Action and result codes",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:deep",
+    "open-question",
+    "topic:collector-performance"
    ]
   },
   {
    "number": 4,
-   "title": "Account lineage",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "title": "Debt lineage",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
    ]
   },
   {
    "number": 5,
-   "title": "Account Set system actions",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "title": "Debt Group system actions",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
    ]
   },
   {
    "number": 6,
    "title": "Client hierarchies",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
    ]
   },
   {
    "number": 7,
    "title": "Legal module",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:legal-clocks"
    ]
   },
   {
    "number": 8,
-   "title": "Charge detail and service lines",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
-   "lob": [],
+   "title": "Itemization and service lines",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [
+    "healthcare"
+   ],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:deep",
+    "lob:healthcare",
+    "open-question",
+    "topic:balances-and-interest"
    ]
   },
   {
    "number": 9,
    "title": "Generative consumer-facing content",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:compliance",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:letters-and-notices"
    ]
   },
   {
    "number": 10,
    "title": "AI toolbox implementation",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
    ]
   },
   {
    "number": 11,
    "title": "Reporting and BI content",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
    ]
   },
   {
    "number": 12,
    "title": "Module roadmap: communications",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:consent-and-contact"
    ]
   },
   {
    "number": 13,
    "title": "Module roadmap: integrations and portals",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
+   "areas": [
+    "integrations"
+   ],
+   "territories": [
+    "Vendor integration"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
    "topics": [],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:integrations",
+    "effort:deep",
     "open-question"
    ]
   },
   {
    "number": 14,
    "title": "Custom action type sandboxing",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
    ]
   },
   {
    "number": 15,
    "title": "System-to-system configuration promotion UI",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
    "topics": [],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:quick",
     "open-question"
    ]
   },
   {
    "number": 20,
    "title": "Contractual data-use restrictions and merge scope",
-   "areas": [],
-   "territories": [],
-   "answer": [],
-   "effort": [],
-   "topics": [],
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "compliance",
+    "experience"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "data-protection"
+   ],
    "lob": [],
    "answers": 0,
    "comments": 0,
    "related": [],
    "labels": [
-    "open-question"
+    "answer:compliance",
+    "answer:experience",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 43,
+   "title": "How should a new business load catch a debt that was already placed?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    44,
+    50
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 44,
+   "title": "What should a client be told about each record in a placement file?",
+   "areas": [
+    "files"
+   ],
+   "territories": [
+    "File imports and exports"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    43,
+    50
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:files",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 45,
+   "title": "When an automatic payment fails, how often should it be retried, and what happens when the retries run out?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    46,
+    47
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 46,
+   "title": "How should a payment the debtor sends straight to the client be recorded?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    48,
+    50
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 47,
+   "title": "When a collector promises a debtor a follow-up, how should the system make sure it happens?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    3,
+    45,
+    48
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 48,
+   "title": "When a payment comes in, which collector should get credit for it?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    46,
+    47
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 49,
+   "title": "How should the system record the language a debtor wants to be contacted in?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    12,
+    20
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 50,
+   "title": "When a client recalls a debt, what has to stop, and what still has to happen?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    5,
+    43,
+    44,
+    46,
+    51
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:quick",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 51,
+   "title": "What has to happen before a new debt is first reported to a credit bureau?",
+   "areas": [
+    "credit-reporting"
+   ],
+   "territories": [
+    "Credit reporting"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    13,
+    50
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:credit-reporting",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 52,
+   "title": "When a client or auditor asks who looked at a debt, what should the system be able to show?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 53,
+   "title": "How should a placement file be tracked from the moment it arrives until its debts go live?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    44,
+    54,
+    57,
+    59,
+    225
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 54,
+   "title": "Beyond the record count and the net total, what should a placement balance to before it is approved?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    44,
+    53,
+    56,
+    60
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 55,
+   "title": "When a new placement names someone you may already hold, should the load link them, and who decides?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    43,
+    59,
+    162
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 56,
+   "title": "When a record in a placement fails a check, what should happen to it, and which facts must every new debt carry?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    44,
+    54,
+    57,
+    85,
+    88,
+    172,
+    261
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 57,
+   "title": "Should a debt that arrives through the API or is keyed by staff pass the same checks as a placement file?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    43,
+    53,
+    56
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 58,
+   "title": "How should every new debt get its first status, queue, and first work date, whichever way it arrived?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    51,
+    56,
+    57,
+    126,
+    127,
+    128
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 59,
+   "title": "How should an agency undo a placement after its debts have gone live?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    43,
+    50,
+    53,
+    55,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 60,
+   "title": "How should a purchased portfolio be recorded, from the bill of sale to the last forward flow delivery?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    44,
+    54,
+    61,
+    62,
+    65,
+    214
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:deep",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 61,
+   "title": "How should a buyer record what it expected a portfolio to collect, so that results can be compared with it?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    60,
+    62,
+    214
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 62,
+   "title": "How should a buyer review a seller's offering file without creating debts or touching live work?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    60,
+    61,
+    172,
+    240
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 63,
+   "title": "How should a buyer find, file, and track claims to return debts to the seller within the agreement's window?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    65,
+    69,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 64,
+   "title": "How should a debt record who owns it, who services it, who collects it, and whom the debtor may pay?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    50,
+    67,
+    68,
+    197,
+    229,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:deep",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 65,
+   "title": "Which debts must be kept out of a sale, transfer, or placement, and how should the check be enforced?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    50,
+    63,
+    66,
+    177,
+    203,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 66,
+   "title": "How should a group of debts be taken to sale, from selection to closing?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    50,
+    64,
+    65,
+    177,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 67,
+   "title": "What must travel with a debt when it is bought or sold, and how should the receiver load it?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    7,
+    64,
+    68,
+    133,
+    213,
+    240
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:deep",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 68,
+   "title": "How should the platform produce proof of ownership for one debt when a court, a debtor, or an auditor asks?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    64,
+    67,
+    69,
+    204
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 69,
+   "title": "How should a buyer know which documents it holds for each purchased debt, get the missing ones, and hold work until they arrive?",
+   "areas": [
+    "debt-buying"
+   ],
+   "territories": [
+    "Debt buying and portfolios"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "portfolios"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    56,
+    63,
+    68,
+    152
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:debt-buying",
+    "effort:quick",
+    "open-question",
+    "topic:portfolios"
+   ]
+  },
+  {
+   "number": 70,
+   "title": "How should the contingency fee be worked out when a client's terms go beyond one flat rate?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    46,
+    73,
+    76,
+    263
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 71,
+   "title": "How should the system record and enforce what each client allows and forbids on its debts?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    20,
+    51,
+    72,
+    73,
+    113,
+    175
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 72,
+   "title": "How should the system decide which level's setting applies to a debt, and show staff why?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    15,
+    71,
+    73,
+    74,
+    75,
+    175,
+    237
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 73,
+   "title": "When a client's contract changes, which debts should the new terms reach?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    4,
+    70,
+    71,
+    72,
+    248
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 74,
+   "title": "When clients are related, at which level should statements, reports, and portal access each roll up?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [
+    "government",
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    72,
+    76,
+    77,
+    223
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "lob:government",
+    "lob:healthcare",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 75,
+   "title": "What has to be in place and checked before a new client's debts can be worked?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    15,
+    44,
+    71,
+    72,
+    225,
+    230
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 76,
+   "title": "What should a client statement show so the client can reconcile it to its own books?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    70,
+    74,
+    77,
+    119
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 77,
+   "title": "How should a client user see only its own debts and only what is meant for clients?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    52,
+    74,
+    76,
+    79,
+    217,
+    236
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 78,
+   "title": "How should the agency and the client compare their lists of placed debts and settle the differences?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    44,
+    46,
+    50,
+    79,
+    125,
+    229
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 79,
+   "title": "What should a client's status report show for each debt, including one that is paused or returned?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    3,
+    7,
+    50,
+    78,
+    189,
+    209,
+    211
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:deep",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 80,
+   "title": "When does accrued interest become part of a debt's balance, and how is it worked out when the rate or the balance changes?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    81,
+    82,
+    176,
+    201,
+    255
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 81,
+   "title": "When interest on a debt is paused, waived, or stopped, what happens to it, and how does it start again?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    47,
+    80,
+    111,
+    115,
+    194
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 82,
+   "title": "How should a fee or collection charge be added to a debt, and what can stop it or take it back?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    80,
+    81,
+    107,
+    121,
+    176,
+    205
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 83,
+   "title": "When a client lowers a balance, what happens to the money, the commission, and the steps built on the old balance?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    46,
+    82,
+    101,
+    105,
+    197
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 84,
+   "title": "When several parties owe one debt, how should HiveAR record what each of them owes?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [
+    "commercial"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    8,
+    90,
+    189,
+    191,
+    257,
+    267
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "lob:commercial",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 85,
+   "title": "Which dates should every debt carry, and how should they be protected from being overwritten?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    51,
+    56,
+    86,
+    172,
+    197
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 86,
+   "title": "Which date should a debt's age be counted from, and who chooses it?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    85,
+    91,
+    256
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 87,
+   "title": "What should a debt's status declare, so that every part of the platform treats it the same way?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    5,
+    7,
+    50,
+    139,
+    174,
+    209
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 88,
+   "title": "Where should client-specific placement data go, and what rules should a field the agency defines carry?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    20,
+    44,
+    56,
+    75,
+    225
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 89,
+   "title": "How should HiveAR work debts before they are charged off or placed for collection, and where should that work stop?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    4,
+    80,
+    124,
+    125,
+    259
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 90,
+   "title": "When each charge is its own debt, which level of its group should a notice, a dispute, or a payment plan cover?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [
+    "government",
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    5,
+    8,
+    91,
+    173,
+    185,
+    257,
+    258
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "lob:government",
+    "lob:healthcare",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 91,
+   "title": "Should a group of debts name a lead debt that drives how the group is worked?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    6,
+    86,
+    90
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 92,
+   "title": "What should a secured debt record about recovering its collateral before any shortfall is collected?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    84,
+    87,
+    171,
+    202,
+    207
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 93,
+   "title": "When a payment is taken during a call, how should the system get a definite answer from the processor and never charge twice?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    94,
+    96,
+    98,
+    153
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 94,
+   "title": "How should each payment reach the bank account a client requires, and what should happen when the processor is down?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    23,
+    46,
+    93,
+    95,
+    231
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 95,
+   "title": "Which ways to pay should a payer be offered, and who can narrow or widen that list?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    94,
+    96,
+    107
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 96,
+   "title": "Should the platform ever hold a full card number, or only a processor's token for a saved card?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    23,
+    93,
+    97,
+    98,
+    165,
+    239
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 97,
+   "title": "When a payer agrees to a payment that will be taken later, how should the platform hold it and take it on its date?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    98,
+    99,
+    104,
+    109
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 98,
+   "title": "What record of a payer's authorization should a card or bank payment carry, and when does that authorization stop counting?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    93,
+    96,
+    97,
+    109,
+    154,
+    165
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 99,
+   "title": "Should a group of payments, such as a day's mailed checks or a run of scheduled drafts, balance and be approved before any of it posts?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    97,
+    100,
+    101,
+    119,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 100,
+   "title": "What should happen to an item in a payment file that matches no debt, repeats a payment already posted, or reports a return?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    99,
+    101,
+    104,
+    224
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 101,
+   "title": "When a payment comes back, what besides the balance should its reversal undo or restore?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    48,
+    83,
+    100,
+    102,
+    103,
+    118
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 102,
+   "title": "When a payment was applied to the wrong debt or the wrong part of a debt, should it be moved without reversing the money?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    48,
+    99,
+    101
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 103,
+   "title": "Should money from a bank debit or a check wait until it clears before it is remitted to the client?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    101,
+    105,
+    108,
+    118,
+    120
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 104,
+   "title": "What should happen to money that arrives on a debt that should not take it as usual?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    50,
+    97,
+    105,
+    116,
+    117,
+    189
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 105,
+   "title": "How should the platform keep payers from paying more than they owe, and track a refund until it is received?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    83,
+    97,
+    98,
+    103,
+    104,
+    276
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 106,
+   "title": "When a jurisdiction, a judgment, or a standing court order sets the order in which a payment pays down a debt, how should that order take over?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    102,
+    104,
+    201
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 107,
+   "title": "When may a payer be charged a fee for the way they pay, and how should that fee be recorded?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    82,
+    93,
+    95,
+    106,
+    176
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 108,
+   "title": "What proof should a payer get for each payment, and for a debt paid or settled in full?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    12,
+    13,
+    103,
+    104,
+    153,
+    191
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 109,
+   "title": "When a debtor agrees to a payment plan, what should be recorded, and how should the schedule change later?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    97,
+    98,
+    111,
+    112,
+    113
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 110,
+   "title": "When a debtor promises to pay by a date, how should the promise be recorded and followed up?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    47,
+    48,
+    111,
+    117
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 111,
+   "title": "How should the system decide whether a promise or an installment was kept, and what should happen when it was not?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    48,
+    81,
+    109,
+    110,
+    112,
+    189
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 112,
+   "title": "What should a debtor hear from you over the life of a payment plan, and what should stop or redirect it?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    45,
+    97,
+    109,
+    111,
+    116,
+    151
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 113,
+   "title": "How should the limits a client sets on plans and settlements be checked, and who can approve an exception?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    71,
+    109,
+    114,
+    116,
+    143,
+    153
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 114,
+   "title": "How should a settlement offer be recorded so the debtor gets exactly what was offered?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    113,
+    115,
+    116,
+    117,
+    151,
+    158
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 115,
+   "title": "When a settlement is paid, or fails partway through, how should the debt close?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    81,
+    111,
+    113,
+    114,
+    189,
+    191
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:deep",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 116,
+   "title": "When someone acting for a debtor proposes a plan or pays on the debt, how should it be handled?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    109,
+    111,
+    113,
+    190,
+    192
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 117,
+   "title": "Before a promise, a plan, or a payment is taken on an old debt, should the system warn that it may restart the limitation period?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "arrangements"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    104,
+    110,
+    113,
+    114,
+    172
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:arrangements"
+   ]
+  },
+  {
+   "number": 118,
+   "title": "When a client ends up owing the agency, through a returned payment or an unpaid invoice, how should the agency get it back?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    45,
+    46,
+    101,
+    103,
+    119,
+    120
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 119,
+   "title": "How should a statement run be checked before any money or statement leaves, and corrected after it has?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    70,
+    76,
+    99,
+    118,
+    120
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 120,
+   "title": "Should the ledger record which trust account holds a client's money, and how should earned fees leaving trust be recorded?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    103,
+    118,
+    119,
+    122,
+    222,
+    276
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 121,
+   "title": "How should a court cost advanced on a lawsuit be tracked until it is recovered, returned, or written off?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    118,
+    119,
+    120,
+    205
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 122,
+   "title": "What should decide where each posting lands in the agency's own books, and how should an export be kept from posting twice?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    120,
+    123,
+    125,
+    275,
+    276
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 123,
+   "title": "Until HiveAR calculates tax on collection fees in v3, what must it carry, and how should that calculation work?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    70,
+    122,
+    124
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 124,
+   "title": "How should services billed per letter, per debt, or per activity be priced and billed?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [
+    "government",
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    70,
+    89,
+    119,
+    123,
+    259
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "lob:government",
+    "lob:healthcare",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 125,
+   "title": "When the organization using HiveAR owns the debts and places them with agencies or attorneys, how should it check what they report collecting?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    64,
+    70,
+    78,
+    122,
+    133,
+    183
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:deep",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 126,
+   "title": "How should a work queue be defined, ordered, and handed out to collectors?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    47,
+    58,
+    127,
+    129,
+    130,
+    131
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 127,
+   "title": "How should a treatment plan decide what happens to a debt, and when?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    58,
+    126,
+    128,
+    135,
+    136,
+    151
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 128,
+   "title": "When a debt gets a status like bankruptcy, death, or representation, where should the debt and its work go?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    5,
+    7,
+    58,
+    127,
+    132,
+    139,
+    151
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 129,
+   "title": "What does it mean for a collector to own a debt, and when may someone else take it over?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    47,
+    48,
+    126,
+    130,
+    133
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 130,
+   "title": "How should debts be spread across collectors and teams, and when should they be reshuffled?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    48,
+    129,
+    133,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 131,
+   "title": "How should scores and segments that rank debtors be recorded and used to steer work?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    126,
+    134,
+    136,
+    169,
+    194
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 132,
+   "title": "How should the platform catch debts that stall or need a person, and prove that each debt was worked?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    3,
+    11,
+    47,
+    128,
+    138,
+    142,
+    220
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 133,
+   "title": "How should the platform track debts placed with outside agencies and law firms, and compare how they perform?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    13,
+    50,
+    125,
+    129,
+    130,
+    183
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 134,
+   "title": "How should the platform help decide whether a debt is worth working, suing, placing elsewhere, or closing?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    11,
+    128,
+    131,
+    133,
+    218
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 135,
+   "title": "How should a targeted, time-boxed effort on a set of debts be run and measured?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    126,
+    127,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 136,
+   "title": "How should an agency prove that a new strategy or message works better before rolling it out?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    11,
+    127,
+    131,
+    249
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 137,
+   "title": "What should a collector see on one screen while working a debt, and how should modules add to it?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    49,
+    139,
+    140,
+    143
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 138,
+   "title": "Should a contact outcome be recorded as one code, or as separate parts that can each be counted?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    47,
+    132,
+    142,
+    159,
+    216
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 139,
+   "title": "What must a collector see about a debt before speaking to the debtor or a representative?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    87,
+    128,
+    137,
+    138,
+    143,
+    174
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 140,
+   "title": "What should a debt's history show a collector, and how should a mistaken note be corrected?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    52,
+    137,
+    138,
+    239
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 141,
+   "title": "How should collector goals be set, and how should pace to goal show during the month?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    11,
+    48,
+    129,
+    142
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 142,
+   "title": "What should the platform record about what collectors do, and how should supervisors see it live and over time?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    52,
+    132,
+    138,
+    141,
+    144
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:deep",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 143,
+   "title": "How should a collector get the right script and client rules during a conversation?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    10,
+    49,
+    113,
+    137,
+    139,
+    178
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 144,
+   "title": "How should calls, messages, and notes be reviewed for quality and compliance, by people and by automated screening?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    10,
+    12,
+    133,
+    138,
+    142,
+    164,
+    181
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:deep",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 145,
+   "title": "How should new collectors learn the platform and practice before they talk to real debtors?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "collector-performance"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    10,
+    137,
+    142,
+    143,
+    250
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:collector-performance"
+   ]
+  },
+  {
+   "number": 146,
+   "title": "How should letter templates be built so that staff, not developers, keep the wording, figures, and disclosures right?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    49,
+    147,
+    148,
+    178
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 147,
+   "title": "Who should approve a change to a letter template, and when should the approved version take effect?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    15,
+    143,
+    146,
+    148,
+    178
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 148,
+   "title": "What should the system keep as proof of exactly what each letter, email, or text said?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    52,
+    146,
+    147,
+    159,
+    239,
+    247
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 149,
+   "title": "Before a batch of letters goes to print, what should be checked, and how can someone stop it?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    148,
+    150,
+    151,
+    158,
+    163,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 150,
+   "title": "How should the system confirm that each letter was actually printed and mailed?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    23,
+    149,
+    167,
+    173
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 151,
+   "title": "How should an automated letter series pause, resume, switch, or stop when something changes on a debt?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    5,
+    47,
+    112,
+    127,
+    128,
+    149
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 152,
+   "title": "When a debtor or a court asks for proof of a debt, how should the system find the documents, get what is missing, and send them?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    8,
+    52,
+    69,
+    77,
+    148,
+    173,
+    186
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 153,
+   "title": "What should a debtor be able to see and do in a self-service portal, and who should receive the money?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    46,
+    154,
+    155,
+    156,
+    157,
+    174,
+    277,
+    278
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 154,
+   "title": "When a debtor agrees to something online, what proof of what they saw and accepted should the system keep?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    2,
+    113,
+    148,
+    153,
+    279,
+    281
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 155,
+   "title": "When a debtor changes their own address, phone, or email online, should the change take effect at once or wait for review?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    22,
+    49,
+    153,
+    192,
+    278,
+    281
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 156,
+   "title": "What accessibility standard should portals, payment pages, and generated notices meet?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    49,
+    146,
+    153
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 157,
+   "title": "What should a business that owes invoices be able to see and do in a self-service portal?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [
+    "commercial"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    153,
+    154,
+    185,
+    267
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "lob:commercial",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 158,
+   "title": "How should the system tell a collection message from a notice that must still go out after a debtor says stop?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    3,
+    112,
+    149,
+    160,
+    161,
+    173,
+    174
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 159,
+   "title": "What should the system record about each contact, including the calls and messages a debtor starts?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    3,
+    138,
+    148,
+    160,
+    161
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 160,
+   "title": "How should an outside dialer or messaging service get its instructions from the platform and report back every attempt?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    23,
+    158,
+    159,
+    162,
+    180,
+    228,
+    231
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 161,
+   "title": "How should the system handle what debtors send in, so that a stop request or a dispute never sits unread?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    158,
+    162,
+    164,
+    187,
+    191,
+    192,
+    193
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 162,
+   "title": "When one phone number, address, or email belongs to more than one person, how should the system tell them apart?",
+   "areas": [
+    "skip-tracing"
+   ],
+   "territories": [
+    "Skip tracing and demographics"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    43,
+    55,
+    84,
+    160,
+    161,
+    163
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:skip-tracing",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 163,
+   "title": "How should collectors and automated systems confirm they have the right person before discussing a debt?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    149,
+    162,
+    164,
+    170,
+    192,
+    241
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 164,
+   "title": "What may an automated voice or chat agent do on its own when it talks with a debtor?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    10,
+    144,
+    159,
+    161,
+    163,
+    182,
+    278
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 165,
+   "title": "When should a call be recorded, and how should the recording be kept as proof?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    96,
+    159,
+    164,
+    239
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 166,
+   "title": "How should the system keep each phone number's line type and owner current, and prove what they were on the day of a call?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    56,
+    160,
+    168
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 167,
+   "title": "What should stop, and what should start, when a letter comes back or an email or text cannot be delivered?",
+   "areas": [
+    "skip-tracing"
+   ],
+   "territories": [
+    "Skip tracing and demographics"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    51,
+    150,
+    158,
+    169,
+    173
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:skip-tracing",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 168,
+   "title": "When a file brings a new address or phone, should the system use it right away or hold it until someone confirms it?",
+   "areas": [
+    "skip-tracing"
+   ],
+   "territories": [
+    "Skip tracing and demographics"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    155,
+    166,
+    167,
+    169
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:skip-tracing",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 169,
+   "title": "How should a request to an outside data provider be tracked from the moment it is sent until its results are applied?",
+   "areas": [
+    "skip-tracing"
+   ],
+   "territories": [
+    "Skip tracing and demographics"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    131,
+    167,
+    168,
+    170,
+    190,
+    191
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:skip-tracing",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 170,
+   "title": "What should the system keep about relatives, neighbors, and references found while locating a debtor, and who may use it?",
+   "areas": [
+    "skip-tracing"
+   ],
+   "territories": [
+    "Skip tracing and demographics"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    162,
+    163,
+    169,
+    191,
+    240
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:skip-tracing",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 171,
+   "title": "How should the system record where a debtor works and what they own, and keep employer details the same across debts?",
+   "areas": [
+    "skip-tracing"
+   ],
+   "territories": [
+    "Skip tracing and demographics"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    168,
+    169,
+    202
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:skip-tracing",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 172,
+   "title": "How should the platform track when the time for suing on a debt runs out, and what should change when it does?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    61,
+    62,
+    85,
+    117,
+    173,
+    174
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:legal-clocks"
+   ]
+  },
+  {
+   "number": 173,
+   "title": "When a rule requires a notice to the debtor, how should the platform get it out on time, prove its delivery, and count the waiting period that follows?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    51,
+    90,
+    167,
+    174,
+    184,
+    203
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:legal-clocks"
+   ]
+  },
+  {
+   "number": 174,
+   "title": "How should one check stop every action that a debt's current status forbids, whoever or whatever starts it?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    87,
+    139,
+    172,
+    177,
+    189,
+    191
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 175,
+   "title": "When a national rule and a state or provincial rule speak to the same point, which one should govern a debt?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    71,
+    143,
+    174,
+    283
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 176,
+   "title": "What should the platform check before it adds a fee or interest to a debt, and what should it record about why?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "balances-and-interest"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    80,
+    82,
+    107,
+    175,
+    247
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:balances-and-interest"
+   ]
+  },
+  {
+   "number": 177,
+   "title": "What should be checked, and who should sign off, before a debt is sued, sold, or reported to a credit bureau?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    51,
+    65,
+    66,
+    172,
+    174,
+    200
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "lob:healthcare",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 178,
+   "title": "How should the platform make sure every message to a debtor carries the disclosures its rules require, whoever sends it?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    12,
+    49,
+    143,
+    146,
+    158,
+    173
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 179,
+   "title": "How should an agency pause collection for everyone in a disaster area, then resume it?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    50,
+    174,
+    265
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 180,
+   "title": "How should an agency keep track of the outside companies that act on its debts, and hold them to the same rules?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    23,
+    158,
+    160,
+    183,
+    199,
+    247
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 181,
+   "title": "How should the platform find likely compliance problems across every debt, and see each one through to closure?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    144,
+    182,
+    247
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 182,
+   "title": "How should an agency keep track of, explain, and switch off the scores, rules, and AI agents that act on its debts?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    10,
+    164,
+    174,
+    181,
+    246,
+    278
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 183,
+   "title": "How should a creditor or debt owner oversee the agencies and law firms it places debts with?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    13,
+    50,
+    125,
+    133,
+    180,
+    199
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 184,
+   "title": "While a dispute is open, what should stop, what should keep going, and what work should it create?",
+   "areas": [
+    "disputes"
+   ],
+   "territories": [
+    "Disputes and validation"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "disputes-and-complaints"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    173,
+    174,
+    186,
+    188,
+    198,
+    266
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:disputes",
+    "effort:quick",
+    "open-question",
+    "topic:disputes-and-complaints"
+   ]
+  },
+  {
+   "number": 185,
+   "title": "When a business customer short-pays an invoice or takes a deduction, how should the disputed part be recorded?",
+   "areas": [
+    "disputes"
+   ],
+   "territories": [
+    "Disputes and validation"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "disputes-and-complaints"
+   ],
+   "lob": [
+    "commercial"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    84,
+    157,
+    184,
+    186
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:disputes",
+    "effort:quick",
+    "lob:commercial",
+    "open-question",
+    "topic:disputes-and-complaints"
+   ]
+  },
+  {
+   "number": 186,
+   "title": "When only the client can answer a debtor's question, what should wait for the answer?",
+   "areas": [
+    "disputes"
+   ],
+   "territories": [
+    "Disputes and validation"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    50,
+    174,
+    184,
+    185
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:disputes",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 187,
+   "title": "How should a complaint be recorded, answered on time, and shared with the clients and owners it concerns?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "disputes-and-complaints"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    6,
+    11,
+    52,
+    161,
+    184,
+    268
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:disputes-and-complaints"
+   ]
+  },
+  {
+   "number": 188,
+   "title": "When a debtor says a debt came from identity theft or was coerced, what should happen across every debt it touches?",
+   "areas": [
+    "disputes"
+   ],
+   "territories": [
+    "Disputes and validation"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "disputes-and-complaints"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    174,
+    184,
+    194,
+    198
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:disputes",
+    "effort:quick",
+    "open-question",
+    "topic:disputes-and-complaints"
+   ]
+  },
+  {
+   "number": 189,
+   "title": "When a debtor files for bankruptcy, how should the case be recorded, and how should its outcome be applied to each debt?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "relief-and-estates"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    84,
+    174,
+    190,
+    191,
+    193,
+    197
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:relief-and-estates"
+   ]
+  },
+  {
+   "number": 190,
+   "title": "Should debts of deceased or bankrupt debtors be returned, held, or claimed, and what must a filed claim track?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "relief-and-estates"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    50,
+    71,
+    128,
+    189,
+    191,
+    209
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:relief-and-estates"
+   ]
+  },
+  {
+   "number": 191,
+   "title": "When a debtor dies, how should the death be recorded, and who may still be told about the debt?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "relief-and-estates"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    51,
+    84,
+    108,
+    174,
+    189,
+    190,
+    192
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:relief-and-estates"
+   ]
+  },
+  {
+   "number": 192,
+   "title": "When a law firm or a settlement company represents a debtor, what should the representation record, and what should it change about contact?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "representation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    51,
+    116,
+    163,
+    174,
+    191,
+    194
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:representation"
+   ]
+  },
+  {
+   "number": 193,
+   "title": "When should debts be screened for bankruptcy, death, and military service, and what proof of each check should be kept?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    22,
+    51,
+    58,
+    174,
+    189,
+    191
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 194,
+   "title": "When a debtor reports hardship or a vulnerable circumstance, what should be recorded, what should change, and who may see it?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    20,
+    52,
+    81,
+    174,
+    188,
+    192
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 195,
+   "title": "How should a credit reporting cycle run, and how should it prove what was reported for each debt?",
+   "areas": [
+    "credit-reporting"
+   ],
+   "territories": [
+    "Credit reporting"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    23,
+    51,
+    196,
+    197,
+    198
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:credit-reporting",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 196,
+   "title": "Who decides whether a debt may be reported to a credit bureau, and what happens to reported debts when a rule changes?",
+   "areas": [
+    "credit-reporting"
+   ],
+   "territories": [
+    "Credit reporting"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    51,
+    177,
+    195,
+    197
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:credit-reporting",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 197,
+   "title": "After a debt is first reported, what should update or remove it, and what must carry forward through a sale or a conversion?",
+   "areas": [
+    "credit-reporting"
+   ],
+   "territories": [
+    "Credit reporting"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    50,
+    64,
+    189,
+    191,
+    195,
+    196
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:credit-reporting",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 198,
+   "title": "How should a dispute change what is reported to the credit bureaus, and how should a dispute received through a bureau be answered?",
+   "areas": [
+    "credit-reporting"
+   ],
+   "territories": [
+    "Credit reporting"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "disputes-and-complaints"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    51,
+    184,
+    192,
+    195,
+    197
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:credit-reporting",
+    "effort:quick",
+    "open-question",
+    "topic:disputes-and-complaints"
+   ]
+  },
+  {
+   "number": 199,
+   "title": "When a debt is forwarded to outside counsel or another agency, what should the forward record, and how do status and money come back?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    46,
+    133,
+    180,
+    200,
+    210,
+    211
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 200,
+   "title": "What should a legal case name, and can one debt sit in two cases at once?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    5,
+    174,
+    189,
+    201,
+    203,
+    206
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 201,
+   "title": "When a court enters a judgment, what should the system record, and how should it carry the judgment from then on?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    68,
+    80,
+    106,
+    200,
+    202
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:legal-clocks"
+   ]
+  },
+  {
+   "number": 202,
+   "title": "How should the system carry an enforcement step, such as a garnishment, from request to recovery, and check that it is allowed?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    104,
+    171,
+    189,
+    191,
+    201,
+    203,
+    264
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 203,
+   "title": "What must a debt pass before it goes to suit, and how should the result be recorded?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    71,
+    172,
+    173,
+    177,
+    204,
+    205
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 204,
+   "title": "How should the system prove that a qualified person reviewed the records behind a suit or a sworn statement?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    52,
+    68,
+    203,
+    205
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:quick",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 205,
+   "title": "How should court filings be produced from a case, and what should stop one that is not ready?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    121,
+    203,
+    206
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 206,
+   "title": "How should the system request and track service on each defendant, and keep the proof?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    169,
+    192,
+    200,
+    205
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:quick",
+    "open-question",
+    "topic:legal-clocks"
+   ]
+  },
+  {
+   "number": 207,
+   "title": "How should the system file, track, and release the security behind a debt?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
+   "lob": [
+    "commercial",
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    92,
+    189,
+    191,
+    201,
+    209
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:quick",
+    "lob:commercial",
+    "lob:healthcare",
+    "open-question",
+    "topic:legal-clocks"
+   ]
+  },
+  {
+   "number": 208,
+   "title": "When a closed debt comes back to life, should it reopen, and what must be checked before work resumes?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    43,
+    50,
+    117,
+    209
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:quick",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 209,
+   "title": "When a debt leaves active work, what kinds of exit should the platform know, and what should each one mean?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    5,
+    50,
+    79,
+    87,
+    189,
+    208,
+    211
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:deep",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 210,
+   "title": "When a placement's working period runs out, how should the debt come back without anyone having to notice?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    50,
+    71,
+    190,
+    199,
+    209
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:quick",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 211,
+   "title": "When a debt exits, how should every part of the platform and every outside party respond, and how do we know they did?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    5,
+    13,
+    50,
+    180,
+    199,
+    209,
+    213
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:deep",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 212,
+   "title": "When may a closed debt's personal data be erased, and what should block it?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    208,
+    209,
+    239,
+    241
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:deep",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 213,
+   "title": "When a client relationship ends or inventory moves to another agency or firm, what must go back, by when, and with what proof?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    50,
+    67,
+    209,
+    211,
+    227,
+    230
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:deep",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 214,
+   "title": "How should recovery be measured for each month's placements or each purchase?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    60,
+    61,
+    133,
+    218,
+    220
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:deep",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 215,
+   "title": "What should a reporting login be allowed to see?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    20,
+    24,
+    52,
+    217,
+    235,
+    236
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 216,
+   "title": "How should a payment be credited to the letter, text, or call that led to it?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    3,
+    12,
+    48,
+    138,
+    218,
+    221
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 217,
+   "title": "How should an agency keep its own data warehouse in step with the platform?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    24,
+    52,
+    215,
+    227,
+    240
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:deep",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 218,
+   "title": "How should the cost of each letter, call, and lookup be recorded?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    134,
+    214,
+    216,
+    231
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 219,
+   "title": "Should a selection of debts be defined once and shared by reports, exports, and bulk work?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    15,
+    20,
+    127,
+    221,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 220,
+   "title": "Should the platform keep daily and month-end snapshots of the inventory?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    132,
+    172,
+    189,
+    191,
+    214,
+    221
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 221,
+   "title": "Should every number on a supervisor's dashboard open the debts behind it?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    47,
+    132,
+    189,
+    191,
+    219,
+    220
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 222,
+   "title": "How should collections be tagged when they post so that reports for regulators can be produced?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    56,
+    120,
+    187,
+    220
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:deep",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 223,
+   "title": "How should clients be classified and linked to salespeople for analysis?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    6,
+    11,
+    48,
+    74,
+    214
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 224,
+   "title": "How should an update or payment record in a client's file find the debt it is meant for?",
+   "areas": [
+    "files"
+   ],
+   "territories": [
+    "File imports and exports"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    43,
+    46,
+    100,
+    225,
+    228
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:files",
+    "effort:quick",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 225,
+   "title": "How should a bad file, or a bad change to a file mapping, be caught before it loads?",
+   "areas": [
+    "files"
+   ],
+   "territories": [
+    "File imports and exports"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    15,
+    44,
+    53,
+    75,
+    224,
+    226,
+    253
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:files",
+    "effort:quick",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 226,
+   "title": "How should files move to and from partners, and who holds the keys?",
+   "areas": [
+    "integrations"
+   ],
+   "territories": [
+    "Vendor integration"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    23,
+    217,
+    225,
+    231,
+    240,
+    252
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:integrations",
+    "effort:deep",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 227,
+   "title": "How should an organization bring its history over from a prior platform, and take it out again?",
+   "areas": [
+    "files"
+   ],
+   "territories": [
+    "File imports and exports"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    15,
+    67,
+    213,
+    217,
+    224
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:files",
+    "effort:deep",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 228,
+   "title": "What should a portal, dialer, or texting service be able to do through the API?",
+   "areas": [
+    "integrations"
+   ],
+   "territories": [
+    "Vendor integration"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    52,
+    153,
+    160,
+    224,
+    229,
+    231
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:integrations",
+    "effort:deep",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 229,
+   "title": "When a dispute, bankruptcy, or death is reported on one side, how fast should the other side hear about it?",
+   "areas": [
+    "integrations"
+   ],
+   "territories": [
+    "Vendor integration"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    44,
+    46,
+    50,
+    64,
+    78,
+    189,
+    228
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:integrations",
+    "effort:deep",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 230,
+   "title": "Should standard exchange formats ship as installable packs that map onto HiveAR's own codes?",
+   "areas": [
+    "files"
+   ],
+   "territories": [
+    "File imports and exports"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    3,
+    7,
+    56,
+    78,
+    79,
+    199
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:files",
+    "effort:deep",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 231,
+   "title": "What should every dialer, letter, or payment connector have to do, so that one can be swapped for another?",
+   "areas": [
+    "integrations"
+   ],
+   "territories": [
+    "Vendor integration"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "conversion-and-exchange"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    23,
+    94,
+    160,
+    218,
+    226,
+    228
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:integrations",
+    "effort:deep",
+    "open-question",
+    "topic:conversion-and-exchange"
+   ]
+  },
+  {
+   "number": 232,
+   "title": "Which actions should an agency be able to limit to certain roles, and how should it see who can do what?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    233,
+    236,
+    245
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 233,
+   "title": "When should a sensitive action on a debt need a second person's approval?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    174,
+    232,
+    246,
+    269
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 234,
+   "title": "What sign-in controls should the platform enforce for staff and client users, and what should it record about each sign-in?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    52,
+    232,
+    245
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 235,
+   "title": "Which sensitive fields should be hidden or masked by default, and who should see them in full?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    52,
+    96,
+    215,
+    236,
+    243,
+    260
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 236,
+   "title": "What should decide which debts a user can see: client, office, team, queue, or something else?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    20,
+    52,
+    77,
+    215,
+    237,
+    242
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 237,
+   "title": "How should one organization run several offices or lines of business that share debtors but follow their own settings?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    6,
+    72,
+    236,
+    238
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 238,
+   "title": "How should related companies on one installation share staff, setup, and reporting while keeping their money and data apart?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    6,
+    11,
+    236,
+    237
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 239,
+   "title": "How long should each kind of record be kept, and how should the platform dispose of it when that time ends?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    165,
+    212,
+    213,
+    241,
+    268
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 240,
+   "title": "How should the platform record the role an agency plays for each placement's personal data, the basis it relies on, and where that data may travel?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    170,
+    213,
+    241,
+    243
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 241,
+   "title": "How should the platform track a person's request to see, correct, or erase the data held about them?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    20,
+    163,
+    192,
+    212,
+    239,
+    240
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 242,
+   "title": "How should an agency answer a client's audit with proof limited to that client's debts?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    13,
+    52,
+    183,
+    236,
+    244,
+    247
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 243,
+   "title": "After a security incident, how should the platform show whose data was exposed and which notice clocks started?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    52,
+    234,
+    235,
+    240
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 244,
+   "title": "What proof should the platform give an agency for its security audits and attestations?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    232,
+    234,
+    242,
+    248
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:quick",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 245,
+   "title": "How should the platform keep work away from people whose access, training, or license has lapsed?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    232,
+    234,
+    244
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 246,
+   "title": "When AI or automation helps produce a letter, a filing, or a decision on a debt, what should the record show, and what may a client forbid?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    10,
+    174,
+    182,
+    233,
+    281
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 247,
+   "title": "When a regulator, a court, or a client asks what the platform knew about a debt on a past date, what should it produce?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    4,
+    52,
+    148,
+    242,
+    248
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 248,
+   "title": "How should a rule or setting change be scheduled for a future date, and how should the platform show which version governed a past action?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    15,
+    73,
+    247,
+    249,
+    250
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 249,
+   "title": "Who should approve a new or changed rule or workflow before it acts on live debts, and what should they see first?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    14,
+    136,
+    147,
+    248,
+    250,
+    251
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 250,
+   "title": "How should a test, training, or restored copy of the platform be kept from reaching real people and outside systems?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    15,
+    23,
+    145,
+    248,
+    249
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 251,
+   "title": "When a bulk change goes wrong, how should an agency undo it, and what should it see before the run?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    59,
+    149,
+    174,
+    219,
+    249
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 252,
+   "title": "When one scheduled job depends on another, how should the platform make sure they run in order without an operator?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    44,
+    226,
+    253,
+    255
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 253,
+   "title": "When unattended processing fails, never starts, or waits for approval, who should be told, and how?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    11,
+    225,
+    252,
+    256
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 254,
+   "title": "Which events on a debt should the platform publish for automatic treatment, and in what order should rules on one event run?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    3,
+    7,
+    174,
+    189,
+    192,
+    255
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 255,
+   "title": "Which date-driven steps should run on a debt, in what order, and how should a stalled run recover without doing anything twice?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    4,
+    47,
+    80,
+    252,
+    254,
+    256
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 256,
+   "title": "How should a legal or contractual deadline become tracked work with an owner, a consequence, and proof that it was met?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "strategy-and-automation"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    47,
+    132,
+    174,
+    253,
+    254,
+    274
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:deep",
+    "open-question",
+    "topic:strategy-and-automation"
+   ]
+  },
+  {
+   "number": 257,
+   "title": "When the patient and the person who owes a medical bill are different people, who should the system contact, sue, and report?",
+   "areas": [
+    "intake"
+   ],
+   "territories": [
+    "New business intake and placements"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "placement"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    8,
+    43,
+    84,
+    90,
+    258,
+    260
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:intake",
+    "effort:quick",
+    "lob:healthcare",
+    "open-question",
+    "topic:placement"
+   ]
+  },
+  {
+   "number": 258,
+   "title": "While insurance or the provider still has to act on a medical bill, what should stop and what should keep going?",
+   "areas": [
+    "work-queues"
+   ],
+   "territories": [
+    "Work queues and debt treatment strategy"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    83,
+    90,
+    174,
+    257,
+    262
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:work-queues",
+    "effort:quick",
+    "lob:healthcare",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 259,
+   "title": "When an early-out program ends, how should a debt move to bad-debt collection or back to the provider?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    50,
+    89,
+    124,
+    270,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:quick",
+    "lob:healthcare",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 260,
+   "title": "How should health information on a debt be kept to the staff who need it and off letters, voicemails, and credit reports?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    8,
+    12,
+    52,
+    194,
+    235,
+    257,
+    269
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "lob:healthcare",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 261,
+   "title": "How should the system know that a debt is medical, so that rules for medical debt apply wherever it is placed?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    56,
+    71,
+    175,
+    177,
+    257
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:quick",
+    "lob:healthcare",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 262,
+   "title": "When an injury claim or another third party may owe a medical bill, how should the system stop collecting from the patient?",
+   "areas": [
+    "disputes"
+   ],
+   "territories": [
+    "Disputes and validation"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [
+    "healthcare"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    7,
+    174,
+    257,
+    258
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:disputes",
+    "effort:quick",
+    "lob:healthcare",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 263,
+   "title": "Should billing, client statements, and collector credit treat money differently depending on how it reached the debt?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    48,
+    70,
+    264,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 264,
+   "title": "How should a public creditor's debts be submitted to tax refund offset programs and kept current there?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "legal-clocks"
+   ],
+   "lob": [
+    "government"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    189,
+    202,
+    263,
+    265
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:deep",
+    "lob:government",
+    "open-question",
+    "topic:legal-clocks"
+   ]
+  },
+  {
+   "number": 265,
+   "title": "How should the system represent a public creditor whose programs limit actions, set repayment, pause collection, or write balances off?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [
+    "government"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    56,
+    71,
+    174,
+    179,
+    263,
+    264
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:deep",
+    "lob:government",
+    "open-question",
+    "topic:holds-and-restrictions"
+   ]
+  },
+  {
+   "number": 266,
+   "title": "When a letter, a fax, or a court paper arrives, how should the system record when it came, match it to a debt, and route it?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "letters-and-notices"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    152,
+    161,
+    184,
+    189,
+    268,
+    271
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:deep",
+    "open-question",
+    "topic:letters-and-notices"
+   ]
+  },
+  {
+   "number": 267,
+   "title": "When a business that owes a debt closes, changes its name, is acquired, or enters insolvency, what should change on its debts?",
+   "areas": [
+    "legal"
+   ],
+   "territories": [
+    "Legal collections and judgments"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "relief-and-estates"
+   ],
+   "lob": [
+    "commercial"
+   ],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    84,
+    185,
+    189,
+    199,
+    266
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:legal",
+    "effort:quick",
+    "lob:commercial",
+    "open-question",
+    "topic:relief-and-estates"
+   ]
+  },
+  {
+   "number": 268,
+   "title": "When someone sues your company, files an arbitration demand, or a regulator opens an inquiry, how should the system handle the matter?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "disputes-and-complaints"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    7,
+    187,
+    239,
+    266,
+    269
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:disputes-and-complaints"
+   ]
+  },
+  {
+   "number": 269,
+   "title": "How should the system keep staff off debts they should not touch and stop money moving without a second person?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "data-protection"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    52,
+    71,
+    233,
+    236,
+    260
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:data-protection"
+   ]
+  },
+  {
+   "number": 270,
+   "title": "Which phone number and name should a debtor see when your company calls or texts, and how should that be recorded?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    12,
+    22,
+    259,
+    272
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 271,
+   "title": "When money or mail arrives for a debt that has already left your company, what should happen to it?",
+   "areas": [
+    "recalls"
+   ],
+   "territories": [
+    "Recalls, closures, and returns"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "exits"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    46,
+    50,
+    64,
+    104,
+    211,
+    259,
+    266
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:recalls",
+    "effort:quick",
+    "open-question",
+    "topic:exits"
+   ]
+  },
+  {
+   "number": 272,
+   "title": "When collectors use work names with debtors, how should each name trace back to one real person?",
+   "areas": [
+    "collectors"
+   ],
+   "territories": [
+    "Collector operations and performance"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consent-and-contact"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    12,
+    270
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:collectors",
+    "effort:quick",
+    "open-question",
+    "topic:consent-and-contact"
+   ]
+  },
+  {
+   "number": 273,
+   "title": "When a card payment is charged back or a bank debit comes back as unauthorized, how should the dispute be worked?",
+   "areas": [
+    "payments"
+   ],
+   "territories": [
+    "Payments, plans, and arrangements"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "payment-capture"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    45,
+    83,
+    101,
+    269
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:payments",
+    "effort:quick",
+    "open-question",
+    "topic:payment-capture"
+   ]
+  },
+  {
+   "number": 274,
+   "title": "How should the system track each client's service-level commitments and prove they were met?",
+   "areas": [
+    "clients"
+   ],
+   "territories": [
+    "Client management"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    6,
+    11,
+    47,
+    71,
+    256
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:clients",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 275,
+   "title": "Should the system prepare year-end tax information returns for forgiven balances, or hand the data to whoever files them?",
+   "areas": [
+    "reporting"
+   ],
+   "territories": [
+    "Reporting and data visualization"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "reporting-and-analytics"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    2,
+    122,
+    276
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:reporting",
+    "effort:quick",
+    "open-question",
+    "topic:reporting-and-analytics"
+   ]
+  },
+  {
+   "number": 276,
+   "title": "When a refund or remittance check is never cashed, how should the money be tracked until its owner claims it or the agency turns it over?",
+   "areas": [
+    "trust"
+   ],
+   "territories": [
+    "Trust accounting, remittance, and client billing"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "remittance-and-billing"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    100,
+    105,
+    120,
+    122,
+    271,
+    275
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:trust",
+    "effort:quick",
+    "open-question",
+    "topic:remittance-and-billing"
+   ]
+  },
+  {
+   "number": 277,
+   "title": "How should the consumer portal know that an AI agent really acts for the consumer it names?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "consumer-agents"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    163,
+    192,
+    278,
+    279,
+    282
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:deep",
+    "open-question",
+    "topic:consumer-agents"
+   ]
+  },
+  {
+   "number": 278,
+   "title": "What should a consumer's AI agent be allowed to do through the consumer portal?",
+   "areas": [
+    "integrations"
+   ],
+   "territories": [
+    "Vendor integration"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consumer-agents"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    2,
+    113,
+    153,
+    277,
+    279,
+    280
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:integrations",
+    "effort:quick",
+    "open-question",
+    "topic:consumer-agents"
+   ]
+  },
+  {
+   "number": 279,
+   "title": "When should a consumer have to confirm personally what their AI agent asks the portal to do?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consumer-agents"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    98,
+    154,
+    192,
+    277,
+    278,
+    281
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consumer-agents"
+   ]
+  },
+  {
+   "number": 280,
+   "title": "How should the consumer portal keep an AI agent from probing for the lowest offer?",
+   "areas": [
+    "contact"
+   ],
+   "territories": [
+    "Consumer contact and communications"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consumer-agents"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    1,
+    2,
+    113,
+    114,
+    192,
+    278,
+    281
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:contact",
+    "effort:quick",
+    "open-question",
+    "topic:consumer-agents"
+   ]
+  },
+  {
+   "number": 281,
+   "title": "What should the platform record about each thing a consumer's AI agent does?",
+   "areas": [
+    "security"
+   ],
+   "territories": [
+    "IT infrastructure and data security"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "quick"
+   ],
+   "topics": [
+    "consumer-agents"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    52,
+    154,
+    246,
+    277,
+    279,
+    280
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:security",
+    "effort:quick",
+    "open-question",
+    "topic:consumer-agents"
+   ]
+  },
+  {
+   "number": 282,
+   "title": "Should a consumer's AI agent come in through the same door as the agency's own AI agents?",
+   "areas": [
+    "programming"
+   ],
+   "territories": [
+    "Programming"
+   ],
+   "answer": [
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "consumer-agents"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    9,
+    164,
+    182,
+    228,
+    277,
+    278,
+    281
+   ],
+   "labels": [
+    "answer:experience",
+    "answer:technical",
+    "area:programming",
+    "effort:deep",
+    "open-question",
+    "topic:consumer-agents"
+   ]
+  },
+  {
+   "number": 283,
+   "title": "Where should the rules of a body above a single country, such as the European Union, fit among the jurisdictions that govern a debt?",
+   "areas": [
+    "compliance"
+   ],
+   "territories": [
+    "Compliance and complaints"
+   ],
+   "answer": [
+    "compliance",
+    "experience",
+    "technical"
+   ],
+   "effort": [
+    "deep"
+   ],
+   "topics": [
+    "holds-and-restrictions"
+   ],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [
+    175,
+    248
+   ],
+   "labels": [
+    "answer:compliance",
+    "answer:experience",
+    "answer:technical",
+    "area:compliance",
+    "effort:deep",
+    "open-question",
+    "topic:holds-and-restrictions"
    ]
   }
  ]

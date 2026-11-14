@@ -2,4 +2,12 @@
 
 The open issues labeled open-question and area:recalls, one line each, rebuilt automatically from the issues. Each line reads: number | territory | who can answer | effort | topic | answers so far | related questions | title. The issue for number N is https://github.com/OpenAR-Collective/platform-design/issues/N, and QUESTIONS.md on this branch lists every territory.
 
-No open design question carries this label right now.
+- #50 | Recalls, closures, and returns | experience, technical | quick | topic:exits | 0 answers | related #4, #5, #43, #44, #46, #51 | When a client recalls a debt, what has to stop, and what still has to happen?
+- #208 | Recalls, closures, and returns | experience, technical | quick | topic:exits | 0 answers | related #43, #50, #117, #209 | When a closed debt comes back to life, should it reopen, and what must be checked before work resumes?
+- #209 | Recalls, closures, and returns | experience, technical | deep | topic:exits | 0 answers | related #5, #50, #79, #87, #189, #208, #211 | When a debt leaves active work, what kinds of exit should the platform know, and what should each one mean?
+- #210 | Recalls, closures, and returns | experience, technical | quick | topic:exits | 0 answers | related #50, #71, #190, #199, #209 | When a placement's working period runs out, how should the debt come back without anyone having to notice?
+- #211 | Recalls, closures, and returns | experience, technical | deep | topic:exits | 0 answers | related #5, #13, #50, #180, #199, #209, #213 | When a debt exits, how should every part of the platform and every outside party respond, and how do we know they did?
+- #212 | Recalls, closures, and returns | compliance, experience, technical | deep | topic:exits | 0 answers | related #4, #208, #209, #239, #241 | When may a closed debt's personal data be erased, and what should block it?
+- #213 | Recalls, closures, and returns | experience, technical | deep | topic:exits | 0 answers | related #4, #50, #67, #209, #211, #227, #230 | When a client relationship ends or inventory moves to another agency or firm, what must go back, by when, and with what proof?
+- #259 | Recalls, closures, and returns | experience, technical | quick | topic:exits | 0 answers | related #50, #89, #124, #270, #271 | When an early-out program ends, how should a debt move to bad-debt collection or back to the provider?
+- #271 | Recalls, closures, and returns | experience, technical | quick | topic:exits | 0 answers | related #46, #50, #64, #104, #211, #259, #266 | When money or mail arrives for a debt that has already left your company, what should happen to it?
