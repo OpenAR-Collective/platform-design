@@ -2,9 +2,9 @@
 id: MOD-UNSECURED-0001
 title: "Definition and Buckets"
 status: Accepted
-version: 2.2
+version: 2.3
 area: module:unsecured-consumer-debt
-date: 2026-11-13
+date: 2026-11-14
 supersedes: none
 license: CC-BY-4.0
 ---

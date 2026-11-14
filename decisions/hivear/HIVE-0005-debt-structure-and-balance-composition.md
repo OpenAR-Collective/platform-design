@@ -2,9 +2,9 @@
 id: HIVE-0005
 title: "Debt Structure and Balance Composition"
 status: Accepted
-version: 2.3
+version: 2.4
 area: hivear
-date: 2026-11-13
+date: 2026-11-14
 supersedes: none
 license: CC-BY-4.0
 ---

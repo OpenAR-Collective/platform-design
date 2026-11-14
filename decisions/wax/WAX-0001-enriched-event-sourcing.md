@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 2.2
+version: 2.3
 area: wax
-date: 2026-11-13
+date: 2026-11-14
 supersedes: none
 license: CC-BY-4.0
 ---
