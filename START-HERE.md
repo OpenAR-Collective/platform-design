@@ -20,7 +20,7 @@ Three ways to send it:
 - **An open design question, with your AI assistant.** Paste this line into your AI assistant. It finds questions that fit your work, interviews you, and helps you post your answers on GitHub, including setting up a free account if you need one.
 
   ```
-  Read https://github.com/OpenAR-Collective/platform-design/blob/main/START-HERE.md and help me answer an open design question on GitHub.
+  Read https://raw.githubusercontent.com/OpenAR-Collective/platform-design/main/START-HERE.md and help me answer an open design question on GitHub. If you cannot open links, tell me and I will paste the page in instead.
   ```
 
 - **Email.** If you would rather not use GitHub, email what you have to contribute@openarcollective.org. A steward posts it on GitHub for you, credits you exactly as you ask, and never posts your email address.

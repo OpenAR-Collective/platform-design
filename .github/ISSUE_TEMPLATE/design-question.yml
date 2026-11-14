@@ -8,7 +8,7 @@ body:
       value: |
         A design question asks for one decision that one person with the right background can answer in a sitting. To answer an existing question, comment on it instead, or paste this line into your AI assistant, which will interview you and format your answer:
 
-        `Read https://github.com/OpenAR-Collective/platform-design/blob/main/START-HERE.md and help me answer an open design question on GitHub.`
+        `Read https://raw.githubusercontent.com/OpenAR-Collective/platform-design/main/START-HERE.md and help me answer an open design question on GitHub. If you cannot open links, tell me and I will paste the page in instead.`
   - type: textarea
     id: decision
     attributes:

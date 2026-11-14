@@ -31,7 +31,7 @@ You do not need to write code, and you do not need to understand event sourcing.
 To answer one of the project's open design questions, paste this line into your AI assistant. It finds questions that fit your work, interviews you, and helps you post your answers:
 
 ```
-Read https://github.com/OpenAR-Collective/platform-design/blob/main/START-HERE.md and help me answer an open design question on GitHub.
+Read https://raw.githubusercontent.com/OpenAR-Collective/platform-design/main/START-HERE.md and help me answer an open design question on GitHub. If you cannot open links, tell me and I will paste the page in instead.
 ```
 
 [CONTRIBUTING.md](CONTRIBUTING.md) covers the file format and the pull request path. [GOVERNANCE.md](GOVERNANCE.md) covers who decides and how.
