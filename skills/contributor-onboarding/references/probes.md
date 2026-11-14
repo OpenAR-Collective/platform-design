@@ -1,6 +1,6 @@
 # Interview Probes by Territory
 
-> **DRAFT.** These seed probes were drafted for founder review and have not yet been tuned against real conversations. Improve them as interviews reveal which questions open people up. The patterns to preserve: walk-me-throughs anchored to a specific recent instance, edge cases ("what makes this go sideways"), forgotten exceptions, and the wish list ("what do you wish software did differently here"). Pricing, rates, and fee structures are never probed; see the antitrust guardrail in START-HERE.md.
+> **DRAFT.** These seed probes were drafted for founder review and have not yet been tuned against real conversations. Improve them as interviews reveal which questions open people up. The patterns to preserve: walk-me-throughs anchored to a specific recent instance, edge cases ("what makes this go sideways"), forgotten exceptions, and the wish list ("what would you want to happen here if nothing limited you"). Pricing, rates, and fee structures are never probed; see the antitrust guardrail in START-HERE.md.
 
 Use three to five probes per conversation, adapted to what the person says. These are seeds, not a script. The decisions in this repository say debt where many people say account, so accept whichever word the person uses and ask which record in their system carries the balance that gets collected, because that is the unit the decisions care about.
 
@@ -11,14 +11,14 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Think of the last healthcare, toll, or card placement you loaded. What was the unit you collected against (the account, the claim, the visit, or a single charge), how did the client's file identify it, what itemization of charges or transactions came with it, and what did the levels above it let you do?
 - A client places a debt whose charges, payments, and adjustments do not add up to the balance they sent. What does your company do with it: load it, hold it, or send it back?
 - What happens at your company when the same debt shows up in two different placement files?
-- What do you wish software did differently when it loads new business?
+- What would you want to happen when new business is loaded, if nothing limited you?
 
 ## 2. Work queues and debt treatment strategy
 
 - Walk me through a debt that arrived this morning. What decides whose queue it lands in by this afternoon, and what decides how it gets worked?
 - Pick one treatment path at your company: a letter series, a dialer campaign, or a text sequence. What pulls a debt off it, and what has to happen for it to go back on?
 - When two rules claim the same debt at the same time, say a legal review and an active payment arrangement, which one actually wins today, and who decided that?
-- What does your team fix by hand in its work queues, and what do you wish software did differently there?
+- What does your team fix by hand in its work queues, and what would you want to happen there if nothing limited you?
 
 ## 3. Consumer contact and communications
 
@@ -33,7 +33,7 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - When a consumer disputes three debts in one phone call, how does your company record that?
 - What happens when the client never sends the validation documents?
 - When you put together a validation notice, where do the interest, fees, payments, and credits since the itemization date come from: the client's file, your own postings, or both?
-- What do you wish software did differently with disputes?
+- What would you want to happen with disputes if nothing limited you?
 
 ## 5. Payments, plans, and arrangements
 
@@ -47,7 +47,7 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Walk me through the last remittance that would not reconcile. Where was the discrepancy hiding?
 - When a payment reverses after the client has already been paid, what does your company actually do?
 - What does month-end close look like, and which part of it depends on a spreadsheet nobody else understands?
-- What do you wish software did differently in trust accounting?
+- What would you want to happen in trust accounting if nothing limited you?
 
 ## 7. Compliance and complaints
 
@@ -61,7 +61,7 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Walk me through a debt's handoff to legal. What gets locked, what keeps moving, and who can still touch it?
 - Tell me about the last case where activity happened on a debt that should have been frozen for litigation.
 - After judgment, what changes about how the debt is worked and accounted for?
-- What do you wish software did differently with legal inventory?
+- What would you want to happen with legal inventory if nothing limited you?
 
 ## 9. Recalls, closures, and returns
 
@@ -75,7 +75,7 @@ Use three to five probes per conversation, adapted to what the person says. Thes
 - Walk me through the last e-OSCAR dispute you handled end to end.
 - When a debt is paid, settled, or recalled, what has to happen to the tradeline, and how does your company make sure it actually happens?
 - Tell me about a time reporting got out of sync with reality. How was it caught?
-- What do you wish software did differently in Metro 2 reporting?
+- What would you want to happen in Metro 2 reporting if nothing limited you?
 
 ## 11. File imports and exports
 
