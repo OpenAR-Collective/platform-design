@@ -2,9 +2,9 @@
 id: HIVE-0009
 title: "Debt-Type Structure Extension"
 status: Accepted
-version: 3.1
+version: 3.2
 area: hivear
-date: 2026-11-13
+date: 2026-11-14
 supersedes: none
 license: CC-BY-4.0
 ---
