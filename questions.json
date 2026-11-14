@@ -1,0 +1,378 @@
+{
+ "repository": "OpenAR-Collective/platform-design",
+ "line_format": "number | territory | who can answer | effort | topic | answers so far | related questions | title",
+ "areas": [
+  {
+   "label": "area:intake",
+   "territory": "New business intake and placements",
+   "file": "questions/intake.md",
+   "open": 0
+  },
+  {
+   "label": "area:work-queues",
+   "territory": "Work queues and debt treatment strategy",
+   "file": "questions/work-queues.md",
+   "open": 0
+  },
+  {
+   "label": "area:contact",
+   "territory": "Consumer contact and communications",
+   "file": "questions/contact.md",
+   "open": 0
+  },
+  {
+   "label": "area:disputes",
+   "territory": "Disputes and validation",
+   "file": "questions/disputes.md",
+   "open": 0
+  },
+  {
+   "label": "area:payments",
+   "territory": "Payments, plans, and arrangements",
+   "file": "questions/payments.md",
+   "open": 0
+  },
+  {
+   "label": "area:trust",
+   "territory": "Trust accounting, remittance, and client billing",
+   "file": "questions/trust.md",
+   "open": 0
+  },
+  {
+   "label": "area:compliance",
+   "territory": "Compliance and complaints",
+   "file": "questions/compliance.md",
+   "open": 0
+  },
+  {
+   "label": "area:legal",
+   "territory": "Legal collections and judgments",
+   "file": "questions/legal.md",
+   "open": 0
+  },
+  {
+   "label": "area:recalls",
+   "territory": "Recalls, closures, and returns",
+   "file": "questions/recalls.md",
+   "open": 0
+  },
+  {
+   "label": "area:credit-reporting",
+   "territory": "Credit reporting",
+   "file": "questions/credit-reporting.md",
+   "open": 0
+  },
+  {
+   "label": "area:files",
+   "territory": "File imports and exports",
+   "file": "questions/files.md",
+   "open": 0
+  },
+  {
+   "label": "area:reporting",
+   "territory": "Reporting and data visualization",
+   "file": "questions/reporting.md",
+   "open": 0
+  },
+  {
+   "label": "area:integrations",
+   "territory": "Vendor integration",
+   "file": "questions/integrations.md",
+   "open": 0
+  },
+  {
+   "label": "area:programming",
+   "territory": "Programming",
+   "file": "questions/programming.md",
+   "open": 0
+  },
+  {
+   "label": "area:security",
+   "territory": "IT infrastructure and data security",
+   "file": "questions/security.md",
+   "open": 0
+  },
+  {
+   "label": "area:clients",
+   "territory": "Client management",
+   "file": "questions/clients.md",
+   "open": 0
+  },
+  {
+   "label": "area:collectors",
+   "territory": "Collector operations and performance",
+   "file": "questions/collectors.md",
+   "open": 0
+  },
+  {
+   "label": "area:skip-tracing",
+   "territory": "Skip tracing and demographics",
+   "file": "questions/skip-tracing.md",
+   "open": 0
+  },
+  {
+   "label": "area:debt-buying",
+   "territory": "Debt buying and portfolios",
+   "file": "questions/debt-buying.md",
+   "open": 0
+  }
+ ],
+ "questions": [
+  {
+   "number": 1,
+   "title": "Payment arrangements",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 2,
+   "title": "Settlement rules",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 3,
+   "title": "Action and result codes",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 4,
+   "title": "Account lineage",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 5,
+   "title": "Account Set system actions",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 6,
+   "title": "Client hierarchies",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 7,
+   "title": "Legal module",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 8,
+   "title": "Charge detail and service lines",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 9,
+   "title": "Generative consumer-facing content",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 10,
+   "title": "AI toolbox implementation",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 11,
+   "title": "Reporting and BI content",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 12,
+   "title": "Module roadmap: communications",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 13,
+   "title": "Module roadmap: integrations and portals",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 14,
+   "title": "Custom action type sandboxing",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 15,
+   "title": "System-to-system configuration promotion UI",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  },
+  {
+   "number": 20,
+   "title": "Contractual data-use restrictions and merge scope",
+   "areas": [],
+   "territories": [],
+   "answer": [],
+   "effort": [],
+   "topics": [],
+   "lob": [],
+   "answers": 0,
+   "comments": 0,
+   "related": [],
+   "labels": [
+    "open-question"
+   ]
+  }
+ ]
+}
