@@ -2,9 +2,9 @@
 id: WAX-0023
 title: "Workflow Automation Engine"
 status: Accepted
-version: 1.3
+version: 1.4
 area: wax
-date: 2026-11-13
+date: 2026-11-14
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -55,7 +55,7 @@ A workflow action can instruct the engine to suppress downstream workflow evalua
 
 ## Pluggable Action Type Architecture
 
-The workflow engine defines an action type interface in C#. Any class implementing the interface is a valid action type. Wax ships with a built-in library. Modules and Packs contribute additional action types. Power users with C# skills may implement and install their own local action types. A LexisNexis address scrubbing action type shipped as a Pack, for example, handles all communication with the LexisNexis endpoint, parses the response, and populates declared output schema fields that are then available as downstream conditions in the workflow designer.
+The workflow engine defines an action type interface in C#. Any class implementing the interface is a valid action type. Wax ships with a built-in library. Modules contribute additional action types. A Pack has no compiled code under [Wax Design Decision 8](WAX-0008-extensibility-construct-nomenclature.md), so it contributes workflow definitions that use action types but no action types of its own. Power users with C# skills may implement and install their own local action types. An address verification action type shipped in a Module, for example, handles all communication with an address verification provider's endpoint, parses the response, and populates declared output schema fields that are then available as downstream conditions in the workflow designer.
 
 > **ACTION TYPE INTERFACE DECLARATION**
 >
