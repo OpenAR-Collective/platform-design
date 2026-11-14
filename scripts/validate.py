@@ -8,8 +8,10 @@ Blocking checks: front matter schema, ID format and uniqueness, ID matching
 the filename, version format and its coupling to status, the required
 Decision section, banned characters, sentences beginning with coordinating
 conjunctions, resolvable relative links, INDEX.md staying in sync with the
-decision files, and the onboarding territory list agreeing across the four
-files that carry it.
+decision files, the shape of .github/labels.yml, and the onboarding
+territory list agreeing across the six places that carry it: START-HERE.md
+Step 3, the territory dropdowns of three issue forms, the probe headings,
+and the descriptions of the area labels.
 
 With --base <git ref>, the script also compares every changed decision file
 against that ref: a version may not go backwards, and a change to the
@@ -167,11 +169,55 @@ TERRITORY_SOURCES = {
     "START-HERE.md": "start-here",
     ".github/ISSUE_TEMPLATE/how-we-handle-this.yml": "form",
     ".github/ISSUE_TEMPLATE/report-a-gap.yml": "form",
+    ".github/ISSUE_TEMPLATE/design-question.yml": "form",
     "skills/contributor-onboarding/references/probes.md": "probes",
+    ".github/labels.yml": "labels",
 }
 
+LABELS_PATH = ".github/labels.yml"
+LABEL_LINE_RE = re.compile(r'^(- |  )(name|color|description): "([^"\\]*)"$')
+LABEL_COLOR_RE = re.compile(r"^[0-9A-Fa-f]{6}$")
 
-def territories_in(path, kind):
+
+def read_labels():
+    """The entries of .github/labels.yml in file order, as dicts.
+
+    Each entry is a "- name:" line followed by indented color and description
+    lines, every value in double quotes. Anything else is reported as an error.
+    """
+    path = os.path.join(ROOT, LABELS_PATH)
+    labels = []
+    for n, raw in enumerate(open(path, encoding="utf-8").read().split("\n"), start=1):
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        m = LABEL_LINE_RE.match(raw)
+        if not m or (m.group(1) == "- ") != (m.group(2) == "name") or (m.group(1) == "  " and not labels):
+            err(path, n, 'expected "- name:", "  color:", or "  description:" with a double-quoted value')
+            continue
+        if m.group(1) == "- ":
+            labels.append({"line": n})
+        elif m.group(2) in labels[-1]:
+            err(path, n, f"label entry has a second {m.group(2)}")
+        labels[-1][m.group(2)] = m.group(3)
+    seen = set()
+    for label in labels:
+        name = label.get("name", "")
+        for key in ("color", "description"):
+            if key not in label:
+                err(path, label["line"], f"label {name!r} has no {key}")
+        if name.lower() in seen:
+            err(path, label["line"], f"duplicate label {name!r}")
+        seen.add(name.lower())
+        if "color" in label and not LABEL_COLOR_RE.match(label["color"]):
+            err(path, label["line"], f"label {name!r} color is not six hexadecimal digits")
+        if len(label.get("description", "")) > 100:
+            err(path, label["line"], f"label {name!r} description is longer than 100 characters")
+    return labels
+
+
+def territories_in(path, kind, labels):
+    if kind == "labels":
+        return [l.get("description", "") for l in labels if l.get("name", "").startswith("area:")]
     text = open(os.path.join(ROOT, path), encoding="utf-8").read()
     if kind == "start-here":
         m = re.search(r"### Step 3: Territory\n(.*?)\n\n(?=[A-Z])", text, flags=re.S)
@@ -185,8 +231,8 @@ def territories_in(path, kind):
     return [i.strip() for i in items if i.strip() != "Something else"]
 
 
-def check_territories():
-    lists = {path: territories_in(path, kind) for path, kind in TERRITORY_SOURCES.items()}
+def check_territories(labels):
+    lists = {path: territories_in(path, kind, labels) for path, kind in TERRITORY_SOURCES.items()}
     reference_path = "START-HERE.md"
     reference = lists[reference_path]
     if not reference:
@@ -273,7 +319,7 @@ def main():
     for path in sorted(md_files):
         check_file(path, ids_seen, decision_paths)
     check_index(sorted(decision_paths))
-    check_territories()
+    check_territories(read_labels())
     if args.base:
         check_version_bumps(args.base)
 

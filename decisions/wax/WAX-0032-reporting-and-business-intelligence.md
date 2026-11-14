@@ -17,7 +17,7 @@ Wax will not build a reporting or business intelligence engine. The platform alr
 
 ## The Data Layer Already Exists
 
-Reporting is usually treated as a feature to build. Here the hard part is already done by decisions made elsewhere. Every entity and every read model is exposed as a SQL view that decrypts personal information and resolves internationalized labels transparently, scoped by the connecting credential's role through row-level security, as established in Wax Design Decisions 2, 14, and 18. A business intelligence tool, a reporting tool, or any direct SQL client with read credentials queries those views and receives clean, correctly permissioned data with no special configuration. The question this decision answers is therefore not how to make the data reportable, which it already is, but what, if anything, the platform should build on top of that surface.
+Reporting is not a feature to build here, because the hard part is already done by decisions made elsewhere. Every entity and every read model is exposed as a SQL view that decrypts personal information and resolves internationalized labels transparently, scoped by the connecting credential's role through row-level security, as established in Wax Design Decisions 2, 14, and 18. A business intelligence tool, a reporting tool, or any direct SQL client with read credentials queries those views and receives clean, correctly permissioned data with no special configuration. The question this decision answers is therefore not how to make the data reportable, which it already is, but what, if anything, the platform should build on top of that surface.
 
 ## No Native Reporting Engine
 
@@ -37,7 +37,7 @@ These dashboards are deliberately non-configurable and non-exportable. There is 
 
 ## Setup Helper and Report Packs
 
-Pointing a business intelligence tool at the platform is made turnkey by a light setup helper that connects the tool to the view layer, rather than leaving it a manual configuration exercise. The helper is tool-agnostic, since the view layer is standard SQL, and it is a deliverable rather than a maintained software integration the platform must carry. Operators commonly expect a system to arrive with a set of common reports already available, and the platform supports this through domain-specific report packs: sets of prebuilt queries and dashboards for a business intelligence tool that a deployment imports and runs on the first day. A pack is report definitions over the existing views, and its content is a concern of the domain implementation rather than the framework, since the reports a domain needs are inherent to that domain.
+Pointing a business intelligence tool at the platform is made turnkey by a light setup helper that connects the tool to the view layer, rather than leaving it a manual configuration exercise. The helper is tool-agnostic, since the view layer is standard SQL, and it is a deliverable rather than a maintained software integration the platform must carry. An operator needs a set of common reports from the start, and the platform supports this through domain-specific report packs: sets of prebuilt queries and dashboards for a business intelligence tool that a deployment imports and runs on the first day. A pack is report definitions over the existing views, and its content is a concern of the domain implementation rather than the framework, since the reports a domain needs are inherent to that domain.
 
 ## Tool Independence and License Discipline
 

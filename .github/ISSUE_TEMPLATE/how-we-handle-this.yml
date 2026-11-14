@@ -28,6 +28,10 @@ body:
         - Vendor integration
         - Programming
         - IT infrastructure and data security
+        - Client management
+        - Collector operations and performance
+        - Skip tracing and demographics
+        - Debt buying and portfolios
         - Something else
     validations:
       required: true

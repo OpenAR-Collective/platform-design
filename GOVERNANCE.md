@@ -7,7 +7,7 @@ Decision authority for this repository, and for all repositories of The Open Acc
 ## Roles
 
 - **Maintainers** review contributions, merge changes, convert community input into issues and decision updates, and recommend adoption or rejection to the Foundation. The founding maintainer is Rob Grafrath, the Foundation's Board Chair. Additional maintainers and a technical committee will be designated as the project grows.
-- **Contributors** are everyone else who participates: through Discord, issues, interviews, or pull requests. No employer affiliation is required or disqualifying. Contributors with commercial interests in the AR industry are welcome; disclosed interest is preferred over disengaged distance.
+- **Contributors** are everyone else who participates: through issues, comments, email, interviews, or pull requests. No employer affiliation is required or disqualifying. Contributors with commercial interests in the AR industry are welcome; disclosed interest is preferred over disengaged distance.
 
 ## Decision lifecycle
 

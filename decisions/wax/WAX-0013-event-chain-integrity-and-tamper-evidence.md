@@ -19,7 +19,7 @@ Integrity rests on the aggregate-level hash chains and the checkpoints. The glob
 
 ## Why This Matters
 
-Incumbent collections platforms were largely built when an audit trail meant a log table that a system administrator could edit. Regulatory requirements and litigation exposure have grown enormously since then, but the underlying infrastructure has not kept pace. Wax will be the first platform in the AR industry to build cryptographically sealed, independently verifiable audit history into its core architecture from inception. Agencies running Wax will be able to demonstrate to regulators, creditors, and consumers that their operational records are trustworthy and provably unaltered, in a way no proprietary closed-source platform can credibly claim.
+An audit trail kept as a log table that a system administrator can edit proves nothing about whether the records in it were altered, and regulatory requirements and litigation exposure make that proof matter. Wax will be the first platform in the AR industry to build cryptographically sealed, independently verifiable audit history into its core architecture from inception. Agencies running Wax will be able to demonstrate to regulators, creditors, and consumers that their operational records are trustworthy and provably unaltered, in a way no proprietary closed-source platform can credibly claim.
 
 ## Per-Aggregate Hash Chaining
 

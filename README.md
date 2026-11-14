@@ -26,7 +26,13 @@ You do not need to write code, and you do not need to understand event sourcing.
 
 1. Go to **[START-HERE.md](START-HERE.md)**, or point your AI assistant at it and say "walk me through this."
 2. Ask how the platform handles something you deal with every day.
-3. If the answer is wrong, incomplete, or missing, tell us: in a [GitHub issue](https://github.com/OpenAR-Collective/platform-design/issues/new/choose), or in the [#platform-design channel](https://discord.com/channels/1497335210658762964/1543762760993603675) if you are on the Collective's Discord. [Membership](https://join.openarcollective.org) is free and includes Discord access.
+3. If the answer is wrong, incomplete, or missing, tell us in a [GitHub issue](https://github.com/OpenAR-Collective/platform-design/issues/new/choose), or by email to contribute@openarcollective.org if you would rather not use GitHub.
+
+To answer one of the project's open design questions, paste this line into your AI assistant. It finds questions that fit your work, interviews you, and helps you post your answers:
+
+```
+Read https://raw.githubusercontent.com/OpenAR-Collective/platform-design/main/START-HERE.md and help me answer an open design question on GitHub. If you cannot open links, tell me and I will paste the page in instead.
+```
 
 [CONTRIBUTING.md](CONTRIBUTING.md) covers the file format and the pull request path. [GOVERNANCE.md](GOVERNANCE.md) covers who decides and how.
 
