@@ -2,9 +2,9 @@
 id: MOD-UNSECURED-0001
 title: "Definition and Buckets"
 status: Accepted
-version: 2.1
+version: 2.2
 area: module:unsecured-consumer-debt
-date: 2026-10-11
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -47,7 +47,7 @@ This module deliberately attaches no subject-matter fields or sub-entities. Unse
 
 ## Scope
 
-This module covers charged-off, contingency-placed consumer debt, a placed balance, static or carrying placed interest, itemized from the itemization date and worked on a contingency contract. Pre-charge-off and first-party servicing, with payment schedules and a next-due structure, is the servicing contract type in V3 and is out of scope here. Debt purchased rather than placed is the debt-purchase contract type and its module, in V2.
+This module covers charged-off, contingency-placed consumer debt, a placed balance, static or carrying placed interest, itemized from the itemization date and worked on a contingency contract. Pre-charge-off and first-party servicing, with payment schedules and a next-due structure, is the servicing contract type, which [HiveAR Design Decision 5](../../hivear/HIVE-0005-debt-structure-and-balance-composition.md) phases into HiveAR v2, and is out of scope here. Debt purchased rather than placed is the debt-purchase contract type and its module, with which this module becomes compatible in its v2+, as the phasing below says.
 
 ## Implementation Phasing
 

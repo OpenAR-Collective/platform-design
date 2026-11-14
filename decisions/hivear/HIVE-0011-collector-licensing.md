@@ -2,9 +2,9 @@
 id: HIVE-0011
 title: "Collector Licensing"
 status: Proposed
-version: 0.1
+version: 0.2
 area: hivear
-date: 2026-11-12
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -37,7 +37,7 @@ Licensing is separate from compliance coverage, which Wax Design Decision 8 comp
 >
 > **Conditions and evidence**: the conditions that the authorization carries, such as a bond or a trust account, recorded as information, and the license or the filing receipt, held in document storage under [Wax Design Decision 30](../wax/WAX-0030-document-storage.md).
 
-An authorization record is an aggregate with its own event history, so the platform can show which authorization stood at the moment of any action. The Pending Event Register of [Wax Design Decision 27](../wax/WAX-0027-pending-event-register.md) schedules a warning ahead of each expiry or renewal date, and a lapse takes effect on its date without anyone having to notice it.
+An authorization record is an aggregate with its own event history, so the platform can show which authorization stood at the moment of any action. The Pending Event Register of [Wax Design Decision 27](../wax/WAX-0027-pending-event-register.md) schedules a warning ahead of each expiry or renewal date, and a lapse takes effect on its date without anyone having to notice it. Alongside the warnings, a list of the authorizations nearing their expiry or renewal dates is calculated whenever it is read.
 
 ## Requirements From the Packs
 
@@ -77,9 +77,9 @@ This decision defines the records, the requirement shape, and the check, and sta
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Authorization records for the organization, one for each jurisdiction, with expiry warnings and lapses that take effect on their dates. Requirements at the organization level that read the debt's regulatory nature and contract type and trigger on the debtor's and the client's locations, with exemptions on record. The hold for a jurisdiction whose requirements are not yet researched or are unclear, and the agency's determination that clears one. Where the Collective has researched a country's requirement values, they are applied at setup, flagged until verified, the way the federal Compliance Pack and the Boilerplate Pack are, because the pack installation pipeline arrives in v2, as United States Module Design Decision 6 does for the states. The check at debt approval, before outbound contact, and before a suit, with holds and their evidence.
+**HiveAR v1 (MVP):** Authorization records for the organization, one for each jurisdiction, with lapses that take effect on their dates and a list of the authorizations nearing expiry, calculated when it is read. Requirements at the organization level that read the debt's regulatory nature and contract type and trigger on the debtor's and the client's locations, with exemptions on record. The hold for a jurisdiction whose requirements are not yet researched or are unclear, and the agency's determination that clears one. Where the Collective has researched a country's requirement values, they are applied at setup, flagged until verified, the way the federal Compliance Pack and the Boilerplate Pack are, because the pack installation pipeline arrives in v2, as United States Module Design Decision 6 does for the states. The check at debt approval, before outbound contact, and before a suit, with holds and their evidence.
 
-**HiveAR v2:** Office and individual authorizations, exemptions that depend on another authorization, such as a reciprocal license, and re-evaluation at scale when a requirement changes. The license and bond requirements of further jurisdictions, researched and published as their packs' requirement values, each flagged until verified.
+**HiveAR v2:** Office and individual authorizations, exemptions that depend on another authorization, such as a reciprocal license, and re-evaluation at scale when a requirement changes. Warnings ahead of each expiry or renewal date, scheduled through the Pending Event Register of [Wax Design Decision 27](../wax/WAX-0027-pending-event-register.md), which arrives in Wax v2. The license and bond requirements of further jurisdictions, researched and published as their packs' requirement values, each flagged until verified.
 
 **HiveAR v3+:** Checks that the conditions an authorization carries are kept, as the open question resolves.
 

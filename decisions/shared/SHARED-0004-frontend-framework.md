@@ -2,9 +2,9 @@
 id: SHARED-0004
 title: "Frontend Framework"
 status: Accepted
-version: 1.0
+version: 1.1
 area: shared
-date: 2026-08-30
+date: 2026-11-13
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -39,9 +39,9 @@ MudBlazor is the default for the Collective's reference implementation. Module a
 
 ## Implementation Phasing
 
-**HiveAR v1 (MVP):** Ship with Blazor WebAssembly and MudBlazor. Core screens: debt list and search, debt detail, entity detail, payment entry, basic reporting, admin configuration. No custom component development beyond MudBlazor out of the box. Note: Blazor WASM initial download size will be noticeable on slow connections; document it and consider lazy loading.
+**HiveAR v1 (MVP):** Ship with Blazor WebAssembly and MudBlazor. Core screens: debt list and search, debt detail, entity detail, payment entry, admin configuration. Reporting in v1 runs in a business intelligence tool over the view layer, as [Wax Design Decision 32](../wax/WAX-0032-reporting-and-business-intelligence.md) provides, and the platform ships no reporting screen. No custom component development beyond MudBlazor out of the box. Note: Blazor WASM initial download size will be noticeable on slow connections; document it and consider lazy loading.
 
-**HiveAR v2:** Richer UI components (workflow designer, entity merge UI, report builder). Performance optimization (lazy loading, caching).
+**HiveAR v2:** Richer UI components (workflow designer, entity merge UI) and the fixed native operational dashboards of [Wax Design Decision 32](../wax/WAX-0032-reporting-and-business-intelligence.md). Performance optimization (lazy loading, caching).
 
 **HiveAR v3+:** React alternative frontend (if community demand warrants it). Mobile-responsive design improvements.
 
