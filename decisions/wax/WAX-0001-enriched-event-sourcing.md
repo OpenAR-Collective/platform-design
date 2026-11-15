@@ -2,9 +2,9 @@
 id: WAX-0001
 title: "Enriched Event Sourcing"
 status: Accepted
-version: 2.3
+version: 2.4
 area: wax
-date: 2026-11-14
+date: 2026-11-15
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -95,7 +95,7 @@ Two distinct sequence numbers are stored in every core.event row. They serve dif
 
 **global_sequence_number **is assigned by a single PostgreSQL SEQUENCE object (core.event_global_sequence_seq) and is monotonically increasing across the entire table, regardless of aggregate. It establishes a total ordering of all writes to the event store: projections and other readers follow the stream by it, and it serves as the window anchor for delta checkpoint hashing in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). It is an ordering and has no integrity role. It is not part of an event's hashed content, and it is gap-tolerant by design: a transaction that acquires a sequence value and then rolls back leaves a gap, and nothing in the platform assumes a contiguous range. The UUID event_pk remains the surrogate primary key and deduplication mechanism. The two sequence numbers provide the per-aggregate and global orderings that a UUID cannot.
 
-A sequence value is drawn when a row is inserted, not when its transaction commits, so an event with a lower global_sequence_number can become visible after an event with a higher one. A reader that follows the whole stream therefore reads only up to the high-water mark: the highest number at or below which every transaction that drew a value has either committed or rolled back. A reader that moved past an event still in flight would never see it. The same mark ends each checkpoint window in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). A long-running transaction that has written anything or locked a row, in any database on the same PostgreSQL server, holds the mark back for every reader until it finishes, while a read-only transaction does not. That is one reason write transactions are kept short.
+A sequence value is drawn when a row is inserted, not when its transaction commits, so an event with a lower global_sequence_number can become visible after an event with a higher one. A reader that follows the whole stream therefore reads only up to the high-water mark: the highest number at or below which every transaction that drew a value has either committed or rolled back. A reader that moved past an event still in flight would never see it. The mark starts from the last number the sequence has handed out, and Wax reads that number with PostgreSQL's pg_sequence_last_value function, which takes the sequence's lock. A plain query of the sequence's last_value column does not take that lock. While PostgreSQL writes the sequence to its log, such a query can briefly return a number higher than any yet handed out (up to 32 higher in PostgreSQL 17). A mark built on that number would move past events still in flight, which is the skip the mark exists to prevent. The same mark ends each checkpoint window in [Wax Design Decision 13](WAX-0013-event-chain-integrity-and-tamper-evidence.md). A long-running transaction that has written anything or locked a row, in any database on the same PostgreSQL server, holds the mark back for every reader until it finishes, while a read-only transaction does not. That is one reason write transactions are kept short.
 
 ## Hash Fields
 

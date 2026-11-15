@@ -2,9 +2,9 @@
 id: WAX-0013
 title: "Event Chain Integrity and Tamper-Evidence"
 status: Accepted
-version: 2.1
+version: 2.2
 area: wax
-date: 2026-10-11
+date: 2026-11-15
 supersedes: none
 license: CC-BY-4.0
 ---
@@ -55,7 +55,7 @@ The checkpoint module periodically computes a checkpoint hash covering only the 
 
 Delta-based checkpoints are essential for the break-glass mechanism to remain useful. A cumulative checkpoint, one that hashes the entire event history from the beginning, would be invalidated by any authorized break anywhere in history, rendering all subsequent checkpoints permanently suspect. A delta checkpoint covers only a defined window of sequence numbers. An authorized break within a window invalidates at most the checkpoint spanning that window. All prior checkpoints and all subsequent checkpoints covering events written after the break remain fully valid and independently verifiable.
 
-A checkpoint window ends at the high-water mark defined in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md), never simply at the highest sequence number drawn so far. A sequence number is drawn when an event is inserted, not when its transaction commits, so a transaction still open when the checkpoint is computed may hold a lower number than events already visible. If the window ended past it, that event would commit later inside a window already anchored without it, and the next verification would report a failure that no one caused. Every number at or below the high-water mark is settled, because the transaction that drew it has either committed or rolled back. Once a window ending there is anchored, any event that later appears inside it or disappears from it changes the recomputed hash.
+A checkpoint window ends at the high-water mark defined in [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md), never simply at the highest sequence number drawn so far. A sequence number is drawn when an event is inserted, not when its transaction commits, so a transaction still open when the checkpoint is computed may hold a lower number than events already visible. If the window ended past it, that event would commit later inside a window already anchored without it, and the next verification would report a failure that no one caused. Every number at or below the high-water mark is settled, because the transaction that drew it has either committed or rolled back. That holds only when the mark is read through the sequence's lock, as [Wax Design Decision 1](WAX-0001-enriched-event-sourcing.md) requires. A window ending at a number read without the lock could end past numbers not yet handed out, and an event that later drew one of them would land inside a window already anchored without it. Once a window ending there is anchored, any event that later appears inside it or disappears from it changes the recomputed hash.
 
 > **CHECKPOINT RECORD SCHEMA**
 >
